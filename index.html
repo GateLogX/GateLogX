@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GateLogX - Premium GATE Study Notes</title>
+    <title>GateLogX</title>
+    <link rel="icon" type="image/png" href="https://yt3.ggpht.com/boe6sh9sdsw5e1Oli6YbWzTQ4w82uV8_K8JQsLdcCaABmMl3THcWPiQApKEFgGAWvwISdNR1=s600-c-k-c0x00ffffff-no-rj-rp-mo" />
     <!-- PDF.js for PDF viewing -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <style>
@@ -239,6 +240,49 @@
             background: rgba(255, 255, 255, 0.1);
             border-color: rgba(255, 255, 255, 0.4);
             transform: translateY(-3px);
+        }
+
+        .attractive-cta {
+            flex-wrap: nowrap;
+            gap: 28px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 32px;
+        }
+        .attractive-cta a {
+            display: flex;
+            align-items: center;
+            min-width: 210px;
+            justify-content: center;
+            font-size: 18px;
+            letter-spacing: 0.01em;
+            box-shadow: 0 4px 24px 0 rgba(102,126,234,0.08);
+        }
+        .attractive-cta .cta-primary {
+            background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+            color: #fff;
+            border: none;
+            font-weight: 700;
+            box-shadow: 0 8px 32px 0 rgba(67,233,123,0.18);
+        }
+        .attractive-cta .cta-primary .cta-icon {
+            font-size: 22px;
+            margin-right: 10px;
+        }
+        .attractive-cta .cta-secondary {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            border: 2px solid rgba(255,255,255,0.18);
+            font-weight: 600;
+            margin-top: 0;
+        }
+        .attractive-cta .cta-secondary .cta-icon {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+        .attractive-cta a:hover {
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 8px 32px 0 rgba(67,233,123,0.18), 0 2px 8px 0 rgba(102,126,234,0.10);
         }
 
         /* Stats Section */
@@ -1473,11 +1517,11 @@
             <div class="hero-content">
                 <h1>Master GATE with Premium Study Notes</h1>
                 <p>Beautifully crafted handwritten short notes covering all important GATE topics. Study smarter, not harder.</p>
-                <div class="cta-buttons">
-                    <a href="#cn" class="cta-primary">📚 View Notes</a>
-                    <a href="https://www.youtube.com/@GateLogX" target="_blank" class="cta-secondary">🎥 Watch Videos</a>
-                    <a href="https://gatelogx.github.io/GATE-DAYWISE-TRACKER/" target="_blank" class="cta-secondary">📅 Day-wise Tracker</a>
-                    <a href="https://cookie-yogurt-474.notion.site/GATE-2027-1ce7ac627be28094a8dffa18003c6fc2" target="_blank" class="cta-secondary">🗒️ Subject-wise Tracker(Notion)</a>
+                <div class="cta-buttons attractive-cta">
+                    <a href="#cn" class="cta-primary"><span class="cta-icon">📚</span> View Notes</a>
+                    <a href="https://www.youtube.com/@GateLogX" target="_blank" class="cta-secondary"><span class="cta-icon">🎥</span> Watch Videos</a>
+                    <a href="https://gatelogx.github.io/GATE-DAYWISE-TRACKER/" target="_blank" class="cta-secondary"><span class="cta-icon">📅</span> Day-wise Tracker</a>
+                    <a href="https://cookie-yogurt-474.notion.site/GATE-2027-1ce7ac627be28094a8dffa18003c6fc2" target="_blank" class="cta-secondary"><span class="cta-icon">🗒️</span> Subject-wise Tracker (Notion)</a>
                 </div>
             </div>
         </div>
@@ -1690,6 +1734,7 @@
                 <div class="topic-body">
                     <h3 class="topic-title">Combinatorics</h3>
                     <div class="topic-meta">
+                        <span class="badge coming-soon">Coming Soon</span>
                         <span>📄 PDF Notes</span>
                         <span>⏱️ Core</span>
                     </div>
@@ -3756,6 +3801,7 @@
 
         // Enhanced keyboard shortcuts
         document.addEventListener('keydown', (e) => {
+
             if (document.getElementById('pdfModal').style.display === 'block') {
                 // Don't trigger shortcuts when typing in input
                 if (e.target.tagName === 'INPUT') return;
