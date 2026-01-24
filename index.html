@@ -3564,14 +3564,36 @@ function toggleMobileMenu() {
             document.getElementById('swipeHint').style.display = 'flex';
 
             try {
-                // Use encoded URL to ensure spaces and special characters are handled
-                const pdfUrl = (typeof note.path === 'string') ? encodeURI(note.path) : note.path;
-                currentPDFDoc = await pdfjsLib.getDocument({ url: pdfUrl }).promise;
+                // Build a list of candidate URLs to try (relative, Pages, raw.githubusercontent)
+                const encodedPath = (typeof note.path === 'string') ? encodeURI(note.path) : note.path;
+                const candidateUrls = [
+                    // 1) Relative path (as specified in config)
+                    encodedPath,
+                    // 2) GitHub Pages URL for this repo
+                    'https://GateLogX.github.io/GateLogX/' + encodedPath,
+                    // 3) Raw GitHub content URL
+                    'https://raw.githubusercontent.com/GateLogX/GateLogX/main/' + encodedPath
+                ];
+
+                // Try each candidate until one succeeds
+                let lastErr = null;
+                for (const url of candidateUrls) {
+                    try {
+                        currentPDFDoc = await pdfjsLib.getDocument({ url }).promise;
+                        // success
+                        break;
+                    } catch (err) {
+                        lastErr = err;
+                    }
+                }
+
+                if (!currentPDFDoc) throw lastErr || new Error('Unable to load PDF from any candidate URL');
+
                 totalPages = currentPDFDoc.numPages;
                 currentPage = 1;
-                
+
                 document.getElementById('totalPages').textContent = totalPages;
-                
+
                 // Render preview pages (first PREVIEW_LIMIT pages)
                 await renderAllPages();
 
@@ -3581,15 +3603,15 @@ function toggleMobileMenu() {
                 if (totalPages > renderedPagesCount) {
                     showToast('Previewing first ' + renderedPagesCount + ' pages — download to view full PDF', '');
                 }
-                
+
                 // Setup touch/swipe events
                 setupSwipeEvents();
-                
+
                 // Hide swipe hint after 3 seconds
                 setTimeout(() => {
                     document.getElementById('swipeHint').style.opacity = '0';
                 }, 3000);
-                
+
             } catch (error) {
                 console.error('Error loading PDF:', error);
                 bookContainer.innerHTML = `
@@ -3597,7 +3619,7 @@ function toggleMobileMenu() {
                         <p style="color: #f87171; font-size: 18px;">⚠️ PDF not found</p>
                         <p style="margin-top: 15px; color: rgba(255,255,255,0.6);">Please add your PDF file to:</p>
                         <code style="display: block; margin-top: 10px; padding: 15px; background: rgba(102,126,234,0.2); border-radius: 8px; color: #667eea;">${note.path}</code>
-                        <p style="margin-top: 20px; color: rgba(255,255,255,0.5); font-size: 14px;">Create the folder structure if it doesn't exist.</p>
+                        <p style="margin-top: 20px; color: rgba(255,255,255,0.5); font-size: 14px;">Create the folder structure if it doesn't exist or ensure the file is deployed to GitHub Pages.</p>
                     </div>
                 `;
             }
@@ -4159,7 +4181,11 @@ function toggleMobileMenu() {
         function downloadPDF() {
             if (currentPDF) {
                 const link = document.createElement('a');
-                link.href = currentPDF.path;
+                // Use encoded path for download; prefer GitHub Pages absolute URL when possible
+                const encoded = (typeof currentPDF.path === 'string') ? encodeURI(currentPDF.path) : currentPDF.path;
+                const pagesUrl = 'https://GateLogX.github.io/GateLogX/' + encoded;
+                // Use Pages URL (absolute) so download works from deployed site; fallback to encoded relative path
+                link.href = pagesUrl || encoded;
                 link.download = currentPDF.title + '.pdf';
                 link.click();
                 showToast('Download started!', 'success');
