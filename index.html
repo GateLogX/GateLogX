@@ -3564,7 +3564,9 @@ function toggleMobileMenu() {
             document.getElementById('swipeHint').style.display = 'flex';
 
             try {
-                currentPDFDoc = await pdfjsLib.getDocument(note.path).promise;
+                // Use encoded URL to ensure spaces and special characters are handled
+                const pdfUrl = (typeof note.path === 'string') ? encodeURI(note.path) : note.path;
+                currentPDFDoc = await pdfjsLib.getDocument({ url: pdfUrl }).promise;
                 totalPages = currentPDFDoc.numPages;
                 currentPage = 1;
                 
