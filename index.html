@@ -3575,19 +3575,31 @@ function toggleMobileMenu() {
                     'https://raw.githubusercontent.com/GateLogX/GateLogX/main/' + encodedPath
                 ];
 
-                // Try each candidate until one succeeds
+                // Try each candidate until one succeeds. Log attempts for debugging.
+                console.log('PDF candidate URLs:', candidateUrls);
                 let lastErr = null;
+                const attempted = [];
                 for (const url of candidateUrls) {
                     try {
+                        console.log('Attempting to load PDF from:', url);
                         currentPDFDoc = await pdfjsLib.getDocument({ url }).promise;
+                        console.log('Loaded PDF from:', url);
+                        attempted.push({ url, ok: true });
                         // success
                         break;
                     } catch (err) {
+                        console.warn('Failed to load PDF from:', url, err && err.message ? err.message : err);
+                        attempted.push({ url, ok: false, error: (err && err.message) ? err.message : String(err) });
                         lastErr = err;
                     }
                 }
 
-                if (!currentPDFDoc) throw lastErr || new Error('Unable to load PDF from any candidate URL');
+                if (!currentPDFDoc) {
+                    // attach attempted list to the error for UI display
+                    const err = lastErr || new Error('Unable to load PDF from any candidate URL');
+                    err.attempted = attempted;
+                    throw err;
+                }
 
                 totalPages = currentPDFDoc.numPages;
                 currentPage = 1;
