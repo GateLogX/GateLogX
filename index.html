@@ -765,6 +765,22 @@ nav.scrolled {
             box-shadow: 0 5px 20px rgba(240, 147, 251, 0.3);
         }
 
+        /* Highlight animation for download prompt */
+        .modal-btn.highlight {
+            animation: pulseHighlight 1s ease-in-out infinite;
+            box-shadow: 0 8px 30px rgba(99,102,241,0.45), 0 2px 8px rgba(59,130,246,0.25) !important;
+            transform: translateY(-2px) scale(1.03);
+            color: #fff;
+            border-color: rgba(99,102,241,0.9);
+            background: linear-gradient(90deg, #6366f1 0%, #06b6d4 100%);
+        }
+
+        @keyframes pulseHighlight {
+            0% { box-shadow: 0 6px 18px rgba(99,102,241,0.25); }
+            50% { box-shadow: 0 12px 32px rgba(99,102,241,0.45); }
+            100% { box-shadow: 0 6px 18px rgba(99,102,241,0.25); }
+        }
+
         .close-btn {
             width: 40px;
             height: 40px;
@@ -1808,9 +1824,9 @@ function toggleMobileMenu() {
                 </div>
             </a>
 
-            <!-- Coming Soon - Still Clickable -->
-            <a href="#mathematics" class="topic-card" style="text-decoration: none; opacity: 0.6;">
-                <span class="badge coming-soon">Coming Soon</span>
+            <!-- Engineering Mathematics (Active) -->
+            <a href="#mathematics" class="topic-card" style="text-decoration: none; border: 1px solid rgba(16, 185, 129, 0.5); box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);">
+                <span class="badge available">Available</span>
                 <div class="topic-icon">📐</div>
                 <div class="topic-body">
                     <h3 class="topic-title">Engineering Mathematics</h3>
@@ -1900,6 +1916,23 @@ function toggleMobileMenu() {
         </div>
 
         <div class="topics-grid">
+            <!-- One Shot: Discrete Mathematics (opens in built viewer) -->
+            <div class="topic-card" onclick="openPDF('discrete-one-shot')">
+                <span class="badge available">Available</span>
+                <div class="topic-icon">📝</div>
+                <div class="topic-body">
+                    <h3 class="topic-title">One Shot — Discrete Mathematics</h3>
+                    <div class="topic-meta">
+                        <span>📄 PDF Notes</span>
+                        <span>⏱️ Quick</span>
+                    </div>
+                    <p class="topic-description">Single-shot compiled notes for Discrete Mathematics (opens in viewer).</p>
+                    <div class="topic-tags">
+                        <span class="tag">One Shot</span>
+                        <span class="tag">Discrete Math</span>
+                    </div>
+                </div>
+            </div>
             <!-- Discrete Math Topics -->
             <div class="topic-card disabled">
                 <span class="badge coming-soon">Coming Soon</span>
@@ -3240,7 +3273,7 @@ function toggleMobileMenu() {
                 <h2 class="modal-title" id="pdfTitle">PDF Viewer</h2>
                 <div class="modal-actions">
                     <button class="modal-btn youtube-btn" id="youtubeBtn" onclick="openYouTube()"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#ff0000" style="vertical-align: middle; margin-right: 6px;"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>Watch Explanation</button>
-                    <button class="modal-btn" onclick="downloadPDF()">⬇️ Download</button>
+                    <button id="downloadBtn" class="modal-btn" onclick="downloadPDF()">⬇️ Download</button>
                     <button class="modal-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">⛶</button>
                     <button class="close-btn" onclick="closePDFModal()">×</button>
                 </div>
@@ -3276,6 +3309,9 @@ function toggleMobileMenu() {
                         </div>
                         <button class="nav-arrow right" id="nextArrow" onclick="nextPage()">▶</button>
                         <div class="swipe-hint" id="swipeHint">📖 Swipe or use arrows to flip pages</div>
+                        <div id="previewNotice" style="display:none;margin-top:12px;color:#ffd166;font-size:14px;text-align:center;">
+                            Previewing first <span id="previewCount">5</span> pages — <button class="modal-btn" style="padding:6px 10px;font-size:13px;" onclick="downloadPDF()">Download to view full PDF</button>
+                        </div>
                         
                         <!-- Bookmarks Panel -->
                         <div class="bookmarks-panel" id="bookmarksPanel">
@@ -3406,6 +3442,12 @@ function toggleMobileMenu() {
                 path: 'notes/cn/subnetting.pdf',
                 youtube: 'https://www.youtube.com/watch?v=ZA6Cj2EuXYM'
             }
+            ,
+            'discrete-one-shot': {
+                title: 'One Shot — Discrete Mathematics',
+                path: 'notes/one shot notes/discrete mathematics/Discrete Mathematics.pdf',
+                youtube: ''
+            }
             // Add more notes here as needed:
             // 'topic-id': {
             //     title: 'Topic Title',
@@ -3421,6 +3463,10 @@ function toggleMobileMenu() {
         let currentZoom = 1.5;
         let pages = [];
         let isAnimating = false;
+        // Preview controls: only pre-render first N pages to avoid hanging on very large PDFs
+        const PREVIEW_LIMIT = 5;
+        let renderedPagesCount = 0;
+        let previewPromptShown = false;
         let touchStartX = 0;
         let touchEndX = 0;
         let bookmarks = {};
@@ -3524,8 +3570,15 @@ function toggleMobileMenu() {
                 
                 document.getElementById('totalPages').textContent = totalPages;
                 
-                // Render all pages
+                // Render preview pages (first PREVIEW_LIMIT pages)
                 await renderAllPages();
+
+                // Hide the side preview notice; rely on toast only
+                const previewNotice = document.getElementById('previewNotice');
+                if (previewNotice) previewNotice.style.display = 'none';
+                if (totalPages > renderedPagesCount) {
+                    showToast('Previewing first ' + renderedPagesCount + ' pages — download to view full PDF', '');
+                }
                 
                 // Setup touch/swipe events
                 setupSwipeEvents();
@@ -3552,13 +3605,15 @@ function toggleMobileMenu() {
             const bookContainer = document.getElementById('bookContainer');
             bookContainer.innerHTML = '';
             pages = [];
+            // Decide how many pages to pre-render (preview)
+            renderedPagesCount = Math.min(totalPages, PREVIEW_LIMIT);
 
             // Create page dots
             const dotsContainer = document.getElementById('pageDots');
             dotsContainer.innerHTML = '';
 
-            // Pre-render all pages
-            for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+            // Pre-render preview pages only
+            for (let pageNum = 1; pageNum <= renderedPagesCount; pageNum++) {
                 const page = await currentPDFDoc.getPage(pageNum);
                 const viewport = page.getViewport({ scale: currentZoom });
 
@@ -3597,7 +3652,7 @@ function toggleMobileMenu() {
             bookContainer.style.width = currentCanvas.width + 'px';
             bookContainer.style.height = currentCanvas.height + 'px';
 
-            // Render thumbnails
+            // Render thumbnails (for preview pages)
             await renderThumbnails();
             
             // Setup minimap
@@ -3615,8 +3670,7 @@ function toggleMobileMenu() {
         async function renderThumbnails() {
             const thumbnailList = document.getElementById('thumbnailList');
             thumbnailList.innerHTML = '';
-
-            for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+            for (let pageNum = 1; pageNum <= renderedPagesCount; pageNum++) {
                 const page = await currentPDFDoc.getPage(pageNum);
                 const viewport = page.getViewport({ scale: 0.3 });
 
@@ -3721,14 +3775,15 @@ function toggleMobileMenu() {
 
             // Update page info and jump input
             const pageJumpInput = document.getElementById('pageJumpInput');
+            const navMax = renderedPagesCount || totalPages;
             if (pageJumpInput) {
                 pageJumpInput.value = currentPage;
-                pageJumpInput.max = totalPages;
+                pageJumpInput.max = navMax;
             }
             document.getElementById('prevArrow').disabled = currentPage <= 1;
-            document.getElementById('nextArrow').disabled = currentPage >= totalPages;
+            document.getElementById('nextArrow').disabled = currentPage >= navMax;
             document.getElementById('prevBtn').disabled = currentPage <= 1;
-            document.getElementById('nextBtn').disabled = currentPage >= totalPages;
+            document.getElementById('nextBtn').disabled = currentPage >= navMax;
             document.getElementById('zoomLevel').textContent = Math.round(currentZoom * 25) + '%';
 
             // Update progress bar
@@ -3757,13 +3812,34 @@ function toggleMobileMenu() {
                     page.classList.add('visited');
                 }
             });
+
+            // If user reached last preview page and there are more pages, highlight download
+            const downloadBtn = document.getElementById('downloadBtn');
+            if (totalPages > renderedPagesCount && currentPage === renderedPagesCount) {
+                if (downloadBtn) downloadBtn.classList.add('highlight');
+                if (!previewPromptShown) {
+                    showToast('Preview ended — click Download to view the full PDF', '');
+                    previewPromptShown = true;
+                }
+                if (downloadBtn) downloadBtn.focus();
+            } else {
+                if (downloadBtn) downloadBtn.classList.remove('highlight');
+                // reset prompt flag if user navigates away from last preview page
+                if (currentPage !== renderedPagesCount) previewPromptShown = false;
+            }
         }
 
         function goToPage(pageNum) {
-            if (isAnimating || pageNum < 1 || pageNum > totalPages || pageNum === currentPage) return;
-            
+            const navMax = renderedPagesCount || totalPages;
+            if (isAnimating || pageNum < 1 || pageNum > navMax || pageNum === currentPage) {
+                if (pageNum > navMax) {
+                    showToast('Preview limited to first ' + navMax + ' pages. Download to view full PDF.', '');
+                }
+                return;
+            }
+
             isAnimating = true;
-            
+
             if (pageNum > currentPage) {
                 flipForward(pageNum);
             } else {
