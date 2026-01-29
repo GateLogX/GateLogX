@@ -1757,6 +1757,28 @@ function toggleMobileMenu() {
     if (!navLinks) return;
     navLinks.classList.toggle('open');
 }
+
+// Move any topic-cards with a `.badge.available` to the start of their `.topics-grid`
+function bringAvailableToTop() {
+    document.querySelectorAll('.topics-grid').forEach(grid => {
+        const cards = Array.from(grid.children).filter(n => n.classList && n.classList.contains('topic-card'));
+        if (cards.length === 0) return;
+
+        const available = cards.filter(c => c.querySelector('.badge.available'));
+        const others = cards.filter(c => !c.querySelector('.badge.available'));
+
+        // If no available cards, nothing to do
+        if (available.length === 0) return;
+
+        // Append available first (preserves their relative order), then the rest
+        available.forEach(c => grid.appendChild(c));
+        others.forEach(c => grid.appendChild(c));
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    bringAvailableToTop();
+});
 </script>
 
     <section id="home">
@@ -1831,6 +1853,15 @@ function toggleMobileMenu() {
                 <div class="topic-body">
                     <h3 class="topic-title">Engineering Mathematics</h3>
                     <p class="topic-description">Discrete Math, Linear Algebra, Calculus, Probability</p>
+                </div>
+            </a>
+
+            <a href="#os" class="topic-card" style="text-decoration: none; cursor: pointer; border: 1px solid rgba(16, 185, 129, 0.5); box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);">
+                <span class="badge available">Available</span>
+                <div class="topic-icon">⚙️</div>
+                <div class="topic-body">
+                    <h3 class="topic-title">Operating Systems</h3>
+                    <p class="topic-description">Process, Memory, File systems</p>
                 </div>
             </a>
 
@@ -2917,20 +2948,20 @@ function toggleMobileMenu() {
         </div>
 
         <div class="topics-grid">
-            <div class="topic-card disabled">
-                <span class="badge coming-soon">Coming Soon</span>
+            <div class="topic-card" onclick="openPDF('os-one-shot')" style="cursor: pointer;">
+                <span class="badge available">Available</span>
                 <div class="topic-icon">📞</div>
                 <div class="topic-body">
-                    <h3 class="topic-title">System Calls</h3>
+                    <h3 class="topic-title">Operating System — One Shot</h3>
                     <div class="topic-meta">
                         <span>📄 PDF Notes</span>
-                        <span>⏱️ Foundation</span>
+                        <span>⏱️ Quick</span>
                     </div>
-                    <p class="topic-description">System call interface, types, user mode vs kernel mode.</p>
+                    <p class="topic-description">Single-shot compiled OS notes (opens in viewer).</p>
                     <div class="topic-tags">
-                        <span class="tag">Syscalls</span>
-                        <span class="tag">Kernel</span>
-                        <span class="tag">User Mode</span>
+                        <span class="tag">One Shot</span>
+                        <span class="tag">OS</span>
+                        <span class="tag">Processes</span>
                     </div>
                 </div>
             </div>
@@ -3446,6 +3477,11 @@ function toggleMobileMenu() {
             'discrete-one-shot': {
                 title: 'One Shot — Discrete Mathematics',
                 path: 'notes/one shot notes/discrete mathematics/Discrete Mathematics.pdf',
+                youtube: ''
+            },
+            'os-one-shot': {
+                title: 'Operating System — One Shot',
+                path: 'notes/one shot notes/os/OS one shot.pdf',
                 youtube: ''
             }
             // Add more notes here as needed:
