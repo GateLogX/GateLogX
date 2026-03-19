@@ -286,6 +286,7 @@ input.num{width:90px}
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-check-compat.js"></script>
 
 <!-- Access Check - Verify Firebase Auth before showing game -->
 <script>
@@ -302,6 +303,11 @@ input.num{width:90px}
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+    
+    // Initialize App Check with reCAPTCHA v3
+    const appCheck = firebase.appCheck();
+    appCheck.activate('6Ldga5AsAAAAAAPP3dMREOmMlrsAuXRy9cUghJfPc', true);
+    
     const auth = firebase.auth();
     const db = firebase.firestore();
 
@@ -671,27 +677,109 @@ const MILESTONES=[
   {id:'lvl10',icon:'🚀',name:'Level 10',desc:'Reach Level 10',fn:s=>s.level>=10},
 ];
 
+// MCQ array - each question is linked to specific topics using topic indices from TPOOL
+// subId: subject id, topics: array of topic indices this question relates to
 const MCQ=[
-  {q:'Time complexity of binary search?',opts:['O(n)','O(log n)','O(n log n)','O(1)'],a:1,sub:'DSA'},
-  {q:'Which data structure uses LIFO?',opts:['Queue','Stack','Heap','Tree'],a:1,sub:'DSA'},
-  {q:'In a Min-Heap, the root element is?',opts:['Maximum','Minimum','Middle','Random'],a:1,sub:'DSA'},
-  {q:'Which OS scheduling can cause starvation?',opts:['Round Robin','FCFS','Priority Scheduling','SRTF'],a:2,sub:'OS'},
-  {q:'Which page replacement is optimal theoretically?',opts:['LRU','FIFO','Optimal','Clock'],a:2,sub:'OS'},
-  {q:'Which normal form handles multi-valued dependencies?',opts:['2NF','3NF','BCNF','4NF'],a:3,sub:'DBMS'},
-  {q:'ACID property: changes survive system failure?',opts:['Atomicity','Consistency','Isolation','Durability'],a:3,sub:'DBMS'},
-  {q:'TCP provides which service?',opts:['Connectionless','Connection-oriented','Unreliable','Stateless'],a:1,sub:'CN'},
-  {q:'Which layer handles end-to-end communication?',opts:['Network','Data Link','Transport','Session'],a:2,sub:'CN'},
-  {q:'L = {aⁿbⁿ | n≥0} is which type?',opts:['Regular','Context-Free','Context-Sensitive','RE'],a:1,sub:'TOC'},
-  {q:'Pumping Lemma is used to prove:',opts:['Language is regular','Language is not regular','DFA minimization','NFA construction'],a:1,sub:'TOC'},
-  {q:'Ideal pipeline CPI is?',opts:['n stages','1','0','n/2'],a:1,sub:'COA'},
-  {q:'Cache mapping that has no conflict misses?',opts:['Direct mapped','Fully associative','Set associative','None'],a:1,sub:'COA'},
-  {q:'Dijkstra works best with?',opts:['Array','Stack','Min-Heap / Priority Queue','AVL Tree'],a:2,sub:'Algorithms'},
-  {q:'Master theorem handles recurrences of form?',opts:['T(n)=T(n-1)+f(n)','T(n)=aT(n/b)+f(n)','T(n)=T(n/2)+T(n/3)','None'],a:1,sub:'Algorithms'},
-  {q:'LALR(1) parser handles which grammars?',opts:['LL(1)','SLR(1)','LALR(1)','LR(1)'],a:2,sub:'Compiler'},
-  {q:'A flip-flop stores how many bits?',opts:['8','4','2','1'],a:3,sub:'Digital Logic'},
-  {q:'Pointer in C stores?',opts:['Value','Address','Size','Type'],a:1,sub:'C'},
-  {q:'malloc() is declared in?',opts:['stdio.h','string.h','stdlib.h','math.h'],a:2,sub:'C'},
-  {q:'GATE CSE total marks?',opts:['65','75','85','100'],a:3,sub:'General'},
+  // DSA - dsa
+  {q:'Time complexity of binary search?',opts:['O(n)','O(log n)','O(n log n)','O(1)'],a:1,subId:'dsa',topics:[17],topicName:'Searching'},
+  {q:'Which data structure uses LIFO?',opts:['Queue','Stack','Heap','Tree'],a:1,subId:'dsa',topics:[2],topicName:'Stacks'},
+  {q:'In a Min-Heap, the root element is?',opts:['Maximum','Minimum','Middle','Random'],a:1,subId:'dsa',topics:[7],topicName:'Heaps'},
+  {q:'Array index starts from?',opts:['1','0','-1','Any number'],a:1,subId:'dsa',topics:[0],topicName:'Arrays'},
+  {q:'Linked list insertion at head is?',opts:['O(n)','O(log n)','O(1)','O(n²)'],a:2,subId:'dsa',topics:[1],topicName:'Linked Lists'},
+  {q:'Queue follows which principle?',opts:['LIFO','FIFO','Random','Priority'],a:1,subId:'dsa',topics:[3],topicName:'Queues'},
+  {q:'Binary tree max nodes at level L?',opts:['L','2L','2^L','L²'],a:2,subId:'dsa',topics:[4],topicName:'Binary Trees'},
+  {q:'BST worst case search is?',opts:['O(1)','O(log n)','O(n)','O(n log n)'],a:2,subId:'dsa',topics:[5],topicName:'BST'},
+  {q:'BFS uses which data structure?',opts:['Stack','Queue','Heap','Tree'],a:1,subId:'dsa',topics:[9],topicName:'BFS'},
+  {q:'DFS uses which data structure?',opts:['Queue','Stack','Array','Heap'],a:1,subId:'dsa',topics:[10],topicName:'DFS'},
+  {q:'Hash collision resolution technique?',opts:['Sorting','Chaining','Searching','Merging'],a:1,subId:'dsa',topics:[11],topicName:'Hashing'},
+  {q:'Best sorting algorithm worst case?',opts:['Quick Sort','Merge Sort','Bubble Sort','Selection Sort'],a:1,subId:'dsa',topics:[16],topicName:'Sorting'},
+  
+  // OS - os  
+  {q:'Which OS scheduling can cause starvation?',opts:['Round Robin','FCFS','Priority Scheduling','SRTF'],a:2,subId:'os',topics:[2],topicName:'CPU Scheduling'},
+  {q:'Which page replacement is optimal theoretically?',opts:['LRU','FIFO','Optimal','Clock'],a:2,subId:'os',topics:[11],topicName:'Page Replacement'},
+  {q:'Process states include?',opts:['Running, Ready, Blocked','Only Running','Start, End','None'],a:0,subId:'os',topics:[0],topicName:'Process Concepts'},
+  {q:'Semaphore operations are?',opts:['Push, Pop','Wait, Signal','Read, Write','Lock, Unlock'],a:1,subId:'os',topics:[4],topicName:'Semaphores'},
+  {q:'Deadlock requires how many conditions?',opts:['2','3','4','5'],a:2,subId:'os',topics:[6],topicName:'Deadlocks'},
+  {q:'Paging eliminates?',opts:['Deadlock','External fragmentation','Internal fragmentation','Starvation'],a:1,subId:'os',topics:[8],topicName:'Paging'},
+  {q:'Virtual memory uses?',opts:['RAM only','Disk only','RAM + Disk','Cache only'],a:2,subId:'os',topics:[10],topicName:'Virtual Memory'},
+  
+  // DBMS - dbms
+  {q:'Which normal form handles multi-valued dependencies?',opts:['2NF','3NF','BCNF','4NF'],a:3,subId:'dbms',topics:[10],topicName:'4NF 5NF'},
+  {q:'ACID property: changes survive system failure?',opts:['Atomicity','Consistency','Isolation','Durability'],a:3,subId:'dbms',topics:[16],topicName:'ACID Properties'},
+  {q:'ER diagram represents?',opts:['Code','Data relationships','Network','Hardware'],a:1,subId:'dbms',topics:[0],topicName:'ER Model'},
+  {q:'Primary key must be?',opts:['Null','Unique','Duplicate','Foreign'],a:1,subId:'dbms',topics:[1],topicName:'Relational Model'},
+  {q:'SELECT * FROM is?',opts:['DML','DDL','DCL','TCL'],a:0,subId:'dbms',topics:[2],topicName:'SQL Basics'},
+  {q:'JOIN combines tables on?',opts:['Random','Common column','All columns','None'],a:1,subId:'dbms',topics:[4],topicName:'Joins'},
+  {q:'1NF requires?',opts:['Atomic values','No partial dependency','No transitive dependency','Multi-values'],a:0,subId:'dbms',topics:[6],topicName:'Normalization 1NF'},
+  {q:'B+ tree leaf nodes are?',opts:['Unlinked','Linked','Random','Sorted only'],a:1,subId:'dbms',topics:[12],topicName:'B+ Trees'},
+  
+  // CN - cn
+  {q:'TCP provides which service?',opts:['Connectionless','Connection-oriented','Unreliable','Stateless'],a:1,subId:'cn',topics:[14],topicName:'TCP'},
+  {q:'Which layer handles end-to-end communication?',opts:['Network','Data Link','Transport','Session'],a:2,subId:'cn',topics:[13],topicName:'Transport Layer'},
+  {q:'Physical layer deals with?',opts:['Packets','Frames','Bits','Segments'],a:2,subId:'cn',topics:[0],topicName:'Physical Layer'},
+  {q:'MAC address is at which layer?',opts:['Physical','Data Link','Network','Transport'],a:1,subId:'cn',topics:[1],topicName:'Data Link'},
+  {q:'IP is at which layer?',opts:['Data Link','Network','Transport','Application'],a:1,subId:'cn',topics:[6],topicName:'Network Layer'},
+  {q:'Subnetting divides?',opts:['MAC address','IP address','Port number','None'],a:1,subId:'cn',topics:[9],topicName:'Subnetting'},
+  {q:'UDP is?',opts:['Connection-oriented','Connectionless','Reliable','Ordered'],a:1,subId:'cn',topics:[15],topicName:'UDP'},
+  {q:'HTTP default port?',opts:['21','22','80','443'],a:2,subId:'cn',topics:[19],topicName:'HTTP'},
+  {q:'DNS resolves?',opts:['IP to MAC','Domain to IP','Port to IP','None'],a:1,subId:'cn',topics:[20],topicName:'DNS'},
+  
+  // TOC - toc
+  {q:'L = {aⁿbⁿ | n≥0} is which type?',opts:['Regular','Context-Free','Context-Sensitive','RE'],a:1,subId:'toc',topics:[5],topicName:'CFG Basics'},
+  {q:'Pumping Lemma is used to prove:',opts:['Language is regular','Language is not regular','DFA minimization','NFA construction'],a:1,subId:'toc',topics:[4],topicName:'Pumping Lemma'},
+  {q:'DFA has how many start states?',opts:['0','1','2','Multiple'],a:1,subId:'toc',topics:[1],topicName:'DFA Construction'},
+  {q:'NFA can have?',opts:['One transition per input','Multiple transitions per input','No transitions','Only epsilon'],a:1,subId:'toc',topics:[2],topicName:'NFA to DFA'},
+  {q:'Regular expression a* means?',opts:['One or more a','Zero or more a','Exactly one a','No a'],a:1,subId:'toc',topics:[3],topicName:'Regular Expressions'},
+  {q:'PDA uses which extra memory?',opts:['Queue','Stack','Array','Heap'],a:1,subId:'toc',topics:[7],topicName:'PDA Acceptance'},
+  {q:'Turing machine can solve?',opts:['Only regular','Only CFG','All computable problems','None'],a:2,subId:'toc',topics:[10],topicName:'Turing Machines'},
+  {q:'Halting problem is?',opts:['Decidable','Undecidable','Semi-decidable','Regular'],a:1,subId:'toc',topics:[13],topicName:'Halting Problem'},
+  
+  // COA - coa
+  {q:'Ideal pipeline CPI is?',opts:['n stages','1','0','n/2'],a:1,subId:'coa',topics:[10],topicName:'Pipelining'},
+  {q:'Cache mapping that has no conflict misses?',opts:['Direct mapped','Fully associative','Set associative','None'],a:1,subId:'coa',topics:[13],topicName:'Cache Mapping'},
+  {q:'Binary 1010 in decimal is?',opts:['8','10','12','14'],a:1,subId:'coa',topics:[0],topicName:'Number Systems'},
+  {q:'AND gate output when both inputs 1?',opts:['0','1','X','Z'],a:1,subId:'coa',topics:[1],topicName:'Boolean Algebra'},
+  {q:'RISC has?',opts:['Complex instructions','Simple instructions','No instructions','Variable length'],a:1,subId:'coa',topics:[9],topicName:'RISC vs CISC'},
+  {q:'Pipeline hazard types include?',opts:['Data, Control, Structural','Only Data','Only Control','None'],a:0,subId:'coa',topics:[11],topicName:'Pipeline Hazards'},
+  {q:'Cache hit means?',opts:['Data not found','Data found in cache','Error','Overflow'],a:1,subId:'coa',topics:[12],topicName:'Cache Memory'},
+  {q:'DMA stands for?',opts:['Direct Memory Access','Data Memory Array','Dynamic Memory Allocation','None'],a:0,subId:'coa',topics:[16],topicName:'DMA'},
+  
+  // Algorithms - algo
+  {q:'Dijkstra works best with?',opts:['Array','Stack','Min-Heap / Priority Queue','AVL Tree'],a:2,subId:'algo',topics:[7],topicName:'Shortest Path'},
+  {q:'Master theorem handles recurrences of form?',opts:['T(n)=T(n-1)+f(n)','T(n)=aT(n/b)+f(n)','T(n)=T(n/2)+T(n/3)','None'],a:1,subId:'algo',topics:[1],topicName:'Recurrences'},
+  {q:'Big-O represents?',opts:['Best case','Average case','Upper bound','Lower bound'],a:2,subId:'algo',topics:[0],topicName:'Asymptotic Analysis'},
+  {q:'Merge sort uses?',opts:['Greedy','Divide & Conquer','Dynamic Programming','Backtracking'],a:1,subId:'algo',topics:[2],topicName:'Divide & Conquer'},
+  {q:'Huffman coding uses?',opts:['Greedy','DP','Divide & Conquer','Brute force'],a:0,subId:'algo',topics:[3],topicName:'Greedy'},
+  {q:'Kruskal finds?',opts:['Shortest path','MST','Longest path','Cycle'],a:1,subId:'algo',topics:[8],topicName:'MST'},
+  {q:'P vs NP asks if?',opts:['P = NP','P ≠ NP','NP is empty','P is empty'],a:0,subId:'algo',topics:[11],topicName:'NP-Completeness'},
+  
+  // Compiler Design - cd
+  {q:'LALR(1) parser handles which grammars?',opts:['LL(1)','SLR(1)','LALR(1)','LR(1)'],a:2,subId:'cd',topics:[7],topicName:'LALR'},
+  {q:'Lexical analyzer outputs?',opts:['Parse tree','Tokens','Machine code','Object code'],a:1,subId:'cd',topics:[0],topicName:'Lexical Analysis'},
+  {q:'LL(1) is parsed?',opts:['Bottom-up','Top-down','Middle-out','Random'],a:1,subId:'cd',topics:[4],topicName:'LL(1) Parsing'},
+  {q:'LR parsing is?',opts:['Top-down','Bottom-up','Left-right','Right-left'],a:1,subId:'cd',topics:[6],topicName:'LR Parsing'},
+  {q:'Three address code has?',opts:['One operand','Two operands','Three operands max','Unlimited'],a:2,subId:'cd',topics:[11],topicName:'Three Address Code'},
+  {q:'Code optimization improves?',opts:['Only speed','Only space','Speed and/or space','Nothing'],a:2,subId:'cd',topics:[12],topicName:'Optimization'},
+  
+  // Digital Logic - dl
+  {q:'A flip-flop stores how many bits?',opts:['8','4','2','1'],a:3,subId:'dl',topics:[8],topicName:'Flip-Flops'},
+  {q:'NOT gate has how many inputs?',opts:['0','1','2','3'],a:1,subId:'dl',topics:[1],topicName:'Logic Gates'},
+  {q:'K-map simplifies?',opts:['Code','Boolean expressions','Circuits','None'],a:1,subId:'dl',topics:[2],topicName:'Karnaugh Maps'},
+  {q:'Half adder has how many outputs?',opts:['1','2','3','4'],a:1,subId:'dl',topics:[4],topicName:'Adders Subtractors'},
+  {q:'Multiplexer selects?',opts:['One of many inputs','Many of one input','Nothing','All inputs'],a:0,subId:'dl',topics:[5],topicName:'Multiplexers'},
+  {q:'Counter counts?',opts:['Letters','Pulses/events','Colors','None'],a:1,subId:'dl',topics:[10],topicName:'Counters'},
+  {q:'FSM stands for?',opts:['Fast State Machine','Finite State Machine','First State Model','None'],a:1,subId:'dl',topics:[12],topicName:'State Machines'},
+  
+  // C Programming - cprog
+  {q:'Pointer in C stores?',opts:['Value','Address','Size','Type'],a:1,subId:'cprog',topics:[6],topicName:'Pointers'},
+  {q:'malloc() is declared in?',opts:['stdio.h','string.h','stdlib.h','math.h'],a:2,subId:'cprog',topics:[12],topicName:'Dynamic Memory'},
+  {q:'printf() is for?',opts:['Input','Output','Both','None'],a:1,subId:'cprog',topics:[0],topicName:'Basics & I/O'},
+  {q:'int size in bytes (32-bit)?',opts:['1','2','4','8'],a:2,subId:'cprog',topics:[1],topicName:'Data Types'},
+  {q:'for loop is?',opts:['Entry controlled','Exit controlled','Both','Neither'],a:0,subId:'cprog',topics:[2],topicName:'Control Flow'},
+  {q:'Function returns using?',opts:['return','exit','break','continue'],a:0,subId:'cprog',topics:[3],topicName:'Functions'},
+  {q:'Array name is?',opts:['Variable','Constant pointer','Function','Keyword'],a:1,subId:'cprog',topics:[5],topicName:'Arrays'},
+  {q:'struct groups?',opts:['Functions','Different data types','Same data types','Nothing'],a:1,subId:'cprog',topics:[9],topicName:'Structures'},
+  {q:'fopen() opens?',opts:['Directory','File','Socket','Port'],a:1,subId:'cprog',topics:[11],topicName:'File I/O'},
 ];
 
 // ===================== LEVELS =====================
@@ -965,10 +1053,42 @@ function updateDailyUI(){
 
 // ===================== MCQ =====================
 let curMCQ=null,mcqDone=false;
+
+// Check if a specific topic index has been completed in a subject
+function isTopicCompleted(subId, topicIndex){
+  if(!S.progress[subId]) return false;
+  return !!S.progress[subId][topicIndex];
+}
+
+// Get all MCQs where the user has completed the required topic
+function getAvailableMCQs(){
+  return MCQ.filter(m=>{
+    // Check if at least one of the required topics is completed
+    return m.topics.some(topicIdx => isTopicCompleted(m.subId, topicIdx));
+  });
+}
+
 function renderMCQ(){
-  curMCQ=MCQ[Math.floor(Math.random()*MCQ.length)];mcqDone=false;
+  const availableMCQs = getAvailableMCQs();
+  
+  // If user hasn't completed any relevant topics yet, show a message
+  if(availableMCQs.length===0){
+    document.getElementById('mcq-area').innerHTML=`
+      <div style="text-align:center;padding:30px 20px;color:var(--muted2)">
+        <div style="font-size:32px;margin-bottom:12px">📚</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px">No MCQs Available Yet</div>
+        <div style="font-size:12px;line-height:1.6">Complete some topics first!<br>MCQs will only appear for topics you've actually studied.</div>
+        <div style="margin-top:16px"><button class="btn btn-amber btn-sm" onclick="go('subjects')">⚔ Start Learning</button></div>
+      </div>`;
+    curMCQ=null;mcqDone=true;
+    return;
+  }
+  
+  curMCQ=availableMCQs[Math.floor(Math.random()*availableMCQs.length)];mcqDone=false;
+  const subj = SUBJECTS.find(s=>s.id===curMCQ.subId);
+  const subjName = subj ? subj.name : curMCQ.subId;
   document.getElementById('mcq-area').innerHTML=`
-    <div class="mcq-q">${curMCQ.q}<span style="font-size:10px;color:var(--muted);margin-left:8px">[${curMCQ.sub}]</span></div>
+    <div class="mcq-q">${curMCQ.q}<span style="font-size:10px;color:var(--muted);margin-left:8px">[${subjName} → ${curMCQ.topicName}]</span></div>
     <div class="mcq-opts">${curMCQ.opts.map((o,i)=>`<div class="mcq-opt" id="mo${i}" onclick="answerMCQ(${i})"><span class="mcq-label">${'ABCD'[i]}</span>${o}</div>`).join('')}</div>
     <div id="mcq-res"></div>`;
 }
