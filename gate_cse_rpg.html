@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GATE CSE QUEST</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080c10;
+  --bg2:#0d1117;
+  --bg3:#131b24;
+  --card:#141e2b;
+  --card2:#182030;
+  --border:#1e2d3d;
+  --border2:#243447;
+  --amber:#f0a500;
+  --amber2:#ffd060;
+  --cyan:#00c8d4;
+  --green:#22c55e;
+  --red:#ef4444;
+  --purple:#a855f7;
+  --blue:#3b82f6;
+  --text:#d4dde8;
+  --muted:#4a6278;
+  --muted2:#7a95a8;
+}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;display:flex;flex-direction:column}
+
+/* GRID BACKGROUND */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(0,200,212,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,212,0.03) 1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;z-index:0;
+}
+
+/* TOP BAR */
+.topbar{
+  position:relative;z-index:10;
+  background:linear-gradient(180deg,#0a1018 0%,#080c10 100%);
+  border-bottom:1px solid var(--border);
+  padding:0 24px;height:56px;
+  display:flex;align-items:center;gap:24px;flex-shrink:0;
+}
+.logo{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:var(--amber);letter-spacing:3px;text-transform:uppercase;white-space:nowrap}
+.logo span{color:var(--cyan)}
+.topbar-stats{display:flex;gap:20px;margin-left:auto;align-items:center}
+.tstat{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted2)}
+.tstat strong{font-family:'Space Mono',monospace;font-size:13px;font-weight:700}
+.tstat.amber strong{color:var(--amber)}
+.tstat.cyan strong{color:var(--cyan)}
+.tstat.green strong{color:var(--green)}
+.tstat.purple strong{color:var(--purple)}
+.streak-badge{display:flex;align-items:center;gap:5px;background:#1a1200;border:1px solid #3d2800;border-radius:4px;padding:4px 10px;font-family:'Space Mono',monospace;font-size:11px;color:var(--amber);font-weight:700}
+
+/* LAYOUT */
+.app{display:flex;flex:1;overflow:hidden;position:relative;z-index:1}
+
+/* SIDEBAR */
+.sidebar{
+  width:220px;flex-shrink:0;
+  background:var(--bg2);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.sidebar-inner{flex:1;overflow-y:auto;padding:12px 0}
+.sidebar-inner::-webkit-scrollbar{width:3px}
+.sidebar-inner::-webkit-scrollbar-thumb{background:var(--border2)}
+.sidebar-section-label{font-size:9px;font-weight:700;letter-spacing:3px;color:var(--muted);text-transform:uppercase;padding:8px 16px 4px}
+.nav-item{
+  display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;
+  font-size:13px;font-weight:500;color:var(--muted2);transition:all 0.15s;
+  border-left:2px solid transparent;
+}
+.nav-item:hover{background:var(--bg3);color:var(--text)}
+.nav-item.active{background:rgba(240,165,0,0.06);color:var(--amber);border-left-color:var(--amber)}
+.nav-icon{font-size:14px;width:18px;text-align:center;flex-shrink:0}
+.nav-badge{margin-left:auto;background:var(--border2);border-radius:10px;padding:1px 7px;font-size:10px;font-family:'Space Mono',monospace;color:var(--muted2)}
+.nav-item.active .nav-badge{background:rgba(240,165,0,0.15);color:var(--amber)}
+
+/* XP BAR IN SIDEBAR */
+.xp-block{padding:12px 16px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg3);margin-bottom:4px}
+.xp-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.xp-level{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:var(--amber)}
+.xp-count{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted2)}
+.bar-track{background:var(--border);border-radius:2px;height:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:2px;transition:width 0.5s cubic-bezier(.4,0,.2,1)}
+.fill-amber{background:linear-gradient(90deg,#c07800,var(--amber))}
+.fill-green{background:var(--green)}
+.fill-cyan{background:var(--cyan)}
+.fill-red{background:var(--red)}
+.fill-purple{background:var(--purple)}
+.rank-line{font-size:10px;color:var(--muted2);margin-top:5px}
+.rank-line strong{color:var(--amber2)}
+
+/* MAIN */
+.main{flex:1;overflow:hidden;display:flex;flex-direction:column}
+.panel-area{flex:1;overflow-y:auto;padding:20px 24px}
+.panel-area::-webkit-scrollbar{width:4px}
+.panel-area::-webkit-scrollbar-thumb{background:var(--border2)}
+.panel{display:none}
+.panel.active{display:block}
+
+/* PANEL HEADER */
+.panel-header{margin-bottom:20px}
+.panel-title{font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:var(--amber);letter-spacing:1px;display:flex;align-items:center;gap:10px}
+.panel-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent)}
+.panel-sub{font-size:12px;color:var(--muted2);margin-top:4px}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:16px}
+.card2{background:var(--card2);border:1px solid var(--border2);border-radius:4px;padding:12px}
+
+/* SUBJECT GRID */
+.subj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.subj-card{
+  background:var(--card);border:1px solid var(--border);border-radius:6px;
+  padding:14px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;
+}
+.subj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--c,var(--amber));opacity:0;transition:opacity 0.2s}
+.subj-card:hover{border-color:var(--border2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+.subj-card:hover::before{opacity:1}
+.subj-card.done{border-color:#16452d}
+.subj-card.done::before{opacity:1;background:var(--green)}
+.subj-icon{font-size:22px;margin-bottom:8px;display:block}
+.subj-name{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:var(--text);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.subj-meta{font-size:11px;color:var(--muted2);margin-bottom:10px}
+.subj-pct{font-family:'Space Mono',monospace;font-size:18px;font-weight:700;color:var(--c,var(--amber));margin-bottom:6px}
+.done-tag{display:inline-flex;align-items:center;gap:4px;background:#052e16;border:1px solid #166534;border-radius:3px;padding:2px 7px;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--green);text-transform:uppercase;margin-top:4px}
+.subj-xp-tag{font-size:10px;color:var(--muted);margin-top:2px}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-bg.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:8px;width:min(680px,95vw);max-height:85vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.modal-name{font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:var(--amber)}
+.modal-close{background:var(--border);border:none;color:var(--muted2);border-radius:4px;padding:4px 10px;cursor:pointer;font-size:12px;transition:all 0.15s}
+.modal-close:hover{background:var(--border2);color:var(--text)}
+.modal-prog{padding:12px 20px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--bg3)}
+.modal-body{overflow-y:auto;flex:1;padding:12px 20px}
+.modal-body::-webkit-scrollbar{width:3px}
+.modal-body::-webkit-scrollbar-thumb{background:var(--border2)}
+
+/* TOPIC LIST */
+.topic-item{
+  display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:4px;
+  cursor:pointer;transition:all 0.15s;border:1px solid transparent;margin-bottom:4px;
+}
+.topic-item:hover{background:var(--bg3);border-color:var(--border)}
+.topic-item.done{background:rgba(34,197,94,0.04);border-color:#16452d}
+.topic-check{width:20px;height:20px;border-radius:3px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;transition:all 0.15s;color:transparent}
+.topic-item.done .topic-check{background:var(--green);border-color:var(--green);color:#052e16;font-weight:700}
+.topic-num{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);min-width:28px}
+.topic-name{flex:1;font-size:13px;font-weight:500}
+.topic-item.done .topic-name{color:var(--muted2)}
+.topic-xp{font-family:'Space Mono',monospace;font-size:10px;color:var(--amber);opacity:0.7}
+.topic-item.done .topic-xp{opacity:0.3}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:4px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s;letter-spacing:0.3px}
+.btn:active{transform:scale(0.97)}
+.btn-amber{background:var(--amber);color:#1a0d00}
+.btn-amber:hover{background:var(--amber2)}
+.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--muted2)}
+.btn-ghost:hover{border-color:var(--amber);color:var(--amber)}
+.btn-green{background:#16452d;border:1px solid #166534;color:var(--green)}
+.btn-green:hover{background:#15653a}
+.btn-sm{padding:5px 11px;font-size:12px}
+.btn-red{background:#450a0a;border:1px solid #991b1b;color:var(--red)}
+.btn-red:hover{background:#7f1d1d}
+.btn-purple{background:#2e1065;border:1px solid #7c3aed;color:var(--purple)}
+
+/* DAILY PANEL */
+.daily-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.timer-display{font-family:'Space Mono',monospace;font-size:42px;font-weight:700;color:var(--amber);letter-spacing:4px;line-height:1;margin:8px 0}
+.goal-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted2);margin-bottom:4px}
+.goal-val{font-family:'Space Mono',monospace;font-weight:700}
+.green-val{color:var(--green)}
+.amber-val{color:var(--amber)}
+.red-val{color:var(--red)}
+.cyan-val{color:var(--cyan)}
+
+/* MCQ */
+.mcq-q{font-size:14px;font-weight:500;line-height:1.6;margin-bottom:14px;color:var(--text)}
+.mcq-opts{display:flex;flex-direction:column;gap:7px}
+.mcq-opt{
+  display:flex;align-items:center;gap:10px;padding:9px 13px;border-radius:4px;
+  border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-size:13px;transition:all 0.15s;
+}
+.mcq-opt:hover{border-color:var(--amber);color:var(--amber2)}
+.mcq-opt.correct{border-color:var(--green);background:rgba(34,197,94,0.06);color:var(--green)}
+.mcq-opt.wrong{border-color:var(--red);background:rgba(239,68,68,0.06);color:var(--red)}
+.mcq-label{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;background:var(--border2);border-radius:3px;padding:2px 6px;flex-shrink:0}
+.mcq-result{margin-top:12px;padding:9px 13px;border-radius:4px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px}
+.mcq-result.c{background:rgba(34,197,94,0.08);border:1px solid #166534;color:var(--green)}
+.mcq-result.w{background:rgba(239,68,68,0.08);border:1px solid #991b1b;color:var(--red)}
+.xp-pill{background:var(--amber);color:#1a0d00;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:'Space Mono',monospace}
+
+/* BOSS */
+.boss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.boss-card{background:var(--card);border:1px solid #2a1040;border-radius:6px;padding:14px;transition:all 0.2s;cursor:pointer}
+.boss-card:hover{border-color:#7c3aed;transform:translateY(-1px);box-shadow:0 8px 30px rgba(168,85,247,0.1)}
+.boss-card.slain{border-color:#16452d}
+.boss-icon{font-size:28px;margin-bottom:8px}
+.boss-name{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:var(--purple);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.boss-stat{font-size:11px;color:var(--muted2);margin-bottom:2px}
+.boss-xp{font-size:11px;color:var(--amber);font-family:'Space Mono',monospace;margin-top:6px}
+
+/* BATTLE LOG */
+.battle-row{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:4px;background:var(--bg3);border:1px solid var(--border);margin-bottom:6px;font-size:12px}
+.battle-score{font-family:'Space Mono',monospace;font-weight:700;font-size:16px}
+
+/* MILESTONES */
+.ms-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.ms-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:14px;display:flex;gap:12px;align-items:flex-start;transition:all 0.2s}
+.ms-card.earned{border-color:#3d2800;background:rgba(240,165,0,0.04)}
+.ms-icon{font-size:24px;flex-shrink:0;opacity:0.3;filter:grayscale(1)}
+.ms-card.earned .ms-icon{opacity:1;filter:none}
+.ms-info{}
+.ms-name{font-size:13px;font-weight:600;color:var(--muted2)}
+.ms-card.earned .ms-name{color:var(--amber2)}
+.ms-desc{font-size:11px;color:var(--muted);margin-top:2px}
+.ms-earned-tag{font-size:9px;color:var(--amber);font-family:'Space Mono',monospace;letter-spacing:1px;margin-top:4px;font-weight:700}
+
+/* COMPETE */
+.compete-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.metric-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:14px;text-align:center}
+.metric-yd{font-size:11px;color:var(--muted2);margin-bottom:4px}
+.metric-yd-val{font-family:'Space Mono',monospace;font-size:13px;color:var(--muted);margin-bottom:10px}
+.metric-td-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.metric-td-val{font-family:'Space Mono',monospace;font-size:28px;font-weight:700}
+.metric-target{font-size:10px;color:var(--muted);margin-top:6px}
+
+/* LOG TABLE */
+.perf-table{width:100%;border-collapse:collapse;font-size:12px}
+.perf-table th{text-align:left;color:var(--muted);font-weight:600;padding:6px 10px;border-bottom:1px solid var(--border);font-size:10px;letter-spacing:1px;text-transform:uppercase;font-family:'Space Mono',monospace}
+.perf-table td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--text)}
+
+/* SETTINGS */
+.setting-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.setting-label{font-size:13px;font-weight:500;flex:1}
+.setting-sub{font-size:11px;color:var(--muted2);margin-top:2px}
+input.txt{background:var(--bg3);border:1px solid var(--border2);border-radius:4px;color:var(--text);padding:7px 11px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:border-color 0.15s}
+input.txt:focus{border-color:var(--amber)}
+input.num{width:90px}
+
+/* SCROLLBAR */
+.panel-area::-webkit-scrollbar{width:4px}
+.panel-area::-webkit-scrollbar-track{background:transparent}
+.panel-area::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* ACTIVITY LOG */
+.act-log{display:flex;flex-direction:column;gap:4px;max-height:180px;overflow-y:auto}
+.act-log::-webkit-scrollbar{width:2px}
+.act-log::-webkit-scrollbar-thumb{background:var(--border)}
+.act-item{font-size:11px;color:var(--muted2);padding:5px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:8px}
+.act-item .act-xp{color:var(--amber);font-family:'Space Mono',monospace;font-size:10px;flex-shrink:0}
+
+/* SCANLINE EFFECT */
+.scanline{position:fixed;inset:0;pointer-events:none;z-index:500;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px)}
+
+/* CORNER DECORATION */
+.corner-deco{position:absolute;width:12px;height:12px;opacity:0.4}
+.corner-tl{top:0;left:0;border-top:2px solid var(--amber);border-left:2px solid var(--amber)}
+.corner-tr{top:0;right:0;border-top:2px solid var(--amber);border-right:2px solid var(--amber)}
+.corner-bl{bottom:0;left:0;border-bottom:2px solid var(--amber);border-left:2px solid var(--amber)}
+.corner-br{bottom:0;right:0;border-bottom:2px solid var(--amber);border-right:2px solid var(--amber)}
+
+/* ANIMATIONS */
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.panel.active{animation:fadeIn 0.2s ease}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.timer-running .timer-display{animation:pulse 2s ease-in-out infinite}
+@keyframes xpPop{0%{transform:scale(0.5) translateY(0);opacity:1}100%{transform:scale(1.2) translateY(-30px);opacity:0}}
+
+/* HEXAGON PROGRESS */
+.hex-container{display:flex;flex-wrap:wrap;gap:3px;margin-top:8px}
+.hex{width:10px;height:10px;background:var(--border);border-radius:1px;transition:background 0.2s}
+.hex.done{background:var(--amber)}
+</style>
+</head>
+<body>
+<!-- Firebase SDK for Auth verification -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<!-- Access Check - Verify Firebase Auth before showing game -->
+<script>
+  (async function() {
+    // Firebase config (same as index.html)
+    const firebaseConfig = {
+      apiKey: "AIzaSyBp5mzuP_bjjlqFIVTyO_t-L8V2_ud8Gns",
+      authDomain: "gatelogx-abce1.firebaseapp.com",
+      projectId: "gatelogx-abce1",
+      storageBucket: "gatelogx-abce1.firebasestorage.app",
+      messagingSenderId: "880558405187",
+      appId: "1:880558405187:web:a9a21de3319565ec6106f6"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // Hide body until verified
+    document.body.style.visibility = "hidden";
+
+    // Wait for auth state
+    auth.onAuthStateChanged(async (user) => {
+      if (!user) {
+        // Not signed in - redirect
+        alert("⚠️ Access Denied\n\nPlease unlock the game first by paying ₹500.");
+        window.location.href = "index.html";
+        return;
+      }
+
+      try {
+        // Check if user has unlock status in Firestore
+        const userDoc = await db.collection("unlocked_users").doc(user.uid).get();
+        
+        if (!userDoc.exists || userDoc.data().unlocked !== true) {
+          // User exists but not unlocked
+          alert("⚠️ Access Denied\n\nPlease unlock the game first by paying ₹500.");
+          window.location.href = "index.html";
+          return;
+        }
+
+        // ✅ User is authenticated and unlocked - show the game
+        document.body.style.visibility = "visible";
+      } catch (error) {
+        console.error("Error verifying access:", error);
+        alert("⚠️ Connection Error\n\nPlease check your internet and try again.");
+        window.location.href = "index.html";
+      }
+    });
+  })();
+</script>
+
+<div class="scanline"></div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="logo">GATE<span>CSE</span>::QUEST</div>
+  <div class="topbar-stats">
+    <div class="tstat amber"><span>⚡</span><strong id="top-xp">0</strong><span>XP</span></div>
+    <div class="tstat cyan"><span>📚</span><strong id="top-topics">0</strong><span>Topics</span></div>
+    <div class="tstat green"><span>✓</span><strong id="top-subjects">0</strong><span>Subjects</span></div>
+    <div class="tstat purple"><span>☠</span><strong id="top-bosses">0</strong><span>Bosses</span></div>
+    <div class="streak-badge">🔥 <span id="top-streak">0</span>d</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app">
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="xp-block">
+      <div class="xp-row">
+        <div class="xp-level">LVL <span id="sb-level">1</span></div>
+        <div class="xp-count" id="sb-xp-count">0 / 500 XP</div>
+      </div>
+      <div class="bar-track"><div class="bar-fill fill-amber" id="sb-xp-bar" style="width:0%"></div></div>
+      <div class="rank-line">Rank: <strong id="sb-rank">INITIATE</strong></div>
+    </div>
+    <div class="sidebar-inner">
+      <div class="sidebar-section-label">Navigation</div>
+      <div class="nav-item active" onclick="go('subjects')" id="nav-subjects">
+        <span class="nav-icon">⚔</span>Subjects
+        <span class="nav-badge" id="nb-subjects">0/13</span>
+      </div>
+      <div class="nav-item" onclick="go('daily')" id="nav-daily">
+        <span class="nav-icon">⚡</span>Daily Battle
+      </div>
+      <div class="nav-item" onclick="go('boss')" id="nav-boss">
+        <span class="nav-icon">💀</span>Boss Fights
+        <span class="nav-badge" id="nb-boss">0</span>
+      </div>
+      <div class="nav-item" onclick="go('milestones')" id="nav-milestones">
+        <span class="nav-icon">🏆</span>Milestones
+        <span class="nav-badge" id="nb-ms">0/18</span>
+      </div>
+      <div class="nav-item" onclick="go('compete')" id="nav-compete">
+        <span class="nav-icon">📈</span>vs Self
+      </div>
+      <div class="sidebar-section-label" style="margin-top:8px">Subjects</div>
+      <div id="sb-subject-list"></div>
+      <div class="sidebar-section-label" style="margin-top:8px">Recent</div>
+      <div class="act-log" id="act-log"></div>
+      <div style="padding:8px 16px;margin-top:4px">
+        <div class="nav-item" onclick="go('settings')" id="nav-settings" style="padding:7px 0">
+          <span class="nav-icon">⚙</span>Settings
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="panel-area">
+
+      <!-- SUBJECTS -->
+      <div class="panel active" id="panel-subjects">
+        <div class="panel-header">
+          <div class="panel-title">⚔ Battlefield Map</div>
+          <div class="panel-sub">Select a subject to view topics. Complete all lectures to master the subject.</div>
+        </div>
+        <div class="subj-grid" id="subj-grid"></div>
+      </div>
+
+      <!-- DAILY -->
+      <div class="panel" id="panel-daily">
+        <div class="panel-header">
+          <div class="panel-title">⚡ Daily Battle</div>
+          <div class="panel-sub">Study session timer + MCQ practice. Timer earns 5 XP/minute.</div>
+        </div>
+        <div class="daily-grid">
+          <div class="card">
+            <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--muted2);text-transform:uppercase;margin-bottom:8px">Study Session</div>
+            <div class="timer-display" id="timer-disp">00:00:00</div>
+            <div class="goal-row" style="margin-top:10px">
+              <span>Today</span><span class="goal-val amber-val" id="d-hours">0.0h</span>
+            </div>
+            <div class="goal-row">
+              <span>Target</span><span class="goal-val" id="d-goal-h" style="color:var(--muted2)">0.0h</span>
+            </div>
+            <div class="bar-track" style="margin:8px 0"><div class="bar-fill fill-amber" id="d-bar-h" style="width:0%"></div></div>
+            <div style="font-size:11px;color:var(--muted2);margin-bottom:12px" id="d-pct-h">0% of daily goal</div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-amber" id="timer-btn" onclick="toggleTimer()">▶ Start</button>
+              <button class="btn btn-ghost btn-sm" onclick="resetTimer()">Reset</button>
+            </div>
+            <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+              <div class="goal-row"><span>MCQs today</span><span class="goal-val amber-val" id="d-mcq">0</span></div>
+              <div class="goal-row"><span>MCQ target</span><span class="goal-val" style="color:var(--muted2)" id="d-goal-mcq">0</span></div>
+              <div class="bar-track" style="margin:6px 0"><div class="bar-fill fill-cyan" id="d-bar-mcq" style="width:0%"></div></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--muted2);text-transform:uppercase;margin-bottom:12px">MCQ Practice <span style="color:var(--amber)">+25 XP correct</span></div>
+            <div id="mcq-area"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOSS -->
+      <div class="panel" id="panel-boss">
+        <div class="panel-header">
+          <div class="panel-title">💀 Boss Fights</div>
+          <div class="panel-sub">Each mock test is a boss encounter. Score 70%+ to slay the boss and earn massive XP rewards.</div>
+        </div>
+        <div class="boss-grid" id="boss-grid"></div>
+        <div style="margin-top:20px">
+          <div class="panel-title" style="font-size:13px;margin-bottom:12px">Battle History</div>
+          <div id="boss-history"></div>
+        </div>
+      </div>
+
+      <!-- MILESTONES -->
+      <div class="panel" id="panel-milestones">
+        <div class="panel-header">
+          <div class="panel-title">🏆 Milestones</div>
+          <div class="panel-sub">Achievements unlock automatically as you progress. Each milestone grants +500 XP.</div>
+        </div>
+        <div class="ms-grid" id="ms-grid"></div>
+      </div>
+
+      <!-- COMPETE -->
+      <div class="panel" id="panel-compete">
+        <div class="panel-header">
+          <div class="panel-title">📈 Compete vs Yesterday</div>
+          <div class="panel-sub">Every day's target is 10% higher than yesterday. Consistent growth is the only goal.</div>
+        </div>
+        <div class="compete-cols" id="compete-cols"></div>
+        <div class="card" style="margin-bottom:16px">
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--muted2);text-transform:uppercase;margin-bottom:12px">Progress vs Target</div>
+          <div style="margin-bottom:10px">
+            <div class="goal-row"><span>Study Hours</span><span class="goal-val" id="c-h-text">0 / 0h</span></div>
+            <div class="bar-track" style="height:8px;margin-top:4px"><div class="bar-fill fill-amber" id="c-h-bar" style="width:0%"></div></div>
+          </div>
+          <div>
+            <div class="goal-row"><span>MCQs Solved</span><span class="goal-val" id="c-m-text">0 / 0</span></div>
+            <div class="bar-track" style="height:8px;margin-top:4px"><div class="bar-fill fill-cyan" id="c-m-bar" style="width:0%"></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--muted2);text-transform:uppercase;margin-bottom:12px">Last 7 Days</div>
+          <table class="perf-table" id="perf-table"><tbody></tbody></table>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="panel" id="panel-settings">
+        <div class="panel-header">
+          <div class="panel-title">⚙ Settings</div>
+        </div>
+        <div class="card" style="max-width:520px">
+          <div class="setting-row">
+            <div><div class="setting-label">Player Name</div></div>
+            <input class="txt" id="inp-name" placeholder="Enter name" style="width:160px">
+            <button class="btn btn-amber btn-sm" onclick="saveName()">Save</button>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Daily Study Goal</div><div class="setting-sub">Target hours per day</div></div>
+            <input class="txt num" id="inp-goal-h" type="number" min="1" max="16" step="0.5" value="6">
+            <button class="btn btn-amber btn-sm" onclick="saveGoals()">Save</button>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Daily MCQ Goal</div><div class="setting-sub">MCQs to solve per day</div></div>
+            <input class="txt num" id="inp-goal-m" type="number" min="5" max="200" step="5" value="30">
+            <button class="btn btn-amber btn-sm" onclick="saveGoals()">Save</button>
+          </div>
+          <div style="padding-top:12px;margin-top:4px">
+            <div class="setting-label" style="margin-bottom:8px;font-size:12px;color:var(--muted2)">Set Yesterday's Data (to calibrate today's targets)</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <div><div style="font-size:11px;color:var(--muted2);margin-bottom:4px">Hours studied</div><input class="txt num" id="inp-yd-h" type="number" min="0" max="16" step="0.5" placeholder="e.g. 6"></div>
+              <div><div style="font-size:11px;color:var(--muted2);margin-bottom:4px">MCQs solved</div><input class="txt num" id="inp-yd-m" type="number" min="0" max="500" placeholder="e.g. 40"></div>
+              <div style="display:flex;align-items:flex-end"><button class="btn btn-green btn-sm" onclick="saveYesterday()">Set Yesterday</button></div>
+            </div>
+          </div>
+          <div style="padding-top:16px;margin-top:8px;border-top:1px solid var(--border)">
+            <button class="btn btn-red btn-sm" onclick="resetAll()">🗑 Reset All Progress</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- BOSS SCORE MODAL -->
+<div class="modal-bg" id="boss-modal-bg" onclick="if(event.target===this)closeBossModal()">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-head" style="border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div id="bm-icon" style="font-size:28px;line-height:1"></div>
+        <div>
+          <div class="modal-name" id="bm-name" style="font-size:16px"></div>
+          <div style="font-size:11px;color:var(--muted2);margin-top:2px">Enter your actual mock test score</div>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeBossModal()">✕</button>
+    </div>
+    <div style="padding:20px">
+      <div style="display:flex;gap:16px;align-items:flex-end;margin-bottom:8px">
+        <div style="flex:1">
+          <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--muted2);text-transform:uppercase;margin-bottom:6px">Correct Answers</div>
+          <input class="txt num" id="bm-correct" type="number" min="0" placeholder="e.g. 22" style="width:100%;font-size:20px;font-family:'Space Mono',monospace;padding:10px 14px" oninput="previewXP()">
+        </div>
+        <div style="font-size:20px;color:var(--muted);padding-bottom:10px">/</div>
+        <div style="width:90px">
+          <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--muted2);text-transform:uppercase;margin-bottom:6px">Total Qs</div>
+          <input class="txt num" id="bm-total" type="number" min="1" value="30" style="width:100%;font-size:20px;font-family:'Space Mono',monospace;padding:10px 14px" oninput="previewXP()">
+        </div>
+      </div>
+      <div id="bm-xp-preview" style="font-size:12px;color:var(--amber);font-family:'Space Mono',monospace;min-height:18px;margin-bottom:4px"></div>
+      <div id="bm-err" style="font-size:12px;color:var(--red);min-height:18px"></div>
+      <div style="margin-top:4px;padding:10px 12px;background:var(--bg3);border-radius:6px;font-size:12px;color:var(--muted2)">
+        <span style="color:var(--green);font-weight:600">≥70%</span> → Full XP (Boss Slain) &nbsp;·&nbsp;
+        <span style="color:var(--amber);font-weight:600">50–69%</span> → Half XP &nbsp;·&nbsp;
+        <span style="color:var(--muted2);font-weight:600">33–49%</span> → Quarter XP &nbsp;·&nbsp;
+        <span style="color:var(--red);font-weight:600">&lt;33%</span> → No XP
+      </div>
+      <div id="bm-result"></div>
+    </div>
+    <div style="padding:12px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px">
+      <button class="btn btn-ghost btn-sm" onclick="closeBossModal()">Cancel</button>
+      <button class="btn btn-amber btn-sm" id="bm-submit" onclick="submitBossScore()">⚔ Submit Score</button>
+      <button class="btn btn-green btn-sm" id="bm-done" style="display:none" onclick="closeBossModal()">✓ Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOPIC MODAL -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <div style="position:relative">
+      <div class="corner-deco corner-tl"></div>
+      <div class="corner-deco corner-tr"></div>
+    </div>
+    <div class="modal-head">
+      <div>
+        <div class="modal-name" id="m-title">Subject</div>
+        <div style="font-size:11px;color:var(--muted2);margin-top:2px" id="m-meta"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕ Close</button>
+    </div>
+    <div class="modal-prog">
+      <div class="goal-row" style="margin-bottom:5px">
+        <span style="font-size:12px;color:var(--muted2)">Progress</span>
+        <span style="font-size:12px;font-family:'Space Mono',monospace" id="m-prog-text">0 / 0</span>
+      </div>
+      <div class="bar-track" style="height:6px"><div class="bar-fill fill-amber" id="m-prog-bar" style="width:0%"></div></div>
+    </div>
+    <div class="modal-body" id="m-body"></div>
+    <div style="padding:12px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;flex-shrink:0">
+      <button class="btn btn-ghost btn-sm" onclick="closeModal()">Close</button>
+      <button class="btn btn-green btn-sm" onclick="markAllDone()">✓ Mark All Done</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===================== DATA =====================
+const SUBJECTS=[
+  {id:'dsa',name:'DSA',icon:'🌲',lec:101,hours:55.0,xpp:80,col:'#22c55e'},
+  {id:'algo',name:'Algorithms',icon:'⚡',lec:170,hours:60.0,xpp:90,col:'#00c8d4'},
+  {id:'os',name:'Operating Systems',icon:'💻',lec:39,hours:68.1,xpp:100,col:'#a855f7'},
+  {id:'dbms',name:'DBMS',icon:'🗄',lec:95,hours:160.3,xpp:85,col:'#f59e0b'},
+  {id:'cn',name:'Computer Networks',icon:'🌐',lec:46,hours:64.9,xpp:95,col:'#3b82f6'},
+  {id:'toc',name:'TOC',icon:'🔄',lec:146,hours:157.0,xpp:100,col:'#ec4899'},
+  {id:'coa',name:'COA',icon:'⚙',lec:35,hours:58.0,xpp:90,col:'#ef4444'},
+  {id:'cd',name:'Compiler Design',icon:'🔧',lec:51,hours:44.7,xpp:85,col:'#8b5cf6'},
+  {id:'dl',name:'Digital Logic',icon:'⬛',lec:98,hours:78.1,xpp:70,col:'#06b6d4'},
+  {id:'cprog',name:'C Programming',icon:'📝',lec:68,hours:37.0,xpp:60,col:'#84cc16'},
+  {id:'apt',name:'Aptitude',icon:'🧮',lec:15,hours:14.3,xpp:50,col:'#fb923c'},
+  {id:'em',name:'Engg. Mathematics',icon:'∫',lec:110,hours:null,xpp:90,col:'#f472b6'},
+  {id:'dm',name:'Discrete Mathematics',icon:'Σ',lec:344,hours:null,xpp:80,col:'#a78bfa'},
+];
+
+// Topic name pools per subject
+const TPOOL={
+  dsa:['Arrays','Linked Lists','Stacks','Queues','Binary Trees','BST','AVL Trees','Heaps','Graph Repr.','BFS','DFS','Hashing','Tries','Segment Trees','Fenwick Trees','Disjoint Sets','Sorting','Searching','Dynamic Programming','String Algorithms'],
+  algo:['Asymptotic Analysis','Recurrences','Divide & Conquer','Greedy','DP Intro','DP Advanced','Graph Algorithms','Shortest Path','MST','Network Flow','String Matching','NP-Completeness','Approximation','Randomized','Backtracking','B&B','Amortized','Advanced Trees','Geometric Algorithms','Parallel Algorithms'],
+  os:['Process Concepts','Threads','CPU Scheduling','Process Sync','Semaphores','Monitors','Deadlocks','Memory Mgmt','Paging','Segmentation','Virtual Memory','Page Replacement','File Systems','I/O Management','Disk Scheduling','Protection','Distributed OS'],
+  dbms:['ER Model','Relational Model','SQL Basics','Advanced SQL','Joins','Aggregation','Normalization 1NF','Normalization 2NF','Normalization 3NF','BCNF','4NF 5NF','Indexing','B+ Trees','Query Processing','Query Optimization','Transactions','ACID Properties','Concurrency Control','2PL','Recovery','NoSQL','Big Data','Distributed DBs'],
+  cn:['Physical Layer','Data Link','Error Detection','MAC Protocols','Ethernet','Sliding Window','Network Layer','IPv4','IPv6','Subnetting','Routing Algorithms','Link State','Distance Vector','Transport Layer','TCP','UDP','Flow Control','Congestion Control','Application Layer','HTTP','DNS','FTP','SMTP','Network Security','Wireless'],
+  toc:['Regular Languages','DFA Construction','NFA to DFA','Regular Expressions','Pumping Lemma','CFG Basics','CFG to PDA','PDA Acceptance','Chomsky Normal','Greibach Normal','Turing Machines','TM Variants','Decidability','Halting Problem','Rice Theorem','Complexity P vs NP','NP-Complete','NP-Hard','Space Complexity','PSPACE'],
+  coa:['Number Systems','Boolean Algebra','Combinational Circuits','Sequential Circuits','Memory Organization','CPU Architecture','Instruction Formats','Addressing Modes','ISA Design','RISC vs CISC','Pipelining','Pipeline Hazards','Cache Memory','Cache Mapping','Virtual Memory COA','I/O Organization','DMA','Interrupts'],
+  cd:['Lexical Analysis','Finite Automata','Regex to NFA','Parsing Top-Down','LL(1) Parsing','Parsing Bottom-Up','LR Parsing','LALR','Semantic Analysis','Type Checking','Intermediate Code','Three Address Code','Optimization','Dataflow Analysis','Code Generation','Register Allocation'],
+  dl:['Boolean Algebra','Logic Gates','Karnaugh Maps','Combinational Design','Adders Subtractors','Multiplexers','Decoders Encoders','Sequential Circuits','Flip-Flops','Latches','Counters','Registers','State Machines','FSM Design','Mealy vs Moore','Memory Types','PLDs','FPGA'],
+  cprog:['Basics & I/O','Data Types','Control Flow','Functions','Recursion','Arrays','Pointers','Pointer Arithmetic','Strings','Structures','Unions','File I/O','Dynamic Memory','Bitwise Operations','Preprocessor','Command Line Args','Standard Library'],
+  apt:['Quantitative Aptitude','Number Theory','Algebra','Geometry','Logical Reasoning','Data Interpretation','Verbal Ability'],
+  em:['Linear Algebra Basics','Matrix Operations','Eigenvalues','Calculus Limits','Differentiation','Integration','Differential Equations','ODE Methods','Probability Basics','Conditional Probability','Random Variables','Distributions','Statistics','Numerical Methods','Transforms','Fourier Series','Laplace Transform','Z-Transform','Complex Numbers','Graph Theory EM','Optimization','Discrete Probability','Markov Chains'],
+  dm:['Set Theory','Set Operations','Logic Basics','Propositional Logic','Predicate Logic','Proof Techniques','Mathematical Induction','Relations','Equivalence Relations','Partial Orders','Functions','Bijections','Counting Principles','Permutations','Combinations','Pigeonhole Principle','Inclusion-Exclusion','Generating Functions','Recurrence Relations','Graph Theory Basics','Graph Coloring','Trees DM','Spanning Trees','Planar Graphs','Euler Hamilton','Network Flows','Boolean Algebra DM','Lattices','Algebraic Structures','Groups','Rings','Fields','Formal Languages','Grammars DM','Number Theory DM','Modular Arithmetic','Cryptography Basics'],
+};
+
+function makeTopics(subId, count) {
+  const pool = TPOOL[subId] || ['Topic'];
+  const out = [];
+  for (let i=0;i<count;i++) {
+    const base = pool[i % pool.length];
+    const suffix = Math.floor(i/pool.length) > 0 ? ` ${Math.floor(i/pool.length)+1}` : '';
+    out.push({id:i, name:base+suffix, lec:i+1});
+  }
+  return out;
+}
+SUBJECTS.forEach(s => { s.topics = makeTopics(s.id, s.lec); });
+
+const MILESTONES=[
+  {id:'t1',icon:'⭐',name:'First Blood',desc:'Complete 1 topic',fn:s=>s.topicsDone>=1},
+  {id:'t10',icon:'🔟',name:'On a Roll',desc:'Complete 10 topics',fn:s=>s.topicsDone>=10},
+  {id:'t50',icon:'💫',name:'Half Century',desc:'Complete 50 topics',fn:s=>s.topicsDone>=50},
+  {id:'t100',icon:'💯',name:'Century',desc:'Complete 100 topics',fn:s=>s.topicsDone>=100},
+  {id:'t500',icon:'🌊',name:'Unstoppable',desc:'Complete 500 topics',fn:s=>s.topicsDone>=500},
+  {id:'s1',icon:'🎖',name:'Subject Conqueror',desc:'Master 1 subject',fn:s=>s.subjDone>=1},
+  {id:'s3',icon:'🏅',name:'Triple Threat',desc:'Master 3 subjects',fn:s=>s.subjDone>=3},
+  {id:'s7',icon:'👑',name:'Septuple Master',desc:'Master 7 subjects',fn:s=>s.subjDone>=7},
+  {id:'s13',icon:'🔱',name:'GATE Champion',desc:'Master all 13 subjects',fn:s=>s.subjDone>=13},
+  {id:'str7',icon:'🔥',name:'Week Warrior',desc:'7-day streak',fn:s=>s.streak>=7},
+  {id:'str30',icon:'🌟',name:'Month Master',desc:'30-day streak',fn:s=>s.streak>=30},
+  {id:'str100',icon:'💎',name:'Centurion',desc:'100-day streak',fn:s=>s.streak>=100},
+  {id:'b1',icon:'☠',name:'Boss Slayer',desc:'Defeat 1 boss',fn:s=>s.bossSlain>=1},
+  {id:'b5',icon:'🗡',name:'Battle-Hardened',desc:'Defeat 5 bosses',fn:s=>s.bossSlain>=5},
+  {id:'m100',icon:'🎯',name:'MCQ Hunter',desc:'100 MCQs solved',fn:s=>s.mcqTotal>=100},
+  {id:'m500',icon:'🏹',name:'MCQ Sniper',desc:'500 MCQs solved',fn:s=>s.mcqTotal>=500},
+  {id:'xp5k',icon:'⚡',name:'Power Surge',desc:'Earn 5,000 XP',fn:s=>s.xp>=5000},
+  {id:'lvl10',icon:'🚀',name:'Level 10',desc:'Reach Level 10',fn:s=>s.level>=10},
+];
+
+const MCQ=[
+  {q:'Time complexity of binary search?',opts:['O(n)','O(log n)','O(n log n)','O(1)'],a:1,sub:'DSA'},
+  {q:'Which data structure uses LIFO?',opts:['Queue','Stack','Heap','Tree'],a:1,sub:'DSA'},
+  {q:'In a Min-Heap, the root element is?',opts:['Maximum','Minimum','Middle','Random'],a:1,sub:'DSA'},
+  {q:'Which OS scheduling can cause starvation?',opts:['Round Robin','FCFS','Priority Scheduling','SRTF'],a:2,sub:'OS'},
+  {q:'Which page replacement is optimal theoretically?',opts:['LRU','FIFO','Optimal','Clock'],a:2,sub:'OS'},
+  {q:'Which normal form handles multi-valued dependencies?',opts:['2NF','3NF','BCNF','4NF'],a:3,sub:'DBMS'},
+  {q:'ACID property: changes survive system failure?',opts:['Atomicity','Consistency','Isolation','Durability'],a:3,sub:'DBMS'},
+  {q:'TCP provides which service?',opts:['Connectionless','Connection-oriented','Unreliable','Stateless'],a:1,sub:'CN'},
+  {q:'Which layer handles end-to-end communication?',opts:['Network','Data Link','Transport','Session'],a:2,sub:'CN'},
+  {q:'L = {aⁿbⁿ | n≥0} is which type?',opts:['Regular','Context-Free','Context-Sensitive','RE'],a:1,sub:'TOC'},
+  {q:'Pumping Lemma is used to prove:',opts:['Language is regular','Language is not regular','DFA minimization','NFA construction'],a:1,sub:'TOC'},
+  {q:'Ideal pipeline CPI is?',opts:['n stages','1','0','n/2'],a:1,sub:'COA'},
+  {q:'Cache mapping that has no conflict misses?',opts:['Direct mapped','Fully associative','Set associative','None'],a:1,sub:'COA'},
+  {q:'Dijkstra works best with?',opts:['Array','Stack','Min-Heap / Priority Queue','AVL Tree'],a:2,sub:'Algorithms'},
+  {q:'Master theorem handles recurrences of form?',opts:['T(n)=T(n-1)+f(n)','T(n)=aT(n/b)+f(n)','T(n)=T(n/2)+T(n/3)','None'],a:1,sub:'Algorithms'},
+  {q:'LALR(1) parser handles which grammars?',opts:['LL(1)','SLR(1)','LALR(1)','LR(1)'],a:2,sub:'Compiler'},
+  {q:'A flip-flop stores how many bits?',opts:['8','4','2','1'],a:3,sub:'Digital Logic'},
+  {q:'Pointer in C stores?',opts:['Value','Address','Size','Type'],a:1,sub:'C'},
+  {q:'malloc() is declared in?',opts:['stdio.h','string.h','stdlib.h','math.h'],a:2,sub:'C'},
+  {q:'GATE CSE total marks?',opts:['65','75','85','100'],a:3,sub:'General'},
+];
+
+// ===================== LEVELS =====================
+const LVL_XP=[0,500,1200,2500,4500,7500,12000,18000,26000,37000,52000,72000,100000,140000,200000];
+const RANKS=['INITIATE','APPRENTICE','NOVICE','STUDENT','SCHOLAR','ADEPT','EXPERT','MASTER','GRANDMASTER','SAGE','ELITE','LEGEND','GATE WARRIOR','TRANSCENDENT','SS-RANK'];
+function getLevel(xp){let l=1;for(let i=0;i<LVL_XP.length;i++){if(xp>=LVL_XP[i])l=i+1;else break;}return Math.min(l,15);}
+function xpForNext(l){return LVL_XP[l]||LVL_XP[LVL_XP.length-1];}
+function xpPrev(l){return LVL_XP[l-1]||0;}
+function todayStr(){return new Date().toISOString().split('T')[0];}
+
+// ===================== STATE =====================
+function loadState(){
+  try{
+    const raw=localStorage.getItem('gcq_v5');
+    if(raw)return JSON.parse(raw);
+  }catch(e){}
+  return {
+    name:'GATE WARRIOR', xp:0, level:1,
+    streak:0, lastDate:null,
+    progress:{}, // {subId: {topicId: bool}}
+    topicsDone:0, subjDone:0, bossSlain:0, mcqTotal:0, msEarned:[],
+    bossLog:[],
+    goalH:6, goalM:30,
+    today:{date:todayStr(),h:0,mcq:0,xp:0},
+    yesterday:{h:0,mcq:0,xp:0},
+    perfLog:[],
+    actLog:[],
+  };
+}
+let S=loadState();
+checkNewDay();
+function save(){localStorage.setItem('gcq_v5',JSON.stringify(S));}
+
+function checkNewDay(){
+  const td=todayStr();
+  if(S.today.date!==td){
+    // roll yesterday
+    S.yesterday={h:S.today.h,mcq:S.today.mcq,xp:S.today.xp};
+    S.perfLog.push({date:S.today.date,...S.yesterday});
+    if(S.perfLog.length>30)S.perfLog.shift();
+    // streak
+    const yd=new Date();yd.setDate(yd.getDate()-1);
+    const ydStr=yd.toISOString().split('T')[0];
+    if(S.today.date===ydStr&&(S.today.h>0||S.today.mcq>0)){S.streak++;}
+    else if(S.today.date!==ydStr){S.streak=0;}
+    // auto-adjust goals
+    if(S.yesterday.h>0) S.goalH=parseFloat(Math.max(S.goalH,(S.yesterday.h*1.1)).toFixed(1));
+    if(S.yesterday.mcq>0) S.goalM=Math.max(S.goalM,Math.ceil(S.yesterday.mcq*1.1));
+    S.today={date:td,h:0,mcq:0,xp:0};
+    save();
+  }
+}
+
+// ===================== XP =====================
+function addXP(amt,msg){
+  S.xp+=amt; S.today.xp+=amt;
+  const newL=getLevel(S.xp);
+  if(newL>S.level){S.level=newL;log(`Leveled up → LVL ${newL}!`,0);}
+  S.level=newL;
+  log(msg,amt);
+  checkMS();
+  save();
+  renderUI();
+}
+function log(msg,xp){
+  S.actLog.unshift({msg,xp,t:new Date().toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'})});
+  if(S.actLog.length>50)S.actLog.pop();
+}
+
+// ===================== MILESTONES =====================
+function checkMS(){
+  const stat={topicsDone:S.topicsDone,subjDone:S.subjDone,bossSlain:S.bossSlain,mcqTotal:S.mcqTotal,xp:S.xp,streak:S.streak,level:S.level};
+  MILESTONES.forEach(m=>{
+    if(!S.msEarned.includes(m.id)&&m.fn(stat)){
+      S.msEarned.push(m.id);
+      S.xp+=500; S.today.xp+=500;
+      log(`🏆 ${m.name} unlocked!`,500);
+    }
+  });
+}
+
+// ===================== RENDER UI =====================
+let currentTab='subjects';
+let currentModal=null;
+
+function go(tab){
+  currentTab=tab;
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const el=document.getElementById('nav-'+tab);
+  if(el)el.classList.add('active');
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+  if(tab==='daily')renderMCQ();
+  if(tab==='boss')renderBoss();
+  if(tab==='milestones')renderMS();
+  if(tab==='compete')renderCompete();
+}
+
+function renderUI(){
+  // topbar
+  document.getElementById('top-xp').textContent=S.xp.toLocaleString();
+  document.getElementById('top-topics').textContent=S.topicsDone;
+  document.getElementById('top-subjects').textContent=S.subjDone;
+  document.getElementById('top-bosses').textContent=S.bossSlain;
+  document.getElementById('top-streak').textContent=S.streak;
+  // sidebar level
+  document.getElementById('sb-level').textContent=S.level;
+  document.getElementById('sb-rank').textContent=RANKS[S.level-1];
+  const xpC=S.xp-xpPrev(S.level), xpN=xpForNext(S.level)-xpPrev(S.level);
+  document.getElementById('sb-xp-count').textContent=`${S.xp.toLocaleString()} / ${xpForNext(S.level).toLocaleString()}`;
+  document.getElementById('sb-xp-bar').style.width=Math.min(100,(xpC/xpN)*100)+'%';
+  // nav badges
+  document.getElementById('nb-subjects').textContent=`${S.subjDone}/13`;
+  document.getElementById('nb-boss').textContent=S.bossSlain;
+  document.getElementById('nb-ms').textContent=`${S.msEarned.length}/18`;
+  // sidebar subjects
+  document.getElementById('sb-subject-list').innerHTML=SUBJECTS.map(s=>{
+    const p=S.progress[s.id]||{};
+    const d=Object.values(p).filter(Boolean).length;
+    const pct=Math.round((d/s.lec)*100);
+    const dot=d===s.lec?'#22c55e':d>0?s.col:'var(--border)';
+    return `<div class="nav-item" onclick="openModal('${s.id}')" style="font-size:12px;padding:7px 16px">
+      <span style="width:6px;height:6px;border-radius:50%;background:${dot};flex-shrink:0;display:inline-block"></span>
+      <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.icon} ${s.name}</span>
+      <span class="nav-badge">${pct}%</span>
+    </div>`;
+  }).join('');
+  // activity log
+  document.getElementById('act-log').innerHTML=S.actLog.slice(0,10).map(a=>`
+    <div class="act-item">
+      <span>${a.msg}</span>
+      ${a.xp?`<span class="act-xp">+${a.xp}</span>`:''}
+    </div>`).join('');
+  // subject grid
+  renderSubjGrid();
+  // daily
+  updateDailyUI();
+}
+
+function renderSubjGrid(){
+  const grid=document.getElementById('subj-grid');
+  grid.innerHTML=SUBJECTS.map(s=>{
+    const p=S.progress[s.id]||{};
+    const d=Object.values(p).filter(Boolean).length;
+    const pct=Math.round((d/s.lec)*100);
+    const done=d===s.lec;
+    return `<div class="subj-card ${done?'done':''}" style="--c:${s.col}" onclick="openModal('${s.id}')">
+      <span class="subj-icon">${s.icon}</span>
+      <div class="subj-name">${s.name}</div>
+      <div class="subj-meta">${s.lec} lectures${s.hours?` · ${s.hours}h`:''}</div>
+      <div class="subj-pct" style="color:${done?'var(--green)':s.col}">${pct}%</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${done?'var(--green)':s.col}"></div></div>
+      <div class="subj-xp-tag">${d}/${s.lec} topics · ⚡${(s.lec*s.xpp).toLocaleString()} XP</div>
+      ${done?'<div class="done-tag">✓ Mastered</div>':''}
+    </div>`;
+  }).join('');
+}
+
+// ===================== MODAL =====================
+function openModal(subId){
+  const s=SUBJECTS.find(x=>x.id===subId);
+  if(!s)return;
+  currentModal=subId;
+  const p=S.progress[subId]||{};
+  const d=Object.values(p).filter(Boolean).length;
+  document.getElementById('m-title').textContent=`${s.icon} ${s.name}`;
+  document.getElementById('m-meta').textContent=`${s.lec} lectures · ${s.hours?s.hours+'h content':'duration TBD'} · ${s.xpp} XP per topic`;
+  refreshModalProg(s,p);
+  document.getElementById('m-body').innerHTML=s.topics.map(t=>{
+    const done=!!p[t.id];
+    return `<div class="topic-item ${done?'done':''}" id="ti-${subId}-${t.id}" onclick="toggleTopic('${subId}',${t.id})">
+      <div class="topic-check">${done?'✓':''}</div>
+      <span class="topic-num">${String(t.lec).padStart(3,'0')}</span>
+      <span class="topic-name">${t.name}</span>
+      <span class="topic-xp">+${s.xpp}</span>
+    </div>`;
+  }).join('');
+  document.getElementById('modal-bg').classList.add('open');
+}
+
+function refreshModalProg(s,p){
+  const d=Object.values(p).filter(Boolean).length;
+  const pct=Math.round((d/s.lec)*100);
+  document.getElementById('m-prog-text').textContent=`${d} / ${s.lec} — ${pct}%`;
+  document.getElementById('m-prog-bar').style.width=pct+'%';
+}
+
+function closeModal(){document.getElementById('modal-bg').classList.remove('open');currentModal=null;}
+
+function toggleTopic(subId,topicId){
+  const s=SUBJECTS.find(x=>x.id===subId);
+  if(!s)return;
+  if(!S.progress[subId])S.progress[subId]={};
+  const was=S.progress[subId][topicId];
+  if(!was){
+    S.progress[subId][topicId]=true;
+    S.topicsDone++;
+    const el=document.getElementById(`ti-${subId}-${topicId}`);
+    if(el){el.className='topic-item done';el.querySelector('.topic-check').textContent='✓';}
+    // check subject completion
+    const allDone=s.topics.every(t=>S.progress[subId][t.id]);
+    const prevDone=S.subjDone;
+    S.subjDone=SUBJECTS.filter(sx=>{const p=S.progress[sx.id]||{};return sx.topics.every(t=>p[t.id]);}).length;
+    if(S.subjDone>prevDone){
+      addXP(s.xpp,`Completed topic`);
+      addXP(5000,`🏆 ${s.name} MASTERED!`);
+    }else{
+      addXP(s.xpp,`Completed topic in ${s.name}`);
+    }
+  }else{
+    S.progress[subId][topicId]=false;
+    S.topicsDone=Math.max(0,S.topicsDone-1);
+    S.xp=Math.max(0,S.xp-s.xpp);
+    S.level=getLevel(S.xp);
+    S.subjDone=SUBJECTS.filter(sx=>{const p=S.progress[sx.id]||{};return sx.topics.every(t=>p[t.id]);}).length;
+    const el=document.getElementById(`ti-${subId}-${topicId}`);
+    if(el){el.className='topic-item';el.querySelector('.topic-check').textContent='';}
+    save();renderUI();
+  }
+  const p=S.progress[subId]||{};
+  refreshModalProg(s,p);
+}
+
+function markAllDone(){
+  if(!currentModal)return;
+  const s=SUBJECTS.find(x=>x.id===currentModal);
+  if(!s)return;
+  if(!S.progress[s.id])S.progress[s.id]={};
+  let added=0;
+  s.topics.forEach(t=>{if(!S.progress[s.id][t.id]){S.progress[s.id][t.id]=true;S.topicsDone++;S.xp+=s.xpp;S.today.xp+=s.xpp;added++;}});
+  S.level=getLevel(S.xp);
+  S.subjDone=SUBJECTS.filter(sx=>{const p=S.progress[sx.id]||{};return sx.topics.every(t=>p[t.id]);}).length;
+  log(`All ${s.name} done`,added*s.xpp);
+  checkMS();save();openModal(currentModal);renderUI();
+}
+
+// ===================== TIMER =====================
+let timerSec=0,timerGoing=false,timerInt=null;
+function toggleTimer(){
+  timerGoing=!timerGoing;
+  const btn=document.getElementById('timer-btn');
+  const disp=document.getElementById('timer-disp');
+  btn.textContent=timerGoing?'⏸ Pause':'▶ Start';
+  if(timerGoing){
+    timerInt=setInterval(()=>{
+      timerSec++;
+      const h=String(Math.floor(timerSec/3600)).padStart(2,'0');
+      const m=String(Math.floor((timerSec%3600)/60)).padStart(2,'0');
+      const ss=String(timerSec%60).padStart(2,'0');
+      disp.textContent=`${h}:${m}:${ss}`;
+      S.today.h=parseFloat((timerSec/3600).toFixed(2));
+      if(timerSec%60===0){S.xp+=5;S.today.xp+=5;S.level=getLevel(S.xp);}
+      updateDailyUI();
+      if(timerSec%300===0)save();
+    },1000);
+  }else{clearInterval(timerInt);save();}
+}
+function resetTimer(){timerGoing=false;clearInterval(timerInt);timerSec=0;document.getElementById('timer-disp').textContent='00:00:00';document.getElementById('timer-btn').textContent='▶ Start';}
+function updateDailyUI(){
+  const h=S.today.h,gH=S.goalH,m=S.today.mcq,gM=S.goalM;
+  document.getElementById('d-hours').textContent=h.toFixed(1)+'h';
+  document.getElementById('d-goal-h').textContent=gH.toFixed(1)+'h';
+  const ph=gH>0?Math.min(100,(h/gH)*100):0;
+  document.getElementById('d-bar-h').style.width=ph+'%';
+  document.getElementById('d-pct-h').textContent=Math.round(ph)+'% of daily goal';
+  document.getElementById('d-mcq').textContent=m;
+  document.getElementById('d-goal-mcq').textContent=gM;
+  const pm=gM>0?Math.min(100,(m/gM)*100):0;
+  document.getElementById('d-bar-mcq').style.width=pm+'%';
+}
+
+// ===================== MCQ =====================
+let curMCQ=null,mcqDone=false;
+function renderMCQ(){
+  curMCQ=MCQ[Math.floor(Math.random()*MCQ.length)];mcqDone=false;
+  document.getElementById('mcq-area').innerHTML=`
+    <div class="mcq-q">${curMCQ.q}<span style="font-size:10px;color:var(--muted);margin-left:8px">[${curMCQ.sub}]</span></div>
+    <div class="mcq-opts">${curMCQ.opts.map((o,i)=>`<div class="mcq-opt" id="mo${i}" onclick="answerMCQ(${i})"><span class="mcq-label">${'ABCD'[i]}</span>${o}</div>`).join('')}</div>
+    <div id="mcq-res"></div>`;
+}
+function answerMCQ(c){
+  if(mcqDone)return;mcqDone=true;
+  const ok=c===curMCQ.a;
+  document.querySelectorAll('.mcq-opt').forEach((el,i)=>{
+    if(i===curMCQ.a)el.classList.add('correct');
+    else if(i===c&&!ok)el.classList.add('wrong');
+  });
+  const xp=ok?25:5;
+  S.today.mcq++;S.mcqTotal++;
+  addXP(xp,`MCQ ${ok?'correct':'attempt'}`);
+  document.getElementById('mcq-res').innerHTML=`<div class="mcq-result ${ok?'c':'w'}">${ok?'✓ Correct':'✗ Incorrect'}<span class="xp-pill">+${xp} XP</span><button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="renderMCQ()">Next →</button></div>`;
+}
+
+// ===================== BOSS =====================
+function renderBoss(){
+  document.getElementById('boss-grid').innerHTML=SUBJECTS.map(s=>{
+    const p=S.progress[s.id]||{};
+    const d=Object.values(p).filter(Boolean).length;
+    const pct=Math.round((d/s.lec)*100);
+    const slain=S.bossLog.filter(b=>b.sid===s.id).length;
+    const xpR=s.lec*20;
+    return `<div class="boss-card ${slain?'slain':''}" onclick="fightBoss('${s.id}')">
+      <div class="boss-icon">${s.icon}</div>
+      <div class="boss-name">${s.name} Boss</div>
+      <div class="boss-stat">30 Questions · 3 Hours</div>
+      <div class="boss-stat">Prep: ${pct}% ready</div>
+      <div class="bar-track" style="margin:6px 0"><div class="bar-fill" style="width:${pct}%;background:${slain?'var(--green)':'var(--purple)'}"></div></div>
+      ${slain?`<div style="font-size:10px;color:var(--green);margin-top:4px">☠ Slain ${slain}x</div>`:''}
+      <div class="boss-xp">⚡ ${xpR.toLocaleString()} XP reward</div>
+    </div>`;
+  }).join('');
+  const hist=document.getElementById('boss-history');
+  if(!S.bossLog.length){hist.innerHTML='<div style="font-size:13px;color:var(--muted);padding:12px 0">No boss fights yet. Click any subject boss to challenge it.</div>';return;}
+  hist.innerHTML=S.bossLog.slice().reverse().slice(0,12).map(b=>{
+    const s=SUBJECTS.find(x=>x.id===b.sid);
+    const pct=Math.round((b.c/b.t)*100);
+    const col=pct>=70?'var(--green)':pct>=50?'var(--amber)':'var(--red)';
+    return `<div class="battle-row">
+      <span style="font-size:18px">${s?.icon}</span>
+      <span style="flex:1;font-size:13px;font-weight:500">${s?.name}</span>
+      <span class="battle-score" style="color:${col}">${pct}%</span>
+      <span style="font-size:11px;color:var(--muted2)">${b.c}/${b.t} · +${b.xp} XP</span>
+      <span style="font-size:10px;color:var(--muted)">${b.date}</span>
+    </div>`;
+  }).join('');
+}
+
+function fightBoss(subId){
+  const s=SUBJECTS.find(x=>x.id===subId);
+  // Populate and open the boss score modal
+  document.getElementById('bm-icon').textContent=s.icon;
+  document.getElementById('bm-name').textContent=s.name+' — Mock Test';
+  document.getElementById('bm-xp-preview').textContent='';
+  document.getElementById('bm-correct').value='';
+  document.getElementById('bm-total').value='30';
+  document.getElementById('bm-err').textContent='';
+  document.getElementById('bm-result').innerHTML='';
+  document.getElementById('boss-modal-bg').dataset.subId=subId;
+  document.getElementById('boss-modal-bg').classList.add('open');
+  document.getElementById('bm-correct').focus();
+}
+
+function submitBossScore(){
+  const subId=document.getElementById('boss-modal-bg').dataset.subId;
+  const s=SUBJECTS.find(x=>x.id===subId);
+  const correct=parseInt(document.getElementById('bm-correct').value);
+  const total=parseInt(document.getElementById('bm-total').value)||30;
+  const errEl=document.getElementById('bm-err');
+
+  if(isNaN(correct)||correct<0){errEl.textContent='Please enter your correct answers count.';return;}
+  if(correct>total){errEl.textContent='Correct answers cannot exceed total questions ('+total+').';return;}
+  errEl.textContent='';
+
+  const pct=Math.round((correct/total)*100);
+  const xp=pct>=70?s.lec*20:pct>=50?s.lec*10:pct>=33?s.lec*5:0;
+  const victory=pct>=70;
+  const partial=pct>=50;
+
+  if(victory||partial) S.bossSlain++;
+  S.bossLog.push({sid:subId,c:correct,t:total,xp,date:todayStr()});
+  if(xp>0) addXP(xp,`Boss: ${s.name} (${pct}%)`);
+  else{ save(); renderUI(); }
+
+  const col=pct>=70?'var(--green)':pct>=50?'var(--amber)':'var(--red)';
+  const badge=victory?'🏆 VICTORY — Boss Slain!':partial?'⚡ Partial Victory':'💀 Defeated';
+  document.getElementById('bm-result').innerHTML=`
+    <div style="margin-top:16px;padding:14px 16px;border-radius:6px;border:1px solid ${col};background:${pct>=70?'rgba(34,197,94,0.06)':pct>=50?'rgba(240,165,0,0.06)':'rgba(239,68,68,0.06)'}">
+      <div style="font-size:18px;font-weight:700;color:${col};margin-bottom:6px">${badge}</div>
+      <div style="display:flex;gap:24px;font-size:13px;color:var(--muted2)">
+        <div><div style="font-size:22px;font-weight:700;color:${col};font-family:'Space Mono',monospace">${pct}%</div><div>Score</div></div>
+        <div><div style="font-size:22px;font-weight:700;color:var(--text);font-family:'Space Mono',monospace">${correct}/${total}</div><div>Correct</div></div>
+        <div><div style="font-size:22px;font-weight:700;color:var(--amber);font-family:'Space Mono',monospace">${xp>0?'+'+xp.toLocaleString():0}</div><div>XP Earned</div></div>
+      </div>
+    </div>`;
+  document.getElementById('bm-submit').style.display='none';
+  document.getElementById('bm-done').style.display='inline-flex';
+  save();renderBoss();renderUI();
+}
+
+function closeBossModal(){
+  document.getElementById('boss-modal-bg').classList.remove('open');
+  document.getElementById('bm-submit').style.display='inline-flex';
+  document.getElementById('bm-done').style.display='none';
+}
+
+function previewXP(){
+  const subId=document.getElementById('boss-modal-bg').dataset.subId;
+  const s=SUBJECTS.find(x=>x.id===subId);
+  const correct=parseInt(document.getElementById('bm-correct').value);
+  const total=parseInt(document.getElementById('bm-total').value)||30;
+  const el=document.getElementById('bm-xp-preview');
+  if(isNaN(correct)||!s){el.textContent='';return;}
+  const pct=Math.round((correct/total)*100);
+  const xp=pct>=70?s.lec*20:pct>=50?s.lec*10:pct>=33?s.lec*5:0;
+  const col=pct>=70?'var(--green)':pct>=50?'var(--amber)':pct>=33?'var(--muted2)':'var(--red)';
+  el.style.color=col;
+  el.textContent=`${pct}% score → ${xp>0?'+'+xp.toLocaleString()+' XP':'No XP earned'}`;
+}
+
+// ===================== MILESTONES =====================
+function renderMS(){
+  document.getElementById('ms-grid').innerHTML=MILESTONES.map(m=>{
+    const earned=S.msEarned.includes(m.id);
+    return `<div class="ms-card ${earned?'earned':''}">
+      <div class="ms-icon">${m.icon}</div>
+      <div class="ms-info">
+        <div class="ms-name">${m.name}</div>
+        <div class="ms-desc">${m.desc}</div>
+        ${earned?'<div class="ms-earned-tag">✓ EARNED +500 XP</div>':''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ===================== COMPETE =====================
+function renderCompete(){
+  const yd=S.yesterday,td=S.today;
+  const tH=parseFloat(Math.max(S.goalH,(yd.h*1.1)||0).toFixed(1));
+  const tM=Math.max(S.goalM,Math.ceil((yd.mcq*1.1)||0));
+  const tX=Math.ceil((yd.xp*1.1)||0);
+  const metrics=[
+    {label:'Study Hours',ydv:yd.h.toFixed(1)+'h',tdv:td.h.toFixed(1)+'h',target:'Target: '+tH+'h',beat:td.h>=tH},
+    {label:'MCQs Solved',ydv:yd.mcq,tdv:td.mcq,target:'Target: '+tM,beat:td.mcq>=tM},
+    {label:'XP Earned',ydv:yd.xp,tdv:td.xp,target:'Target: '+tX,beat:td.xp>=tX},
+  ];
+  document.getElementById('compete-cols').innerHTML=metrics.map(m=>`
+    <div class="metric-card">
+      <div class="metric-yd">${m.label} — Yesterday</div>
+      <div class="metric-yd-val">${m.ydv}</div>
+      <div class="metric-td-label">Today</div>
+      <div class="metric-td-val" style="color:${m.beat?'var(--green)':'var(--red)'}">${m.tdv}</div>
+      <div class="metric-target" style="color:${m.beat?'var(--green)':'var(--amber)'}">${m.target} (+10%)</div>
+    </div>`).join('');
+  const ph=tH>0?Math.min(100,(td.h/tH)*100):0;
+  const pm=tM>0?Math.min(100,(td.mcq/tM)*100):0;
+  document.getElementById('c-h-bar').style.width=ph+'%';
+  document.getElementById('c-m-bar').style.width=pm+'%';
+  document.getElementById('c-h-text').textContent=`${td.h.toFixed(1)} / ${tH}h`;
+  document.getElementById('c-m-text').textContent=`${td.mcq} / ${tM}`;
+  const rows=document.querySelector('#perf-table tbody');
+  if(!S.perfLog.length){rows.innerHTML='<tr><td colspan="4" style="color:var(--muted);padding:12px">No history yet. Study daily!</td></tr>';return;}
+  rows.innerHTML=`<tr><th>Date</th><th>Hours</th><th>MCQs</th><th>XP</th></tr>`+[...S.perfLog].reverse().slice(0,7).map((d,i,arr)=>{
+    const prev=arr[i+1];
+    const hUp=prev?d.h>=prev.h:true,mUp=prev?d.mcq>=prev.mcq:true;
+    return `<tr><td>${d.date}</td><td style="color:${hUp?'var(--green)':'var(--red)'}">${d.h.toFixed(1)}h</td><td style="color:${mUp?'var(--green)':'var(--red)'}">${d.mcq}</td><td style="color:var(--amber)">${d.xp}</td></tr>`;
+  }).join('');
+}
+
+// ===================== SETTINGS =====================
+function saveName(){const v=document.getElementById('inp-name').value.trim();if(v){S.name=v;save();renderUI();}}
+function saveGoals(){
+  S.goalH=parseFloat(document.getElementById('inp-goal-h').value)||6;
+  S.goalM=parseInt(document.getElementById('inp-goal-m').value)||30;
+  save();updateDailyUI();alert('Goals saved!');
+}
+function saveYesterday(){
+  const h=parseFloat(document.getElementById('inp-yd-h').value)||0;
+  const m=parseInt(document.getElementById('inp-yd-m').value)||0;
+  S.yesterday={h,mcq:m,xp:S.yesterday.xp||0};
+  S.goalH=parseFloat(Math.max(S.goalH,(h*1.1)).toFixed(1));
+  S.goalM=Math.max(S.goalM,Math.ceil(m*1.1));
+  save();renderUI();alert(`Yesterday set!\nNew targets: ${S.goalH}h study & ${S.goalM} MCQs today`);
+}
+function resetAll(){if(confirm('Reset ALL progress?')){localStorage.removeItem('gcq_v5');location.reload();}}
+
+// ===================== INIT =====================
+document.getElementById('inp-name').value=S.name;
+document.getElementById('inp-goal-h').value=S.goalH;
+document.getElementById('inp-goal-m').value=S.goalM;
+renderUI();
+renderMCQ();
+document.getElementById('modal-bg').addEventListener('click',e=>{if(e.target===document.getElementById('modal-bg'))closeModal();});
+</script>
+</body>
+</html>

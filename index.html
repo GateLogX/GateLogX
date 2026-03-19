@@ -224,9 +224,9 @@ nav.scrolled {
         /* Feature Cards - Modern Design */
 .feature-cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 36px auto 0;
     padding: 0 20px;
 }
@@ -553,6 +553,10 @@ nav.scrolled {
         }
 
         /* Responsive rules */
+        @media (max-width: 1200px) {
+            .feature-cards { grid-template-columns: repeat(3, 1fr); max-width: 900px; }
+        }
+
         @media (max-width: 1024px) {
             .feature-cards { grid-template-columns: repeat(2, 1fr); max-width: 720px; }
             .stats { grid-template-columns: repeat(2, 1fr); }
@@ -1815,10 +1819,256 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>Monitor subject progress</p>
         </div>
     </a>
+    <a href="javascript:void(0)" onclick="openPaywall()" class="feature-card">
+        <div class="feature-icon">🎮</div>
+        <div class="feature-content">
+            <h3>GATE CSE Quest</h3>
+            <p>Learn through RPG adventure</p>
+        </div>
+    </a>
 </div>
             </div>
         </div>
     </section>
+
+    <style>
+/* ---------- Paywall Modal ---------- */
+.paywall-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(8px);
+  z-index: 3000;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 20px;
+}
+.paywall-overlay.active { display: flex; }
+
+.paywall-box {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 24px;
+  padding: 40px 36px;
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  animation: pwSlideUp 0.4s cubic-bezier(0.4,0,0.2,1);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+@keyframes pwSlideUp {
+  from { opacity:0; transform: translateY(40px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+.paywall-close {
+  position: absolute;
+  top: 16px; right: 18px;
+  background: none; border: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 22px; cursor: pointer;
+  transition: color 0.2s;
+}
+.paywall-close:hover { color: #fff; }
+
+.paywall-icon { font-size: 52px; margin-bottom: 14px; }
+
+.paywall-title {
+  font-size: 26px; font-weight: 800;
+  background: linear-gradient(135deg, #fff 0%, #667eea 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; margin-bottom: 10px; letter-spacing: -0.5px;
+}
+
+.paywall-subtitle {
+  color: rgba(255,255,255,0.65);
+  font-size: 15px; line-height: 1.6; margin-bottom: 28px;
+}
+
+.paywall-price {
+  font-size: 42px; font-weight: 900;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; margin-bottom: 6px;
+}
+.paywall-price-sub {
+  color: rgba(255,255,255,0.45); font-size: 13px; margin-bottom: 28px;
+}
+
+.upi-id-box {
+  background: rgba(102,126,234,0.12);
+  border: 1px dashed rgba(102,126,234,0.5);
+  border-radius: 12px;
+  padding: 14px 20px;
+  margin-bottom: 10px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.upi-id-text {
+  color: #a5b4fc; font-size: 15px; font-weight: 700; letter-spacing: 0.3px;
+}
+.copy-btn {
+  background: rgba(102,126,234,0.2);
+  border: 1px solid rgba(102,126,234,0.4);
+  color: #667eea; padding: 6px 14px;
+  border-radius: 8px; font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.copy-btn:hover { background: rgba(102,126,234,0.4); color: #fff; }
+.copy-btn.copied { background: #059669; border-color: #059669; color: #fff; }
+
+.upi-hint {
+  color: rgba(255,255,255,0.4); font-size: 12px; margin-bottom: 28px;
+}
+
+/* Steps in paywall */
+.pw-steps { text-align: left; margin-bottom: 28px; }
+.pw-step {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-bottom: 12px; color: rgba(255,255,255,0.75); font-size: 14px;
+}
+.pw-step-num {
+  width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #fff;
+}
+
+/* Divider */
+.pw-divider {
+  height: 1px; background: rgba(255,255,255,0.08); margin: 0 0 24px;
+}
+
+/* Code input section */
+.pw-already-paid {
+  color: rgba(255,255,255,0.5); font-size: 13px; margin-bottom: 14px;
+  cursor: pointer; text-decoration: underline; text-underline-offset: 3px;
+}
+.pw-already-paid:hover { color: rgba(255,255,255,0.8); }
+
+.code-section { display: none; }
+.code-section.visible { display: block; }
+
+.code-input-row {
+  display: flex; gap: 10px; margin-bottom: 10px;
+}
+.code-input {
+  flex: 1; background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px; padding: 12px 16px;
+  color: #fff; font-size: 14px; letter-spacing: 1px;
+  transition: border-color 0.3s;
+}
+.code-input:focus {
+  outline: none; border-color: #667eea;
+  background: rgba(102,126,234,0.12);
+}
+.code-input::placeholder { letter-spacing: 0; }
+.unlock-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none; color: #fff; padding: 12px 20px;
+  border-radius: 10px; font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: all 0.3s; white-space: nowrap;
+}
+.unlock-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(102,126,234,0.4); }
+
+.code-error {
+  color: #f87171; font-size: 13px; display: none; margin-top: 4px;
+}
+.code-error.show { display: block; }
+
+/* Contact row */
+.contact-row {
+  display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap;
+}
+.contact-row a {
+  flex: 1; min-width: 130px;
+  padding: 10px 16px; border-radius: 10px;
+  font-size: 13px; font-weight: 600; text-decoration: none;
+  text-align: center; transition: all 0.3s;
+  border: 1px solid;
+}
+.wa-link {
+  background: rgba(37,211,102,0.12);
+  border-color: rgba(37,211,102,0.4) !important;
+  color: #34d399;
+}
+.wa-link:hover { background: rgba(37,211,102,0.25); color: #fff; }
+.email-link {
+  background: rgba(102,126,234,0.12);
+  border-color: rgba(102,126,234,0.4) !important;
+  color: #a5b4fc;
+}
+.email-link:hover { background: rgba(102,126,234,0.25); color: #fff; }
+
+/* Unlocked success card */
+.unlocked-card {
+  display: none; text-align: center; padding: 20px 0;
+}
+.unlocked-card.show { display: block; }
+.unlocked-anim { font-size: 64px; animation: popIn 0.5s cubic-bezier(0.4,0,0.2,1); }
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity:0; }
+  70% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity:1; }
+}
+.unlocked-title {
+  font-size: 24px; font-weight: 800; color: #10b981; margin: 16px 0 8px;
+}
+.unlocked-sub { color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 24px; }
+.play-btn {
+  display: inline-block; background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #fff; padding: 14px 36px; border-radius: 12px;
+  font-size: 16px; font-weight: 700; text-decoration: none;
+  transition: all 0.3s; border: none; cursor: pointer;
+}
+.play-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(16,185,129,0.4); }
+
+/* Paywall Responsive */
+@media (max-width: 480px) {
+  .paywall-overlay { padding: 12px; }
+  .paywall-box {
+    padding: 28px 20px;
+    border-radius: 18px;
+    max-height: 85vh;
+  }
+  .paywall-icon { font-size: 40px; margin-bottom: 10px; }
+  .paywall-title { font-size: 22px; }
+  .paywall-subtitle { font-size: 13px; margin-bottom: 20px; }
+  .paywall-price { font-size: 34px; }
+  .paywall-price-sub { font-size: 12px; margin-bottom: 20px; }
+  .pw-steps { margin-bottom: 20px; }
+  .pw-step { font-size: 13px; gap: 10px; margin-bottom: 10px; }
+  .pw-step-num { width: 20px; height: 20px; font-size: 10px; }
+  .upi-id-box { padding: 12px 14px; flex-wrap: wrap; justify-content: center; }
+  .upi-id-text { font-size: 13px; }
+  .upi-hint { font-size: 11px; margin-bottom: 20px; }
+  .contact-row { gap: 8px; }
+  .contact-row a { padding: 10px 12px; font-size: 12px; min-width: 110px; }
+  .code-input-row { flex-direction: column; }
+  .code-input { padding: 12px 14px; font-size: 13px; }
+  .unlock-btn { width: 100%; padding: 12px; }
+  .unlocked-anim { font-size: 48px; }
+  .unlocked-title { font-size: 20px; }
+  .play-btn { padding: 12px 28px; font-size: 14px; }
+}
+
+@media (max-height: 700px) {
+  .paywall-box { max-height: 95vh; padding: 24px 20px; }
+  .paywall-icon { font-size: 36px; margin-bottom: 8px; }
+  .paywall-subtitle { margin-bottom: 16px; }
+  .paywall-price { font-size: 32px; }
+  .paywall-price-sub { margin-bottom: 16px; }
+  .pw-steps { margin-bottom: 16px; }
+  .pw-step { margin-bottom: 8px; }
+  .upi-hint { margin-bottom: 16px; }
+  .contact-row { margin-bottom: 16px; }
+  .pw-divider { margin-bottom: 16px; }
+}
+    </style>
 
     <style>
     /* Safety spacing for home section to avoid overlap on small screens */
@@ -4317,5 +4567,297 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 3000);
         }
     </script>
+
+<!-- Paywall Modal -->
+<div class="paywall-overlay" id="paywallOverlay">
+  <div class="paywall-box">
+    <button class="paywall-close" onclick="closePaywall()">×</button>
+
+    <!-- Main content (shown before unlock) -->
+    <div id="paywallMain">
+      <div class="paywall-icon">🎮</div>
+      <div class="paywall-title">GATE CSE Quest</div>
+      <div class="paywall-subtitle">
+        Unlock the full RPG adventure — learn every GATE CS topic through an immersive quest system.
+      </div>
+
+      <div class="paywall-price">₹500</div>
+      <div class="paywall-price-sub">One-time payment · Lifetime access</div>
+
+      <!-- Steps -->
+      <div class="pw-steps">
+        <div class="pw-step">
+          <div class="pw-step-num">1</div>
+          <div>Pay ₹500 to the UPI ID below using <strong>GPay, PhonePe, or BHIM</strong></div>
+        </div>
+        <div class="pw-step">
+          <div class="pw-step-num">2</div>
+          <div>Copy your <strong>UPI transaction ID</strong> from the payment confirmation screen</div>
+        </div>
+        <div class="pw-step">
+          <div class="pw-step-num">3</div>
+          <div>Send the transaction ID to us on <strong>WhatsApp or email</strong> — we'll reply with your unlock code</div>
+        </div>
+        <div class="pw-step">
+          <div class="pw-step-num">4</div>
+          <div>Enter the code below to unlock the game instantly</div>
+        </div>
+      </div>
+
+      <!-- UPI ID box -->
+      <div class="upi-id-box">
+        <span class="upi-id-text" id="upiIdText">9560858781@pthdfc</span>
+        <button class="copy-btn" id="copyUpiBtn" onclick="copyUPI()">Copy</button>
+      </div>
+      <div class="upi-hint">Open GPay / PhonePe → Pay to UPI ID → paste above ID</div>
+
+      <!-- Contact us -->
+      <div class="contact-row">
+        <a class="wa-link"
+           href="https://wa.me/919560858781?text=Hi%2C+I%20paid%20%E2%82%B9500%20for%20GATE%20CSE%20Quest.%20My%20UPI%20transaction%20ID%20is%3A%20%5BPASTE_TXN_ID%5D"
+           target="_blank">
+          📲 WhatsApp us
+        </a>
+        <a class="email-link"
+           href="mailto:gatelogx@gmail.com?subject=GATE%20CSE%20Quest%20Unlock&body=Hi%2C%20I%20paid%20%E2%82%B9500%20for%20the%20GATE%20CSE%20Quest.%20My%20UPI%20transaction%20ID%20is%3A%20%5BPASTE_TXN_ID%5D"
+           target="_blank">
+          ✉️ Email us
+        </a>
+      </div>
+
+      <div class="pw-divider"></div>
+
+      <!-- Already paid section -->
+      <div class="pw-already-paid" onclick="toggleCodeSection()">
+        ✅ Already paid? Enter your unlock code →
+      </div>
+
+      <div class="code-section" id="codeSection">
+        <div class="code-input-row">
+          <input class="code-input" type="text" id="unlockCodeInput"
+                 placeholder="Enter unlock code (case-sensitive)"
+                 maxlength="30" autocomplete="off" spellcheck="false">
+          <button class="unlock-btn" onclick="checkUnlockCode()">Unlock</button>
+        </div>
+        <div class="code-error" id="codeError">❌ Invalid code. Please check and try again.</div>
+      </div>
+    </div>
+
+    <!-- Unlocked success state -->
+    <div class="unlocked-card" id="unlockedCard">
+      <div class="unlocked-anim">🎉</div>
+      <div class="unlocked-title">You're in!</div>
+      <div class="unlocked-sub">Your code has been saved. Enjoy the adventure!</div>
+      <a class="play-btn" href="gate_cse_rpg.html">▶ Play GATE CSE Quest</a>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<script>
+  // =========================================================
+  // FIREBASE CONFIGURATION
+  // =========================================================
+  const firebaseConfig = {
+    apiKey: "AIzaSyBp5mzuP_bjjlqFIVTyO_t-L8V2_ud8Gns",
+    authDomain: "gatelogx-abce1.firebaseapp.com",
+    projectId: "gatelogx-abce1",
+    storageBucket: "gatelogx-abce1.firebasestorage.app",
+    messagingSenderId: "880558405187",
+    appId: "1:880558405187:web:a9a21de3319565ec6106f6"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const auth = firebase.auth();
+
+  const UNLOCK_KEY = "gatelogx_game_unlocked";
+
+  // Check Firebase Auth state on page load — if user is authenticated and unlocked, update the card
+  document.addEventListener("DOMContentLoaded", () => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        // User is signed in, check if they have unlocked the game
+        try {
+          const userDoc = await db.collection("unlocked_users").doc(user.uid).get();
+          if (userDoc.exists && userDoc.data().unlocked === true) {
+            updateGameCardToUnlocked();
+          }
+        } catch (e) {
+          console.error("Error checking unlock status:", e);
+        }
+      }
+    });
+  });
+
+  function updateGameCardToUnlocked() {
+    const gameCard = document.querySelector('a[onclick="openPaywall()"]');
+    if (gameCard) {
+      gameCard.setAttribute('href', 'gate_cse_rpg.html');
+      gameCard.removeAttribute('onclick');
+      const p = gameCard.querySelector('.feature-content p');
+      if (p) p.textContent = "✅ Unlocked — tap to play";
+    }
+  }
+
+  async function openPaywall() {
+    // Check if user is already authenticated and unlocked
+    const user = auth.currentUser;
+    if (user) {
+      try {
+        const userDoc = await db.collection("unlocked_users").doc(user.uid).get();
+        if (userDoc.exists && userDoc.data().unlocked === true) {
+          window.location.href = "gate_cse_rpg.html";
+          return;
+        }
+      } catch (e) {
+        console.error("Error checking unlock:", e);
+      }
+    }
+    document.getElementById("paywallOverlay").classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closePaywall() {
+    document.getElementById("paywallOverlay").classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  function copyUPI() {
+    const upiId = document.getElementById("upiIdText").textContent;
+    navigator.clipboard.writeText(upiId).then(() => {
+      const btn = document.getElementById("copyUpiBtn");
+      btn.textContent = "Copied!";
+      btn.classList.add("copied");
+      setTimeout(() => {
+        btn.textContent = "Copy";
+        btn.classList.remove("copied");
+      }, 2000);
+    }).catch(() => {
+      // Fallback for older browsers
+      const el = document.createElement("textarea");
+      el.value = upiId;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+      const btn = document.getElementById("copyUpiBtn");
+      btn.textContent = "Copied!";
+      btn.classList.add("copied");
+      setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("copied"); }, 2000);
+    });
+  }
+
+  function toggleCodeSection() {
+    const section = document.getElementById("codeSection");
+    section.classList.toggle("visible");
+    if (section.classList.contains("visible")) {
+      document.getElementById("unlockCodeInput").focus();
+    }
+  }
+
+  async function checkUnlockCode() {
+    const raw = document.getElementById("unlockCodeInput").value.trim();
+    const errorEl = document.getElementById("codeError");
+    const unlockBtn = document.querySelector(".unlock-btn");
+
+    if (!raw) {
+      errorEl.textContent = "❌ Please enter a code.";
+      errorEl.classList.add("show");
+      return;
+    }
+
+    // Show loading state
+    unlockBtn.textContent = "Checking...";
+    unlockBtn.disabled = true;
+
+    try {
+      // Query Firebase for the code
+      const codeDoc = await db.collection("unlock_codes").doc(raw).get();
+
+      if (!codeDoc.exists) {
+        // ❌ Code doesn't exist
+        errorEl.textContent = "❌ Invalid code. Please check and try again.";
+        errorEl.classList.add("show");
+        document.getElementById("unlockCodeInput").style.borderColor = "#f87171";
+        setTimeout(() => {
+          document.getElementById("unlockCodeInput").style.borderColor = "";
+        }, 1500);
+      } else if (codeDoc.data().used === true) {
+        // ❌ Code already used by someone else
+        errorEl.textContent = "❌ This code has already been used.";
+        errorEl.classList.add("show");
+        document.getElementById("unlockCodeInput").style.borderColor = "#f87171";
+        setTimeout(() => {
+          document.getElementById("unlockCodeInput").style.borderColor = "";
+        }, 1500);
+      } else if (codeDoc.data().valid === true) {
+        // ✅ Valid code — sign in anonymously and create user record
+        let user = auth.currentUser;
+        
+        // If not signed in, sign in anonymously
+        if (!user) {
+          const credential = await auth.signInAnonymously();
+          user = credential.user;
+        }
+
+        // Mark code as used with user's UID
+        await db.collection("unlock_codes").doc(raw).update({
+          used: true,
+          usedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          usedBy: user.uid
+        });
+
+        // Create user record with unlock status
+        await db.collection("unlocked_users").doc(user.uid).set({
+          unlocked: true,
+          code: raw,
+          unlockedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        // Show success
+        document.getElementById("paywallMain").style.display = "none";
+        document.getElementById("unlockedCard").classList.add("show");
+        errorEl.classList.remove("show");
+      } else {
+        // ❌ Code exists but not valid
+        errorEl.textContent = "❌ Invalid code. Please check and try again.";
+        errorEl.classList.add("show");
+        document.getElementById("unlockCodeInput").style.borderColor = "#f87171";
+        setTimeout(() => {
+          document.getElementById("unlockCodeInput").style.borderColor = "";
+        }, 1500);
+      }
+    } catch (error) {
+      console.error("Error checking code:", error);
+      errorEl.textContent = "❌ Connection error. Please try again.";
+      errorEl.classList.add("show");
+    } finally {
+      unlockBtn.textContent = "Unlock";
+      unlockBtn.disabled = false;
+    }
+  }
+
+  // Allow Enter key in code input
+  document.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById("unlockCodeInput");
+    if (input) {
+      input.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") checkUnlockCode();
+      });
+    }
+
+    // Close paywall on backdrop click
+    document.getElementById("paywallOverlay").addEventListener("click", (e) => {
+      if (e.target === document.getElementById("paywallOverlay")) closePaywall();
+    });
+  });
+</script>
+
 </body>
 </html>
