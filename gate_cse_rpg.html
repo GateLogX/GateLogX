@@ -1020,7 +1020,7 @@ function scheduleSave() {
   }
 }
 
-function addXP(amt,msg){
+function addXP(amt,msg,skipFullRender){
   S.xp+=amt; S.today.xp+=amt;
   const newL=getLevel(S.xp);
   if(newL>S.level){S.level=newL;log(`Leveled up → LVL ${newL}!`,0);}
@@ -1028,7 +1028,26 @@ function addXP(amt,msg){
   log(msg,amt);
   checkMS();
   scheduleSave();
-  scheduleRender();
+  if(skipFullRender){
+    updateStatsOnly();
+  } else {
+    scheduleRender();
+  }
+}
+
+// Fast stats update without rebuilding grids
+function updateStatsOnly(){
+  document.getElementById('top-xp').textContent=S.xp.toLocaleString();
+  document.getElementById('top-topics').textContent=S.topicsDone;
+  document.getElementById('top-subjects').textContent=S.subjDone;
+  document.getElementById('top-bosses').textContent=S.bossSlain;
+  document.getElementById('top-streak').textContent=S.streak;
+  document.getElementById('sb-level').textContent=S.level;
+  document.getElementById('sb-rank').textContent=RANKS[S.level-1];
+  const xpC=S.xp-xpPrev(S.level), xpN=xpForNext(S.level)-xpPrev(S.level);
+  document.getElementById('sb-xp-count').textContent=`${S.xp.toLocaleString()} / ${xpForNext(S.level).toLocaleString()}`;
+  document.getElementById('sb-xp-bar').style.width=Math.min(100,(xpC/xpN)*100)+'%';
+  document.getElementById('nb-subjects').textContent=`${S.subjDone}/13`;
 }
 function log(msg,xp){
   S.actLog.unshift({msg,xp,t:new Date().toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'})});
@@ -1180,10 +1199,10 @@ function toggleTopic(subId,topicId){
     const prevDone=S.subjDone;
     S.subjDone=SUBJECTS.filter(sx=>{const p=S.progress[sx.id]||{};return sx.topics.every(t=>p[t.id]);}).length;
     if(S.subjDone>prevDone){
-      addXP(s.xpp,`Completed topic`);
-      addXP(5000,`🏆 ${s.name} MASTERED!`);
+      addXP(s.xpp,`Completed topic`,true);
+      addXP(5000,`🏆 ${s.name} MASTERED!`); // Full render for mastery celebration
     }else{
-      addXP(s.xpp,`Completed topic in ${s.name}`);
+      addXP(s.xpp,`Completed topic in ${s.name}`,true); // Skip full render, just update stats
     }
   }else{
     if(el){el.className='topic-item';el.querySelector('.topic-check').textContent='';}
