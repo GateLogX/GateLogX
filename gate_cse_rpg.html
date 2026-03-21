@@ -218,11 +218,18 @@ body::before{
 .ms-card.earned{border-color:#3d2800;background:rgba(240,165,0,0.04)}
 .ms-icon{font-size:24px;flex-shrink:0;opacity:0.3;filter:grayscale(1)}
 .ms-card.earned .ms-icon{opacity:1;filter:none}
-.ms-info{}
+.ms-info{display:block}
 .ms-name{font-size:13px;font-weight:600;color:var(--muted2)}
 .ms-card.earned .ms-name{color:var(--amber2)}
 .ms-desc{font-size:11px;color:var(--muted);margin-top:2px}
 .ms-earned-tag{font-size:9px;color:var(--amber);font-family:'Space Mono',monospace;letter-spacing:1px;margin-top:4px;font-weight:700}
+
+/* PYQ SYSTEM */
+.pyq-card{transition:all 0.2s;border:1px solid var(--border)}
+.pyq-card:hover{border-color:var(--amber);transform:translateY(-1px)}
+.pyq-card.pyq-solved{background:rgba(34,197,94,0.05);border-color:rgba(34,197,94,0.3)}
+.pyq-check-btn{transition:all 0.15s}
+.pyq-check-btn:hover{transform:scale(1.1);border-color:var(--green)!important}
 
 /* COMPETE */
 .compete-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
@@ -404,6 +411,10 @@ input.num{width:90px}
       <div class="nav-item" onclick="go('compete')" id="nav-compete">
         <span class="nav-icon">📈</span>vs Self
       </div>
+      <div class="nav-item" onclick="go('pyqs')" id="nav-pyqs">
+        <span class="nav-icon">📚</span>Practice PYQs
+        <span class="nav-badge" id="nb-pyqs">0</span>
+      </div>
       <div class="sidebar-section-label" style="margin-top:8px">Subjects</div>
       <div id="sb-subject-list"></div>
       <div class="sidebar-section-label" style="margin-top:8px">Recent</div>
@@ -508,6 +519,41 @@ input.num{width:90px}
         <div class="card">
           <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--muted2);text-transform:uppercase;margin-bottom:12px">Last 7 Days</div>
           <table class="perf-table" id="perf-table"><tbody></tbody></table>
+        </div>
+      </div>
+
+      <!-- PYQS -->
+      <div class="panel" id="panel-pyqs">
+        <div class="panel-header">
+          <div class="panel-title">📚 Practice PYQs</div>
+          <div class="panel-sub">60,000+ Previous Year Questions from GateOverflow. Filter by subject, track your progress!</div>
+        </div>
+        <div class="pyq-controls" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+          <select id="pyq-subject-filter" class="pyq-select" onchange="loadPYQs()" style="padding:8px 12px;border-radius:6px;background:var(--card);border:1px solid var(--border);color:var(--text);font-size:13px;min-width:180px">
+            <option value="all">All Subjects</option>
+            <option value="today">📅 Topics Done Today</option>
+          </select>
+          <select id="pyq-status-filter" class="pyq-select" onchange="filterPYQDisplay()" style="padding:8px 12px;border-radius:6px;background:var(--card);border:1px solid var(--border);color:var(--text);font-size:13px">
+            <option value="all">All Questions</option>
+            <option value="unsolved">Unsolved Only</option>
+            <option value="solved">Solved Only</option>
+          </select>
+          <div style="flex:1"></div>
+          <div class="pyq-stats" style="display:flex;gap:16px;align-items:center;font-size:12px;color:var(--muted2)">
+            <span>Solved: <span id="pyq-solved-count" class="amber-val">0</span></span>
+            <span>Total: <span id="pyq-total-count">0</span></span>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-size:11px;font-weight:600;color:var(--muted2);text-transform:uppercase">Overall Progress</span>
+            <span id="pyq-pct" style="font-size:12px;color:var(--amber)">0%</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill fill-amber" id="pyq-progress-bar" style="width:0%"></div></div>
+        </div>
+        <div id="pyq-list" style="display:flex;flex-direction:column;gap:8px"></div>
+        <div id="pyq-load-more" style="text-align:center;margin-top:16px;display:none">
+          <button class="btn btn-ghost" onclick="loadMorePYQs()">Load More Questions</button>
         </div>
       </div>
 
@@ -817,6 +863,8 @@ function loadState(){
     bossLog:[],
     goalH:6, goalM:30,
     today:{date:todayStr(),h:0,mcq:0,xp:0},
+    // track which daily bonuses have been awarded to avoid duplicates
+    todayRewards:{},
     yesterday:{h:0,mcq:0,xp:0},
     perfLog:[],
     actLog:[],
@@ -838,12 +886,67 @@ function checkNewDay(){
     const ydStr=yd.toISOString().split('T')[0];
     if(S.today.date===ydStr&&(S.today.h>0||S.today.mcq>0)){S.streak++;}
     else if(S.today.date!==ydStr){S.streak=0;}
-    // auto-adjust goals
-    if(S.yesterday.h>0) S.goalH=parseFloat(Math.max(S.goalH,(S.yesterday.h*1.1)).toFixed(1));
-    if(S.yesterday.mcq>0) S.goalM=Math.max(S.goalM,Math.ceil(S.yesterday.mcq*1.1));
+    // auto-adjust goals — set today's target to yesterday * 1.1 (so you always aim to beat yesterday)
+    if(S.yesterday.h>0){
+      S.goalH = parseFloat((S.yesterday.h*1.1).toFixed(2));
+    }
+    if(S.yesterday.mcq>0){
+      S.goalM = Math.max(1, Math.ceil(S.yesterday.mcq*1.1));
+    }
+    // reset today's reward-tracking so bonuses can be earned again
+    S.todayRewards = {};
     S.today={date:td,h:0,mcq:0,xp:0};
     save();
   }
+}
+
+// ===================== DAILY BONUS EVALUATION =====================
+function evaluateDailyBonuses(){
+  if(!S.todayRewards) S.todayRewards={};
+  // HOURS: beat yesterday
+  if(S.yesterday.h>0 && !S.todayRewards.hBeat && S.today.h> S.yesterday.h){
+    S.todayRewards.hBeat = true;
+    addXP(20, 'Beat Yesterday — Study Hours');
+  }
+  // HOURS: reach target
+  if(!S.todayRewards.hTarget && S.goalH>0 && S.today.h >= S.goalH){
+    S.todayRewards.hTarget = true;
+    addXP(100, 'Reached Daily Study Target');
+  }
+  // HOURS: extra over target — award per 30 minutes beyond target
+  if(S.goalH>0){
+    const over = Math.max(0, S.today.h - S.goalH);
+    const units = Math.floor(over / 0.5); // each 0.5h
+    const prev = S.todayRewards.hOverUnits || 0;
+    if(units > prev){
+      const extra = (units - prev) * 25; // 25 XP per 30min extra
+      S.todayRewards.hOverUnits = units;
+      addXP(extra, 'Extra Study Bonus');
+    }
+  }
+
+  // MCQs: beat yesterday
+  if(S.yesterday.mcq>0 && !S.todayRewards.mBeat && S.today.mcq > S.yesterday.mcq){
+    S.todayRewards.mBeat = true;
+    addXP(10, 'Beat Yesterday — MCQs');
+  }
+  // MCQs: reach target
+  if(!S.todayRewards.mTarget && S.goalM>0 && S.today.mcq >= S.goalM){
+    S.todayRewards.mTarget = true;
+    addXP(50, 'Reached Daily MCQ Target');
+  }
+  // MCQs: extra over target — 2 XP per extra MCQ
+  if(S.goalM>0){
+    const overM = Math.max(0, S.today.mcq - S.goalM);
+    const prevM = S.todayRewards.mOverGivenCount || 0;
+    if(Math.floor(overM) > prevM){
+      const extra = (Math.floor(overM) - prevM) * 2;
+      S.todayRewards.mOverGivenCount = Math.floor(overM);
+      addXP(extra, 'Extra MCQ Bonus');
+    }
+  }
+  save();
+  renderUI();
 }
 
 // ===================== XP =====================
@@ -889,6 +992,7 @@ function go(tab){
   if(tab==='boss')renderBoss();
   if(tab==='milestones')renderMS();
   if(tab==='compete')renderCompete();
+  if(tab==='pyqs')renderPYQs();
 }
 
 function renderUI(){
@@ -908,6 +1012,9 @@ function renderUI(){
   document.getElementById('nb-subjects').textContent=`${S.subjDone}/13`;
   document.getElementById('nb-boss').textContent=S.bossSlain;
   document.getElementById('nb-ms').textContent=`${S.msEarned.length}/18`;
+  // PYQ badge
+  const pyqSolvedCount = Object.keys(JSON.parse(localStorage.getItem('gcq_pyq_solved')||'{}')).length;
+  document.getElementById('nb-pyqs').textContent = pyqSolvedCount;
   // sidebar subjects
   document.getElementById('sb-subject-list').innerHTML=SUBJECTS.map(s=>{
     const p=S.progress[s.id]||{};
@@ -989,6 +1096,10 @@ function toggleTopic(subId,topicId){
   const was=S.progress[subId][topicId];
   if(!was){
     S.progress[subId][topicId]=true;
+    // record completion timestamp for topic
+    if(!S.topicDoneAt) S.topicDoneAt={};
+    if(!S.topicDoneAt[subId]) S.topicDoneAt[subId]={};
+    S.topicDoneAt[subId][topicId]=todayStr();
     S.topicsDone++;
     const el=document.getElementById(`ti-${subId}-${topicId}`);
     if(el){el.className='topic-item done';el.querySelector('.topic-check').textContent='✓';}
@@ -1004,6 +1115,7 @@ function toggleTopic(subId,topicId){
     }
   }else{
     S.progress[subId][topicId]=false;
+    if(S.topicDoneAt && S.topicDoneAt[subId]) delete S.topicDoneAt[subId][topicId];
     S.topicsDone=Math.max(0,S.topicsDone-1);
     S.xp=Math.max(0,S.xp-s.xpp);
     S.level=getLevel(S.xp);
@@ -1062,6 +1174,8 @@ function updateDailyUI(){
   document.getElementById('d-goal-mcq').textContent=gM;
   const pm=gM>0?Math.min(100,(m/gM)*100):0;
   document.getElementById('d-bar-mcq').style.width=pm+'%';
+  // evaluate bonuses after updating UI
+  evaluateDailyBonuses();
 }
 
 // ===================== MCQ =====================
@@ -1096,14 +1210,62 @@ function renderMCQ(){
     curMCQ=null;mcqDone=true;
     return;
   }
-  
-  curMCQ=availableMCQs[Math.floor(Math.random()*availableMCQs.length)];mcqDone=false;
+  // filter out recently shown MCQs to avoid repeats
+  const recent = new Set(S.recentMCQs || []);
+  const filtered = availableMCQs.filter(m => !recent.has(m.q + '|' + m.subId));
+  const pool = filtered.length? filtered : availableMCQs; // if all are recent, allow repeat
+
+  curMCQ=pool[Math.floor(Math.random()*pool.length)];
+  mcqDone=false;
+  // record shown MCQ to recent list (store a composite key q|subId to identify)
+  try{
+    const key = curMCQ.q + '|' + curMCQ.subId;
+    S.recentMCQs = S.recentMCQs || [];
+    S.recentMCQs.unshift(key);
+    // keep recent list reasonable
+    if(S.recentMCQs.length>50) S.recentMCQs.pop();
+    save();
+  }catch(e){/* ignore */}
   const subj = SUBJECTS.find(s=>s.id===curMCQ.subId);
   const subjName = subj ? subj.name : curMCQ.subId;
   document.getElementById('mcq-area').innerHTML=`
     <div class="mcq-q">${curMCQ.q}<span style="font-size:10px;color:var(--muted);margin-left:8px">[${subjName} → ${curMCQ.topicName}]</span></div>
     <div class="mcq-opts">${curMCQ.opts.map((o,i)=>`<div class="mcq-opt" id="mo${i}" onclick="answerMCQ(${i})"><span class="mcq-label">${'ABCD'[i]}</span>${o}</div>`).join('')}</div>
     <div id="mcq-res"></div>`;
+
+  // also show PYQs fetched from data/pyqs for topics completed today (if any)
+  setTimeout(()=>{
+    try{
+      const today = todayStr();
+      const tags = JSON.parse(localStorage.getItem('gcq_pyq_tags')||'{}');
+      const subsWithToday = [];
+      if(S.topicDoneAt){
+        Object.keys(S.topicDoneAt).forEach(subId=>{
+          const byTopic = S.topicDoneAt[subId]||{};
+          if(Object.values(byTopic).some(d=>d===today)) subsWithToday.push(subId);
+        });
+      }
+      if(subsWithToday.length===0) return;
+      // load topic_map to find tags (fallback to data/topic_map.json)
+      fetch('data/topic_map.json').then(r=>r.json()).then(map=>{
+        subsWithToday.forEach(sid=>{
+          const tag = map[sid];
+          if(!tag) return;
+          fetch(`data/pyqs/${tag}.json`).then(r=>{
+            if(!r.ok) throw new Error('Not found');
+            return r.json();
+          }).then(j=>{
+            if(!j.questions||!j.questions.length) return;
+            const el = document.createElement('div');
+            el.style.marginTop='14px';
+            el.innerHTML = `<div style="font-size:12px;color:var(--muted2);margin-bottom:8px">PYQs from GateOverflow — ${tag}</div>` + j.questions.slice(0,6).map(q=>`<div style="padding:8px 10px;border-radius:6px;background:var(--bg3);margin-bottom:6px"><a href="${q.link||'#'}" target="_blank" style="color:var(--text);text-decoration:none">${q.title}</a></div>`).join('');
+            const area = document.getElementById('mcq-area');
+            if(area) area.appendChild(el);
+          }).catch(()=>{});
+        });
+      }).catch(()=>{});
+    }catch(e){}
+  },50);
 }
 function answerMCQ(c){
   if(mcqDone)return;mcqDone=true;
@@ -1115,6 +1277,8 @@ function answerMCQ(c){
   const xp=ok?25:5;
   S.today.mcq++;S.mcqTotal++;
   addXP(xp,`MCQ ${ok?'correct':'attempt'}`);
+  // evaluate daily bonuses (MCQ-based rewards)
+  evaluateDailyBonuses();
   document.getElementById('mcq-res').innerHTML=`<div class="mcq-result ${ok?'c':'w'}">${ok?'✓ Correct':'✗ Incorrect'}<span class="xp-pill">+${xp} XP</span><button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="renderMCQ()">Next →</button></div>`;
 }
 
@@ -1289,6 +1453,203 @@ function saveYesterday(){
   save();renderUI();alert(`Yesterday set!\nNew targets: ${S.goalH}h study & ${S.goalM} MCQs today`);
 }
 function resetAll(){if(confirm('Reset ALL progress?')){localStorage.removeItem('gcq_v5');location.reload();}}
+
+// ===================== PYQ SYSTEM =====================
+// Mapping from game subject IDs to scraped PYQ file names
+const PYQ_FILE_MAP = {
+  'dsa': ['data_structures'],
+  'algo': ['algorithms'],
+  'os': ['operating_system'],
+  'dbms': ['databases'],
+  'cn': ['computer_networks'],
+  'toc': ['theory_of_computation'],
+  'coa': ['coa'],
+  'cd': ['compiler_design'],
+  'dl': ['digital_logic'],
+  'cprog': ['programming'],
+  'apt': ['verbal_aptitude', 'quantitative_aptitude', 'spatial_aptitude', 'analytical_aptitude'],
+  'em': ['calculus', 'probability', 'linear_algebra', 'optimization'],
+  'dm': ['discrete_mathematics']
+};
+
+// PYQ state
+let pyqCache = {}; // {filename: {questions: [...], loaded: true}}
+let pyqSolved = JSON.parse(localStorage.getItem('gcq_pyq_solved')||'{}'); // {questionId: true}
+let pyqDisplayed = []; // currently shown questions
+let pyqPage = 0;
+const PYQ_PAGE_SIZE = 30;
+
+async function loadPYQFile(filename) {
+  if(pyqCache[filename]) return pyqCache[filename];
+  try {
+    const res = await fetch(`data/pyqs/${filename}.json`);
+    if(!res.ok) throw new Error('Not found');
+    const data = await res.json();
+    pyqCache[filename] = { questions: data.questions || [], loaded: true, subject: filename };
+    return pyqCache[filename];
+  } catch(e) {
+    console.warn('Failed to load PYQ file:', filename, e);
+    pyqCache[filename] = { questions: [], loaded: true, subject: filename };
+    return pyqCache[filename];
+  }
+}
+
+async function loadPYQs() {
+  const filter = document.getElementById('pyq-subject-filter').value;
+  const listEl = document.getElementById('pyq-list');
+  listEl.innerHTML = '<div style="text-align:center;padding:20px;color:var(--muted2)">Loading questions...</div>';
+  
+  let filesToLoad = [];
+  const today = todayStr();
+  
+  if(filter === 'all') {
+    // Load all subjects
+    for(const subId of Object.keys(PYQ_FILE_MAP)) {
+      filesToLoad.push(...PYQ_FILE_MAP[subId]);
+    }
+  } else if(filter === 'today') {
+    // Only subjects with topics done today
+    for(const subId of Object.keys(PYQ_FILE_MAP)) {
+      const byTopic = S.topicDoneAt[subId] || {};
+      if(Object.values(byTopic).some(d => d === today)) {
+        filesToLoad.push(...PYQ_FILE_MAP[subId]);
+      }
+    }
+  } else {
+    // Specific subject
+    filesToLoad = PYQ_FILE_MAP[filter] || [];
+  }
+  
+  // Remove duplicates
+  filesToLoad = [...new Set(filesToLoad)];
+  
+  // Load all files
+  const allQuestions = [];
+  for(const filename of filesToLoad) {
+    const data = await loadPYQFile(filename);
+    for(const q of data.questions) {
+      allQuestions.push({...q, subject: filename});
+    }
+  }
+  
+  pyqDisplayed = allQuestions;
+  pyqPage = 0;
+  
+  // Populate subject filter dropdown if needed
+  const selectEl = document.getElementById('pyq-subject-filter');
+  if(selectEl.options.length <= 2) {
+    SUBJECTS.forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s.id;
+      opt.textContent = s.icon + ' ' + s.name;
+      selectEl.appendChild(opt);
+    });
+  }
+  
+  filterPYQDisplay();
+}
+
+function filterPYQDisplay() {
+  const statusFilter = document.getElementById('pyq-status-filter').value;
+  let filtered = pyqDisplayed;
+  
+  if(statusFilter === 'solved') {
+    filtered = pyqDisplayed.filter(q => pyqSolved[q.id]);
+  } else if(statusFilter === 'unsolved') {
+    filtered = pyqDisplayed.filter(q => !pyqSolved[q.id]);
+  }
+  
+  // Update stats
+  const totalSolved = Object.keys(pyqSolved).length;
+  document.getElementById('pyq-solved-count').textContent = totalSolved;
+  document.getElementById('pyq-total-count').textContent = pyqDisplayed.length;
+  document.getElementById('nb-pyqs').textContent = totalSolved;
+  
+  const pct = pyqDisplayed.length > 0 ? Math.round((totalSolved / 60000) * 100) : 0;
+  document.getElementById('pyq-pct').textContent = pct + '%';
+  document.getElementById('pyq-progress-bar').style.width = pct + '%';
+  
+  renderPYQList(filtered);
+}
+
+function renderPYQList(questions) {
+  const listEl = document.getElementById('pyq-list');
+  const start = 0;
+  const end = (pyqPage + 1) * PYQ_PAGE_SIZE;
+  const toShow = questions.slice(start, end);
+  
+  if(toShow.length === 0) {
+    listEl.innerHTML = '<div class="card" style="text-align:center;padding:24px;color:var(--muted2)">No questions found. Complete some topics first!</div>';
+    document.getElementById('pyq-load-more').style.display = 'none';
+    return;
+  }
+  
+  listEl.innerHTML = toShow.map((q, i) => {
+    const isSolved = pyqSolved[q.id];
+    const subjectName = q.subject.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    return `
+      <div class="card pyq-card ${isSolved ? 'pyq-solved' : ''}" style="padding:12px;position:relative">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <button class="pyq-check-btn" onclick="togglePYQSolved('${q.id}')" style="
+            width:28px;height:28px;border-radius:6px;flex-shrink:0;
+            background:${isSolved ? 'var(--green)' : 'var(--card)'};
+            border:2px solid ${isSolved ? 'var(--green)' : 'var(--border)'};
+            color:${isSolved ? '#fff' : 'var(--muted2)'};
+            cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;
+          ">${isSolved ? '✓' : ''}</button>
+          <div style="flex:1;min-width:0">
+            <a href="${q.link}" target="_blank" style="
+              font-size:13px;font-weight:500;color:var(--text);text-decoration:none;
+              display:block;margin-bottom:4px;line-height:1.4;
+            " onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--text)'">
+              ${q.title}
+            </a>
+            <div style="font-size:11px;color:var(--muted2);display:flex;gap:8px;flex-wrap:wrap">
+              <span style="background:var(--bg);padding:2px 6px;border-radius:4px">${subjectName}</span>
+              ${q.excerpt ? `<span style="opacity:0.7">${q.excerpt.slice(0,80)}${q.excerpt.length>80?'...':''}</span>` : ''}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  
+  // Show/hide load more button
+  const loadMoreEl = document.getElementById('pyq-load-more');
+  if(end < questions.length) {
+    loadMoreEl.style.display = 'block';
+  } else {
+    loadMoreEl.style.display = 'none';
+  }
+}
+
+function loadMorePYQs() {
+  pyqPage++;
+  const statusFilter = document.getElementById('pyq-status-filter').value;
+  let filtered = pyqDisplayed;
+  if(statusFilter === 'solved') {
+    filtered = pyqDisplayed.filter(q => pyqSolved[q.id]);
+  } else if(statusFilter === 'unsolved') {
+    filtered = pyqDisplayed.filter(q => !pyqSolved[q.id]);
+  }
+  renderPYQList(filtered);
+}
+
+function togglePYQSolved(qId) {
+  if(pyqSolved[qId]) {
+    delete pyqSolved[qId];
+  } else {
+    pyqSolved[qId] = true;
+    // Award XP for marking as solved
+    addXP(10, `Solved PYQ`);
+  }
+  localStorage.setItem('gcq_pyq_solved', JSON.stringify(pyqSolved));
+  filterPYQDisplay();
+}
+
+function renderPYQs() {
+  loadPYQs();
+}
 
 // ===================== INIT =====================
 document.getElementById('inp-name').value=S.name;

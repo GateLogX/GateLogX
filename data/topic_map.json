@@ -1,0 +1,21 @@
+{
+  "verbal_aptitude": "https://gateoverflow.in/questions/general-aptitude/verbal-aptitude",
+  "quantitative_aptitude": "https://gateoverflow.in/questions/general-aptitude/quantitative-aptitude",
+  "spatial_aptitude": "https://gateoverflow.in/questions/general-aptitude/spatial-aptitude",
+  "analytical_aptitude": "https://gateoverflow.in/questions/general-aptitude/analytical-aptitude",
+  "discrete_mathematics": "https://gateoverflow.in/questions/mathematics/discrete-mathematics",
+  "probability": "https://gateoverflow.in/questions/mathematics/probability",
+  "linear_algebra": "https://gateoverflow.in/questions/mathematics/linear-algebra",
+  "calculus": "https://gateoverflow.in/questions/mathematics/calculus",
+  "optimization": "https://gateoverflow.in/questions/mathematics/optimization",
+  "digital_logic": "https://gateoverflow.in/questions/digital-logic",
+  "programming": "https://gateoverflow.in/questions/programming-in-c/programming",
+  "data_structures": "https://gateoverflow.in/questions/programming-in-c/data-structures",
+  "algorithms": "https://gateoverflow.in/questions/algorithms",
+  "theory_of_computation": "https://gateoverflow.in/questions/theory-of-computation",
+  "compiler_design": "https://gateoverflow.in/questions/compiler-design",
+  "operating_system": "https://gateoverflow.in/questions/operating-system",
+  "databases": "https://gateoverflow.in/questions/databases",
+  "coa": "https://gateoverflow.in/questions/co-and-architecture",
+  "computer_networks": "https://gateoverflow.in/questions/computer-networks"
+}

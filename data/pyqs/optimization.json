@@ -1,0 +1,120 @@
+{
+  "tag": "optimization",
+  "fetchedAt": "2026-03-21T13:15:38.561Z",
+  "questions": [
+    {
+      "id": "485983",
+      "title": "UGC NET CSE | January 2025 | Part 2 | Question: 6",
+      "link": "https://gateoverflow.in/../485983/ugc-net-cse-january-2025-part-2-question-6",
+      "excerpt": "A linear programming problem $\\text{(LPP)}$ is as follows:Min $z=30 x-18 y,$ subject to the constraints; $3 x+4 y \\leq 60, 5 x-3 y \\geq 20$ and $x, y \\geq 0.$ In this fea..."
+    },
+    {
+      "id": "485246",
+      "title": "UGC NET CSE | December 2023 | Part 2 | Question: 39",
+      "link": "https://gateoverflow.in/../485246/ugc-net-cse-december-2023-part-2-question-39",
+      "excerpt": "In a genetic algorithm optimization problem the fitness function is defined as $\\mathrm{f}(\\mathrm{x})=x^{2}-4 x+4$. Given a population of four individuals with values of..."
+    },
+    {
+      "id": "485193",
+      "title": "UGC NET CSE | December 2023 | Part 2 | Question: 91",
+      "link": "https://gateoverflow.in/../485193/ugc-net-cse-december-2023-part-2-question-91",
+      "excerpt": "Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin $\\text{E}$ per gram and cost is Rs. $12$ per gram. Food $\\text{Y}$ contains $8$..."
+    },
+    {
+      "id": "485192",
+      "title": "UGC NET CSE | December 2023 | Part 2 | Question: 92",
+      "link": "https://gateoverflow.in/../485192/ugc-net-cse-december-2023-part-2-question-92",
+      "excerpt": "Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin $\\text{E}$ per gram and cost is Rs $12$ per gram. Food $\\text{Y}$ contains $8$ ..."
+    },
+    {
+      "id": "485191",
+      "title": "UGC NET CSE | December 2023 | Part 2 | Question: 93",
+      "link": "https://gateoverflow.in/../485191/ugc-net-cse-december-2023-part-2-question-93",
+      "excerpt": "Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin $\\text{E}$ per gram and cost is Rs $12$ per gram. Food $\\text{Y}$ contains $8$ ..."
+    },
+    {
+      "id": "485190",
+      "title": "UGC NET CSE | December 2023 | Part 2 | Question: 94",
+      "link": "https://gateoverflow.in/../485190/ugc-net-cse-december-2023-part-2-question-94",
+      "excerpt": "Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin $\\text{E}$ per gram and cost is Rs $12$ per gram. Food $\\text{Y}$ contains $8$ ..."
+    },
+    {
+      "id": "485189",
+      "title": "UGC NET CSE | December 2023 | Part 2 | Question: 95",
+      "link": "https://gateoverflow.in/../485189/ugc-net-cse-december-2023-part-2-question-95",
+      "excerpt": "Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin $\\text{E}$ per gram and cost is Rs $12$ per gram. Food $\\text{Y}$ contains $8$ ..."
+    },
+    {
+      "id": "467026",
+      "title": "ISI 2023 | PCB NonCS | Question : N9.",
+      "link": "https://gateoverflow.in/../467026/isi-2023-pcb-noncs-question-n9",
+      "excerpt": "N9. Consider the set of points \\( \\{(x, y, z) \\  | \\ x, y, z \\in  \\{0, 1, . . . ,n\\}\\} \\).Determine how many of these points lie on the Euclidean plane that contains the ..."
+    },
+    {
+      "id": "467023",
+      "title": "ISI 2023 | PCB NonCs | Question N7.",
+      "link": "https://gateoverflow.in/../467023/isi-2023-pcb-noncs-question-n7",
+      "excerpt": "N7. An oil-exploration company is considering 10 possible drilling sites \\(S_1, S_2, . . . ,S_{10}\\). The drilling costs associated with these sites are \\(C_1, C_2, . . ...."
+    },
+    {
+      "id": "442773",
+      "title": "CMI 2023 | Data Science | Part B | Question: 16",
+      "link": "https://gateoverflow.in/../442773/cmi-2023-data-science-part-b-question-16",
+      "excerpt": "Find the largest value of $x y$ subject to $x^{2}+y^{2}=2$."
+    },
+    {
+      "id": "434212",
+      "title": "ISI2024-MCS-PCB (Math) | Question: 10",
+      "link": "https://gateoverflow.in/../434212/isi2024-mcs-pcb-math-question-10",
+      "excerpt": "Denote the following Linear Programming (LP), as $P$ :Maximize $c_{1} x_{1}+\\cdots+c_{j} x_{j}+\\cdots+c_{n} x_{n}$subject to\\[\\begin{array}{c}a_{11} x_{1}+\\cdots+a_{1 j} ..."
+    },
+    {
+      "id": "386144",
+      "title": "UGC NET CSE | October 2022 | Part 1 | Question:: 13",
+      "link": "https://gateoverflow.in/../386144/ugc-net-cse-october-2022-part-1-question-13",
+      "excerpt": "Consider the primal problem :Maximize $z=5 x_{1}+12 x_{2}+4 x_{3}$Subject to \\[\\begin{array}{l}x_{1}+2 x_{2}+x_{3}=10\\\\2 x_{1}-x_{2}+3 x_{3}=8 \\\\x_{1}, x_{2}, x_{3} \\geq ..."
+    },
+    {
+      "id": "360832",
+      "title": "UGC NET CSE | December 2019 | Part 2 | Question: 1",
+      "link": "https://gateoverflow.in/../360832/ugc-net-cse-december-2019-part-2-question-1",
+      "excerpt": "A basic feasible solution of an $m \\times n$ transportation problem is said to be non-degenerate, if basic feasible solution contains exactly _______ number of individual..."
+    },
+    {
+      "id": "360831",
+      "title": "UGC NET CSE | December 2019 | Part 2 | Question: 2",
+      "link": "https://gateoverflow.in/../360831/ugc-net-cse-december-2019-part-2-question-2",
+      "excerpt": "Consider the following Linear programming problem $\\text{(LPP)}$:Maximize $z=x_1+x_2$Subject to the constraints:$x_1+2x_2 \\leq 2000 \\\\ x_1+x_2 \\leq 1500 \\\\ x_2 \\leq 600 \\..."
+    },
+    {
+      "id": "360766",
+      "title": "UGC NET CSE | December 2019 | Part 2 | Question: 67",
+      "link": "https://gateoverflow.in/../360766/ugc-net-cse-december-2019-part-2-question-67",
+      "excerpt": "Consider the following statements with respect to duality in $\\text{LPP}$:The final simplex table giving optimal solution of the primal also contains optimal solution of ..."
+    },
+    {
+      "id": "288368",
+      "title": "UGC NET CSE | December 2018 | Part 2 | Question: 9",
+      "link": "https://gateoverflow.in/../288368/ugc-net-cse-december-2018-part-2-question-9",
+      "excerpt": "Use Dual Simplex Method to solve the following problem:$\\begin{array} \\text{Maximize} & z=-2x_1-3x_2 \\\\ \\text{subject to:} & \\\\ & x_1+x_2 \\geq 2 \\\\ & 2x_1 +x_2 \\leq10 \\\\ ..."
+    },
+    {
+      "id": "166443",
+      "title": "UGC NET CSE | November 2017 | Part 3 | Question: 67",
+      "link": "https://gateoverflow.in/../166443/ugc-net-cse-november-2017-part-3-question-67",
+      "excerpt": "Which of the following is a valid reason for causing degeneracy in a transportation problem? Here $m$ is number of rows and $n$ is number of columns in transportation tab..."
+    },
+    {
+      "id": "166445",
+      "title": "UGC NET CSE | November 2017 | Part 3 | Question: 69",
+      "link": "https://gateoverflow.in/../166445/ugc-net-cse-november-2017-part-3-question-69",
+      "excerpt": "Consider the following LPP:Min $Z=2x_1+x_2+3x_3$Subject to:$x_1 – 2x_2+x_3 \\geq 4$$2x_1+x_2+x_3 \\leq 8$$x_1-x_3 \\geq 0$$x_1, x_2, x_3 \\geq 0$The solution of this LPP usin..."
+    },
+    {
+      "id": "166444",
+      "title": "UGC NET CSE | November 2017 | Part 3 | Question: 68",
+      "link": "https://gateoverflow.in/../166444/ugc-net-cse-november-2017-part-3-question-68",
+      "excerpt": "Consider the following LPP:Max $Z=15x_1+10 x_2$Subject to the constraints$4x_1 +6x_2 \\leq 360$$3x_1+0x_2 \\leq 180$$0x_1+5x_2 \\leq 200$$x_1, x_2 \\geq 0$The solution of the..."
+    }
+  ]
+}

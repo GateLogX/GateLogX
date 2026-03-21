@@ -1,0 +1,13 @@
+{
+  "name": "gatelogx-scraper",
+  "version": "1.0.0",
+  "description": "Scrape GateOverflow PYQs for GateLogX",
+  "main": "scripts/scrape_gateoverflow.js",
+  "scripts": {
+    "scrape": "node scripts/scrape_gateoverflow.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12"
+  }
+}
