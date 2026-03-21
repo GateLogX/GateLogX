@@ -1823,6 +1823,41 @@ document.getElementById('inp-goal-m').value=S.goalM;
 renderUI();
 loadPYQPractice();
 document.getElementById('modal-bg').addEventListener('click',e=>{if(e.target===document.getElementById('modal-bg'))closeModal();});
+
+// ===================== AUTO MIDNIGHT CHECK =====================
+function scheduleMidnightCheck() {
+  const now = new Date();
+  const midnight = new Date(now);
+  midnight.setHours(24, 0, 0, 0); // Next midnight
+  const msUntilMidnight = midnight - now;
+  
+  // Schedule exact midnight trigger
+  setTimeout(() => {
+    checkNewDay();
+    renderUI();
+    updateDailyUI();
+    // Show notification
+    const notif = document.createElement('div');
+    notif.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--amber);color:#000;padding:12px 24px;border-radius:8px;font-weight:600;z-index:9999;animation:fadeIn 0.3s';
+    notif.textContent = '🌙 New day! Your daily progress has been reset.';
+    document.body.appendChild(notif);
+    setTimeout(() => notif.remove(), 5000);
+    // Reschedule for next midnight
+    scheduleMidnightCheck();
+  }, msUntilMidnight + 100); // +100ms buffer
+}
+
+// Also check every minute in case laptop was asleep at midnight
+setInterval(() => {
+  const td = todayStr();
+  if(S.today.date !== td) {
+    checkNewDay();
+    renderUI();
+    updateDailyUI();
+  }
+}, 60000); // Every 60 seconds
+
+scheduleMidnightCheck();
 </script>
 </body>
 </html>
