@@ -4633,12 +4633,49 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
 
       <div class="code-section" id="codeSection">
-        <div class="code-input-row">
-          <input class="code-input" type="text" id="unlockCodeInput"
-                 placeholder="Enter unlock code (case-sensitive)"
-                 maxlength="30" autocomplete="off" spellcheck="false">
-          <button class="unlock-btn" onclick="checkUnlockCode()">Unlock</button>
+        <!-- Step 1: Phone Number -->
+        <div id="phoneStep">
+          <div style="font-size:12px;color:#9ca3af;margin-bottom:8px;text-align:center">
+            Verify your phone number to unlock
+          </div>
+          <div class="code-input-row">
+            <input class="code-input" type="tel" id="phoneInput"
+                   placeholder="+91 9876543210"
+                   maxlength="15" autocomplete="tel">
+            <button class="unlock-btn" id="sendOtpBtn" onclick="sendOTP()">Send OTP</button>
+          </div>
+          <div id="recaptcha-container"></div>
         </div>
+
+        <!-- Step 2: OTP Verification -->
+        <div id="otpStep" style="display:none">
+          <div style="font-size:12px;color:#9ca3af;margin-bottom:8px;text-align:center">
+            Enter the 6-digit OTP sent to <span id="otpPhoneDisplay"></span>
+          </div>
+          <div class="code-input-row">
+            <input class="code-input" type="text" id="otpInput"
+                   placeholder="Enter OTP"
+                   maxlength="6" autocomplete="one-time-code" inputmode="numeric">
+            <button class="unlock-btn" id="verifyOtpBtn" onclick="verifyOTP()">Verify</button>
+          </div>
+          <div style="font-size:11px;color:#6b7280;margin-top:8px;text-align:center">
+            <a href="#" onclick="resetPhoneAuth()" style="color:#a855f7">← Change number</a>
+          </div>
+        </div>
+
+        <!-- Step 3: Unlock Code (shown after phone verification if not already unlocked) -->
+        <div id="unlockCodeStep" style="display:none">
+          <div style="font-size:12px;color:#22c55e;margin-bottom:8px;text-align:center">
+            ✅ Phone verified! Now enter your unlock code:
+          </div>
+          <div class="code-input-row">
+            <input class="code-input" type="text" id="unlockCodeInput"
+                   placeholder="Enter unlock code (case-sensitive)"
+                   maxlength="30" autocomplete="off" spellcheck="false">
+            <button class="unlock-btn" onclick="checkUnlockCode()">Unlock</button>
+          </div>
+        </div>
+
         <div class="code-error" id="codeError">❌ Invalid code. Please check and try again.</div>
       </div>
     </div>
@@ -4687,16 +4724,57 @@ document.addEventListener('DOMContentLoaded', () => {
   const auth = firebase.auth();
 
   const UNLOCK_KEY = "gatelogx_game_unlocked";
+  
+  // Phone auth state
+  let confirmationResult = null;
+  let verifiedPhone = null;
+  let recaptchaVerifier = null;
+
+  // Generate device fingerprint (unique to this browser/device)
+  function generateDeviceFingerprint() {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.textBaseline = 'top';
+    ctx.font = '14px Arial';
+    ctx.fillText('GateLogX', 2, 2);
+    const canvasHash = canvas.toDataURL().slice(-50);
+    
+    const data = [
+      navigator.userAgent,
+      navigator.language,
+      screen.width + 'x' + screen.height,
+      screen.colorDepth,
+      new Date().getTimezoneOffset(),
+      navigator.hardwareConcurrency || 'unknown',
+      canvasHash
+    ].join('|');
+    
+    // Simple hash
+    let hash = 0;
+    for (let i = 0; i < data.length; i++) {
+      const char = data.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+    return 'dev_' + Math.abs(hash).toString(36);
+  }
+
+  const DEVICE_ID = generateDeviceFingerprint();
 
   // Check Firebase Auth state on page load — if user is authenticated and unlocked, update the card
   document.addEventListener("DOMContentLoaded", () => {
     auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        // User is signed in, check if they have unlocked the game
+      if (user && user.phoneNumber) {
+        // User is signed in with phone, check if they have unlocked the game
         try {
-          const userDoc = await db.collection("unlocked_users").doc(user.uid).get();
+          const userDoc = await db.collection("unlocked_users").doc(user.phoneNumber).get();
           if (userDoc.exists && userDoc.data().unlocked === true) {
-            updateGameCardToUnlocked();
+            // Check if device matches
+            if (userDoc.data().deviceId === DEVICE_ID) {
+              updateGameCardToUnlocked();
+              setLocalUnlockFlags(userDoc.data().code, user.phoneNumber, DEVICE_ID);
+            }
+            // If device doesn't match, don't auto-unlock (they'll need to verify)
           }
         } catch (e) {
           console.error("Error checking unlock status:", e);
@@ -4704,6 +4782,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  function setLocalUnlockFlags(code, phone, deviceId) {
+    try {
+      localStorage.setItem(UNLOCK_KEY, 'true');
+      localStorage.setItem('gcq_unlocked', 'true');
+      if (code) localStorage.setItem('gcq_unlock_code', code);
+      if (phone) localStorage.setItem('gcq_unlock_phone', phone);
+      if (deviceId) localStorage.setItem('gcq_device_id', deviceId);
+    } catch(e) {}
+    try {
+      const maxAge = 400 * 24 * 60 * 60;
+      document.cookie = 'gcq_unlocked=true;max-age=' + maxAge + ';path=/;SameSite=Lax';
+      if (code) document.cookie = 'gcq_unlock_code=' + encodeURIComponent(code) + ';max-age=' + maxAge + ';path=/;SameSite=Lax';
+      if (phone) document.cookie = 'gcq_unlock_phone=' + encodeURIComponent(phone) + ';max-age=' + maxAge + ';path=/;SameSite=Lax';
+      if (deviceId) document.cookie = 'gcq_device_id=' + encodeURIComponent(deviceId) + ';max-age=' + maxAge + ';path=/;SameSite=Lax';
+    } catch(e) {}
+  }
 
   function updateGameCardToUnlocked() {
     const gameCard = document.querySelector('a[onclick="openPaywall()"]');
@@ -4767,14 +4862,141 @@ document.addEventListener('DOMContentLoaded', () => {
     const section = document.getElementById("codeSection");
     section.classList.toggle("visible");
     if (section.classList.contains("visible")) {
-      document.getElementById("unlockCodeInput").focus();
+      // Initialize reCAPTCHA if not already done
+      if (!recaptchaVerifier) {
+        recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+          'size': 'invisible',
+          'callback': (response) => {
+            // reCAPTCHA solved
+          }
+        });
+      }
+      document.getElementById("phoneInput").focus();
     }
+  }
+
+  async function sendOTP() {
+    const phoneInput = document.getElementById("phoneInput");
+    const errorEl = document.getElementById("codeError");
+    const sendBtn = document.getElementById("sendOtpBtn");
+    
+    let phone = phoneInput.value.trim();
+    
+    // Format phone number
+    if (!phone.startsWith('+')) {
+      phone = '+91' + phone.replace(/\D/g, '');
+    }
+    
+    if (phone.length < 12) {
+      errorEl.textContent = "❌ Please enter a valid phone number";
+      errorEl.classList.add("show");
+      return;
+    }
+
+    sendBtn.textContent = "Sending...";
+    sendBtn.disabled = true;
+    errorEl.classList.remove("show");
+
+    try {
+      // Initialize reCAPTCHA if needed
+      if (!recaptchaVerifier) {
+        recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+          'size': 'invisible'
+        });
+      }
+
+      confirmationResult = await auth.signInWithPhoneNumber(phone, recaptchaVerifier);
+      verifiedPhone = phone;
+      
+      // Show OTP step
+      document.getElementById("phoneStep").style.display = "none";
+      document.getElementById("otpStep").style.display = "block";
+      document.getElementById("otpPhoneDisplay").textContent = phone;
+      document.getElementById("otpInput").focus();
+      
+    } catch (error) {
+      console.error("Error sending OTP:", error);
+      errorEl.textContent = "❌ " + (error.message || "Failed to send OTP. Please try again.");
+      errorEl.classList.add("show");
+      
+      // Reset reCAPTCHA on error
+      if (recaptchaVerifier) {
+        recaptchaVerifier.clear();
+        recaptchaVerifier = null;
+      }
+    } finally {
+      sendBtn.textContent = "Send OTP";
+      sendBtn.disabled = false;
+    }
+  }
+
+  async function verifyOTP() {
+    const otpInput = document.getElementById("otpInput");
+    const errorEl = document.getElementById("codeError");
+    const verifyBtn = document.getElementById("verifyOtpBtn");
+    
+    const otp = otpInput.value.trim();
+    
+    if (otp.length !== 6) {
+      errorEl.textContent = "❌ Please enter the 6-digit OTP";
+      errorEl.classList.add("show");
+      return;
+    }
+
+    verifyBtn.textContent = "Verifying...";
+    verifyBtn.disabled = true;
+    errorEl.classList.remove("show");
+
+    try {
+      await confirmationResult.confirm(otp);
+      
+      // Phone verified! Now check if this phone already has access
+      const userDoc = await db.collection("unlocked_users").doc(verifiedPhone).get();
+      
+      if (userDoc.exists && userDoc.data().unlocked === true) {
+        // ✅ Already unlocked - update device ID (kicks off old device) and grant access
+        await db.collection("unlocked_users").doc(verifiedPhone).update({
+          deviceId: DEVICE_ID,
+          lastDeviceUpdate: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        
+        setLocalUnlockFlags(userDoc.data().code, verifiedPhone, DEVICE_ID);
+        document.getElementById("paywallMain").style.display = "none";
+        document.getElementById("unlockedCard").classList.add("show");
+        updateGameCardToUnlocked();
+      } else {
+        // Phone verified but no unlock code yet - show code entry
+        document.getElementById("otpStep").style.display = "none";
+        document.getElementById("unlockCodeStep").style.display = "block";
+        document.getElementById("unlockCodeInput").focus();
+      }
+      
+    } catch (error) {
+      console.error("Error verifying OTP:", error);
+      errorEl.textContent = "❌ Invalid OTP. Please try again.";
+      errorEl.classList.add("show");
+    } finally {
+      verifyBtn.textContent = "Verify";
+      verifyBtn.disabled = false;
+    }
+  }
+
+  function resetPhoneAuth() {
+    document.getElementById("otpStep").style.display = "none";
+    document.getElementById("unlockCodeStep").style.display = "none";
+    document.getElementById("phoneStep").style.display = "block";
+    document.getElementById("phoneInput").value = "";
+    document.getElementById("otpInput").value = "";
+    document.getElementById("codeError").classList.remove("show");
+    confirmationResult = null;
+    verifiedPhone = null;
+    return false;
   }
 
   async function checkUnlockCode() {
     const raw = document.getElementById("unlockCodeInput").value.trim();
     const errorEl = document.getElementById("codeError");
-    const unlockBtn = document.querySelector(".unlock-btn");
+    const unlockBtn = document.querySelector("#unlockCodeStep .unlock-btn");
 
     if (!raw) {
       errorEl.textContent = "❌ Please enter a code.";
@@ -4782,9 +5004,17 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    // Must have verified phone first
+    if (!verifiedPhone) {
+      errorEl.textContent = "❌ Please verify your phone number first.";
+      errorEl.classList.add("show");
+      return;
+    }
+
     // Show loading state
     unlockBtn.textContent = "Checking...";
     unlockBtn.disabled = true;
+    errorEl.classList.remove("show");
 
     try {
       // Query Firebase for the code
@@ -4799,45 +5029,23 @@ document.addEventListener('DOMContentLoaded', () => {
           document.getElementById("unlockCodeInput").style.borderColor = "";
         }, 1500);
       } else if (codeDoc.data().used === true) {
-        // Code was already used - only allow if this is the SAME user (original owner)
-        const originalUID = codeDoc.data().usedBy;
+        // ❌ Code already used by someone - check if it's the same phone
+        const linkedPhone = codeDoc.data().usedByPhone;
         
-        // Get current user (Firebase anonymous auth persists in IndexedDB even if localStorage is cleared)
-        let currentUser = auth.currentUser;
-        if (!currentUser) {
-          // Try to sign in anonymously - if they're the same device, Firebase may restore their old UID
-          try {
-            const credential = await auth.signInAnonymously();
-            currentUser = credential.user;
-          } catch(e) {
-            currentUser = null;
-          }
-        }
-        
-        // Check if current user is the original owner
-        if (currentUser && currentUser.uid === originalUID) {
-          // ✅ Same user - restore their access
-          try {
-            localStorage.setItem(UNLOCK_KEY, 'true');
-            localStorage.setItem('gcq_unlocked', 'true');
-            localStorage.setItem('gcq_unlock_code', raw);
-            localStorage.setItem('gcq_unlock_uid', originalUID);
-          } catch(e) {}
-          try {
-            const maxAge = 400 * 24 * 60 * 60;
-            document.cookie = 'gcq_unlocked=true;max-age=' + maxAge + ';path=/;SameSite=Lax';
-            document.cookie = 'gcq_unlock_code=' + encodeURIComponent(raw) + ';max-age=' + maxAge + ';path=/;SameSite=Lax';
-            document.cookie = 'gcq_unlock_uid=' + encodeURIComponent(originalUID) + ';max-age=' + maxAge + ';path=/;SameSite=Lax';
-          } catch(e) {}
+        if (linkedPhone === verifiedPhone) {
+          // ✅ Same phone - restore access and update device
+          await db.collection("unlocked_users").doc(verifiedPhone).update({
+            deviceId: DEVICE_ID,
+            lastDeviceUpdate: firebase.firestore.FieldValue.serverTimestamp()
+          });
           
-          // Show success
+          setLocalUnlockFlags(raw, verifiedPhone, DEVICE_ID);
           document.getElementById("paywallMain").style.display = "none";
           document.getElementById("unlockedCard").classList.add("show");
-          errorEl.classList.remove("show");
           updateGameCardToUnlocked();
         } else {
-          // ❌ Different user trying to use someone else's code
-          errorEl.textContent = "❌ This code belongs to another account.";
+          // ❌ Different phone trying to use someone else's code
+          errorEl.textContent = "❌ This code is linked to another phone number.";
           errorEl.classList.add("show");
           document.getElementById("unlockCodeInput").style.borderColor = "#f87171";
           setTimeout(() => {
@@ -4845,52 +5053,32 @@ document.addEventListener('DOMContentLoaded', () => {
           }, 1500);
         }
       } else if (codeDoc.data().valid === true) {
-        // ✅ Valid code — sign in anonymously and create user record
-        let user = auth.currentUser;
+        // ✅ Valid unused code — link it to this phone number and device
         
-        // If not signed in, sign in anonymously
-        if (!user) {
-          const credential = await auth.signInAnonymously();
-          user = credential.user;
-        }
-
-        // Mark code as used with user's UID
+        // Mark code as used with phone number
         await db.collection("unlock_codes").doc(raw).update({
           used: true,
           usedAt: firebase.firestore.FieldValue.serverTimestamp(),
-          usedBy: user.uid
+          usedByPhone: verifiedPhone
         });
 
-        // Create user record with unlock status
-        await db.collection("unlocked_users").doc(user.uid).set({
+        // Create user record with unlock status (keyed by phone number)
+        await db.collection("unlocked_users").doc(verifiedPhone).set({
           unlocked: true,
           code: raw,
-          unlockedAt: firebase.firestore.FieldValue.serverTimestamp()
+          deviceId: DEVICE_ID,
+          unlockedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          lastDeviceUpdate: firebase.firestore.FieldValue.serverTimestamp()
         });
 
-                // Show success
-                // Persist unlock locally so refreshes/browser redirects work immediately
-                try{
-                    localStorage.setItem(UNLOCK_KEY, 'true');
-                    // old game page expects this key as a fallback - set it too
-                    localStorage.setItem('gcq_unlocked', 'true');
-                    // Store the actual unlock code AND user UID for secure re-verification
-                    localStorage.setItem('gcq_unlock_code', raw);
-                    localStorage.setItem('gcq_unlock_uid', user.uid);
-                }catch(e){console.warn('Could not write local unlock flag', e);}
-                // Also set cookies (max practical expiry ~400 days due to browser limits)
-                try {
-                    const maxAge = 400 * 24 * 60 * 60; // 400 days in seconds
-                    document.cookie = 'gcq_unlocked=true;max-age=' + maxAge + ';path=/;SameSite=Lax';
-                    // Store unlock code AND UID in cookie for secure re-verification
-                    document.cookie = 'gcq_unlock_code=' + encodeURIComponent(raw) + ';max-age=' + maxAge + ';path=/;SameSite=Lax';
-                    document.cookie = 'gcq_unlock_uid=' + encodeURIComponent(user.uid) + ';max-age=' + maxAge + ';path=/;SameSite=Lax';
-                } catch(e) {}
-                // update UI and game card
-                document.getElementById("paywallMain").style.display = "none";
-                document.getElementById("unlockedCard").classList.add("show");
-                errorEl.classList.remove("show");
-                updateGameCardToUnlocked();
+        // Set local flags
+        setLocalUnlockFlags(raw, verifiedPhone, DEVICE_ID);
+        
+        // Show success
+        document.getElementById("paywallMain").style.display = "none";
+        document.getElementById("unlockedCard").classList.add("show");
+        errorEl.classList.remove("show");
+        updateGameCardToUnlocked();
       } else {
         // ❌ Code exists but not valid
         errorEl.textContent = "❌ Invalid code. Please check and try again.";
