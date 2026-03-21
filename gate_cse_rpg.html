@@ -325,8 +325,25 @@ input.num{width:90px}
     // Hide body until verified
     document.body.style.visibility = "hidden";
 
-    // Wait for auth state
+    // ✅ FIRST: Check localStorage - if unlocked locally, skip all Firebase checks
+    try {
+      if (localStorage.getItem('gcq_unlocked') === 'true') {
+        document.body.style.visibility = "visible";
+        // Done - user is locally verified
+        return;
+      }
+    } catch(e) { /* ignore localStorage errors */ }
+
+    // Wait for auth state (only if not locally unlocked)
     auth.onAuthStateChanged(async (user) => {
+      // Check localStorage again in case it was set during auth wait
+      try {
+        if (localStorage.getItem('gcq_unlocked') === 'true') {
+          document.body.style.visibility = "visible";
+          return;
+        }
+      } catch(e) { /* ignore */ }
+
       if (!user) {
         // Not signed in - redirect
         alert("⚠️ Access Denied\n\nPlease unlock the game first by paying ₹500.");
@@ -338,24 +355,16 @@ input.num{width:90px}
         // Check if user has unlock status in Firestore
         const userDoc = await db.collection("unlocked_users").doc(user.uid).get();
         
-        if (!userDoc.exists || userDoc.data().unlocked !== true) {
-          // Fallback: allow local unlock flag (useful for offline/testing or if Firestore write delayed)
-          try{
-            const localUnlock = localStorage.getItem('gcq_unlocked');
-            if(localUnlock === 'true'){
-              // show game using local unlock
-              document.body.style.visibility = "visible";
-              return;
-            }
-          }catch(e){/* ignore */}
+        if (userDoc.exists && userDoc.data().unlocked === true) {
+          // ✅ User is authenticated and unlocked - show the game
+          // Also set localStorage for future quick access
+          try { localStorage.setItem('gcq_unlocked', 'true'); } catch(e) {}
+          document.body.style.visibility = "visible";
+        } else {
           // User exists but not unlocked
           alert("⚠️ Access Denied\n\nPlease unlock the game first by paying ₹500.");
           window.location.href = "index.html";
-          return;
         }
-
-        // ✅ User is authenticated and unlocked - show the game
-        document.body.style.visibility = "visible";
       } catch (error) {
         console.error("Error verifying access:", error);
         alert("⚠️ Connection Error\n\nPlease check your internet and try again.");
