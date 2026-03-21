@@ -4799,13 +4799,40 @@ document.addEventListener('DOMContentLoaded', () => {
           document.getElementById("unlockCodeInput").style.borderColor = "";
         }, 1500);
       } else if (codeDoc.data().used === true) {
-        // ❌ Code already used by someone else
-        errorEl.textContent = "❌ This code has already been used.";
-        errorEl.classList.add("show");
-        document.getElementById("unlockCodeInput").style.borderColor = "#f87171";
-        setTimeout(() => {
-          document.getElementById("unlockCodeInput").style.borderColor = "";
-        }, 1500);
+        // Code was already used - check if this is the original user trying to recover access
+        // If they know the code, we can restore their access (code acts as license key)
+        const originalUID = codeDoc.data().usedBy;
+        
+        if (originalUID) {
+          // ✅ Code was legitimately used - restore access for the original purchaser
+          // Store the original UID so verification works on game page
+          try {
+            localStorage.setItem(UNLOCK_KEY, 'true');
+            localStorage.setItem('gcq_unlocked', 'true');
+            localStorage.setItem('gcq_unlock_code', raw);
+            localStorage.setItem('gcq_unlock_uid', originalUID);
+          } catch(e) {}
+          try {
+            const maxAge = 400 * 24 * 60 * 60;
+            document.cookie = 'gcq_unlocked=true;max-age=' + maxAge + ';path=/;SameSite=Lax';
+            document.cookie = 'gcq_unlock_code=' + encodeURIComponent(raw) + ';max-age=' + maxAge + ';path=/;SameSite=Lax';
+            document.cookie = 'gcq_unlock_uid=' + encodeURIComponent(originalUID) + ';max-age=' + maxAge + ';path=/;SameSite=Lax';
+          } catch(e) {}
+          
+          // Show success
+          document.getElementById("paywallMain").style.display = "none";
+          document.getElementById("unlockedCard").classList.add("show");
+          errorEl.classList.remove("show");
+          updateGameCardToUnlocked();
+        } else {
+          // Edge case: code used but no UID stored (shouldn't happen)
+          errorEl.textContent = "❌ This code has already been used.";
+          errorEl.classList.add("show");
+          document.getElementById("unlockCodeInput").style.borderColor = "#f87171";
+          setTimeout(() => {
+            document.getElementById("unlockCodeInput").style.borderColor = "";
+          }, 1500);
+        }
       } else if (codeDoc.data().valid === true) {
         // ✅ Valid code — sign in anonymously and create user record
         let user = auth.currentUser;
