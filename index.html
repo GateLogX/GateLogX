@@ -4799,13 +4799,24 @@ document.addEventListener('DOMContentLoaded', () => {
           document.getElementById("unlockCodeInput").style.borderColor = "";
         }, 1500);
       } else if (codeDoc.data().used === true) {
-        // Code was already used - check if this is the original user trying to recover access
-        // If they know the code, we can restore their access (code acts as license key)
+        // Code was already used - only allow if this is the SAME user (original owner)
         const originalUID = codeDoc.data().usedBy;
         
-        if (originalUID) {
-          // ✅ Code was legitimately used - restore access for the original purchaser
-          // Store the original UID so verification works on game page
+        // Get current user (Firebase anonymous auth persists in IndexedDB even if localStorage is cleared)
+        let currentUser = auth.currentUser;
+        if (!currentUser) {
+          // Try to sign in anonymously - if they're the same device, Firebase may restore their old UID
+          try {
+            const credential = await auth.signInAnonymously();
+            currentUser = credential.user;
+          } catch(e) {
+            currentUser = null;
+          }
+        }
+        
+        // Check if current user is the original owner
+        if (currentUser && currentUser.uid === originalUID) {
+          // ✅ Same user - restore their access
           try {
             localStorage.setItem(UNLOCK_KEY, 'true');
             localStorage.setItem('gcq_unlocked', 'true');
@@ -4825,8 +4836,8 @@ document.addEventListener('DOMContentLoaded', () => {
           errorEl.classList.remove("show");
           updateGameCardToUnlocked();
         } else {
-          // Edge case: code used but no UID stored (shouldn't happen)
-          errorEl.textContent = "❌ This code has already been used.";
+          // ❌ Different user trying to use someone else's code
+          errorEl.textContent = "❌ This code belongs to another account.";
           errorEl.classList.add("show");
           document.getElementById("unlockCodeInput").style.borderColor = "#f87171";
           setTimeout(() => {
