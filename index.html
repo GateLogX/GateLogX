@@ -4830,7 +4830,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Code already used - check if it's the same device
         const linkedDeviceId = codeDoc.data().deviceId;
         
-        if (linkedDeviceId === DEVICE_ID) {
+        if (!linkedDeviceId) {
+          // ✅ Code was used with old phone system - migrate to device-based
+          await db.collection("unlock_codes").doc(raw).update({
+            deviceId: DEVICE_ID,
+            migratedAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          setLocalUnlockFlags(raw, DEVICE_ID);
+          document.getElementById("paywallMain").style.display = "none";
+          document.getElementById("unlockedCard").classList.add("show");
+          updateGameCardToUnlocked();
+        } else if (linkedDeviceId === DEVICE_ID) {
           // ✅ Same device - restore access
           setLocalUnlockFlags(raw, DEVICE_ID);
           document.getElementById("paywallMain").style.display = "none";
