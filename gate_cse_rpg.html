@@ -485,6 +485,9 @@ input.num{width:90px}
                 <option value="all">All Subjects</option>
               </select>
             </div>
+            <div style="margin-bottom:12px">
+              <input type="text" id="pyq-search" placeholder="🔍 Search topic (e.g. BFS, normalization, paging...)" onkeyup="debounceSearch()" style="width:100%;padding:8px 12px;font-size:12px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);color:var(--text);box-sizing:border-box">
+            </div>
             <div id="mcq-area"></div>
           </div>
         </div>
@@ -1679,9 +1682,16 @@ function renderPYQs() {
 // Current PYQ for practice
 let curPYQ = null;
 let pyqPracticeLoaded = false;
+let pyqSearchTimeout = null;
+
+function debounceSearch() {
+  clearTimeout(pyqSearchTimeout);
+  pyqSearchTimeout = setTimeout(() => loadPYQPractice(), 300);
+}
 
 async function loadPYQPractice() {
   const selectEl = document.getElementById('pyq-practice-subject');
+  const searchEl = document.getElementById('pyq-search');
   const area = document.getElementById('mcq-area');
   
   // Populate subject dropdown on first load
@@ -1696,6 +1706,7 @@ async function loadPYQPractice() {
   }
   
   const filter = selectEl.value;
+  const searchTerm = (searchEl.value || '').trim().toLowerCase();
   area.innerHTML = '<div style="text-align:center;padding:20px;color:var(--muted2)">Loading PYQs...</div>';
   
   // Determine files to load
@@ -1715,7 +1726,7 @@ async function loadPYQPractice() {
   }
   
   // Load questions
-  const allQuestions = [];
+  let allQuestions = [];
   for(const filename of filesToLoad) {
     const data = await loadPYQFile(filename);
     for(const q of data.questions) {
@@ -1725,34 +1736,61 @@ async function loadPYQPractice() {
     }
   }
   
+  // Apply search filter if provided
+  if(searchTerm) {
+    allQuestions = allQuestions.filter(q => {
+      const titleMatch = (q.title || '').toLowerCase().includes(searchTerm);
+      const tagMatch = (q.tags || []).some(t => t.toLowerCase().includes(searchTerm));
+      const subjectMatch = (q.subject || '').toLowerCase().replace(/_/g, ' ').includes(searchTerm);
+      return titleMatch || tagMatch || subjectMatch;
+    });
+  }
+  
   if(allQuestions.length === 0) {
-    area.innerHTML = `
-      <div style="text-align:center;padding:30px 20px;color:var(--muted2)">
-        <div style="font-size:32px;margin-bottom:12px">🎉</div>
-        <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px">All PYQs Solved!</div>
-        <div style="font-size:12px;line-height:1.6">You've completed all questions for this subject.</div>
-      </div>`;
+    if(searchTerm) {
+      area.innerHTML = `
+        <div style="text-align:center;padding:30px 20px;color:var(--muted2)">
+          <div style="font-size:32px;margin-bottom:12px">🔍</div>
+          <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px">No results for "${searchTerm}"</div>
+          <div style="font-size:12px;line-height:1.6">Try different keywords like: BFS, DFS, paging, deadlock, SQL, etc.</div>
+        </div>`;
+    } else {
+      area.innerHTML = `
+        <div style="text-align:center;padding:30px 20px;color:var(--muted2)">
+          <div style="font-size:32px;margin-bottom:12px">🎉</div>
+          <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px">All PYQs Solved!</div>
+          <div style="font-size:12px;line-height:1.6">You've completed all questions for this subject.</div>
+        </div>`;
+    }
     return;
   }
   
-  // Pick random question
+  // Pick random question from filtered results
   curPYQ = allQuestions[Math.floor(Math.random() * allQuestions.length)];
   
   // Render the question
   const subjectName = curPYQ.subject.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  const matchCount = allQuestions.length;
   area.innerHTML = `
+    ${searchTerm ? `<div style="font-size:11px;color:var(--muted2);margin-bottom:10px">📋 ${matchCount} question${matchCount!==1?'s':''} matching "${searchTerm}"</div>` : ''}
     <div class="mcq-q">
       <a href="${curPYQ.link||'#'}" target="_blank" style="color:var(--amber);text-decoration:none">${curPYQ.title}</a>
       <span style="font-size:10px;color:var(--muted);margin-left:8px">[${subjectName}${curPYQ.year ? ' • ' + curPYQ.year : ''}]</span>
     </div>
     <div style="margin-top:12px;font-size:12px;color:var(--muted2)">
-      ${curPYQ.tags ? curPYQ.tags.map(t => '<span style="background:var(--bg3);padding:2px 6px;border-radius:4px;margin-right:4px">' + t + '</span>').join('') : ''}
+      ${curPYQ.tags ? curPYQ.tags.map(t => '<span style="background:var(--bg3);padding:2px 6px;border-radius:4px;margin-right:4px;cursor:pointer" onclick="searchByTag(\'' + t.replace(/'/g, "\\'") + '\')">' + t + '</span>').join('') : ''}
     </div>
     <div style="margin-top:16px;display:flex;gap:8px">
       <button class="btn btn-amber" onclick="markPYQSolvedAndNext()" style="padding:10px 20px">✓ Mark Solved (+10 XP)</button>
       <button class="btn btn-ghost" onclick="loadPYQPractice()" style="padding:10px 20px">⏭ Skip</button>
     </div>
     <div id="mcq-res"></div>`;
+}
+
+function searchByTag(tag) {
+  document.getElementById('pyq-search').value = tag;
+  loadPYQPractice();
+}
 }
 
 function markPYQSolvedAndNext() {
