@@ -555,7 +555,8 @@ input.num{width:90px}
             <option value="unsolved">Unsolved Only</option>
             <option value="solved">Solved Only</option>
           </select>
-          <div style="flex:1"></div>
+          <input type="text" id="pyq-topic-search" placeholder="🔍 Search topic (e.g. BFS, paging, SQL...)" onkeyup="debounceListSearch()" style="padding:8px 12px;border-radius:6px;background:var(--card);border:1px solid var(--border);color:var(--text);font-size:13px;min-width:220px;flex:1">
+          <div style="flex:0"></div>
           <div class="pyq-stats" style="display:flex;gap:16px;align-items:center;font-size:12px;color:var(--muted2)">
             <span>Solved: <span id="pyq-solved-count" class="amber-val">0</span></span>
             <span>Total: <span id="pyq-total-count">0</span></span>
@@ -1566,14 +1567,31 @@ async function loadPYQs() {
   filterPYQDisplay();
 }
 
+let pyqListSearchTimeout = null;
+function debounceListSearch() {
+  clearTimeout(pyqListSearchTimeout);
+  pyqListSearchTimeout = setTimeout(() => filterPYQDisplay(), 300);
+}
+
 function filterPYQDisplay() {
   const statusFilter = document.getElementById('pyq-status-filter').value;
+  const searchTerm = (document.getElementById('pyq-topic-search').value || '').trim().toLowerCase();
   let filtered = pyqDisplayed;
   
   if(statusFilter === 'solved') {
     filtered = pyqDisplayed.filter(q => pyqSolved[q.id]);
   } else if(statusFilter === 'unsolved') {
     filtered = pyqDisplayed.filter(q => !pyqSolved[q.id]);
+  }
+  
+  // Apply search filter
+  if(searchTerm) {
+    filtered = filtered.filter(q => {
+      const titleMatch = (q.title || '').toLowerCase().includes(searchTerm);
+      const tagMatch = (q.tags || []).some(t => t.toLowerCase().includes(searchTerm));
+      const subjectMatch = (q.subject || '').toLowerCase().replace(/_/g, ' ').includes(searchTerm);
+      return titleMatch || tagMatch || subjectMatch;
+    });
   }
   
   // Update stats
