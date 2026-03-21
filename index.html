@@ -4830,10 +4830,18 @@ document.addEventListener('DOMContentLoaded', () => {
           unlockedAt: firebase.firestore.FieldValue.serverTimestamp()
         });
 
-        // Show success
-        document.getElementById("paywallMain").style.display = "none";
-        document.getElementById("unlockedCard").classList.add("show");
-        errorEl.classList.remove("show");
+                // Show success
+                // Persist unlock locally so refreshes/browser redirects work immediately
+                try{
+                    localStorage.setItem(UNLOCK_KEY, 'true');
+                    // old game page expects this key as a fallback - set it too
+                    localStorage.setItem('gcq_unlocked', 'true');
+                }catch(e){console.warn('Could not write local unlock flag', e);}
+                // update UI and game card
+                document.getElementById("paywallMain").style.display = "none";
+                document.getElementById("unlockedCard").classList.add("show");
+                errorEl.classList.remove("show");
+                updateGameCardToUnlocked();
       } else {
         // ❌ Code exists but not valid
         errorEl.textContent = "❌ Invalid code. Please check and try again.";

@@ -332,6 +332,15 @@ input.num{width:90px}
         const userDoc = await db.collection("unlocked_users").doc(user.uid).get();
         
         if (!userDoc.exists || userDoc.data().unlocked !== true) {
+          // Fallback: allow local unlock flag (useful for offline/testing or if Firestore write delayed)
+          try{
+            const localUnlock = localStorage.getItem('gcq_unlocked');
+            if(localUnlock === 'true'){
+              // show game using local unlock
+              document.body.style.visibility = "visible";
+              return;
+            }
+          }catch(e){/* ignore */}
           // User exists but not unlocked
           alert("⚠️ Access Denied\n\nPlease unlock the game first by paying ₹500.");
           window.location.href = "index.html";
