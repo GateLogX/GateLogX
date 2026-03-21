@@ -1194,28 +1194,59 @@ function initTimer() {
   const m=String(Math.floor((timerSec%3600)/60)).padStart(2,'0');
   const ss=String(timerSec%60).padStart(2,'0');
   document.getElementById('timer-disp').textContent=`${h}:${m}:${ss}`;
+  
+  // Auto-resume if timer was running before refresh
+  const wasRunning = localStorage.getItem('gcq_timer_running') === 'true';
+  if(wasRunning) {
+    startTimer();
+  }
+}
+
+function startTimer() {
+  if(timerGoing) return; // Already running
+  timerGoing = true;
+  localStorage.setItem('gcq_timer_running', 'true');
+  const btn=document.getElementById('timer-btn');
+  const disp=document.getElementById('timer-disp');
+  btn.textContent='⏸ Pause';
+  timerInt=setInterval(()=>{
+    timerSec++;
+    const h=String(Math.floor(timerSec/3600)).padStart(2,'0');
+    const m=String(Math.floor((timerSec%3600)/60)).padStart(2,'0');
+    const ss=String(timerSec%60).padStart(2,'0');
+    disp.textContent=`${h}:${m}:${ss}`;
+    S.today.h=parseFloat((timerSec/3600).toFixed(2));
+    if(timerSec%60===0){S.xp+=5;S.today.xp+=5;S.level=getLevel(S.xp);}
+    updateDailyUI();
+    if(timerSec%300===0)save();
+  },1000);
+}
+
+function stopTimer() {
+  if(!timerGoing) return; // Already stopped
+  timerGoing = false;
+  localStorage.setItem('gcq_timer_running', 'false');
+  clearInterval(timerInt);
+  document.getElementById('timer-btn').textContent='▶ Start';
+  save();
 }
 
 function toggleTimer(){
-  timerGoing=!timerGoing;
-  const btn=document.getElementById('timer-btn');
-  const disp=document.getElementById('timer-disp');
-  btn.textContent=timerGoing?'⏸ Pause':'▶ Start';
-  if(timerGoing){
-    timerInt=setInterval(()=>{
-      timerSec++;
-      const h=String(Math.floor(timerSec/3600)).padStart(2,'0');
-      const m=String(Math.floor((timerSec%3600)/60)).padStart(2,'0');
-      const ss=String(timerSec%60).padStart(2,'0');
-      disp.textContent=`${h}:${m}:${ss}`;
-      S.today.h=parseFloat((timerSec/3600).toFixed(2));
-      if(timerSec%60===0){S.xp+=5;S.today.xp+=5;S.level=getLevel(S.xp);}
-      updateDailyUI();
-      if(timerSec%300===0)save();
-    },1000);
-  }else{clearInterval(timerInt);save();}
+  if(timerGoing) {
+    stopTimer();
+  } else {
+    startTimer();
+  }
 }
-function resetTimer(){timerGoing=false;clearInterval(timerInt);timerSec=0;document.getElementById('timer-disp').textContent='00:00:00';document.getElementById('timer-btn').textContent='▶ Start';}
+
+function resetTimer(){
+  stopTimer();
+  timerSec=0;
+  S.today.h=0;
+  document.getElementById('timer-disp').textContent='00:00:00';
+  save();
+  updateDailyUI();
+}
 function updateDailyUI(){
   const h=S.today.h,gH=S.goalH,m=S.today.mcq,gM=S.goalM;
   document.getElementById('d-hours').textContent=h.toFixed(1)+'h';
