@@ -311,20 +311,28 @@ input.num{width:90px}
       const maxAge = 400 * 24 * 60 * 60;
       document.cookie = name + '=' + encodeURIComponent(value) + ';max-age=' + maxAge + ';path=/;SameSite=Lax';
     }
-    function setAllUnlockFlags(code) {
+    function setAllUnlockFlags(code, uid) {
       try { localStorage.setItem('gcq_unlocked', 'true'); } catch(e) {}
       try { localStorage.setItem('gatelogx_game_unlocked', 'true'); } catch(e) {}
       if (code) { try { localStorage.setItem('gcq_unlock_code', code); } catch(e) {} }
+      if (uid) { try { localStorage.setItem('gcq_unlock_uid', uid); } catch(e) {} }
       setCookie('gcq_unlocked', 'true');
       if (code) setCookie('gcq_unlock_code', code);
+      if (uid) setCookie('gcq_unlock_uid', uid);
     }
 
-    // Get stored unlock code from localStorage or cookie
+    // Get stored unlock code and UID from localStorage or cookie
     function getStoredCode() {
       let code = null;
       try { code = localStorage.getItem('gcq_unlock_code'); } catch(e) {}
       if (!code) code = getCookie('gcq_unlock_code');
       return code;
+    }
+    function getStoredUID() {
+      let uid = null;
+      try { uid = localStorage.getItem('gcq_unlock_uid'); } catch(e) {}
+      if (!uid) uid = getCookie('gcq_unlock_uid');
+      return uid;
     }
 
     // ✅ FAST PATH: Check cookie AND localStorage unlock flags
@@ -337,13 +345,14 @@ input.num{width:90px}
 
     if (cookieUnlocked || localStorageUnlocked) {
       // User has unlock flag - show game immediately
-      setAllUnlockFlags(getStoredCode());
+      setAllUnlockFlags(getStoredCode(), getStoredUID());
       document.body.style.visibility = "visible";
       return;
     }
 
-    // ✅ RECOVERY PATH: Check if we have a stored unlock CODE to verify
+    // ✅ RECOVERY PATH: Check if we have a stored unlock CODE + UID to verify
     const storedCode = getStoredCode();
+    const storedUID = getStoredUID();
     
     // Initialize Firebase (needed for code verification or auth check)
     const firebaseConfig = {
@@ -364,16 +373,18 @@ input.num{width:90px}
     
     const db = firebase.firestore();
 
-    // If we have a stored code, verify it directly against Firestore
-    if (storedCode) {
+    // If we have a stored code AND UID, verify both against Firestore
+    if (storedCode && storedUID) {
       try {
         const codeDoc = await db.collection("unlock_codes").doc(storedCode).get();
-        if (codeDoc.exists && codeDoc.data().used === true) {
-          // ✅ Code was legitimately used - restore access
-          setAllUnlockFlags(storedCode);
+        // ✅ SECURE: Verify code is used AND the stored UID matches who used it
+        if (codeDoc.exists && codeDoc.data().used === true && codeDoc.data().usedBy === storedUID) {
+          // Code + UID match - this is the legitimate user, restore access
+          setAllUnlockFlags(storedCode, storedUID);
           document.body.style.visibility = "visible";
           return;
         }
+        // If UID doesn't match, someone may have stolen the code - deny access
       } catch (e) {
         console.error("Error verifying stored code:", e);
       }
@@ -391,7 +402,7 @@ input.num{width:90px}
       } catch(e) {}
       
       if (cookieCheck || localCheck) {
-        setAllUnlockFlags(getStoredCode());
+        setAllUnlockFlags(getStoredCode(), getStoredUID());
         document.body.style.visibility = "visible";
         return;
       }
@@ -408,7 +419,7 @@ input.num{width:90px}
         if (userDoc.exists && userDoc.data().unlocked === true) {
           // Get the code from the user doc if available
           const code = userDoc.data().code || null;
-          setAllUnlockFlags(code);
+          setAllUnlockFlags(code, user.uid);
           document.body.style.visibility = "visible";
         } else {
           alert("⚠️ Access Denied\n\nPlease unlock the game first by paying ₹500.");
