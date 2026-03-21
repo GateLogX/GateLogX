@@ -968,6 +968,29 @@ function evaluateDailyBonuses(){
 }
 
 // ===================== XP =====================
+let renderPending = false;
+let savePending = false;
+
+function scheduleRender() {
+  if(!renderPending) {
+    renderPending = true;
+    requestAnimationFrame(() => {
+      renderPending = false;
+      renderUI();
+    });
+  }
+}
+
+function scheduleSave() {
+  if(!savePending) {
+    savePending = true;
+    setTimeout(() => {
+      savePending = false;
+      save();
+    }, 100);
+  }
+}
+
 function addXP(amt,msg){
   S.xp+=amt; S.today.xp+=amt;
   const newL=getLevel(S.xp);
@@ -975,8 +998,8 @@ function addXP(amt,msg){
   S.level=newL;
   log(msg,amt);
   checkMS();
-  save();
-  renderUI();
+  scheduleSave();
+  scheduleRender();
 }
 function log(msg,xp){
   S.actLog.unshift({msg,xp,t:new Date().toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'})});
@@ -1112,15 +1135,17 @@ function toggleTopic(subId,topicId){
   if(!s)return;
   if(!S.progress[subId])S.progress[subId]={};
   const was=S.progress[subId][topicId];
+  const el=document.getElementById(`ti-${subId}-${topicId}`);
+  
+  // Instant visual feedback
   if(!was){
+    if(el){el.className='topic-item done';el.querySelector('.topic-check').textContent='✓';}
     S.progress[subId][topicId]=true;
     // record completion timestamp for topic
     if(!S.topicDoneAt) S.topicDoneAt={};
     if(!S.topicDoneAt[subId]) S.topicDoneAt[subId]={};
     S.topicDoneAt[subId][topicId]=todayStr();
     S.topicsDone++;
-    const el=document.getElementById(`ti-${subId}-${topicId}`);
-    if(el){el.className='topic-item done';el.querySelector('.topic-check').textContent='✓';}
     // check subject completion
     const allDone=s.topics.every(t=>S.progress[subId][t.id]);
     const prevDone=S.subjDone;
@@ -1132,15 +1157,15 @@ function toggleTopic(subId,topicId){
       addXP(s.xpp,`Completed topic in ${s.name}`);
     }
   }else{
+    if(el){el.className='topic-item';el.querySelector('.topic-check').textContent='';}
     S.progress[subId][topicId]=false;
     if(S.topicDoneAt && S.topicDoneAt[subId]) delete S.topicDoneAt[subId][topicId];
     S.topicsDone=Math.max(0,S.topicsDone-1);
     S.xp=Math.max(0,S.xp-s.xpp);
     S.level=getLevel(S.xp);
     S.subjDone=SUBJECTS.filter(sx=>{const p=S.progress[sx.id]||{};return sx.topics.every(t=>p[t.id]);}).length;
-    const el=document.getElementById(`ti-${subId}-${topicId}`);
-    if(el){el.className='topic-item';el.querySelector('.topic-check').textContent='';}
-    save();renderUI();
+    scheduleSave();
+    scheduleRender();
   }
   const p=S.progress[subId]||{};
   refreshModalProg(s,p);
@@ -1161,6 +1186,16 @@ function markAllDone(){
 
 // ===================== TIMER =====================
 let timerSec=0,timerGoing=false,timerInt=null;
+
+// Restore timer from saved hours on page load
+function initTimer() {
+  timerSec = Math.round((S.today.h || 0) * 3600);
+  const h=String(Math.floor(timerSec/3600)).padStart(2,'0');
+  const m=String(Math.floor((timerSec%3600)/60)).padStart(2,'0');
+  const ss=String(timerSec%60).padStart(2,'0');
+  document.getElementById('timer-disp').textContent=`${h}:${m}:${ss}`;
+}
+
 function toggleTimer(){
   timerGoing=!timerGoing;
   const btn=document.getElementById('timer-btn');
@@ -1820,6 +1855,7 @@ function markPYQSolvedAndNext() {
 document.getElementById('inp-name').value=S.name;
 document.getElementById('inp-goal-h').value=S.goalH;
 document.getElementById('inp-goal-m').value=S.goalM;
+initTimer(); // Restore timer from saved hours
 renderUI();
 loadPYQPractice();
 document.getElementById('modal-bg').addEventListener('click',e=>{if(e.target===document.getElementById('modal-bg'))closeModal();});
