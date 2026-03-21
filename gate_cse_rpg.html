@@ -762,6 +762,10 @@ function makeTopics(subId, count) {
 }
 SUBJECTS.forEach(s => { s.topics = makeTopics(s.id, s.lec); });
 
+// O(1) subject lookup map
+const SUBJ_MAP = {};
+SUBJECTS.forEach(s => { SUBJ_MAP[s.id] = s; });
+
 const MILESTONES=[
   {id:'t1',icon:'⭐',name:'First Blood',desc:'Complete 1 topic',fn:s=>s.topicsDone>=1},
   {id:'t10',icon:'🔟',name:'On a Roll',desc:'Complete 10 topics',fn:s=>s.topicsDone>=10},
@@ -999,6 +1003,27 @@ function evaluateDailyBonuses(){
 // ===================== XP =====================
 let renderPending = false;
 let savePending = false;
+let msPending = false;
+
+// Cache DOM elements for fast updates
+let _dom = null;
+function getDOM() {
+  if(!_dom) {
+    _dom = {
+      topXp: document.getElementById('top-xp'),
+      topTopics: document.getElementById('top-topics'),
+      topSubjects: document.getElementById('top-subjects'),
+      topBosses: document.getElementById('top-bosses'),
+      topStreak: document.getElementById('top-streak'),
+      sbLevel: document.getElementById('sb-level'),
+      sbRank: document.getElementById('sb-rank'),
+      sbXpCount: document.getElementById('sb-xp-count'),
+      sbXpBar: document.getElementById('sb-xp-bar'),
+      nbSubjects: document.getElementById('nb-subjects')
+    };
+  }
+  return _dom;
+}
 
 function scheduleRender() {
   if(!renderPending) {
@@ -1016,7 +1041,7 @@ function scheduleSave() {
     setTimeout(() => {
       savePending = false;
       save();
-    }, 100);
+    }, 500);
   }
 }
 
@@ -1026,28 +1051,53 @@ function addXP(amt,msg,skipFullRender){
   if(newL>S.level){S.level=newL;log(`Leveled up → LVL ${newL}!`,0);}
   S.level=newL;
   log(msg,amt);
-  checkMS();
+  scheduleMSCheck(); // Debounced milestone check
   scheduleSave();
   if(skipFullRender){
     updateStatsOnly();
+    scheduleXpCountUpdate();
   } else {
     scheduleRender();
   }
 }
 
-// Fast stats update without rebuilding grids
+// Debounced milestone check - don't check on every click
+function scheduleMSCheck(){
+  if(!msPending){
+    msPending = true;
+    setTimeout(()=>{
+      msPending = false;
+      checkMS();
+    }, 500);
+  }
+}
+
+// Fast stats update without rebuilding grids - uses cached DOM
 function updateStatsOnly(){
-  document.getElementById('top-xp').textContent=S.xp.toLocaleString();
-  document.getElementById('top-topics').textContent=S.topicsDone;
-  document.getElementById('top-subjects').textContent=S.subjDone;
-  document.getElementById('top-bosses').textContent=S.bossSlain;
-  document.getElementById('top-streak').textContent=S.streak;
-  document.getElementById('sb-level').textContent=S.level;
-  document.getElementById('sb-rank').textContent=RANKS[S.level-1];
-  const xpC=S.xp-xpPrev(S.level), xpN=xpForNext(S.level)-xpPrev(S.level);
-  document.getElementById('sb-xp-count').textContent=`${S.xp.toLocaleString()} / ${xpForNext(S.level).toLocaleString()}`;
-  document.getElementById('sb-xp-bar').style.width=Math.min(100,(xpC/xpN)*100)+'%';
-  document.getElementById('nb-subjects').textContent=`${S.subjDone}/13`;
+  const d = getDOM();
+  d.topXp.textContent=S.xp;
+  d.topTopics.textContent=S.topicsDone;
+  d.topSubjects.textContent=S.subjDone;
+  d.topBosses.textContent=S.bossSlain;
+  d.topStreak.textContent=S.streak;
+  d.sbLevel.textContent=S.level;
+  d.sbRank.textContent=RANKS[S.level-1];
+  d.sbXpBar.style.width=Math.min(100,((S.xp-xpPrev(S.level))/(xpForNext(S.level)-xpPrev(S.level)))*100)+'%';
+  d.nbSubjects.textContent=S.subjDone+'/13';
+}
+
+// Debounced XP count update (expensive toLocaleString)
+let xpCountPending = false;
+function scheduleXpCountUpdate(){
+  if(!xpCountPending){
+    xpCountPending = true;
+    setTimeout(()=>{
+      xpCountPending = false;
+      const d = getDOM();
+      d.sbXpCount.textContent=S.xp.toLocaleString()+' / '+xpForNext(S.level).toLocaleString();
+      d.topXp.textContent=S.xp.toLocaleString();
+    }, 200);
+  }
 }
 function log(msg,xp){
   S.actLog.unshift({msg,xp,t:new Date().toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'})});
@@ -1149,7 +1199,7 @@ function renderSubjGrid(){
 
 // ===================== MODAL =====================
 function openModal(subId){
-  const s=SUBJECTS.find(x=>x.id===subId);
+  const s=SUBJ_MAP[subId];
   if(!s)return;
   currentModal=subId;
   const p=S.progress[subId]||{};
@@ -1169,59 +1219,68 @@ function openModal(subId){
   document.getElementById('modal-bg').classList.add('open');
 }
 
+// Cache modal progress elements
+let _mProgText=null, _mProgBar=null;
 function refreshModalProg(s,p){
-  const d=Object.values(p).filter(Boolean).length;
+  if(!_mProgText)_mProgText=document.getElementById('m-prog-text');
+  if(!_mProgBar)_mProgBar=document.getElementById('m-prog-bar');
+  let d=0;for(const k in p)if(p[k])d++;
   const pct=Math.round((d/s.lec)*100);
-  document.getElementById('m-prog-text').textContent=`${d} / ${s.lec} — ${pct}%`;
-  document.getElementById('m-prog-bar').style.width=pct+'%';
+  _mProgText.textContent=d+' / '+s.lec+' — '+pct+'%';
+  _mProgBar.style.width=pct+'%';
 }
 
 function closeModal(){document.getElementById('modal-bg').classList.remove('open');currentModal=null;}
 
 function toggleTopic(subId,topicId){
-  const s=SUBJECTS.find(x=>x.id===subId);
+  const s=SUBJ_MAP[subId]; // O(1) lookup instead of find()
   if(!s)return;
   if(!S.progress[subId])S.progress[subId]={};
   const was=S.progress[subId][topicId];
   const el=document.getElementById(`ti-${subId}-${topicId}`);
+  const checkEl=el&&el.firstElementChild; // Cache child lookup
   
-  // Instant visual feedback
   if(!was){
-    if(el){el.className='topic-item done';el.querySelector('.topic-check').textContent='✓';}
+    // Mark done - instant feedback
+    if(el){el.className='topic-item done';if(checkEl)checkEl.textContent='✓';}
     S.progress[subId][topicId]=true;
-    // record completion timestamp for topic
-    if(!S.topicDoneAt) S.topicDoneAt={};
-    if(!S.topicDoneAt[subId]) S.topicDoneAt[subId]={};
+    if(!S.topicDoneAt)S.topicDoneAt={};
+    if(!S.topicDoneAt[subId])S.topicDoneAt[subId]={};
     S.topicDoneAt[subId][topicId]=todayStr();
     S.topicsDone++;
-    // check subject completion
-    const allDone=s.topics.every(t=>S.progress[subId][t.id]);
-    const prevDone=S.subjDone;
-    S.subjDone=SUBJECTS.filter(sx=>{const p=S.progress[sx.id]||{};return sx.topics.every(t=>p[t.id]);}).length;
-    if(S.subjDone>prevDone){
+    
+    // Only check subject completion if all topics might be done
+    const p=S.progress[subId];
+    const doneCount=Object.values(p).filter(Boolean).length;
+    if(doneCount===s.lec){
+      // Subject just completed!
+      S.subjDone++;
       addXP(s.xpp,`Completed topic`,true);
-      addXP(5000,`🏆 ${s.name} MASTERED!`); // Full render for mastery celebration
+      addXP(5000,`🏆 ${s.name} MASTERED!`);
     }else{
-      addXP(s.xpp,`Completed topic in ${s.name}`,true); // Skip full render, just update stats
+      addXP(s.xpp,`Completed topic in ${s.name}`,true);
     }
+    refreshModalProg(s,p);
   }else{
-    if(el){el.className='topic-item';el.querySelector('.topic-check').textContent='';}
+    // Unmark - instant feedback
+    if(el){el.className='topic-item';if(checkEl)checkEl.textContent='';}
+    const wasSubjDone=Object.values(S.progress[subId]).filter(Boolean).length===s.lec;
     S.progress[subId][topicId]=false;
-    if(S.topicDoneAt && S.topicDoneAt[subId]) delete S.topicDoneAt[subId][topicId];
+    if(S.topicDoneAt&&S.topicDoneAt[subId])delete S.topicDoneAt[subId][topicId];
     S.topicsDone=Math.max(0,S.topicsDone-1);
     S.xp=Math.max(0,S.xp-s.xpp);
     S.level=getLevel(S.xp);
-    S.subjDone=SUBJECTS.filter(sx=>{const p=S.progress[sx.id]||{};return sx.topics.every(t=>p[t.id]);}).length;
+    if(wasSubjDone)S.subjDone=Math.max(0,S.subjDone-1);
     scheduleSave();
-    scheduleRender();
+    updateStatsOnly();
+    scheduleXpCountUpdate();
+    refreshModalProg(s,S.progress[subId]||{});
   }
-  const p=S.progress[subId]||{};
-  refreshModalProg(s,p);
 }
 
 function markAllDone(){
   if(!currentModal)return;
-  const s=SUBJECTS.find(x=>x.id===currentModal);
+  const s=SUBJ_MAP[currentModal];
   if(!s)return;
   if(!S.progress[s.id])S.progress[s.id]={};
   let added=0;
