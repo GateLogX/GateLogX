@@ -4836,7 +4836,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem(UNLOCK_KEY, 'true');
                     // old game page expects this key as a fallback - set it too
                     localStorage.setItem('gcq_unlocked', 'true');
+                    // Store the actual unlock code for re-verification if cookies/localStorage get cleared
+                    localStorage.setItem('gcq_unlock_code', raw);
                 }catch(e){console.warn('Could not write local unlock flag', e);}
+                // Also set cookies (max practical expiry ~400 days due to browser limits)
+                try {
+                    const maxAge = 400 * 24 * 60 * 60; // 400 days in seconds
+                    document.cookie = 'gcq_unlocked=true;max-age=' + maxAge + ';path=/;SameSite=Lax';
+                    // Store unlock code in cookie for re-verification
+                    document.cookie = 'gcq_unlock_code=' + encodeURIComponent(raw) + ';max-age=' + maxAge + ';path=/;SameSite=Lax';
+                } catch(e) {}
                 // update UI and game card
                 document.getElementById("paywallMain").style.display = "none";
                 document.getElementById("unlockedCard").classList.add("show");
