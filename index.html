@@ -4869,7 +4869,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (error) {
       console.error("Error checking code:", error);
-      errorEl.textContent = "❌ Connection error. Please try again.";
+      // Show actual error for debugging
+      if (error.code === 'permission-denied') {
+        errorEl.textContent = "❌ Permission denied. Contact support.";
+      } else if (error.code === 'unavailable') {
+        errorEl.textContent = "❌ Service unavailable. Try again later.";
+      } else {
+        errorEl.textContent = "❌ Error: " + (error.message || error.code || "Connection failed");
+      }
       errorEl.classList.add("show");
     } finally {
       unlockBtn.textContent = "Unlock";
