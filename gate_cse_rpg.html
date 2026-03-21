@@ -345,7 +345,6 @@ input.num{width:90px}
       return val;
     }
 
-    const storedPhone = getStored('gcq_unlock_phone');
     const storedDeviceId = getStored('gcq_device_id');
     const storedCode = getStored('gcq_unlock_code');
     const unlockFlag = getStored('gcq_unlocked') === 'true';
@@ -356,7 +355,7 @@ input.num{width:90px}
       return;
     }
 
-    // ✅ VERIFY WITH FIREBASE: Check phone + device in Firestore
+    // ✅ VERIFY WITH FIREBASE: Check code + device in Firestore
     const firebaseConfig = {
       apiKey: "AIzaSyBp5mzuP_bjjlqFIVTyO_t-L8V2_ud8Gns",
       authDomain: "gatelogx-abce1.firebaseapp.com",
@@ -375,20 +374,20 @@ input.num{width:90px}
     
     const db = firebase.firestore();
 
-    // If we have stored phone, verify against Firestore
-    if (storedPhone) {
+    // If we have stored code, verify against Firestore
+    if (storedCode) {
       try {
-        const userDoc = await db.collection("unlocked_users").doc(storedPhone).get();
+        const codeDoc = await db.collection("unlock_codes").doc(storedCode).get();
         
-        if (userDoc.exists && userDoc.data().unlocked === true) {
+        if (codeDoc.exists && codeDoc.data().used === true) {
           // Check if this device is the authorized one
-          if (userDoc.data().deviceId === DEVICE_ID) {
+          if (codeDoc.data().deviceId === DEVICE_ID) {
             // ✅ Device matches - allow access
             document.body.style.visibility = "visible";
             return;
           } else {
-            // ❌ Different device - need to re-verify on index page
-            alert("⚠️ Access from new device\n\nPlease verify your phone number again to continue.");
+            // ❌ Different device
+            alert("⚠️ Access Denied\n\nThis code is linked to a different device.");
             window.location.href = "index.html";
             return;
           }
