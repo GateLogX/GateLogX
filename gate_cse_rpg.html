@@ -470,7 +470,12 @@ input.num{width:90px}
           </div>
 
           <div class="card">
-            <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--muted2);text-transform:uppercase;margin-bottom:12px">MCQ Practice <span style="color:var(--amber)">+25 XP correct</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--muted2);text-transform:uppercase">PYQ Practice <span style="color:var(--amber)">+10 XP solved</span></div>
+              <select id="pyq-practice-subject" onchange="loadPYQPractice()" style="padding:4px 8px;font-size:11px;border-radius:4px;border:1px solid var(--border);background:var(--bg2);color:var(--text)">
+                <option value="all">All Subjects</option>
+              </select>
+            </div>
             <div id="mcq-area"></div>
           </div>
         </div>
@@ -988,7 +993,7 @@ function go(tab){
   if(el)el.classList.add('active');
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('panel-'+tab).classList.add('active');
-  if(tab==='daily')renderMCQ();
+  if(tab==='daily')loadPYQPractice();
   if(tab==='boss')renderBoss();
   if(tab==='milestones')renderMS();
   if(tab==='compete')renderCompete();
@@ -1279,7 +1284,7 @@ function answerMCQ(c){
   addXP(xp,`MCQ ${ok?'correct':'attempt'}`);
   // evaluate daily bonuses (MCQ-based rewards)
   evaluateDailyBonuses();
-  document.getElementById('mcq-res').innerHTML=`<div class="mcq-result ${ok?'c':'w'}">${ok?'✓ Correct':'✗ Incorrect'}<span class="xp-pill">+${xp} XP</span><button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="renderMCQ()">Next →</button></div>`;
+  document.getElementById('mcq-res').innerHTML=`<div class="mcq-result ${ok?'c':'w'}">${ok?'✓ Correct':'✗ Incorrect'}<span class="xp-pill">+${xp} XP</span></div><div style="margin-top:12px;text-align:center"><button class="btn btn-amber" onclick="renderMCQ()" style="padding:10px 24px;font-size:14px">➡ Next Question</button></div>`;
 }
 
 // ===================== BOSS =====================
@@ -1638,10 +1643,21 @@ function loadMorePYQs() {
 function togglePYQSolved(qId) {
   if(pyqSolved[qId]) {
     delete pyqSolved[qId];
+    // Decrement MCQ count when unmarking
+    if(S.today.mcq > 0) S.today.mcq--;
+    if(S.mcqTotal > 0) S.mcqTotal--;
+    save();
   } else {
     pyqSolved[qId] = true;
+    // Count as MCQ solved
+    S.today.mcq++;
+    S.mcqTotal++;
     // Award XP for marking as solved
     addXP(10, `Solved PYQ`);
+    // evaluate daily bonuses
+    evaluateDailyBonuses();
+    save();
+    updateDailyUI();
   }
   localStorage.setItem('gcq_pyq_solved', JSON.stringify(pyqSolved));
   filterPYQDisplay();
@@ -1651,12 +1667,97 @@ function renderPYQs() {
   loadPYQs();
 }
 
+// Current PYQ for practice
+let curPYQ = null;
+let pyqPracticeLoaded = false;
+
+async function loadPYQPractice() {
+  const selectEl = document.getElementById('pyq-practice-subject');
+  const area = document.getElementById('mcq-area');
+  
+  // Populate subject dropdown on first load
+  if(!pyqPracticeLoaded) {
+    SUBJECTS.forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s.id;
+      opt.textContent = s.icon + ' ' + s.name;
+      selectEl.appendChild(opt);
+    });
+    pyqPracticeLoaded = true;
+  }
+  
+  const filter = selectEl.value;
+  area.innerHTML = '<div style="text-align:center;padding:20px;color:var(--muted2)">Loading PYQs...</div>';
+  
+  // Determine files to load
+  let filesToLoad = [];
+  if(filter === 'all') {
+    for(const subId of Object.keys(PYQ_FILE_MAP)) {
+      filesToLoad.push(...PYQ_FILE_MAP[subId]);
+    }
+  } else {
+    filesToLoad = PYQ_FILE_MAP[filter] || [];
+  }
+  filesToLoad = [...new Set(filesToLoad)];
+  
+  if(filesToLoad.length === 0) {
+    area.innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted2)">No PYQs available for this subject.</div>';
+    return;
+  }
+  
+  // Load questions
+  const allQuestions = [];
+  for(const filename of filesToLoad) {
+    const data = await loadPYQFile(filename);
+    for(const q of data.questions) {
+      if(!pyqSolved[q.id]) { // Only unsolved
+        allQuestions.push({...q, subject: filename});
+      }
+    }
+  }
+  
+  if(allQuestions.length === 0) {
+    area.innerHTML = `
+      <div style="text-align:center;padding:30px 20px;color:var(--muted2)">
+        <div style="font-size:32px;margin-bottom:12px">🎉</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px">All PYQs Solved!</div>
+        <div style="font-size:12px;line-height:1.6">You've completed all questions for this subject.</div>
+      </div>`;
+    return;
+  }
+  
+  // Pick random question
+  curPYQ = allQuestions[Math.floor(Math.random() * allQuestions.length)];
+  
+  // Render the question
+  const subjectName = curPYQ.subject.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  area.innerHTML = `
+    <div class="mcq-q">
+      <a href="${curPYQ.link||'#'}" target="_blank" style="color:var(--amber);text-decoration:none">${curPYQ.title}</a>
+      <span style="font-size:10px;color:var(--muted);margin-left:8px">[${subjectName}${curPYQ.year ? ' • ' + curPYQ.year : ''}]</span>
+    </div>
+    <div style="margin-top:12px;font-size:12px;color:var(--muted2)">
+      ${curPYQ.tags ? curPYQ.tags.map(t => '<span style="background:var(--bg3);padding:2px 6px;border-radius:4px;margin-right:4px">' + t + '</span>').join('') : ''}
+    </div>
+    <div style="margin-top:16px;display:flex;gap:8px">
+      <button class="btn btn-amber" onclick="markPYQSolvedAndNext()" style="padding:10px 20px">✓ Mark Solved (+10 XP)</button>
+      <button class="btn btn-ghost" onclick="loadPYQPractice()" style="padding:10px 20px">⏭ Skip</button>
+    </div>
+    <div id="mcq-res"></div>`;
+}
+
+function markPYQSolvedAndNext() {
+  if(!curPYQ) return;
+  togglePYQSolved(curPYQ.id);
+  loadPYQPractice();
+}
+
 // ===================== INIT =====================
 document.getElementById('inp-name').value=S.name;
 document.getElementById('inp-goal-h').value=S.goalH;
 document.getElementById('inp-goal-m').value=S.goalM;
 renderUI();
-renderMCQ();
+loadPYQPractice();
 document.getElementById('modal-bg').addEventListener('click',e=>{if(e.target===document.getElementById('modal-bg'))closeModal();});
 </script>
 </body>
