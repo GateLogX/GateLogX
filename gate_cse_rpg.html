@@ -2005,11 +2005,10 @@ loadPYQPractice();
 document.getElementById('modal-bg').addEventListener('click',e=>{if(e.target===document.getElementById('modal-bg'))closeModal();});
 
 // ===================== AUTO MIDNIGHT CHECK =====================
-// Reset countdown timer
-let _resetCountdownEl = null;
+// Reset countdown timer - runs every second
 function updateResetCountdown() {
-  if(!_resetCountdownEl) _resetCountdownEl = document.getElementById('reset-countdown');
-  if(!_resetCountdownEl) return;
+  const el = document.getElementById('reset-countdown');
+  if(!el) return;
   const now = new Date();
   const midnight = new Date(now);
   midnight.setHours(24, 0, 0, 0);
@@ -2017,21 +2016,10 @@ function updateResetCountdown() {
   const h = Math.floor(diff / 3600000);
   const m = Math.floor((diff % 3600000) / 60000);
   const s = Math.floor((diff % 60000) / 1000);
-  _resetCountdownEl.textContent = 
-    String(h).padStart(2,'0') + ':' + 
-    String(m).padStart(2,'0') + ':' + 
-    String(s).padStart(2,'0');
+  el.textContent = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
 }
-// Start countdown after DOM ready
-if(document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    updateResetCountdown();
-    setInterval(updateResetCountdown, 1000);
-  });
-} else {
-  updateResetCountdown();
-  setInterval(updateResetCountdown, 1000);
-}
+setInterval(updateResetCountdown, 1000);
+updateResetCountdown();
 
 function scheduleMidnightCheck() {
   const now = new Date();
