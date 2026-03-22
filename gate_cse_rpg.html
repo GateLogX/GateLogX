@@ -2022,8 +2022,16 @@ function updateResetCountdown() {
     String(m).padStart(2,'0') + ':' + 
     String(s).padStart(2,'0');
 }
-setInterval(updateResetCountdown, 1000);
-setTimeout(updateResetCountdown, 100); // Initial update
+// Start countdown after DOM ready
+if(document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    updateResetCountdown();
+    setInterval(updateResetCountdown, 1000);
+  });
+} else {
+  updateResetCountdown();
+  setInterval(updateResetCountdown, 1000);
+}
 
 function scheduleMidnightCheck() {
   const now = new Date();
