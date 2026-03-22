@@ -898,7 +898,13 @@ const RANKS=['INITIATE','APPRENTICE','NOVICE','STUDENT','SCHOLAR','ADEPT','EXPER
 function getLevel(xp){let l=1;for(let i=0;i<LVL_XP.length;i++){if(xp>=LVL_XP[i])l=i+1;else break;}return Math.min(l,15);}
 function xpForNext(l){return LVL_XP[l]||LVL_XP[LVL_XP.length-1];}
 function xpPrev(l){return LVL_XP[l-1]||0;}
-function todayStr(){return new Date().toISOString().split('T')[0];}
+// Use LOCAL date, not UTC
+function todayStr(){
+  const d = new Date();
+  return d.getFullYear() + '-' + 
+         String(d.getMonth()+1).padStart(2,'0') + '-' + 
+         String(d.getDate()).padStart(2,'0');
+}
 
 // ===================== STATE =====================
 function loadState(){
@@ -932,9 +938,9 @@ function checkNewDay(){
     S.yesterday={h:S.today.h,mcq:S.today.mcq,xp:S.today.xp};
     S.perfLog.push({date:S.today.date,...S.yesterday});
     if(S.perfLog.length>30)S.perfLog.shift();
-    // streak
+    // streak - use local time for yesterday
     const yd=new Date();yd.setDate(yd.getDate()-1);
-    const ydStr=yd.toISOString().split('T')[0];
+    const ydStr=yd.getFullYear()+'-'+String(yd.getMonth()+1).padStart(2,'0')+'-'+String(yd.getDate()).padStart(2,'0');
     if(S.today.date===ydStr&&(S.today.h>0||S.today.mcq>0)){S.streak++;}
     else if(S.today.date!==ydStr){S.streak=0;}
     // auto-adjust goals — set today's target to yesterday * 1.1 (so you always aim to beat yesterday)
