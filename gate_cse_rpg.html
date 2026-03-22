@@ -482,7 +482,7 @@ input.num{width:90px}
       <div class="panel" id="panel-daily">
         <div class="panel-header">
           <div class="panel-title">⚡ Daily Battle</div>
-          <div class="panel-sub">Study session timer + MCQ practice. Timer earns 5 XP/minute.</div>
+          <div class="panel-sub">Study session timer + MCQ practice. Timer earns 5 XP/minute. <span style="color:var(--amber)">Resets in <span id="reset-countdown">--:--:--</span></span></div>
         </div>
         <div class="daily-grid">
           <div class="card">
@@ -1999,6 +1999,26 @@ loadPYQPractice();
 document.getElementById('modal-bg').addEventListener('click',e=>{if(e.target===document.getElementById('modal-bg'))closeModal();});
 
 // ===================== AUTO MIDNIGHT CHECK =====================
+// Reset countdown timer
+let _resetCountdownEl = null;
+function updateResetCountdown() {
+  if(!_resetCountdownEl) _resetCountdownEl = document.getElementById('reset-countdown');
+  if(!_resetCountdownEl) return;
+  const now = new Date();
+  const midnight = new Date(now);
+  midnight.setHours(24, 0, 0, 0);
+  const diff = midnight - now;
+  const h = Math.floor(diff / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  _resetCountdownEl.textContent = 
+    String(h).padStart(2,'0') + ':' + 
+    String(m).padStart(2,'0') + ':' + 
+    String(s).padStart(2,'0');
+}
+setInterval(updateResetCountdown, 1000);
+setTimeout(updateResetCountdown, 100); // Initial update
+
 function scheduleMidnightCheck() {
   const now = new Date();
   const midnight = new Date(now);
