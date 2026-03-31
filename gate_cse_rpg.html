@@ -29,12 +29,11 @@
 html,body{height:100%;overflow:hidden}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;display:flex;flex-direction:column}
 
-/* GRID BACKGROUND */
-body::before{
-  content:'';position:fixed;inset:0;
-  background-image:linear-gradient(rgba(0,200,212,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,212,0.03) 1px,transparent 1px);
-  background-size:40px 40px;pointer-events:none;z-index:0;
-}
+/* PERFORMANCE MODE - Minimal effects for speed */
+.panel-area,.sidebar-inner,.modal-body{-webkit-overflow-scrolling:touch}
+
+/* GRID BACKGROUND - DISABLED for performance */
+/*body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,200,212,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,212,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}*/
 
 /* TOP BAR */
 .topbar{
@@ -70,7 +69,7 @@ body::before{
 .sidebar-section-label{font-size:9px;font-weight:700;letter-spacing:3px;color:var(--muted);text-transform:uppercase;padding:8px 16px 4px}
 .nav-item{
   display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;
-  font-size:13px;font-weight:500;color:var(--muted2);transition:all 0.15s;
+  font-size:13px;font-weight:500;color:var(--muted2);
   border-left:2px solid transparent;
 }
 .nav-item:hover{background:var(--bg3);color:var(--text)}
@@ -85,7 +84,7 @@ body::before{
 .xp-level{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:var(--amber)}
 .xp-count{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted2)}
 .bar-track{background:var(--border);border-radius:2px;height:4px;overflow:hidden}
-.bar-fill{height:100%;border-radius:2px;transition:width 0.5s cubic-bezier(.4,0,.2,1)}
+.bar-fill{height:100%;border-radius:2px}
 .fill-amber{background:linear-gradient(90deg,#c07800,var(--amber))}
 .fill-green{background:var(--green)}
 .fill-cyan{background:var(--cyan)}
@@ -112,14 +111,14 @@ body::before{
 .card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:16px}
 .card2{background:var(--card2);border:1px solid var(--border2);border-radius:4px;padding:12px}
 
-/* SUBJECT GRID */
+/* SUBJECT GRID - Optimized */
 .subj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
 .subj-card{
   background:var(--card);border:1px solid var(--border);border-radius:6px;
-  padding:14px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;
+  padding:14px;cursor:pointer;position:relative;overflow:hidden;
 }
-.subj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--c,var(--amber));opacity:0;transition:opacity 0.2s}
-.subj-card:hover{border-color:var(--border2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+.subj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--c,var(--amber));opacity:0}
+.subj-card:hover{border-color:var(--amber)}
 .subj-card:hover::before{opacity:1}
 .subj-card.done{border-color:#16452d}
 .subj-card.done::before{opacity:1;background:var(--green)}
@@ -130,27 +129,27 @@ body::before{
 .done-tag{display:inline-flex;align-items:center;gap:4px;background:#052e16;border:1px solid #166534;border-radius:3px;padding:2px 7px;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--green);text-transform:uppercase;margin-top:4px}
 .subj-xp-tag{font-size:10px;color:var(--muted);margin-top:2px}
 
-/* MODAL */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+/* MODAL - No blur for performance */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:200;align-items:center;justify-content:center}
 .modal-bg.open{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--border2);border-radius:8px;width:min(680px,95vw);max-height:85vh;display:flex;flex-direction:column;overflow:hidden}
 .modal-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
 .modal-name{font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:var(--amber)}
-.modal-close{background:var(--border);border:none;color:var(--muted2);border-radius:4px;padding:4px 10px;cursor:pointer;font-size:12px;transition:all 0.15s}
+.modal-close{background:var(--border);border:none;color:var(--muted2);border-radius:4px;padding:4px 10px;cursor:pointer;font-size:12px}
 .modal-close:hover{background:var(--border2);color:var(--text)}
 .modal-prog{padding:12px 20px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--bg3)}
 .modal-body{overflow-y:auto;flex:1;padding:12px 20px}
 .modal-body::-webkit-scrollbar{width:3px}
 .modal-body::-webkit-scrollbar-thumb{background:var(--border2)}
 
-/* TOPIC LIST */
+/* TOPIC LIST - No transitions */
 .topic-item{
   display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:4px;
-  cursor:pointer;transition:all 0.15s;border:1px solid transparent;margin-bottom:4px;
+  cursor:pointer;border:1px solid transparent;margin-bottom:4px;
 }
 .topic-item:hover{background:var(--bg3);border-color:var(--border)}
 .topic-item.done{background:rgba(34,197,94,0.04);border-color:#16452d}
-.topic-check{width:20px;height:20px;border-radius:3px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;transition:all 0.15s;color:transparent}
+.topic-check{width:20px;height:20px;border-radius:3px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;color:transparent}
 .topic-item.done .topic-check{background:var(--green);border-color:var(--green);color:#052e16;font-weight:700}
 .topic-num{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);min-width:28px}
 .topic-name{flex:1;font-size:13px;font-weight:500}
@@ -158,9 +157,8 @@ body::before{
 .topic-xp{font-family:'Space Mono',monospace;font-size:10px;color:var(--amber);opacity:0.7}
 .topic-item.done .topic-xp{opacity:0.3}
 
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:4px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s;letter-spacing:0.3px}
-.btn:active{transform:scale(0.97)}
+/* BUTTONS - No transitions */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:4px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.3px}
 .btn-amber{background:var(--amber);color:#1a0d00}
 .btn-amber:hover{background:var(--amber2)}
 .btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--muted2)}
@@ -182,12 +180,12 @@ body::before{
 .red-val{color:var(--red)}
 .cyan-val{color:var(--cyan)}
 
-/* MCQ */
+/* MCQ - No transitions */
 .mcq-q{font-size:14px;font-weight:500;line-height:1.6;margin-bottom:14px;color:var(--text)}
 .mcq-opts{display:flex;flex-direction:column;gap:7px}
 .mcq-opt{
   display:flex;align-items:center;gap:10px;padding:9px 13px;border-radius:4px;
-  border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-size:13px;transition:all 0.15s;
+  border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-size:13px;
 }
 .mcq-opt:hover{border-color:var(--amber);color:var(--amber2)}
 .mcq-opt.correct{border-color:var(--green);background:rgba(34,197,94,0.06);color:var(--green)}
@@ -198,10 +196,10 @@ body::before{
 .mcq-result.w{background:rgba(239,68,68,0.08);border:1px solid #991b1b;color:var(--red)}
 .xp-pill{background:var(--amber);color:#1a0d00;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:'Space Mono',monospace}
 
-/* BOSS */
+/* BOSS - No transitions */
 .boss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
-.boss-card{background:var(--card);border:1px solid #2a1040;border-radius:6px;padding:14px;transition:all 0.2s;cursor:pointer}
-.boss-card:hover{border-color:#7c3aed;transform:translateY(-1px);box-shadow:0 8px 30px rgba(168,85,247,0.1)}
+.boss-card{background:var(--card);border:1px solid #2a1040;border-radius:6px;padding:14px;cursor:pointer}
+.boss-card:hover{border-color:#7c3aed}
 .boss-card.slain{border-color:#16452d}
 .boss-icon{font-size:28px;margin-bottom:8px}
 .boss-name{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:var(--purple);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
@@ -214,7 +212,7 @@ body::before{
 
 /* MILESTONES */
 .ms-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.ms-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:14px;display:flex;gap:12px;align-items:flex-start;transition:all 0.2s}
+.ms-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:14px;display:flex;gap:12px;align-items:flex-start}
 .ms-card.earned{border-color:#3d2800;background:rgba(240,165,0,0.04)}
 .ms-icon{font-size:24px;flex-shrink:0;opacity:0.3;filter:grayscale(1)}
 .ms-card.earned .ms-icon{opacity:1;filter:none}
@@ -224,12 +222,11 @@ body::before{
 .ms-desc{font-size:11px;color:var(--muted);margin-top:2px}
 .ms-earned-tag{font-size:9px;color:var(--amber);font-family:'Space Mono',monospace;letter-spacing:1px;margin-top:4px;font-weight:700}
 
-/* PYQ SYSTEM */
-.pyq-card{transition:all 0.2s;border:1px solid var(--border)}
-.pyq-card:hover{border-color:var(--amber);transform:translateY(-1px)}
+/* PYQ SYSTEM - No transitions */
+.pyq-card{border:1px solid var(--border)}
+.pyq-card:hover{border-color:var(--amber)}
 .pyq-card.pyq-solved{background:rgba(34,197,94,0.05);border-color:rgba(34,197,94,0.3)}
-.pyq-check-btn{transition:all 0.15s}
-.pyq-check-btn:hover{transform:scale(1.1);border-color:var(--green)!important}
+.pyq-check-btn:hover{border-color:var(--green)!important}
 
 /* COMPETE */
 .compete-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
@@ -249,7 +246,7 @@ body::before{
 .setting-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
 .setting-label{font-size:13px;font-weight:500;flex:1}
 .setting-sub{font-size:11px;color:var(--muted2);margin-top:2px}
-input.txt{background:var(--bg3);border:1px solid var(--border2);border-radius:4px;color:var(--text);padding:7px 11px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:border-color 0.15s}
+input.txt{background:var(--bg3);border:1px solid var(--border2);border-radius:4px;color:var(--text);padding:7px 11px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none}
 input.txt:focus{border-color:var(--amber)}
 input.num{width:90px}
 
@@ -265,8 +262,8 @@ input.num{width:90px}
 .act-item{font-size:11px;color:var(--muted2);padding:5px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:8px}
 .act-item .act-xp{color:var(--amber);font-family:'Space Mono',monospace;font-size:10px;flex-shrink:0}
 
-/* SCANLINE EFFECT */
-.scanline{position:fixed;inset:0;pointer-events:none;z-index:500;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px)}
+/* SCANLINE EFFECT - DISABLED for performance */
+.scanline{display:none}
 
 /* CORNER DECORATION */
 .corner-deco{position:absolute;width:12px;height:12px;opacity:0.4}
@@ -275,31 +272,26 @@ input.num{width:90px}
 .corner-bl{bottom:0;left:0;border-bottom:2px solid var(--amber);border-left:2px solid var(--amber)}
 .corner-br{bottom:0;right:0;border-bottom:2px solid var(--amber);border-right:2px solid var(--amber)}
 
-/* ANIMATIONS */
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-.panel.active{animation:fadeIn 0.2s ease}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
-.timer-running .timer-display{animation:pulse 2s ease-in-out infinite}
-@keyframes xpPop{0%{transform:scale(0.5) translateY(0);opacity:1}100%{transform:scale(1.2) translateY(-30px);opacity:0}}
+/* ANIMATIONS - Minimal */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 /* HEXAGON PROGRESS */
 .hex-container{display:flex;flex-wrap:wrap;gap:3px;margin-top:8px}
-.hex{width:10px;height:10px;background:var(--border);border-radius:1px;transition:background 0.2s}
+.hex{width:10px;height:10px;background:var(--border);border-radius:1px}
 .hex.done{background:var(--amber)}
 
-/* BOOKMARK SYSTEM */
+/* BOOKMARK SYSTEM - No transitions */
 .bookmark-btn{
   background:transparent;border:1.5px solid var(--border2);border-radius:4px;
   padding:4px 8px;cursor:pointer;font-size:11px;color:var(--muted2);
-  transition:all 0.15s;display:inline-flex;align-items:center;gap:4px;
+  display:inline-flex;align-items:center;gap:4px;
 }
 .bookmark-btn:hover{border-color:var(--amber);color:var(--amber)}
 .bookmark-btn.bookmarked{background:rgba(240,165,0,0.1);border-color:var(--amber);color:var(--amber)}
 .mistake-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .mistake-tag{
   padding:6px 12px;border-radius:20px;font-size:11px;font-weight:500;
-  cursor:pointer;border:1.5px solid var(--border);background:var(--bg3);
-  color:var(--muted2);transition:all 0.15s;
+  cursor:pointer;border:1.5px solid var(--border);background:var(--bg3);color:var(--muted2);
 }
 .mistake-tag:hover{border-color:var(--amber);color:var(--amber)}
 .mistake-tag.selected{background:var(--amber);border-color:var(--amber);color:#1a0d00}
@@ -315,9 +307,9 @@ input.num{width:90px}
 .mistake-tag.selected{background:var(--tag-col);border-color:var(--tag-col)}
 .bookmark-card{
   background:var(--card);border:1px solid var(--border);border-radius:6px;
-  padding:14px;margin-bottom:8px;transition:all 0.2s;
+  padding:14px;margin-bottom:8px;
 }
-.bookmark-card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.bookmark-card:hover{border-color:var(--border2)}
 .bookmark-mistake-badge{
   display:inline-flex;align-items:center;gap:4px;
   padding:3px 8px;border-radius:12px;font-size:10px;font-weight:600;
@@ -333,7 +325,7 @@ input.num{width:90px}
 .bookmark-filter-tag{
   padding:5px 10px;border-radius:14px;font-size:10px;font-weight:600;
   cursor:pointer;border:1px solid var(--border);background:var(--card);
-  color:var(--muted2);transition:all 0.15s;text-transform:uppercase;letter-spacing:0.5px;
+  color:var(--muted2);text-transform:uppercase;letter-spacing:0.5px;
 }
 .bookmark-filter-tag:hover,.bookmark-filter-tag.active{border-color:var(--amber);color:var(--amber)}
 .bookmark-filter-tag.active{background:rgba(240,165,0,0.1)}
@@ -1147,8 +1139,7 @@ function evaluateDailyBonuses(){
       addXP(extra, 'Extra MCQ Bonus');
     }
   }
-  save();
-  renderUI();
+  // Don't save here - called too frequently by timer. Save is done elsewhere.
 }
 
 // ===================== XP =====================
@@ -1270,6 +1261,7 @@ function checkMS(){
 // ===================== RENDER UI =====================
 let currentTab='subjects';
 let currentModal=null;
+let lastRenderTime = 0;
 
 function go(tab){
   currentTab=tab;
@@ -1287,8 +1279,19 @@ function go(tab){
 }
 
 function renderUI(){
-  // topbar
-  document.getElementById('top-xp').textContent=S.xp.toLocaleString();
+  // Throttle renders - max once per 200ms
+  const now = Date.now();
+  if(now - lastRenderTime < 200) {
+    if(!renderPending) {
+      renderPending = true;
+      setTimeout(() => { renderPending = false; renderUI(); }, 200);
+    }
+    return;
+  }
+  lastRenderTime = now;
+  
+  // topbar - simple text updates
+  document.getElementById('top-xp').textContent=S.xp;
   document.getElementById('top-topics').textContent=S.topicsDone;
   document.getElementById('top-subjects').textContent=S.subjDone;
   document.getElementById('top-bosses').textContent=S.bossSlain;
@@ -1297,56 +1300,60 @@ function renderUI(){
   document.getElementById('sb-level').textContent=S.level;
   document.getElementById('sb-rank').textContent=RANKS[S.level-1];
   const xpC=S.xp-xpPrev(S.level), xpN=xpForNext(S.level)-xpPrev(S.level);
-  document.getElementById('sb-xp-count').textContent=`${S.xp.toLocaleString()} / ${xpForNext(S.level).toLocaleString()}`;
+  document.getElementById('sb-xp-count').textContent=`${S.xp} / ${xpForNext(S.level)}`;
   document.getElementById('sb-xp-bar').style.width=Math.min(100,(xpC/xpN)*100)+'%';
   // nav badges
   document.getElementById('nb-subjects').textContent=`${S.subjDone}/13`;
   document.getElementById('nb-boss').textContent=S.bossSlain;
   document.getElementById('nb-ms').textContent=`${S.msEarned.length}/18`;
-  // PYQ badge
-  const pyqSolvedCount = Object.keys(JSON.parse(localStorage.getItem('gcq_pyq_solved')||'{}')).length;
-  document.getElementById('nb-pyqs').textContent = pyqSolvedCount;
+  document.getElementById('nb-pyqs').textContent = Object.keys(pyqSolved).length;
   // sidebar subjects
-  document.getElementById('sb-subject-list').innerHTML=SUBJECTS.map(s=>{
-    const p=S.progress[s.id]||{};
-    const d=Object.values(p).filter(Boolean).length;
-    const pct=Math.round((d/s.lec)*100);
-    const dot=d===s.lec?'#22c55e':d>0?s.col:'var(--border)';
-    return `<div class="nav-item" onclick="openModal('${s.id}')" style="font-size:12px;padding:7px 16px">
-      <span style="width:6px;height:6px;border-radius:50%;background:${dot};flex-shrink:0;display:inline-block"></span>
-      <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.icon} ${s.name}</span>
-      <span class="nav-badge">${pct}%</span>
-    </div>`;
-  }).join('');
+  renderSidebarSubjects();
   // activity log
-  document.getElementById('act-log').innerHTML=S.actLog.slice(0,10).map(a=>`
-    <div class="act-item">
-      <span>${a.msg}</span>
-      ${a.xp?`<span class="act-xp">+${a.xp}</span>`:''}
-    </div>`).join('');
-  // subject grid
-  renderSubjGrid();
+  renderActivityLog();
+  // subject grid - only if on subjects tab
+  if(currentTab === 'subjects') renderSubjGrid();
   // daily
-  updateDailyUI();
+  updateDailyUIFast();
+}
+
+function renderSidebarSubjects(){
+  const parts = [];
+  for(let i = 0; i < SUBJECTS.length; i++) {
+    const s = SUBJECTS[i];
+    const p = S.progress[s.id] || {};
+    let d = 0;
+    for(const k in p) if(p[k]) d++;
+    const pct = Math.round((d/s.lec)*100);
+    const dot = d===s.lec ? '#22c55e' : d>0 ? s.col : 'var(--border)';
+    parts.push(`<div class="nav-item" onclick="openModal('${s.id}')" style="font-size:12px;padding:7px 16px"><span style="width:6px;height:6px;border-radius:50%;background:${dot};flex-shrink:0;display:inline-block"></span><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.icon} ${s.name}</span><span class="nav-badge">${pct}%</span></div>`);
+  }
+  document.getElementById('sb-subject-list').innerHTML = parts.join('');
+}
+
+function renderActivityLog(){
+  const logs = S.actLog.slice(0,10);
+  const parts = [];
+  for(let i = 0; i < logs.length; i++) {
+    const a = logs[i];
+    parts.push(`<div class="act-item"><span>${a.msg}</span>${a.xp?`<span class="act-xp">+${a.xp}</span>`:''}</div>`);
+  }
+  document.getElementById('act-log').innerHTML = parts.join('');
 }
 
 function renderSubjGrid(){
   const grid=document.getElementById('subj-grid');
-  grid.innerHTML=SUBJECTS.map(s=>{
-    const p=S.progress[s.id]||{};
-    const d=Object.values(p).filter(Boolean).length;
-    const pct=Math.round((d/s.lec)*100);
-    const done=d===s.lec;
-    return `<div class="subj-card ${done?'done':''}" style="--c:${s.col}" onclick="openModal('${s.id}')">
-      <span class="subj-icon">${s.icon}</span>
-      <div class="subj-name">${s.name}</div>
-      <div class="subj-meta">${s.lec} lectures${s.hours?` · ${s.hours}h`:''}</div>
-      <div class="subj-pct" style="color:${done?'var(--green)':s.col}">${pct}%</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${done?'var(--green)':s.col}"></div></div>
-      <div class="subj-xp-tag">${d}/${s.lec} topics · ⚡${(s.lec*s.xpp).toLocaleString()} XP</div>
-      ${done?'<div class="done-tag">✓ Mastered</div>':''}
-    </div>`;
-  }).join('');
+  const parts = [];
+  for(let i = 0; i < SUBJECTS.length; i++) {
+    const s = SUBJECTS[i];
+    const p = S.progress[s.id] || {};
+    let d = 0;
+    for(const k in p) if(p[k]) d++;
+    const pct = Math.round((d/s.lec)*100);
+    const done = d===s.lec;
+    parts.push(`<div class="subj-card${done?' done':''}" style="--c:${s.col}" onclick="openModal('${s.id}')"><span class="subj-icon">${s.icon}</span><div class="subj-name">${s.name}</div><div class="subj-meta">${s.lec} lectures${s.hours?` · ${s.hours}h`:''}</div><div class="subj-pct" style="color:${done?'var(--green)':s.col}">${pct}%</div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${done?'var(--green)':s.col}"></div></div><div class="subj-xp-tag">${d}/${s.lec} · ⚡${s.lec*s.xpp} XP</div>${done?'<div class="done-tag">✓ Mastered</div>':''}</div>`);
+  }
+  grid.innerHTML = parts.join('');
 }
 
 // ===================== MODAL =====================
@@ -1355,18 +1362,21 @@ function openModal(subId){
   if(!s)return;
   currentModal=subId;
   const p=S.progress[subId]||{};
-  const d=Object.values(p).filter(Boolean).length;
+  let d=0;for(const k in p)if(p[k])d++;
   document.getElementById('m-title').textContent=`${s.icon} ${s.name}`;
   document.getElementById('m-meta').textContent=`${s.lec} lectures · ${s.hours?s.hours+'h content':'duration TBD'} · ${s.xpp} XP per topic`;
   refreshModalProg(s,p);
-  document.getElementById('m-body').innerHTML=s.topics.map(t=>{
-    const done=!!p[t.id];
-    return `<div class="topic-item ${done?'done':''}" id="ti-${subId}-${t.id}" onclick="toggleTopic('${subId}',${t.id})">
-      <div class="topic-check">${done?'✓':''}</div>
-      <span class="topic-num">${String(t.lec).padStart(3,'0')}</span>
-      <span class="topic-name">${t.name}</span>
-      <span class="topic-xp">+${s.xpp}</span>
-    </div>`;
+  
+  // Build topics HTML efficiently with array
+  const topics = s.topics;
+  const len = topics.length;
+  const parts = new Array(len);
+  for(let i = 0; i < len; i++) {
+    const t = topics[i];
+    const done = !!p[t.id];
+    parts[i] = `<div class="topic-item${done?' done':''}" id="ti-${subId}-${t.id}" onclick="toggleTopic('${subId}',${t.id})"><div class="topic-check">${done?'✓':''}</div><span class="topic-num">${String(t.lec).padStart(3,'0')}</span><span class="topic-name">${t.name}</span><span class="topic-xp">+${s.xpp}</span></div>`;
+  }
+  document.getElementById('m-body').innerHTML = parts.join('');
   }).join('');
   document.getElementById('modal-bg').classList.add('open');
 }
@@ -1461,22 +1471,34 @@ function initTimer() {
   }
 }
 
+// Cache timer DOM elements
+let _timerDisp = null;
+let _timerBtn = null;
+
 function startTimer() {
   if(timerGoing) return; // Already running
   timerGoing = true;
   localStorage.setItem('gcq_timer_running', 'true');
-  const btn=document.getElementById('timer-btn');
-  const disp=document.getElementById('timer-disp');
-  btn.textContent='⏸ Pause';
+  if(!_timerBtn) _timerBtn = document.getElementById('timer-btn');
+  if(!_timerDisp) _timerDisp = document.getElementById('timer-disp');
+  _timerBtn.textContent='⏸ Pause';
+  
   timerInt=setInterval(()=>{
     timerSec++;
+    // Update timer display only (fast)
     const h=String(Math.floor(timerSec/3600)).padStart(2,'0');
     const m=String(Math.floor((timerSec%3600)/60)).padStart(2,'0');
     const ss=String(timerSec%60).padStart(2,'0');
-    disp.textContent=`${h}:${m}:${ss}`;
+    _timerDisp.textContent=`${h}:${m}:${ss}`;
     S.today.h=parseFloat((timerSec/3600).toFixed(2));
-    if(timerSec%60===0){S.xp+=5;S.today.xp+=5;S.level=getLevel(S.xp);}
-    updateDailyUI();
+    
+    // Only do expensive operations every 60 seconds
+    if(timerSec%60===0){
+      S.xp+=5;S.today.xp+=5;S.level=getLevel(S.xp);
+      updateDailyUIFast(); // Update progress bars
+      evaluateDailyBonuses(); // Check bonuses
+    }
+    // Save every 5 minutes
     if(timerSec%300===0)save();
   },1000);
 }
@@ -1486,7 +1508,8 @@ function stopTimer() {
   timerGoing = false;
   localStorage.setItem('gcq_timer_running', 'false');
   clearInterval(timerInt);
-  document.getElementById('timer-btn').textContent='▶ Start';
+  if(!_timerBtn) _timerBtn = document.getElementById('timer-btn');
+  _timerBtn.textContent='▶ Start';
   save();
 }
 
@@ -1506,18 +1529,41 @@ function resetTimer(){
   save();
   updateDailyUI();
 }
-function updateDailyUI(){
+// Cache daily UI elements
+let _dailyDOM = null;
+function getDailyDOM() {
+  if(!_dailyDOM) {
+    _dailyDOM = {
+      hours: document.getElementById('d-hours'),
+      goalH: document.getElementById('d-goal-h'),
+      barH: document.getElementById('d-bar-h'),
+      pctH: document.getElementById('d-pct-h'),
+      mcq: document.getElementById('d-mcq'),
+      goalM: document.getElementById('d-goal-mcq'),
+      barM: document.getElementById('d-bar-mcq')
+    };
+  }
+  return _dailyDOM;
+}
+
+// Fast update - just the values, no bonus evaluation
+function updateDailyUIFast(){
+  const d = getDailyDOM();
   const h=S.today.h,gH=S.goalH,m=S.today.mcq,gM=S.goalM;
-  document.getElementById('d-hours').textContent=h.toFixed(1)+'h';
-  document.getElementById('d-goal-h').textContent=gH.toFixed(1)+'h';
+  d.hours.textContent=h.toFixed(1)+'h';
+  d.goalH.textContent=gH.toFixed(1)+'h';
   const ph=gH>0?Math.min(100,(h/gH)*100):0;
-  document.getElementById('d-bar-h').style.width=ph+'%';
-  document.getElementById('d-pct-h').textContent=Math.round(ph)+'% of daily goal';
-  document.getElementById('d-mcq').textContent=m;
-  document.getElementById('d-goal-mcq').textContent=gM;
+  d.barH.style.width=ph+'%';
+  d.pctH.textContent=Math.round(ph)+'% of daily goal';
+  d.mcq.textContent=m;
+  d.goalM.textContent=gM;
   const pm=gM>0?Math.min(100,(m/gM)*100):0;
-  document.getElementById('d-bar-mcq').style.width=pm+'%';
-  // evaluate bonuses after updating UI
+  d.barM.style.width=pm+'%';
+}
+
+// Full update with bonus evaluation (call sparingly)
+function updateDailyUI(){
+  updateDailyUIFast();
   evaluateDailyBonuses();
 }
 
@@ -1814,7 +1860,7 @@ function saveYesterday(){
 }
 function resetAll(){if(confirm('Reset ALL progress?')){localStorage.removeItem('gcq_v5');location.reload();}}
 
-// ===================== PYQ SYSTEM =====================
+// ===================== PYQ SYSTEM (OPTIMIZED) =====================
 // Mapping from game subject IDs to scraped PYQ file names
 const PYQ_FILE_MAP = {
   'dsa': ['data_structures'],
@@ -1832,211 +1878,230 @@ const PYQ_FILE_MAP = {
   'dm': ['discrete_mathematics']
 };
 
-// PYQ state
+// PYQ state - optimized
 let pyqCache = {}; // {filename: {questions: [...], loaded: true}}
-let pyqSolved = JSON.parse(localStorage.getItem('gcq_pyq_solved')||'{}'); // {questionId: true}
-let pyqDisplayed = []; // currently shown questions
+let pyqSolved = JSON.parse(localStorage.getItem('gcq_pyq_solved')||'{}');
+let pyqDisplayed = [];
+let pyqFiltered = []; // Cache filtered results
 let pyqPage = 0;
-const PYQ_PAGE_SIZE = 30;
+const PYQ_PAGE_SIZE = 20; // Smaller for faster rendering
+let pyqLoading = false;
+let pyqAllLoaded = false; // Track if all files are preloaded
+
+// Preload all PYQ files in background on page load
+let pyqPreloadPromise = null;
+function preloadAllPYQs() {
+  if(pyqPreloadPromise) return pyqPreloadPromise;
+  
+  const allFiles = [...new Set(Object.values(PYQ_FILE_MAP).flat())];
+  console.log('Preloading', allFiles.length, 'PYQ files...');
+  
+  pyqPreloadPromise = Promise.all(
+    allFiles.map(filename => loadPYQFile(filename))
+  ).then(() => {
+    pyqAllLoaded = true;
+    console.log('✅ All PYQ files preloaded');
+    // Update UI if on pyqs tab
+    if(currentTab === 'pyqs') filterPYQDisplay();
+  }).catch(e => console.warn('Preload error:', e));
+  
+  return pyqPreloadPromise;
+}
+
+// Start preloading after initial render (non-blocking)
+setTimeout(preloadAllPYQs, 500);
 
 async function loadPYQFile(filename) {
   if(pyqCache[filename]) return pyqCache[filename];
+  
   try {
     const res = await fetch(`data/pyqs/${filename}.json`);
     if(!res.ok) throw new Error('Not found');
     const data = await res.json();
-    pyqCache[filename] = { questions: data.questions || [], loaded: true, subject: filename };
+    // Pre-process questions for faster filtering later
+    const questions = (data.questions || []).map(q => ({
+      ...q,
+      subject: filename,
+      _searchText: ((q.title||'') + ' ' + (q.tags||[]).join(' ') + ' ' + filename.replace(/_/g,' ')).toLowerCase()
+    }));
+    pyqCache[filename] = { questions, loaded: true, subject: filename };
     return pyqCache[filename];
   } catch(e) {
-    console.warn('Failed to load PYQ file:', filename, e);
     pyqCache[filename] = { questions: [], loaded: true, subject: filename };
     return pyqCache[filename];
   }
 }
 
+// Load multiple files in PARALLEL
+async function loadPYQFilesParallel(filenames) {
+  const results = await Promise.all(filenames.map(f => loadPYQFile(f)));
+  const allQuestions = [];
+  for(const data of results) {
+    allQuestions.push(...data.questions);
+  }
+  return allQuestions;
+}
+
 async function loadPYQs() {
+  if(pyqLoading) return;
+  pyqLoading = true;
+  
   const filter = document.getElementById('pyq-subject-filter').value;
   const listEl = document.getElementById('pyq-list');
-  listEl.innerHTML = '<div style="text-align:center;padding:20px;color:var(--muted2)">Loading questions...</div>';
+  
+  // If preload is ready, use it - otherwise show loading
+  if(!pyqAllLoaded) {
+    listEl.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted2)"><div style="font-size:24px;margin-bottom:8px">⏳</div>Loading questions...<br><span style="font-size:11px;opacity:0.7">First load may take a moment</span></div>';
+    await preloadAllPYQs(); // Wait for preload to complete
+  }
   
   let filesToLoad = [];
   const today = todayStr();
   
   if(filter === 'all') {
-    // Load all subjects
-    for(const subId of Object.keys(PYQ_FILE_MAP)) {
-      filesToLoad.push(...PYQ_FILE_MAP[subId]);
-    }
+    filesToLoad = [...new Set(Object.values(PYQ_FILE_MAP).flat())];
   } else if(filter === 'today') {
-    // Only subjects with topics done today
     for(const subId of Object.keys(PYQ_FILE_MAP)) {
-      const byTopic = S.topicDoneAt[subId] || {};
+      const byTopic = (S.topicDoneAt && S.topicDoneAt[subId]) || {};
       if(Object.values(byTopic).some(d => d === today)) {
         filesToLoad.push(...PYQ_FILE_MAP[subId]);
       }
     }
+    filesToLoad = [...new Set(filesToLoad)];
   } else {
-    // Specific subject
     filesToLoad = PYQ_FILE_MAP[filter] || [];
   }
   
-  // Remove duplicates
-  filesToLoad = [...new Set(filesToLoad)];
-  
-  // Load all files
-  const allQuestions = [];
-  for(const filename of filesToLoad) {
-    const data = await loadPYQFile(filename);
-    for(const q of data.questions) {
-      allQuestions.push({...q, subject: filename});
-    }
-  }
-  
-  pyqDisplayed = allQuestions;
+  // Load ALL files in parallel (uses cache if already loaded)
+  pyqDisplayed = await loadPYQFilesParallel(filesToLoad);
   pyqPage = 0;
   
-  // Populate subject filter dropdown if needed
+  // Populate dropdown once
   const selectEl = document.getElementById('pyq-subject-filter');
   if(selectEl.options.length <= 2) {
+    const frag = document.createDocumentFragment();
     SUBJECTS.forEach(s => {
       const opt = document.createElement('option');
       opt.value = s.id;
       opt.textContent = s.icon + ' ' + s.name;
-      selectEl.appendChild(opt);
+      frag.appendChild(opt);
     });
+    selectEl.appendChild(frag);
   }
   
+  pyqLoading = false;
   filterPYQDisplay();
 }
 
 let pyqListSearchTimeout = null;
 function debounceListSearch() {
   clearTimeout(pyqListSearchTimeout);
-  pyqListSearchTimeout = setTimeout(() => filterPYQDisplay(), 300);
+  pyqListSearchTimeout = setTimeout(() => filterPYQDisplay(), 150); // Faster debounce
 }
 
 function filterPYQDisplay() {
   const statusFilter = document.getElementById('pyq-status-filter').value;
   const searchTerm = (document.getElementById('pyq-topic-search').value || '').trim().toLowerCase();
+  
+  // Fast filtering using pre-computed search text
   let filtered = pyqDisplayed;
   
   if(statusFilter === 'solved') {
-    filtered = pyqDisplayed.filter(q => pyqSolved[q.id]);
+    filtered = filtered.filter(q => pyqSolved[q.id]);
   } else if(statusFilter === 'unsolved') {
-    filtered = pyqDisplayed.filter(q => !pyqSolved[q.id]);
+    filtered = filtered.filter(q => !pyqSolved[q.id]);
   }
   
-  // Apply search filter
   if(searchTerm) {
-    filtered = filtered.filter(q => {
-      const titleMatch = (q.title || '').toLowerCase().includes(searchTerm);
-      const tagMatch = (q.tags || []).some(t => t.toLowerCase().includes(searchTerm));
-      const subjectMatch = (q.subject || '').toLowerCase().replace(/_/g, ' ').includes(searchTerm);
-      return titleMatch || tagMatch || subjectMatch;
-    });
+    filtered = filtered.filter(q => q._searchText.includes(searchTerm));
   }
   
-  // Update stats
+  pyqFiltered = filtered; // Cache for pagination
+  
+  // Update stats - batch DOM updates
   const totalSolved = Object.keys(pyqSolved).length;
-  document.getElementById('pyq-solved-count').textContent = totalSolved;
-  document.getElementById('pyq-total-count').textContent = pyqDisplayed.length;
-  document.getElementById('nb-pyqs').textContent = totalSolved;
-  
   const pct = pyqDisplayed.length > 0 ? Math.round((totalSolved / 60000) * 100) : 0;
-  document.getElementById('pyq-pct').textContent = pct + '%';
-  document.getElementById('pyq-progress-bar').style.width = pct + '%';
   
+  requestAnimationFrame(() => {
+    document.getElementById('pyq-solved-count').textContent = totalSolved;
+    document.getElementById('pyq-total-count').textContent = pyqDisplayed.length;
+    document.getElementById('nb-pyqs').textContent = totalSolved;
+    document.getElementById('pyq-pct').textContent = pct + '%';
+    document.getElementById('pyq-progress-bar').style.width = pct + '%';
+  });
+  
+  pyqPage = 0;
   renderPYQList(filtered);
 }
 
 function renderPYQList(questions) {
   const listEl = document.getElementById('pyq-list');
-  const start = 0;
   const end = (pyqPage + 1) * PYQ_PAGE_SIZE;
-  const toShow = questions.slice(start, end);
+  const toShow = questions.slice(0, end);
   
   if(toShow.length === 0) {
-    listEl.innerHTML = '<div class="card" style="text-align:center;padding:24px;color:var(--muted2)">No questions found. Complete some topics first!</div>';
+    listEl.innerHTML = '<div class="card" style="text-align:center;padding:24px;color:var(--muted2)">No questions found.</div>';
     document.getElementById('pyq-load-more').style.display = 'none';
     return;
   }
   
-  listEl.innerHTML = toShow.map((q, i) => {
+  // Build HTML in chunks using array join (faster than concatenation)
+  const htmlParts = [];
+  for(let i = 0; i < toShow.length; i++) {
+    const q = toShow[i];
     const isSolved = pyqSolved[q.id];
     const isBookmarkedQ = isBookmarked(q.id);
-    const subjectName = q.subject.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-    return `
-      <div class="card pyq-card ${isSolved ? 'pyq-solved' : ''}" style="padding:12px;position:relative">
-        <div style="display:flex;gap:12px;align-items:flex-start">
-          <button class="pyq-check-btn" onclick="togglePYQSolved('${q.id}')" style="
-            width:28px;height:28px;border-radius:6px;flex-shrink:0;
-            background:${isSolved ? 'var(--green)' : 'var(--card)'};
-            border:2px solid ${isSolved ? 'var(--green)' : 'var(--border)'};
-            color:${isSolved ? '#fff' : 'var(--muted2)'};
-            cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;
-          ">${isSolved ? '✓' : ''}</button>
-          <div style="flex:1;min-width:0">
-            <a href="${q.link}" target="_blank" style="
-              font-size:13px;font-weight:500;color:var(--text);text-decoration:none;
-              display:block;margin-bottom:4px;line-height:1.4;
-            " onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--text)'">
-              ${q.title}
-            </a>
-            <div style="font-size:11px;color:var(--muted2);display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-              <span style="background:var(--bg);padding:2px 6px;border-radius:4px">${subjectName}</span>
-              ${q.excerpt ? `<span style="opacity:0.7">${q.excerpt.slice(0,80)}${q.excerpt.length>80?'...':''}</span>` : ''}
-            </div>
-          </div>
-          <button class="bookmark-btn ${isBookmarkedQ ? 'bookmarked' : ''}" onclick="openBookmarkModal({id:'${q.id}',title:\`${(q.title||'').replace(/`/g,"'").replace(/\\/g,'\\\\')}\`,link:'${q.link||''}',subject:'${q.subject}'})">
-            🔖 ${isBookmarkedQ ? 'Edit' : 'Bookmark'}
-          </button>
-        </div>
-      </div>
-    `;
-  }).join('');
-  
-  // Show/hide load more button
-  const loadMoreEl = document.getElementById('pyq-load-more');
-  if(end < questions.length) {
-    loadMoreEl.style.display = 'block';
-  } else {
-    loadMoreEl.style.display = 'none';
+    const subjectName = q.subject.replace(/_/g, ' ');
+    const safeTitle = (q.title||'').replace(/`/g,"'").replace(/\\/g,'\\\\').replace(/"/g,'&quot;');
+    
+    htmlParts.push(`<div class="card pyq-card${isSolved?' pyq-solved':''}" style="padding:12px">
+<div style="display:flex;gap:12px;align-items:flex-start">
+<button class="pyq-check-btn" onclick="togglePYQSolved('${q.id}')" style="width:28px;height:28px;border-radius:6px;flex-shrink:0;background:${isSolved?'var(--green)':'var(--card)'};border:2px solid ${isSolved?'var(--green)':'var(--border)'};color:${isSolved?'#fff':'var(--muted2)'};cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center">${isSolved?'✓':''}</button>
+<div style="flex:1;min-width:0">
+<a href="${q.link}" target="_blank" style="font-size:13px;font-weight:500;color:var(--text);text-decoration:none;display:block;margin-bottom:4px;line-height:1.4">${q.title}</a>
+<div style="font-size:11px;color:var(--muted2)"><span style="background:var(--bg);padding:2px 6px;border-radius:4px">${subjectName}</span></div>
+</div>
+<button class="bookmark-btn${isBookmarkedQ?' bookmarked':''}" onclick="openBookmarkModal({id:'${q.id}',title:\`${safeTitle}\`,link:'${q.link||''}',subject:'${q.subject}'})">🔖</button>
+</div></div>`);
   }
+  
+  // Single DOM update
+  requestAnimationFrame(() => {
+    listEl.innerHTML = htmlParts.join('');
+    document.getElementById('pyq-load-more').style.display = end < questions.length ? 'block' : 'none';
+  });
 }
 
 function loadMorePYQs() {
   pyqPage++;
-  const statusFilter = document.getElementById('pyq-status-filter').value;
-  let filtered = pyqDisplayed;
-  if(statusFilter === 'solved') {
-    filtered = pyqDisplayed.filter(q => pyqSolved[q.id]);
-  } else if(statusFilter === 'unsolved') {
-    filtered = pyqDisplayed.filter(q => !pyqSolved[q.id]);
-  }
-  renderPYQList(filtered);
+  renderPYQList(pyqFiltered);
 }
 
 function togglePYQSolved(qId) {
   if(pyqSolved[qId]) {
     delete pyqSolved[qId];
-    // Decrement MCQ count when unmarking
     if(S.today.mcq > 0) S.today.mcq--;
     if(S.mcqTotal > 0) S.mcqTotal--;
     save();
   } else {
     pyqSolved[qId] = true;
-    // Count as MCQ solved
     S.today.mcq++;
     S.mcqTotal++;
-    // Award XP for marking as solved
     addXP(10, `Solved PYQ`);
-    // evaluate daily bonuses
     evaluateDailyBonuses();
     save();
     updateDailyUI();
   }
   localStorage.setItem('gcq_pyq_solved', JSON.stringify(pyqSolved));
-  filterPYQDisplay();
+  // Quick stats update without full re-render
+  const totalSolved = Object.keys(pyqSolved).length;
+  document.getElementById('pyq-solved-count').textContent = totalSolved;
+  document.getElementById('nb-pyqs').textContent = totalSolved;
+  // Only re-render list if status filter would change visibility
+  const statusFilter = document.getElementById('pyq-status-filter')?.value;
+  if(statusFilter && statusFilter !== 'all') {
+    filterPYQDisplay();
+  }
 }
 
 function renderPYQs() {
@@ -2053,104 +2118,113 @@ function debounceSearch() {
   pyqSearchTimeout = setTimeout(() => loadPYQPractice(), 300);
 }
 
+// Cache for daily practice questions
+let dailyPracticeCache = null;
+let dailyPracticeFilter = null;
+let dailyPracticeLoading = false;
+
 async function loadPYQPractice() {
+  if(dailyPracticeLoading) return;
+  dailyPracticeLoading = true;
+  
   const selectEl = document.getElementById('pyq-practice-subject');
   const searchEl = document.getElementById('pyq-search');
   const area = document.getElementById('mcq-area');
   
   // Populate subject dropdown on first load
   if(!pyqPracticeLoaded) {
+    const frag = document.createDocumentFragment();
     SUBJECTS.forEach(s => {
       const opt = document.createElement('option');
       opt.value = s.id;
       opt.textContent = s.icon + ' ' + s.name;
-      selectEl.appendChild(opt);
+      frag.appendChild(opt);
     });
+    selectEl.appendChild(frag);
     pyqPracticeLoaded = true;
   }
   
   const filter = selectEl.value;
   const searchTerm = (searchEl.value || '').trim().toLowerCase();
-  area.innerHTML = '<div style="text-align:center;padding:20px;color:var(--muted2)">Loading PYQs...</div>';
   
   // Determine files to load
   let filesToLoad = [];
   if(filter === 'all') {
-    for(const subId of Object.keys(PYQ_FILE_MAP)) {
-      filesToLoad.push(...PYQ_FILE_MAP[subId]);
-    }
+    filesToLoad = [...new Set(Object.values(PYQ_FILE_MAP).flat())];
   } else {
     filesToLoad = PYQ_FILE_MAP[filter] || [];
   }
   filesToLoad = [...new Set(filesToLoad)];
   
   if(filesToLoad.length === 0) {
-    area.innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted2)">No PYQs available for this subject.</div>';
+    area.innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted2)">No PYQs available.</div>';
+    dailyPracticeLoading = false;
     return;
   }
   
-  // Load questions
-  let allQuestions = [];
-  for(const filename of filesToLoad) {
-    const data = await loadPYQFile(filename);
-    for(const q of data.questions) {
-      if(!pyqSolved[q.id]) { // Only unsolved
-        allQuestions.push({...q, subject: filename});
-      }
-    }
+  // Show loading only if cache miss
+  const cacheKey = filter;
+  if(dailyPracticeFilter !== cacheKey) {
+    area.innerHTML = '<div style="text-align:center;padding:20px;color:var(--muted2)">⏳</div>';
+    // Wait for preload if not ready
+    if(!pyqAllLoaded) await preloadAllPYQs();
   }
   
-  // Apply search filter if provided
+  // Load ALL files in PARALLEL (uses cache)
+  let allQuestions;
+  if(dailyPracticeFilter === cacheKey && dailyPracticeCache) {
+    allQuestions = dailyPracticeCache;
+  } else {
+    allQuestions = await loadPYQFilesParallel(filesToLoad);
+    dailyPracticeCache = allQuestions;
+    dailyPracticeFilter = cacheKey;
+  }
+  
+  // Filter unsolved
+  let filtered = allQuestions.filter(q => !pyqSolved[q.id]);
+  
+  // Apply search filter using pre-computed search text
   if(searchTerm) {
-    allQuestions = allQuestions.filter(q => {
-      const titleMatch = (q.title || '').toLowerCase().includes(searchTerm);
-      const tagMatch = (q.tags || []).some(t => t.toLowerCase().includes(searchTerm));
-      const subjectMatch = (q.subject || '').toLowerCase().replace(/_/g, ' ').includes(searchTerm);
-      return titleMatch || tagMatch || subjectMatch;
-    });
+    filtered = filtered.filter(q => q._searchText && q._searchText.includes(searchTerm));
   }
   
-  if(allQuestions.length === 0) {
-    if(searchTerm) {
-      area.innerHTML = `
-        <div style="text-align:center;padding:30px 20px;color:var(--muted2)">
-          <div style="font-size:32px;margin-bottom:12px">🔍</div>
-          <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px">No results for "${searchTerm}"</div>
-          <div style="font-size:12px;line-height:1.6">Try different keywords like: BFS, DFS, paging, deadlock, SQL, etc.</div>
-        </div>`;
-    } else {
-      area.innerHTML = `
-        <div style="text-align:center;padding:30px 20px;color:var(--muted2)">
-          <div style="font-size:32px;margin-bottom:12px">🎉</div>
-          <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px">All PYQs Solved!</div>
-          <div style="font-size:12px;line-height:1.6">You've completed all questions for this subject.</div>
-        </div>`;
-    }
+  dailyPracticeLoading = false;
+  
+  if(filtered.length === 0) {
+    area.innerHTML = searchTerm ? `
+      <div style="text-align:center;padding:30px 20px;color:var(--muted2)">
+        <div style="font-size:32px;margin-bottom:12px">🔍</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px">No results for "${searchTerm}"</div>
+      </div>` : `
+      <div style="text-align:center;padding:30px 20px;color:var(--muted2)">
+        <div style="font-size:32px;margin-bottom:12px">🎉</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px">All PYQs Solved!</div>
+      </div>`;
     return;
   }
   
-  // Pick random question from filtered results
-  curPYQ = allQuestions[Math.floor(Math.random() * allQuestions.length)];
+  // Pick random question
+  curPYQ = filtered[Math.floor(Math.random() * filtered.length)];
   
   // Render the question
-  const subjectName = curPYQ.subject.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-  const matchCount = allQuestions.length;
+  const subjectName = curPYQ.subject.replace(/_/g, ' ');
+  const matchCount = filtered.length;
   const isBookmarkedQ = isBookmarked(curPYQ.id);
+  const safeTitle = (curPYQ.title||'').replace(/`/g,"'").replace(/\\/g,'\\\\');
+  
   area.innerHTML = `
-    ${searchTerm ? `<div style="font-size:11px;color:var(--muted2);margin-bottom:10px">📋 ${matchCount} question${matchCount!==1?'s':''} matching "${searchTerm}"</div>` : ''}
+    ${searchTerm ? `<div style="font-size:11px;color:var(--muted2);margin-bottom:10px">📋 ${matchCount} matching</div>` : ''}
     <div class="mcq-q">
       <a href="${curPYQ.link||'#'}" target="_blank" style="color:var(--amber);text-decoration:none">${curPYQ.title}</a>
-      <span style="font-size:10px;color:var(--muted);margin-left:8px">[${subjectName}${curPYQ.year ? ' • ' + curPYQ.year : ''}]</span>
+      <span style="font-size:10px;color:var(--muted);margin-left:8px">[${subjectName}]</span>
     </div>
     <div style="margin-top:12px;font-size:12px;color:var(--muted2)">
-      ${curPYQ.tags ? curPYQ.tags.map(t => '<span style="background:var(--bg3);padding:2px 6px;border-radius:4px;margin-right:4px;cursor:pointer" onclick="searchByTag(\'' + t.replace(/'/g, "\\'") + '\')">' + t + '</span>').join('') : ''}
+      ${curPYQ.tags ? curPYQ.tags.slice(0,5).map(t => '<span style="background:var(--bg3);padding:2px 6px;border-radius:4px;margin-right:4px;cursor:pointer" onclick="searchByTag(\'' + t.replace(/'/g, "\\'") + '\')">' + t + '</span>').join('') : ''}
     </div>
     <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn btn-amber" onclick="markPYQSolvedAndNext()" style="padding:10px 20px">✓ Mark Solved (+10 XP)</button>
+      <button class="btn btn-amber" onclick="markPYQSolvedAndNext()" style="padding:10px 20px">✓ Solved (+10 XP)</button>
       <button class="btn btn-ghost" onclick="loadPYQPractice()" style="padding:10px 20px">⏭ Skip</button>
-      <button class="bookmark-btn ${isBookmarkedQ ? 'bookmarked' : ''}" onclick="openBookmarkModal({id:'${curPYQ.id}',title:\`${(curPYQ.title||'').replace(/`/g,"'").replace(/\\/g,'\\\\')}\`,link:'${curPYQ.link||''}',subject:'${curPYQ.subject}'})" style="padding:8px 12px">
-        🔖 ${isBookmarkedQ ? 'Edit Bookmark' : 'Bookmark'}
-      </button>
+      <button class="bookmark-btn${isBookmarkedQ?' bookmarked':''}" onclick="openBookmarkModal({id:'${curPYQ.id}',title:\`${safeTitle}\`,link:'${curPYQ.link||''}',subject:'${curPYQ.subject}'})" style="padding:8px 12px">🔖</button>
     </div>
     <div id="mcq-res"></div>`;
 }
