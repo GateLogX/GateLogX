@@ -2209,7 +2209,7 @@ async function loadPYQPractice() {
   const subjectName = curPYQ.subject.replace(/_/g, ' ');
   const matchCount = filtered.length;
   const isBookmarkedQ = isBookmarked(curPYQ.id);
-  const safeTitle = (curPYQ.title||'').replace(/`/g,"'").replace(/\\/g,'\\\\');
+  const safeTitle = (curPYQ.title||'').replace(/`/g,"'").replace(/\\/g,'\\\\').replace(/"/g,'&quot;');
   
   area.innerHTML = `
     ${searchTerm ? `<div style="font-size:11px;color:var(--muted2);margin-bottom:10px">📋 ${matchCount} matching</div>` : ''}
