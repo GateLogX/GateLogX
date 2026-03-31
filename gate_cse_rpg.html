@@ -1377,7 +1377,6 @@ function openModal(subId){
     parts[i] = `<div class="topic-item${done?' done':''}" id="ti-${subId}-${t.id}" onclick="toggleTopic('${subId}',${t.id})"><div class="topic-check">${done?'✓':''}</div><span class="topic-num">${String(t.lec).padStart(3,'0')}</span><span class="topic-name">${t.name}</span><span class="topic-xp">+${s.xpp}</span></div>`;
   }
   document.getElementById('m-body').innerHTML = parts.join('');
-  }).join('');
   document.getElementById('modal-bg').classList.add('open');
 }
 
