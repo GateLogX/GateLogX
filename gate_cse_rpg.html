@@ -1921,7 +1921,7 @@ async function loadPYQFile(filename) {
     const questions = (data.questions || []).map(q => ({
       ...q,
       subject: filename,
-      _searchText: ((q.title||'') + ' ' + (q.tags||[]).join(' ') + ' ' + filename.replace(/_/g,' ')).toLowerCase()
+      _searchText: ((q.title||'') + ' ' + (q.tags||[]).join(' ') + ' ' + (q.excerpt||'') + ' ' + filename.replace(/_/g,' ')).toLowerCase()
     }));
     pyqCache[filename] = { questions, loaded: true, subject: filename };
     return pyqCache[filename];
@@ -1998,6 +1998,12 @@ function debounceListSearch() {
   pyqListSearchTimeout = setTimeout(() => filterPYQDisplay(), 150); // Faster debounce
 }
 
+// Click-to-search for tags/topics in PYQ list
+function searchPYQList(term) {
+  document.getElementById('pyq-topic-search').value = term;
+  filterPYQDisplay();
+}
+
 function filterPYQDisplay() {
   const statusFilter = document.getElementById('pyq-status-filter').value;
   const searchTerm = (document.getElementById('pyq-topic-search').value || '').trim().toLowerCase();
@@ -2053,12 +2059,29 @@ function renderPYQList(questions) {
     const subjectName = q.subject.replace(/_/g, ' ');
     const safeTitle = (q.title||'').replace(/`/g,"'").replace(/\\/g,'\\\\').replace(/"/g,'&quot;');
     
+    // Extract topic from title (e.g. "GO Classes DPP | PYTHON & DSA |BST" -> "BST")
+    const titleParts = (q.title||'').split('|');
+    const extractedTopic = titleParts.length > 2 ? titleParts[titleParts.length-1].trim() : '';
+    
+    // Truncate excerpt for preview
+    const excerpt = (q.excerpt||'').replace(/\$/g,'').substring(0, 120);
+    const hasExcerpt = excerpt.length > 0;
+    
+    // Tags display
+    const tags = (q.tags||[]).slice(0,3);
+    const tagsHtml = tags.length > 0 ? tags.map(t => `<span onclick="searchPYQList('${t.replace(/'/g, "\\'")}')\" style="background:var(--border);padding:1px 5px;border-radius:3px;font-size:10px;margin-right:3px;cursor:pointer">${t}</span>`).join('') : '';
+    
     htmlParts.push(`<div class="card pyq-card${isSolved?' pyq-solved':''}" style="padding:12px">
 <div style="display:flex;gap:12px;align-items:flex-start">
 <button class="pyq-check-btn" onclick="togglePYQSolved('${q.id}')" style="width:28px;height:28px;border-radius:6px;flex-shrink:0;background:${isSolved?'var(--green)':'var(--card)'};border:2px solid ${isSolved?'var(--green)':'var(--border)'};color:${isSolved?'#fff':'var(--muted2)'};cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center">${isSolved?'✓':''}</button>
 <div style="flex:1;min-width:0">
 <a href="${q.link}" target="_blank" style="font-size:13px;font-weight:500;color:var(--text);text-decoration:none;display:block;margin-bottom:4px;line-height:1.4">${q.title}</a>
-<div style="font-size:11px;color:var(--muted2)"><span style="background:var(--bg);padding:2px 6px;border-radius:4px">${subjectName}</span></div>
+${hasExcerpt ? `<div style="font-size:11px;color:var(--muted2);margin-bottom:6px;line-height:1.4;opacity:0.8">${excerpt}${excerpt.length>=120?'...':''}</div>` : ''}
+<div style="font-size:11px;color:var(--muted2);display:flex;flex-wrap:wrap;gap:4px;align-items:center">
+<span style="background:var(--bg);padding:2px 6px;border-radius:4px">${subjectName}</span>
+${extractedTopic ? `<span onclick="searchPYQList('${extractedTopic.replace(/'/g, "\\'")}')\" style="background:rgba(240,165,0,0.15);color:var(--amber);padding:2px 6px;border-radius:4px;font-weight:600;cursor:pointer">${extractedTopic}</span>` : ''}
+${tagsHtml}
+</div>
 </div>
 <button class="bookmark-btn${isBookmarkedQ?' bookmarked':''}" onclick="openBookmarkModal({id:'${q.id}',title:\`${safeTitle}\`,link:'${q.link||''}',subject:'${q.subject}'})">🔖</button>
 </div></div>`);
@@ -2219,12 +2242,22 @@ async function loadPYQPractice() {
   const isBookmarkedQ = isBookmarked(curPYQ.id);
   const safeTitle = (curPYQ.title||'').replace(/`/g,"'").replace(/\\/g,'\\\\').replace(/"/g,'&quot;');
   
+  // Extract topic from title (e.g. "GO Classes DPP | PYTHON & DSA |BST" -> "BST")
+  const titleParts = (curPYQ.title||'').split('|');
+  const extractedTopic = titleParts.length > 2 ? titleParts[titleParts.length-1].trim() : '';
+  
+  // Question preview from excerpt
+  const excerpt = (curPYQ.excerpt||'').replace(/\$/g,'').substring(0, 200);
+  const hasExcerpt = excerpt.length > 0;
+  
   area.innerHTML = `
     ${searchTerm ? `<div style="font-size:11px;color:var(--muted2);margin-bottom:10px">📋 ${matchCount} matching</div>` : ''}
     <div class="mcq-q">
       <a href="${curPYQ.link||'#'}" target="_blank" style="color:var(--amber);text-decoration:none">${curPYQ.title}</a>
       <span style="font-size:10px;color:var(--muted);margin-left:8px">[${subjectName}]</span>
+      ${extractedTopic ? `<span onclick="searchByTag('${extractedTopic.replace(/'/g, "\\\\'")}')" style="font-size:10px;background:rgba(240,165,0,0.2);color:var(--amber);padding:2px 6px;border-radius:4px;margin-left:6px;font-weight:600;cursor:pointer">${extractedTopic}</span>` : ''}
     </div>
+    ${hasExcerpt ? `<div style="margin-top:10px;padding:10px;background:var(--bg3);border-radius:6px;font-size:12px;color:var(--text);line-height:1.5;border-left:3px solid var(--amber)">${excerpt}${excerpt.length>=200?'...':''}</div>` : ''}
     <div style="margin-top:12px;font-size:12px;color:var(--muted2)">
       ${curPYQ.tags ? curPYQ.tags.slice(0,5).map(t => '<span style="background:var(--bg3);padding:2px 6px;border-radius:4px;margin-right:4px;cursor:pointer" onclick="searchByTag(\'' + t.replace(/'/g, "\\'") + '\')">' + t + '</span>').join('') : ''}
     </div>
