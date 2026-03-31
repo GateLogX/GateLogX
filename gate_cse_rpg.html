@@ -286,6 +286,57 @@ input.num{width:90px}
 .hex-container{display:flex;flex-wrap:wrap;gap:3px;margin-top:8px}
 .hex{width:10px;height:10px;background:var(--border);border-radius:1px;transition:background 0.2s}
 .hex.done{background:var(--amber)}
+
+/* BOOKMARK SYSTEM */
+.bookmark-btn{
+  background:transparent;border:1.5px solid var(--border2);border-radius:4px;
+  padding:4px 8px;cursor:pointer;font-size:11px;color:var(--muted2);
+  transition:all 0.15s;display:inline-flex;align-items:center;gap:4px;
+}
+.bookmark-btn:hover{border-color:var(--amber);color:var(--amber)}
+.bookmark-btn.bookmarked{background:rgba(240,165,0,0.1);border-color:var(--amber);color:var(--amber)}
+.mistake-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.mistake-tag{
+  padding:6px 12px;border-radius:20px;font-size:11px;font-weight:500;
+  cursor:pointer;border:1.5px solid var(--border);background:var(--bg3);
+  color:var(--muted2);transition:all 0.15s;
+}
+.mistake-tag:hover{border-color:var(--amber);color:var(--amber)}
+.mistake-tag.selected{background:var(--amber);border-color:var(--amber);color:#1a0d00}
+.mistake-tag.conceptual{--tag-col:#ef4444}
+.mistake-tag.silly{--tag-col:#f59e0b}
+.mistake-tag.calculation{--tag-col:#3b82f6}
+.mistake-tag.no-idea{--tag-col:#6b7280}
+.mistake-tag.time{--tag-col:#8b5cf6}
+.mistake-tag.misread{--tag-col:#ec4899}
+.mistake-tag.incomplete{--tag-col:#14b8a6}
+.mistake-tag.overthink{--tag-col:#f97316}
+.mistake-tag.tricky{--tag-col:#a855f7}
+.mistake-tag.selected{background:var(--tag-col);border-color:var(--tag-col)}
+.bookmark-card{
+  background:var(--card);border:1px solid var(--border);border-radius:6px;
+  padding:14px;margin-bottom:8px;transition:all 0.2s;
+}
+.bookmark-card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.bookmark-mistake-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:3px 8px;border-radius:12px;font-size:10px;font-weight:600;
+  text-transform:uppercase;letter-spacing:0.5px;
+}
+.bookmark-note{
+  width:100%;padding:8px 12px;border-radius:6px;border:1px solid var(--border);
+  background:var(--bg3);color:var(--text);font-family:'DM Sans',sans-serif;
+  font-size:13px;resize:vertical;min-height:60px;margin-top:10px;
+}
+.bookmark-note:focus{border-color:var(--amber);outline:none}
+.bookmark-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.bookmark-filter-tag{
+  padding:5px 10px;border-radius:14px;font-size:10px;font-weight:600;
+  cursor:pointer;border:1px solid var(--border);background:var(--card);
+  color:var(--muted2);transition:all 0.15s;text-transform:uppercase;letter-spacing:0.5px;
+}
+.bookmark-filter-tag:hover,.bookmark-filter-tag.active{border-color:var(--amber);color:var(--amber)}
+.bookmark-filter-tag.active{background:rgba(240,165,0,0.1)}
 </style>
 </head>
 <body>
@@ -453,6 +504,10 @@ input.num{width:90px}
         <span class="nav-icon">📚</span>Practice PYQs
         <span class="nav-badge" id="nb-pyqs">0</span>
       </div>
+      <div class="nav-item" onclick="go('bookmarks')" id="nav-bookmarks">
+        <span class="nav-icon">🔖</span>Bookmarks
+        <span class="nav-badge" id="nb-bookmarks">0</span>
+      </div>
       <div class="sidebar-section-label" style="margin-top:8px">Subjects</div>
       <div id="sb-subject-list"></div>
       <div class="sidebar-section-label" style="margin-top:8px">Recent</div>
@@ -617,6 +672,44 @@ input.num{width:90px}
         </div>
       </div>
 
+      <!-- BOOKMARKS -->
+      <div class="panel" id="panel-bookmarks">
+        <div class="panel-header">
+          <div class="panel-title">🔖 Bookmarked Questions</div>
+          <div class="panel-sub">Questions you want to revise later. Track what mistakes you made and learn from them!</div>
+        </div>
+        <div class="bookmark-filter" id="bookmark-filter">
+          <span class="bookmark-filter-tag active" onclick="filterBookmarks('all')">All</span>
+          <span class="bookmark-filter-tag" onclick="filterBookmarks('conceptual')" style="--tag-col:#ef4444">🧠 Conceptual</span>
+          <span class="bookmark-filter-tag" onclick="filterBookmarks('silly')" style="--tag-col:#f59e0b">😅 Silly</span>
+          <span class="bookmark-filter-tag" onclick="filterBookmarks('calculation')" style="--tag-col:#3b82f6">🔢 Calculation</span>
+          <span class="bookmark-filter-tag" onclick="filterBookmarks('no-idea')" style="--tag-col:#6b7280">❓ No Idea</span>
+          <span class="bookmark-filter-tag" onclick="filterBookmarks('time')" style="--tag-col:#8b5cf6">⏰ Time</span>
+          <span class="bookmark-filter-tag" onclick="filterBookmarks('misread')" style="--tag-col:#ec4899">👁 Misread</span>
+          <span class="bookmark-filter-tag" onclick="filterBookmarks('incomplete')" style="--tag-col:#14b8a6">📖 Incomplete</span>
+          <span class="bookmark-filter-tag" onclick="filterBookmarks('overthink')" style="--tag-col:#f97316">🤔 Overthink</span>
+          <span class="bookmark-filter-tag" onclick="filterBookmarks('tricky')" style="--tag-col:#a855f7">🎭 Tricky</span>
+        </div>
+        <div class="card" style="margin-bottom:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+            <div>
+              <span style="font-size:22px;font-weight:700;color:var(--amber);font-family:'Space Mono',monospace" id="bookmark-count">0</span>
+              <span style="font-size:12px;color:var(--muted2);margin-left:6px">Bookmarked Questions</span>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-ghost btn-sm" onclick="exportBookmarks()">📥 Export</button>
+              <button class="btn btn-red btn-sm" onclick="clearAllBookmarks()">🗑 Clear All</button>
+            </div>
+          </div>
+        </div>
+        <div id="bookmark-list" style="display:flex;flex-direction:column;gap:8px"></div>
+        <div id="bookmark-empty" style="display:none;text-align:center;padding:40px 20px;color:var(--muted2)">
+          <div style="font-size:40px;margin-bottom:12px">🔖</div>
+          <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px">No Bookmarks Yet</div>
+          <div style="font-size:12px;line-height:1.6">Bookmark questions you want to revisit!<br>Click the 🔖 button on any question to save it.</div>
+        </div>
+      </div>
+
       <!-- SETTINGS -->
       <div class="panel" id="panel-settings">
         <div class="panel-header">
@@ -724,6 +817,45 @@ input.num{width:90px}
     <div style="padding:12px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;flex-shrink:0">
       <button class="btn btn-ghost btn-sm" onclick="closeModal()">Close</button>
       <button class="btn btn-green btn-sm" onclick="markAllDone()">✓ Mark All Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKMARK MODAL -->
+<div class="modal-bg" id="bookmark-modal-bg" onclick="if(event.target===this)closeBookmarkModal()">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-head" style="border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="font-size:28px;line-height:1">🔖</div>
+        <div>
+          <div class="modal-name" style="font-size:16px">Bookmark Question</div>
+          <div style="font-size:11px;color:var(--muted2);margin-top:2px">Save for revision & track your mistakes</div>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeBookmarkModal()">✕</button>
+    </div>
+    <div style="padding:20px">
+      <div id="bkm-question" style="font-size:13px;color:var(--text);margin-bottom:16px;padding:12px;background:var(--bg3);border-radius:6px;border-left:3px solid var(--amber)"></div>
+      
+      <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--muted2);text-transform:uppercase;margin-bottom:10px">What mistake did you make?</div>
+      <div class="mistake-tags" id="mistake-tags">
+        <span class="mistake-tag conceptual" data-type="conceptual" onclick="selectMistake(this)">🧠 Conceptual Error</span>
+        <span class="mistake-tag silly" data-type="silly" onclick="selectMistake(this)">😅 Silly Mistake</span>
+        <span class="mistake-tag calculation" data-type="calculation" onclick="selectMistake(this)">🔢 Calculation Error</span>
+        <span class="mistake-tag no-idea" data-type="no-idea" onclick="selectMistake(this)">❓ No Idea</span>
+        <span class="mistake-tag time" data-type="time" onclick="selectMistake(this)">⏰ Time Pressure</span>
+        <span class="mistake-tag misread" data-type="misread" onclick="selectMistake(this)">👁 Misread Question</span>
+        <span class="mistake-tag incomplete" data-type="incomplete" onclick="selectMistake(this)">📖 Incomplete Knowledge</span>
+        <span class="mistake-tag overthink" data-type="overthink" onclick="selectMistake(this)">🤔 Overthinking</span>
+        <span class="mistake-tag tricky" data-type="tricky" onclick="selectMistake(this)">🎭 Tricky Question</span>
+      </div>
+      
+      <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--muted2);text-transform:uppercase;margin-top:16px;margin-bottom:6px">Notes (optional)</div>
+      <textarea class="bookmark-note" id="bkm-note" placeholder="What should I remember? What was the correct approach?"></textarea>
+    </div>
+    <div style="padding:12px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px">
+      <button class="btn btn-ghost btn-sm" onclick="closeBookmarkModal()">Cancel</button>
+      <button class="btn btn-amber btn-sm" onclick="saveBookmark()">🔖 Save Bookmark</button>
     </div>
   </div>
 </div>
@@ -1151,6 +1283,7 @@ function go(tab){
   if(tab==='milestones')renderMS();
   if(tab==='compete')renderCompete();
   if(tab==='pyqs')renderPYQs();
+  if(tab==='bookmarks')renderBookmarks();
 }
 
 function renderUI(){
@@ -1438,9 +1571,16 @@ function renderMCQ(){
   }catch(e){/* ignore */}
   const subj = SUBJECTS.find(s=>s.id===curMCQ.subId);
   const subjName = subj ? subj.name : curMCQ.subId;
+  const mcqId = 'mcq_' + curMCQ.subId + '_' + curMCQ.topics[0];
+  const isBookmarkedMCQ = isBookmarked(mcqId);
   document.getElementById('mcq-area').innerHTML=`
     <div class="mcq-q">${curMCQ.q}<span style="font-size:10px;color:var(--muted);margin-left:8px">[${subjName} → ${curMCQ.topicName}]</span></div>
     <div class="mcq-opts">${curMCQ.opts.map((o,i)=>`<div class="mcq-opt" id="mo${i}" onclick="answerMCQ(${i})"><span class="mcq-label">${'ABCD'[i]}</span>${o}</div>`).join('')}</div>
+    <div style="margin-top:12px">
+      <button class="bookmark-btn ${isBookmarkedMCQ ? 'bookmarked' : ''}" onclick="openBookmarkModal({id:'${mcqId}',title:\`${curMCQ.q.replace(/`/g,"'").replace(/\\/g,'\\\\')}\`,subject:'${curMCQ.subId}'})" style="padding:6px 10px;font-size:10px">
+        🔖 ${isBookmarkedMCQ ? 'Edit Bookmark' : 'Bookmark for Revision'}
+      </button>
+    </div>
     <div id="mcq-res"></div>`;
 
   // also show PYQs fetched from data/pyqs for topics completed today (if any)
@@ -1489,7 +1629,17 @@ function answerMCQ(c){
   addXP(xp,`MCQ ${ok?'correct':'attempt'}`);
   // evaluate daily bonuses (MCQ-based rewards)
   evaluateDailyBonuses();
-  document.getElementById('mcq-res').innerHTML=`<div class="mcq-result ${ok?'c':'w'}">${ok?'✓ Correct':'✗ Incorrect'}<span class="xp-pill">+${xp} XP</span></div><div style="margin-top:12px;text-align:center"><button class="btn btn-amber" onclick="renderMCQ()" style="padding:10px 24px;font-size:14px">➡ Next Question</button></div>`;
+  const mcqId = 'mcq_' + curMCQ.subId + '_' + curMCQ.topics[0];
+  const isBookmarkedMCQ = isBookmarked(mcqId);
+  const bookmarkPrompt = !ok && !isBookmarkedMCQ ? `
+    <div style="margin-top:8px;padding:10px;background:rgba(240,165,0,0.08);border:1px solid rgba(240,165,0,0.2);border-radius:6px">
+      <span style="font-size:12px;color:var(--muted2)">📝 Got this wrong? </span>
+      <button class="bookmark-btn" onclick="openBookmarkModal({id:'${mcqId}',title:\`${curMCQ.q.replace(/`/g,"'").replace(/\\/g,'\\\\')}\`,subject:'${curMCQ.subId}'})" style="padding:4px 10px;font-size:11px;margin-left:6px">
+        🔖 Bookmark for Revision
+      </button>
+    </div>
+  ` : '';
+  document.getElementById('mcq-res').innerHTML=`<div class="mcq-result ${ok?'c':'w'}">${ok?'✓ Correct':'✗ Incorrect'}<span class="xp-pill">+${xp} XP</span></div>${bookmarkPrompt}<div style="margin-top:12px;text-align:center"><button class="btn btn-amber" onclick="renderMCQ()" style="padding:10px 24px;font-size:14px">➡ Next Question</button></div>`;
 }
 
 // ===================== BOSS =====================
@@ -1813,6 +1963,7 @@ function renderPYQList(questions) {
   
   listEl.innerHTML = toShow.map((q, i) => {
     const isSolved = pyqSolved[q.id];
+    const isBookmarkedQ = isBookmarked(q.id);
     const subjectName = q.subject.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
     return `
       <div class="card pyq-card ${isSolved ? 'pyq-solved' : ''}" style="padding:12px;position:relative">
@@ -1831,11 +1982,14 @@ function renderPYQList(questions) {
             " onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--text)'">
               ${q.title}
             </a>
-            <div style="font-size:11px;color:var(--muted2);display:flex;gap:8px;flex-wrap:wrap">
+            <div style="font-size:11px;color:var(--muted2);display:flex;gap:8px;flex-wrap:wrap;align-items:center">
               <span style="background:var(--bg);padding:2px 6px;border-radius:4px">${subjectName}</span>
               ${q.excerpt ? `<span style="opacity:0.7">${q.excerpt.slice(0,80)}${q.excerpt.length>80?'...':''}</span>` : ''}
             </div>
           </div>
+          <button class="bookmark-btn ${isBookmarkedQ ? 'bookmarked' : ''}" onclick="openBookmarkModal({id:'${q.id}',title:\`${(q.title||'').replace(/`/g,"'").replace(/\\/g,'\\\\')}\`,link:'${q.link||''}',subject:'${q.subject}'})">
+            🔖 ${isBookmarkedQ ? 'Edit' : 'Bookmark'}
+          </button>
         </div>
       </div>
     `;
@@ -1981,6 +2135,7 @@ async function loadPYQPractice() {
   // Render the question
   const subjectName = curPYQ.subject.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
   const matchCount = allQuestions.length;
+  const isBookmarkedQ = isBookmarked(curPYQ.id);
   area.innerHTML = `
     ${searchTerm ? `<div style="font-size:11px;color:var(--muted2);margin-bottom:10px">📋 ${matchCount} question${matchCount!==1?'s':''} matching "${searchTerm}"</div>` : ''}
     <div class="mcq-q">
@@ -1990,9 +2145,12 @@ async function loadPYQPractice() {
     <div style="margin-top:12px;font-size:12px;color:var(--muted2)">
       ${curPYQ.tags ? curPYQ.tags.map(t => '<span style="background:var(--bg3);padding:2px 6px;border-radius:4px;margin-right:4px;cursor:pointer" onclick="searchByTag(\'' + t.replace(/'/g, "\\'") + '\')">' + t + '</span>').join('') : ''}
     </div>
-    <div style="margin-top:16px;display:flex;gap:8px">
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
       <button class="btn btn-amber" onclick="markPYQSolvedAndNext()" style="padding:10px 20px">✓ Mark Solved (+10 XP)</button>
       <button class="btn btn-ghost" onclick="loadPYQPractice()" style="padding:10px 20px">⏭ Skip</button>
+      <button class="bookmark-btn ${isBookmarkedQ ? 'bookmarked' : ''}" onclick="openBookmarkModal({id:'${curPYQ.id}',title:\`${(curPYQ.title||'').replace(/`/g,"'").replace(/\\/g,'\\\\')}\`,link:'${curPYQ.link||''}',subject:'${curPYQ.subject}'})" style="padding:8px 12px">
+        🔖 ${isBookmarkedQ ? 'Edit Bookmark' : 'Bookmark'}
+      </button>
     </div>
     <div id="mcq-res"></div>`;
 }
@@ -2008,11 +2166,287 @@ function markPYQSolvedAndNext() {
   loadPYQPractice();
 }
 
+// ===================== BOOKMARK SYSTEM =====================
+const MISTAKE_TYPES = {
+  'conceptual': { emoji: '🧠', label: 'Conceptual Error', color: '#ef4444', desc: 'Wrong understanding of the concept' },
+  'silly': { emoji: '😅', label: 'Silly Mistake', color: '#f59e0b', desc: 'Knew the answer but selected wrong' },
+  'calculation': { emoji: '🔢', label: 'Calculation Error', color: '#3b82f6', desc: 'Mathematical/computational mistake' },
+  'no-idea': { emoji: '❓', label: 'No Idea', color: '#6b7280', desc: "Didn't know the topic at all" },
+  'time': { emoji: '⏰', label: 'Time Pressure', color: '#8b5cf6', desc: 'Rushed due to time constraints' },
+  'misread': { emoji: '👁', label: 'Misread Question', color: '#ec4899', desc: "Didn't read the question carefully" },
+  'incomplete': { emoji: '📖', label: 'Incomplete Knowledge', color: '#14b8a6', desc: 'Partial understanding of the topic' },
+  'overthink': { emoji: '🤔', label: 'Overthinking', color: '#f97316', desc: 'Complicated a simple problem' },
+  'tricky': { emoji: '🎭', label: 'Tricky Question', color: '#a855f7', desc: 'Fell for a trap/trick in the question' }
+};
+
+// Load bookmarks from localStorage
+let bookmarks = JSON.parse(localStorage.getItem('gcq_bookmarks') || '[]');
+let currentBookmarkData = null; // Holds question data when opening modal
+let selectedMistakeType = null;
+let currentBookmarkFilter = 'all';
+
+function openBookmarkModal(questionData) {
+  currentBookmarkData = questionData;
+  selectedMistakeType = null;
+  
+  // Check if already bookmarked
+  const existing = bookmarks.find(b => b.id === questionData.id);
+  
+  // Display question title
+  document.getElementById('bkm-question').textContent = questionData.title || questionData.q || 'Question';
+  
+  // Reset selections
+  document.querySelectorAll('.mistake-tag').forEach(t => t.classList.remove('selected'));
+  document.getElementById('bkm-note').value = '';
+  
+  // If editing existing bookmark, pre-fill
+  if(existing) {
+    selectedMistakeType = existing.mistakeType;
+    document.getElementById('bkm-note').value = existing.note || '';
+    const tag = document.querySelector(`.mistake-tag[data-type="${existing.mistakeType}"]`);
+    if(tag) tag.classList.add('selected');
+  }
+  
+  document.getElementById('bookmark-modal-bg').classList.add('open');
+}
+
+function closeBookmarkModal() {
+  document.getElementById('bookmark-modal-bg').classList.remove('open');
+  currentBookmarkData = null;
+  selectedMistakeType = null;
+}
+
+function selectMistake(el) {
+  document.querySelectorAll('.mistake-tag').forEach(t => t.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedMistakeType = el.dataset.type;
+}
+
+function saveBookmark() {
+  if(!currentBookmarkData) return;
+  if(!selectedMistakeType) {
+    alert('Please select the type of mistake you made.');
+    return;
+  }
+  
+  const note = document.getElementById('bkm-note').value.trim();
+  
+  // Check if already exists
+  const existingIdx = bookmarks.findIndex(b => b.id === currentBookmarkData.id);
+  
+  const bookmarkEntry = {
+    id: currentBookmarkData.id,
+    title: currentBookmarkData.title || currentBookmarkData.q,
+    link: currentBookmarkData.link || null,
+    subject: currentBookmarkData.subject || currentBookmarkData.subId || 'unknown',
+    mistakeType: selectedMistakeType,
+    note: note,
+    dateAdded: existingIdx >= 0 ? bookmarks[existingIdx].dateAdded : todayStr(),
+    dateModified: todayStr()
+  };
+  
+  if(existingIdx >= 0) {
+    // Update existing
+    bookmarks[existingIdx] = bookmarkEntry;
+  } else {
+    // Add new
+    bookmarks.unshift(bookmarkEntry);
+  }
+  
+  localStorage.setItem('gcq_bookmarks', JSON.stringify(bookmarks));
+  closeBookmarkModal();
+  updateBookmarkBadge();
+  
+  // If on bookmarks panel, refresh it
+  if(currentTab === 'bookmarks') {
+    renderBookmarks();
+  }
+  
+  // Show success feedback
+  const msg = existingIdx >= 0 ? 'Bookmark updated!' : 'Question bookmarked!';
+  showToast(msg, 'success');
+}
+
+function removeBookmark(qId) {
+  if(!confirm('Remove this bookmark?')) return;
+  bookmarks = bookmarks.filter(b => b.id !== qId);
+  localStorage.setItem('gcq_bookmarks', JSON.stringify(bookmarks));
+  updateBookmarkBadge();
+  renderBookmarks();
+}
+
+function isBookmarked(qId) {
+  return bookmarks.some(b => b.id === qId);
+}
+
+function updateBookmarkBadge() {
+  const badge = document.getElementById('nb-bookmarks');
+  if(badge) badge.textContent = bookmarks.length;
+}
+
+function filterBookmarks(type) {
+  currentBookmarkFilter = type;
+  // Update filter UI
+  document.querySelectorAll('.bookmark-filter-tag').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  renderBookmarks();
+}
+
+function renderBookmarks() {
+  const listEl = document.getElementById('bookmark-list');
+  const emptyEl = document.getElementById('bookmark-empty');
+  const countEl = document.getElementById('bookmark-count');
+  
+  let filtered = bookmarks;
+  if(currentBookmarkFilter !== 'all') {
+    filtered = bookmarks.filter(b => b.mistakeType === currentBookmarkFilter);
+  }
+  
+  countEl.textContent = bookmarks.length;
+  
+  if(filtered.length === 0) {
+    listEl.innerHTML = '';
+    emptyEl.style.display = 'block';
+    if(currentBookmarkFilter !== 'all') {
+      emptyEl.innerHTML = `
+        <div style="font-size:40px;margin-bottom:12px">${MISTAKE_TYPES[currentBookmarkFilter]?.emoji || '🔖'}</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px">No "${MISTAKE_TYPES[currentBookmarkFilter]?.label}" Bookmarks</div>
+        <div style="font-size:12px;line-height:1.6">You haven't bookmarked any questions with this mistake type yet.</div>
+      `;
+    }
+    return;
+  }
+  
+  emptyEl.style.display = 'none';
+  
+  listEl.innerHTML = filtered.map(b => {
+    const mistake = MISTAKE_TYPES[b.mistakeType] || { emoji: '❓', label: 'Unknown', color: '#6b7280' };
+    const subjectName = (b.subject || '').replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    
+    return `
+      <div class="bookmark-card">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="flex:1;min-width:0">
+            ${b.link ? `
+              <a href="${b.link}" target="_blank" style="
+                font-size:13px;font-weight:500;color:var(--text);text-decoration:none;
+                display:block;margin-bottom:6px;line-height:1.4;
+              " onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--text)'">
+                ${b.title}
+              </a>
+            ` : `
+              <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:6px;line-height:1.4">
+                ${b.title}
+              </div>
+            `}
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:${b.note ? '8px' : '0'}">
+              <span class="bookmark-mistake-badge" style="background:${mistake.color}20;color:${mistake.color};border:1px solid ${mistake.color}40">
+                ${mistake.emoji} ${mistake.label}
+              </span>
+              <span style="font-size:10px;color:var(--muted2)">${subjectName}</span>
+              <span style="font-size:10px;color:var(--muted)">Added: ${b.dateAdded}</span>
+            </div>
+            ${b.note ? `
+              <div style="font-size:12px;color:var(--muted2);background:var(--bg3);padding:8px 10px;border-radius:4px;margin-top:6px;border-left:2px solid ${mistake.color}">
+                💡 ${b.note}
+              </div>
+            ` : ''}
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <button class="btn btn-ghost btn-sm" onclick="editBookmark('${b.id}')" style="padding:4px 8px;font-size:11px">✏️ Edit</button>
+            <button class="btn btn-red btn-sm" onclick="removeBookmark('${b.id}')" style="padding:4px 8px;font-size:11px">🗑</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function editBookmark(qId) {
+  const bookmark = bookmarks.find(b => b.id === qId);
+  if(!bookmark) return;
+  openBookmarkModal({
+    id: bookmark.id,
+    title: bookmark.title,
+    link: bookmark.link,
+    subject: bookmark.subject
+  });
+}
+
+function exportBookmarks() {
+  if(bookmarks.length === 0) {
+    alert('No bookmarks to export.');
+    return;
+  }
+  
+  // Create export format
+  const exportData = {
+    exported: new Date().toISOString(),
+    count: bookmarks.length,
+    bookmarks: bookmarks.map(b => ({
+      ...b,
+      mistakeLabel: MISTAKE_TYPES[b.mistakeType]?.label || 'Unknown'
+    }))
+  };
+  
+  // Generate summary by mistake type
+  let summary = '\n=== BOOKMARKS SUMMARY ===\n\n';
+  const grouped = {};
+  bookmarks.forEach(b => {
+    if(!grouped[b.mistakeType]) grouped[b.mistakeType] = [];
+    grouped[b.mistakeType].push(b);
+  });
+  
+  for(const type in grouped) {
+    const info = MISTAKE_TYPES[type] || { emoji: '❓', label: 'Unknown' };
+    summary += `${info.emoji} ${info.label} (${grouped[type].length})\n`;
+    grouped[type].forEach((b, i) => {
+      summary += `  ${i+1}. ${b.title}\n`;
+      if(b.note) summary += `     💡 ${b.note}\n`;
+    });
+    summary += '\n';
+  }
+  
+  // Create downloadable file
+  const blob = new Blob([JSON.stringify(exportData, null, 2) + summary], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `gate-bookmarks-${todayStr()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function clearAllBookmarks() {
+  if(!confirm('Are you sure you want to clear ALL bookmarks? This cannot be undone.')) return;
+  bookmarks = [];
+  localStorage.setItem('gcq_bookmarks', JSON.stringify(bookmarks));
+  updateBookmarkBadge();
+  renderBookmarks();
+}
+
+// Simple toast notification
+function showToast(message, type = 'info') {
+  const toast = document.createElement('div');
+  const bgColor = type === 'success' ? 'var(--green)' : type === 'error' ? 'var(--red)' : 'var(--amber)';
+  toast.style.cssText = `
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+    background:${bgColor};color:#000;padding:10px 20px;border-radius:6px;
+    font-weight:600;font-size:13px;z-index:9999;
+    animation:fadeIn 0.2s ease;
+    box-shadow:0 4px 20px rgba(0,0,0,0.3);
+  `;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 2500);
+}
+
 // ===================== INIT =====================
 document.getElementById('inp-name').value=S.name;
 document.getElementById('inp-goal-h').value=S.goalH;
 document.getElementById('inp-goal-m').value=S.goalM;
 initTimer(); // Restore timer from saved hours
+updateBookmarkBadge(); // Update bookmark count badge
 renderUI();
 loadPYQPractice();
 document.getElementById('modal-bg').addEventListener('click',e=>{if(e.target===document.getElementById('modal-bg'))closeModal();});
