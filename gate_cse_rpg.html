@@ -2077,6 +2077,9 @@ function loadMorePYQs() {
 }
 
 function togglePYQSolved(qId) {
+  // Prevent double-clicks while loading
+  if(dailyPracticeLoading) return;
+  
   if(pyqSolved[qId]) {
     delete pyqSolved[qId];
     if(S.today.mcq > 0) S.today.mcq--;
@@ -2091,7 +2094,12 @@ function togglePYQSolved(qId) {
     save();
     updateDailyUI();
   }
-  localStorage.setItem('gcq_pyq_solved', JSON.stringify(pyqSolved));
+  // Save immediately to localStorage
+  try {
+    localStorage.setItem('gcq_pyq_solved', JSON.stringify(pyqSolved));
+  } catch(e) {
+    console.error('Failed to save pyqSolved:', e);
+  }
   // Quick stats update without full re-render
   const totalSolved = Object.keys(pyqSolved).length;
   document.getElementById('pyq-solved-count').textContent = totalSolved;
