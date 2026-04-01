@@ -575,7 +575,7 @@ input.num{width:90px}
               </select>
             </div>
             <div style="margin-bottom:12px">
-              <input type="text" id="pyq-search" placeholder="🔍 Search topic (e.g. BFS, normalization, paging...)" onkeyup="debounceSearch()" style="width:100%;padding:8px 12px;font-size:12px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);color:var(--text);box-sizing:border-box">
+              <input type="text" id="pyq-search" placeholder="🔍 Search (e.g. BFS paging SQL)" onkeyup="debounceSearch()" style="width:100%;padding:8px 12px;font-size:12px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);color:var(--text);box-sizing:border-box">
             </div>
             <div id="mcq-area"></div>
           </div>
@@ -644,7 +644,7 @@ input.num{width:90px}
             <option value="unsolved">Unsolved Only</option>
             <option value="solved">Solved Only</option>
           </select>
-          <input type="text" id="pyq-topic-search" placeholder="🔍 Search topic (e.g. BFS, paging, SQL...)" onkeyup="debounceListSearch()" style="padding:8px 12px;border-radius:6px;background:var(--card);border:1px solid var(--border);color:var(--text);font-size:13px;min-width:220px;flex:1">
+          <input type="text" id="pyq-topic-search" placeholder="🔍 Search topics (e.g. BFS paging SQL)" onkeyup="debounceListSearch()" style="padding:8px 12px;border-radius:6px;background:var(--card);border:1px solid var(--border);color:var(--text);font-size:13px;min-width:220px;flex:1">
           <div style="flex:0"></div>
           <div class="pyq-stats" style="display:flex;gap:16px;align-items:center;font-size:12px;color:var(--muted2)">
             <span>Solved: <span id="pyq-solved-count" class="amber-val">0</span></span>
@@ -2017,8 +2017,10 @@ function filterPYQDisplay() {
     filtered = filtered.filter(q => !pyqSolved[q.id]);
   }
   
+  // Search for each word (AND logic - must contain ALL words)
   if(searchTerm) {
-    filtered = filtered.filter(q => q._searchText.includes(searchTerm));
+    const searchWords = searchTerm.split(/\s+/).filter(w => w.length > 0);
+    filtered = filtered.filter(q => searchWords.every(word => q._searchText.includes(word)));
   }
   
   pyqFiltered = filtered; // Cache for pagination
@@ -2213,9 +2215,10 @@ async function loadPYQPractice() {
   // Filter unsolved
   let filtered = allQuestions.filter(q => !pyqSolved[q.id]);
   
-  // Apply search filter using pre-computed search text
+  // Apply search filter (AND logic - must contain ALL words)
   if(searchTerm) {
-    filtered = filtered.filter(q => q._searchText && q._searchText.includes(searchTerm));
+    const searchWords = searchTerm.split(/\s+/).filter(w => w.length > 0);
+    filtered = filtered.filter(q => q._searchText && searchWords.every(word => q._searchText.includes(word)));
   }
   
   dailyPracticeLoading = false;
