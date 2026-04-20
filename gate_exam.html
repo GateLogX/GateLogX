@@ -1448,6 +1448,9 @@
 
     <script>
         // ============ EXAM STATE ============
+        let isBossMode = false;
+        let preselectedTopic = null;
+        
         let examState = {
             currentTopic: null,
             selectedSubtopics: new Set(),
@@ -1530,7 +1533,24 @@
 
         // ============ INITIALIZATION ============
         async function init() {
+            // Parse URL parameters for boss mode
+            const urlParams = new URLSearchParams(window.location.search);
+            preselectedTopic = urlParams.get('topic');
+            isBossMode = urlParams.get('boss') === 'true';
+            
             await loadSubjects();
+            
+            // If topic is preselected (boss mode), auto-select it
+            if (preselectedTopic) {
+                const card = document.querySelector(`[data-topic="${preselectedTopic}"]`);
+                if (card) {
+                    selectSubject(preselectedTopic, card);
+                    // Auto-proceed to next step in boss mode
+                    if (isBossMode) {
+                        document.getElementById('nextStepBtn').click();
+                    }
+                }
+            }
         }
 
         async function loadSubjects() {
@@ -2611,6 +2631,18 @@
             // Show results modal
             document.getElementById('examInterface').style.display = 'none';
             document.getElementById('resultsModal').classList.remove('hidden');
+            
+            // Notify parent window (for embedded boss fight mode)
+            if (window.parent !== window && isBossMode) {
+                window.parent.postMessage({
+                    type: 'examComplete',
+                    correct: correct,
+                    wrong: wrong,
+                    total: totalQuestions,
+                    score: score,
+                    marks: marks.toFixed(2)
+                }, '*');
+            }
         }
 
         function reviewAnswers() {

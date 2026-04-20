@@ -745,6 +745,12 @@ input.num{width:90px}
   </main>
 </div>
 
+<!-- EXAM OVERLAY -->
+<div id="exam-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:#000">
+  <button onclick="closeExamOverlay()" style="position:absolute;top:10px;right:20px;z-index:10000;background:#333;color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
+  <iframe id="exam-iframe" style="width:100%;height:100%;border:none"></iframe>
+</div>
+
 <!-- BOSS SCORE MODAL -->
 <div class="modal-bg" id="boss-modal-bg" onclick="if(event.target===this)closeBossModal()">
   <div class="modal" style="max-width:460px">
@@ -753,12 +759,21 @@ input.num{width:90px}
         <div id="bm-icon" style="font-size:28px;line-height:1"></div>
         <div>
           <div class="modal-name" id="bm-name" style="font-size:16px"></div>
-          <div style="font-size:11px;color:var(--muted2);margin-top:2px">Enter your actual mock test score</div>
+          <div style="font-size:11px;color:var(--muted2);margin-top:2px">Challenge this boss with a timed mock test</div>
         </div>
       </div>
       <button class="modal-close" onclick="closeBossModal()">✕</button>
     </div>
     <div style="padding:20px">
+      <!-- TAKE TEST OPTION -->
+      <div id="bm-take-test" style="margin-bottom:20px;padding:16px;background:linear-gradient(135deg,rgba(34,197,94,0.1),rgba(0,200,212,0.1));border:1px solid var(--green);border-radius:8px;text-align:center">
+        <div style="font-size:14px;font-weight:600;color:var(--green);margin-bottom:6px">🎮 Take Mock Test Now</div>
+        <div style="font-size:12px;color:var(--muted2);margin-bottom:12px">Complete a timed 30-question test from this subject</div>
+        <button class="btn btn-green" onclick="startBossExam()" style="width:100%;padding:12px;font-size:14px">⚔ Start Mock Test</button>
+      </div>
+      
+      <div style="text-align:center;color:var(--muted);font-size:11px;margin-bottom:16px">— OR enter score manually —</div>
+      
       <div style="display:flex;gap:16px;align-items:flex-end;margin-bottom:8px">
         <div style="flex:1">
           <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--muted2);text-transform:uppercase;margin-bottom:6px">Correct Answers</div>
@@ -1782,6 +1797,85 @@ function closeBossModal(){
   document.getElementById('bm-submit').style.display='inline-flex';
   document.getElementById('bm-done').style.display='none';
 }
+
+// ===================== EXAM INTEGRATION =====================
+let currentBossSubject = null;
+
+function startBossExam(){
+  const subId = document.getElementById('boss-modal-bg').dataset.subId;
+  const s = SUBJECTS.find(x => x.id === subId);
+  currentBossSubject = subId;
+  
+  // Map subject IDs to exam topic names
+  const topicMap = {
+    'data_structures': 'data_structures',
+    'algorithms': 'algorithms', 
+    'operating_system': 'operating_system',
+    'computer_networks': 'computer_networks',
+    'databases': 'databases',
+    'theory_of_computation': 'theory_of_computation',
+    'compiler_design': 'compiler_design',
+    'digital_logic': 'digital_logic',
+    'coa': 'coa',
+    'discrete_mathematics': 'discrete_mathematics',
+    'calculus': 'calculus',
+    'linear_algebra': 'linear_algebra',
+    'probability': 'probability',
+    'programming': 'programming',
+    'aptitude': 'quantitative_aptitude'
+  };
+  
+  const topic = topicMap[subId] || subId;
+  closeBossModal();
+  
+  // Show exam overlay
+  document.getElementById('exam-overlay').style.display = 'block';
+  document.getElementById('exam-iframe').src = `gate_exam.html?topic=${topic}&boss=true`;
+}
+
+function closeExamOverlay(){
+  if(confirm('Exit exam? Your progress will be lost.')){
+    document.getElementById('exam-overlay').style.display = 'none';
+    document.getElementById('exam-iframe').src = '';
+    currentBossSubject = null;
+  }
+}
+
+// Listen for exam completion from iframe
+window.addEventListener('message', function(e){
+  if(e.data && e.data.type === 'examComplete'){
+    const result = e.data;
+    document.getElementById('exam-overlay').style.display = 'none';
+    document.getElementById('exam-iframe').src = '';
+    
+    if(currentBossSubject && result.correct !== undefined){
+      // Auto-submit boss score
+      const s = SUBJECTS.find(x => x.id === currentBossSubject);
+      const correct = result.correct;
+      const total = result.total || 30;
+      const pct = Math.round((correct / total) * 100);
+      const xp = pct >= 70 ? s.lec * 20 : pct >= 50 ? s.lec * 10 : pct >= 33 ? s.lec * 5 : 0;
+      const victory = pct >= 70;
+      const partial = pct >= 50;
+      
+      if(victory || partial) S.bossSlain++;
+      S.bossLog.push({sid: currentBossSubject, c: correct, t: total, xp, date: todayStr()});
+      if(xp > 0) addXP(xp, `Boss: ${s.name} (${pct}%)`);
+      else { save(); renderUI(); }
+      
+      // Show result notification
+      const col = pct >= 70 ? 'var(--green)' : pct >= 50 ? 'var(--amber)' : 'var(--red)';
+      const badge = victory ? '🏆 BOSS SLAIN!' : partial ? '⚡ Partial Victory' : '💀 Defeated';
+      
+      showToast(`${badge} ${s.name}: ${pct}% (${correct}/${total}) ${xp > 0 ? '+' + xp + ' XP' : ''}`, pct >= 50 ? 'success' : 'error');
+      
+      save();
+      renderBoss();
+      renderUI();
+    }
+    currentBossSubject = null;
+  }
+});
 
 function previewXP(){
   const subId=document.getElementById('boss-modal-bg').dataset.subId;
