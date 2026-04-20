@@ -1,0 +1,728 @@
+{
+  "tag": "optimization",
+  "fetchedAt": "2026-04-18T09:53:29.950Z",
+  "stats": {
+    "total": 19,
+    "withOptions": 15,
+    "withAnswers": 10
+  },
+  "questions": [
+    {
+      "id": "485983",
+      "title": "UGC NET CSE | January 2025 | Part 2 | Question: 6",
+      "link": "https://gateoverflow.in/../485983/ugc-net-cse-january-2025-part-2-question-6",
+      "excerpt": "A linear programming problem $\\text{(LPP)}$ is as follows:Min $z=30 x-18 y,$ subject to the constraints; $3 x+4 y \\leq 60, 5 x-3 y \\geq 20$ and $x, y \\geq 0.$ In this fea...",
+      "questionText": "A linear programming problem $\\text{(LPP)}$ is as follows: Min $z=30 x-18 y,$ subject to the constraints; $3 x+4 y \\leq 60, 5 x-3 y \\geq 20$ and $x, y \\geq 0.$ In this feasible region, the solution of $\\text{LPP}$ is/are $(4,0)$ $(2,0)$ $(7,5)$ $(0,15)$ $(8,5)$ Choose the correct answer from the options given below: $\\text{I and III&nbsp;only}$ $\\text{II only}$ $\\text{V only}$ $\\text{III only}$",
+      "questionHtml": "\n<a name=\"485983\"></a><div itemprop=\"text\"><p>A linear programming problem $\\text{(LPP)}$ is as follows:</p><p>Min $z=30 x-18 y,$ subject to the constraints; $3 x+4 y \\leq 60, 5 x-3 y \\geq 20$ and $x, y \\geq 0.$ In this feasible region, the solution of $\\text{LPP}$ is/are</p><ol style=\"list-style-type: upper-roman;\" start=\"1\"><li>$(4,0)$</li><li>$(2,0)$</li><li>$(7,5)$</li><li>$(0,15)$</li><li>$(8,5)$</li></ol><p>Choose the <em><strong>correct </strong></em>answer from the options given below:</p><ol start=\"1\" style=\"list-style-type: upper-alpha;\"><li>$\\text{I and III&nbsp;only}$</li><li>$\\text{II only}$</li><li>$\\text{V only}$</li><li>$\\text{III only}$</li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\text{I and III only}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\text{II only}$"
+        },
+        {
+          "label": "C",
+          "text": "$\\text{V only}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\text{III only}$"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "SOl: Just put the values of I,II,...V and satisfying the constraints we will be getting the solution,. iamsvk answered Dec 28, 2025 iamsvk comment Share Follow 0 reply Please log in or register to add a comment. Voting &amp; Accepting an answer helps improve the community Answer: A &larr; Previous Next &rarr; &larr; Previous in category Related questions 0 0 votes 0 0 answers 140 140 views Shubham Sharma 2 asked Sep 9, 2025 140 views UGC NET CSE | December 2023 | Part 2 | Question: 91 Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin $\\text{E}$ per gram and cost is Rs. $12$ per gram. Food $\\text{Y}$ contains $8$... Shubham Sharma 2 140 views Shubham Sharma 2 asked Sep 9, 2025 Optimization ugcnetcse-dec2023 linear-programming quantitative-aptitude optimization + – 0 0 votes 0 0 answers 116 116 views Shubham Sharma 2 asked Sep 9, 2025 116 views UGC NET CSE | December 2023 | Part 2 | Question: 92 Food $\\text{X}$ contains $6$ units of Vitamin $\\tex",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:52:01.054Z"
+    },
+    {
+      "id": "485246",
+      "title": "UGC NET CSE | December 2023 | Part 2 | Question: 39",
+      "link": "https://gateoverflow.in/../485246/ugc-net-cse-december-2023-part-2-question-39",
+      "excerpt": "In a genetic algorithm optimization problem the fitness function is defined as $\\mathrm{f}(\\mathrm{x})=x^{2}-4 x+4$. Given a population of four individuals with values of...",
+      "questionText": "In a genetic algorithm optimization problem the fitness function is defined as $\\mathrm{f}(\\mathrm{x})=x^{2}-4 x+4$. Given a population of four individuals with values of $x:\\{1.5,2.0,3.0,4.5\\}$ What is the fitness value of the individual that will be selected as the parent for reproduction in one generation? $2.25$ $6.0$ $0.0$ $6.25$",
+      "questionHtml": "\n<a name=\"485246\"></a><div itemprop=\"text\"><p>In a genetic algorithm optimization problem the fitness function is defined as $\\mathrm{f}(\\mathrm{x})=x^{2}-4 x+4$. Given a population of four individuals with values of $x:\\{1.5,2.0,3.0,4.5\\}$<br>What is the fitness value of the individual that will be selected as the parent for reproduction in one generation?</p><ol start=\"1\" style=\"list-style-type: upper-alpha;\"><li>$2.25$</li><li>$6.0$</li><li>$0.0$</li><li>$6.25$</li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "$2.25$"
+        },
+        {
+          "label": "B",
+          "text": "$6.0$"
+        },
+        {
+          "label": "C",
+          "text": "$0.0$"
+        },
+        {
+          "label": "D",
+          "text": "$6.25$"
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:52:16.797Z"
+    },
+    {
+      "id": "485193",
+      "title": "UGC NET CSE | December 2023 | Part 2 | Question: 91",
+      "link": "https://gateoverflow.in/../485193/ugc-net-cse-december-2023-part-2-question-91",
+      "excerpt": "Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin $\\text{E}$ per gram and cost is Rs. $12$ per gram. Food $\\text{Y}$ contains $8$...",
+      "questionText": "Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs. $12$ per gram. Food&nbsp;$\\text{Y}$ contains $8$ units of vitamin&nbsp;$\\text{D}$ per gram and $12$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $20$ per gram. The daily minimum requirements of vitamin&nbsp;$\\text{D}$ and&nbsp;$\\text{E}$ are $100$ units and $120$ units respectively. Suppose $x$ is quantity (in gram) of food $\\mathrm{X}, y$ is quantity (in gram) of food $\\text{Y}$. Answering the following question based on the above paragraph given. The cost funtion of total food is: $Z=6 x+7 y$ $\\mathrm{Z}=8 x+12 y$ $Z=12 x+20 y$ $Z=20 x+12 y$",
+      "questionHtml": "\n<a name=\"485193\"></a><div itemprop=\"text\"><p>Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs. $12$ per gram. Food&nbsp;$\\text{Y}$ contains $8$ units of vitamin&nbsp;$\\text{D}$ per gram and $12$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $20$ per gram. The daily minimum requirements of vitamin&nbsp;$\\text{D}$ and&nbsp;$\\text{E}$ are $100$ units and $120$ units respectively.</p><p>Suppose $x$ is quantity (in gram) of food $\\mathrm{X}, y$ is quantity (in gram) of food $\\text{Y}$.</p><p>Answering the following question based on the above paragraph given.</p><p>The cost funtion of total food is:</p><ol start=\"1\" style=\"list-style-type: upper-alpha;\"><li>$Z=6 x+7 y$</li><li>$\\mathrm{Z}=8 x+12 y$</li><li>$Z=12 x+20 y$</li><li>$Z=20 x+12 y$</li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "$Z=6 x+7 y$"
+        },
+        {
+          "label": "B",
+          "text": "$\\mathrm{Z}=8 x+12 y$"
+        },
+        {
+          "label": "C",
+          "text": "$Z=12 x+20 y$"
+        },
+        {
+          "label": "D",
+          "text": "$Z=20 x+12 y$"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:52:38.145Z"
+    },
+    {
+      "id": "485192",
+      "title": "UGC NET CSE | December 2023 | Part 2 | Question: 92",
+      "link": "https://gateoverflow.in/../485192/ugc-net-cse-december-2023-part-2-question-92",
+      "excerpt": "Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin $\\text{E}$ per gram and cost is Rs $12$ per gram. Food $\\text{Y}$ contains $8$ ...",
+      "questionText": "Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $12$ per gram. Food&nbsp;$\\text{Y}$ contains $8$ units of vitamin&nbsp;$\\text{D}$ per gram and $12$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $20$ per gram. The daily minimum requirements of vitamin&nbsp;$\\text{D}$ and&nbsp;$\\text{E}$ are $100$ units and $120$ units respectively. Suppose $x$ is quantity (in gram) of food $\\mathrm{X}$, $y$ is quantity (in gram) of food $\\mathrm{Y}$. Answering the following question based on the above paragraph given. Which of the following constrains when formulating the $\\text{LPP?}$ $6 x+7 y \\leqslant 100,8 x+12 y \\leqslant 120, x, y \\geqslant 0$ $6 x+8 y \\leqslant 100,7 x+12 y \\leqslant 120, x, y \\geqslant 0$ $6 x+7 y \\geqslant 100,8 x+12 y \\geqslant 120, x, y \\geqslant 0$ $6 x+8 y \\geqslant 100,7 x+12 y \\geqslant 120, x, y \\geqslant 0$",
+      "questionHtml": "\n<a name=\"485192\"></a><div itemprop=\"text\"><p>Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $12$ per gram. Food&nbsp;$\\text{Y}$ contains $8$ units of vitamin&nbsp;$\\text{D}$ per gram and $12$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $20$ per gram. The daily minimum requirements of vitamin&nbsp;$\\text{D}$ and&nbsp;$\\text{E}$ are $100$ units and $120$ units respectively.</p><p>Suppose $x$ is quantity (in gram) of food $\\mathrm{X}$, $y$ is quantity (in gram) of food $\\mathrm{Y}$.</p><p>Answering the following question based on the above paragraph given.</p><p>Which of the following constrains when formulating the $\\text{LPP?}$</p><ol start=\"1\" style=\"list-style-type: upper-alpha;\"><li>$6 x+7 y \\leqslant 100,8 x+12 y \\leqslant 120, x, y \\geqslant 0$</li><li>$6 x+8 y \\leqslant 100,7 x+12 y \\leqslant 120, x, y \\geqslant 0$</li><li>$6 x+7 y \\geqslant 100,8 x+12 y \\geqslant 120, x, y \\geqslant 0$</li><li>$6 x+8 y \\geqslant 100,7 x+12 y \\geqslant 120, x, y \\geqslant 0$</li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "$6 x+7 y \\leqslant 100,8 x+12 y \\leqslant 120, x, y \\geqslant 0$"
+        },
+        {
+          "label": "B",
+          "text": "$6 x+8 y \\leqslant 100,7 x+12 y \\leqslant 120, x, y \\geqslant 0$"
+        },
+        {
+          "label": "C",
+          "text": "$6 x+7 y \\geqslant 100,8 x+12 y \\geqslant 120, x, y \\geqslant 0$"
+        },
+        {
+          "label": "D",
+          "text": "$6 x+8 y \\geqslant 100,7 x+12 y \\geqslant 120, x, y \\geqslant 0$"
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:52:44.693Z"
+    },
+    {
+      "id": "485191",
+      "title": "UGC NET CSE | December 2023 | Part 2 | Question: 93",
+      "link": "https://gateoverflow.in/../485191/ugc-net-cse-december-2023-part-2-question-93",
+      "excerpt": "Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin $\\text{E}$ per gram and cost is Rs $12$ per gram. Food $\\text{Y}$ contains $8$ ...",
+      "questionText": "Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $12$ per gram. Food&nbsp;$\\text{Y}$ contains $8$ units of vitamin&nbsp;$\\text{D}$ per gram and $12$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $20$ per gram. The daily minimum requirements of vitamin&nbsp;$\\text{D}$ and&nbsp;$\\text{E}$ are $100$ units and $120$ units respectively. Suppose $x$ is quantity (in gram) of food $\\mathrm{X}$, $y$ is quantity (in gram) of food $\\mathrm{Y}$. Answering the following question based on the above paragraph given. Which of the following are quantities (in grams) of food $\\text{X}$ and $\\text{Y}$ respectively when the cost of food is minimum: $0$ and $12 \\frac{1}{2}$ $15$ and $\\frac{5}{4}$ $\\frac{120}{7}$ and $0$ $0$ and $10$",
+      "questionHtml": "\n<a name=\"485191\"></a><div itemprop=\"text\"><p>Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $12$ per gram. Food&nbsp;$\\text{Y}$ contains $8$ units of vitamin&nbsp;$\\text{D}$ per gram and $12$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $20$ per gram. The daily minimum requirements of vitamin&nbsp;$\\text{D}$ and&nbsp;$\\text{E}$ are $100$ units and $120$ units respectively.</p><p>Suppose $x$ is quantity (in gram) of food $\\mathrm{X}$, $y$ is quantity (in gram) of food $\\mathrm{Y}$.</p><p>Answering the following question based on the above paragraph given.</p><p>Which of the following are quantities (in grams) of food $\\text{X}$ and $\\text{Y}$ respectively when the cost of food is minimum:</p><ol start=\"1\" style=\"list-style-type: upper-alpha;\"><li>$0$ and $12 \\frac{1}{2}$</li><li>$15$ and $\\frac{5}{4}$</li><li>$\\frac{120}{7}$ and $0$</li><li>$0$ and $10$</li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "$0$ and $12 \\frac{1}{2}$"
+        },
+        {
+          "label": "B",
+          "text": "$15$ and $\\frac{5}{4}$"
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{120}{7}$ and $0$"
+        },
+        {
+          "label": "D",
+          "text": "$0$ and $10$"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:52:47.415Z"
+    },
+    {
+      "id": "485190",
+      "title": "UGC NET CSE | December 2023 | Part 2 | Question: 94",
+      "link": "https://gateoverflow.in/../485190/ugc-net-cse-december-2023-part-2-question-94",
+      "excerpt": "Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin $\\text{E}$ per gram and cost is Rs $12$ per gram. Food $\\text{Y}$ contains $8$ ...",
+      "questionText": "Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $12$ per gram. Food&nbsp;$\\text{Y}$ contains $8$ units of vitamin&nbsp;$\\text{D}$ per gram and $12$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $20$ per gram. The daily minimum requirements of vitamin&nbsp;$\\text{D}$ and&nbsp;$\\text{E}$ are $100$ units and $120$ units respectively. Suppose $x$ is quantity (in gram) of food $\\mathrm{X}$, $y$ is quantity (in gram) of food $\\mathrm{Y}$ . Answering the following question based on the above paragraph given. The dual of the formulated LPP is: $\\text { Max } Z &nbsp;=100 u+120 v$ $\\text { s.t. }$&nbsp; $ \\quad&nbsp; \\quad 6 u+7 v \\leqslant 12$ $ \\quad \\quad 8 u+12 v \\leqslant 20$ $\\quad \\quad u, v \\geqslant 0$ $\\text { Max } Z &nbsp;=12 u+20 u$ $\\text { s.t. }$ $\\quad \\quad&nbsp;6 u+7 v \\leqslant 100$ $\\quad \\quad&nbsp; 8 u+12 v \\leqslant 120$ $\\quad \\quad u, v \\geqslant 0$ $\\text { Max } Z =100 u+120 v $ $\\text { s.t. }$ $\\quad \\quad 6 u+7 u \\leqslant 12$ $\\quad \\quad&nbsp;8 u+7 v&nbsp; \\leqslant 20$ $\\quad&nbsp;\\quad&nbsp;u, v \\text { are unrestricted }$ $\\text { Max } Z=100 u+120 u$ $\\text { s.t. }$ $\\quad&nbsp;\\quad&nbsp;6 u+7 v \\geqslant 12$ $\\quad \\quad&nbsp;8 u+12 v \\geqslant 20$ $\\quad \\quad u, v \\geqslant 0$",
+      "questionHtml": "\n<a name=\"485190\"></a><div itemprop=\"text\"><p><img alt=\"UGC NET CSE | December 2023 | Part 2 | Question-94\" src=\"https://gateoverflow.in/?qa=blob&amp;qa_blobid=11541803991948864781\"></p><p>Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $12$ per gram. Food&nbsp;$\\text{Y}$ contains $8$ units of vitamin&nbsp;$\\text{D}$ per gram and $12$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $20$ per gram. The daily minimum requirements of vitamin&nbsp;$\\text{D}$ and&nbsp;$\\text{E}$ are $100$ units and $120$ units respectively.<br><br>Suppose $x$ is quantity (in gram) of food $\\mathrm{X}$, $y$ is quantity (in gram) of food $\\mathrm{Y}$ .</p><p>Answering the following question based on the above paragraph given.</p><p>The dual of the formulated LPP is:</p><ol start=\"1\" style=\"list-style-type: upper-alpha;\"><li><table border=\"1\" cellpadding=\"1\" style=\"width: 250px; border-spacing: 1px; text-align: left;\"><tbody><tr><td>$\\text { Max } Z &nbsp;=100 u+120 v$</td></tr><tr><td>$\\text { s.t. }$&nbsp;</td></tr><tr><td>$ \\quad&nbsp; \\quad 6 u+7 v \\leqslant 12$</td></tr><tr><td>$ \\quad \\quad 8 u+12 v \\leqslant 20$</td></tr><tr><td>$\\quad \\quad u, v \\geqslant 0$</td></tr></tbody></table></li></ol><ol start=\"2\" style=\"list-style-type: upper-alpha;\"><li><table border=\"1\" cellpadding=\"1\" style=\"width: 250px; text-align: left; border-spacing: 1px;\"><tbody><tr><td>$\\text { Max } Z &nbsp;=12 u+20 u$</td></tr><tr><td>$\\text { s.t. }$</td></tr><tr><td>$\\quad \\quad&nbsp;6 u+7 v \\leqslant 100$</td></tr><tr><td>$\\quad \\quad&nbsp; 8 u+12 v \\leqslant 120$</td></tr><tr><td>$\\quad \\quad u, v \\geqslant 0$</td></tr></tbody></table><p> </p></li><li><table border=\"1\" cellpadding=\"1\" style=\"width: 250px; text-align: left; border-spacing: 1px;\"><tbody><tr><td>$\\text { Max } Z =100 u+120 v $</td></tr><tr><td>$\\text { s.t. }$</td></tr><tr><td>$\\quad \\quad 6 u+7 u \\leqslant 12$</td></tr><tr><td>$\\quad \\quad&nbsp;8 u+7 v&nbsp; \\leqslant 20$</td></tr><tr><td>$\\quad&nbsp;\\quad&nbsp;u, v \\text { are unrestricted }$</td></tr></tbody></table></li></ol><ol start=\"4\" style=\"list-style-type: upper-alpha;\"><li><table border=\"1\" cellpadding=\"1\" style=\"width: 250px; text-align: left; border-spacing: 1px;\"><tbody><tr><td>$\\text { Max } Z=100 u+120 u$</td></tr><tr><td>$\\text { s.t. }$</td></tr><tr><td>$\\quad&nbsp;\\quad&nbsp;6 u+7 v \\geqslant 12$</td></tr><tr><td>$\\quad \\quad&nbsp;8 u+12 v \\geqslant 20$</td></tr><tr><td>$\\quad \\quad u, v \\geqslant 0$</td></tr></tbody></table></li></ol><p> </p>",
+      "codeBlocks": [],
+      "images": [
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=11541803991948864781",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\text { Max } Z =12 u+20 u$$\\text { s.t. }$$\\quad \\quad 6 u+7 v \\leqslant 100$$\\quad \\quad 8 u+12 v \\leqslant 120$$\\quad \\quad u, v \\geqslant 0$"
+        },
+        {
+          "label": "B",
+          "text": "$\\text { Max } Z =100 u+120 v $$\\text { s.t. }$$\\quad \\quad 6 u+7 u \\leqslant 12$$\\quad \\quad 8 u+7 v \\leqslant 20$$\\quad \\quad u, v \\text { are unrestricted }$"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "",
+      "isNAT": true,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:52:50.242Z"
+    },
+    {
+      "id": "485189",
+      "title": "UGC NET CSE | December 2023 | Part 2 | Question: 95",
+      "link": "https://gateoverflow.in/../485189/ugc-net-cse-december-2023-part-2-question-95",
+      "excerpt": "Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin $\\text{E}$ per gram and cost is Rs $12$ per gram. Food $\\text{Y}$ contains $8$ ...",
+      "questionText": "Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $12$ per gram. Food&nbsp;$\\text{Y}$ contains $8$ units of vitamin&nbsp;$\\text{D}$ per gram and $12$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $20$ per gram. The daily minimum requirements of vitamin&nbsp;$\\text{D}$ and&nbsp;$\\text{E}$ are $100$ units and $120$ units respectively. Suppose $x$ is quantity (in gram) of food $\\mathrm{X}$, $y$ is quantity (in gram) of food $\\mathrm{Y}$ . Answering the following question based on the above paragraph given. The minimum cost of food is : $205$ $250$ $330$ $200$",
+      "questionHtml": "\n<a name=\"485189\"></a><div itemprop=\"text\"><p>Food $\\text{X}$ contains $6$ units of Vitamin $\\text{D}$ per gram and $7$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $12$ per gram. Food&nbsp;$\\text{Y}$ contains $8$ units of vitamin&nbsp;$\\text{D}$ per gram and $12$ units of Vitamin&nbsp;$\\text{E}$ per gram and cost is Rs $20$ per gram. The daily minimum requirements of vitamin&nbsp;$\\text{D}$ and&nbsp;$\\text{E}$ are $100$ units and $120$ units respectively.<br><br>Suppose $x$ is quantity (in gram) of food $\\mathrm{X}$, $y$ is quantity (in gram) of food $\\mathrm{Y}$ .</p><p>Answering the following question based on the above paragraph given.</p><p>The minimum cost of food is :</p><ol start=\"1\" style=\"list-style-type: upper-alpha;\"><li>$205$</li><li>$250$</li><li>$330$</li><li>$200$</li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "$205$"
+        },
+        {
+          "label": "B",
+          "text": "$250$"
+        },
+        {
+          "label": "C",
+          "text": "$330$"
+        },
+        {
+          "label": "D",
+          "text": "$200$"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:52:54.532Z"
+    },
+    {
+      "id": "467026",
+      "title": "ISI 2023 | PCB NonCS | Question : N9.",
+      "link": "https://gateoverflow.in/../467026/isi-2023-pcb-noncs-question-n9",
+      "excerpt": "N9. Consider the set of points \\( \\{(x, y, z) \\  | \\ x, y, z \\in  \\{0, 1, . . . ,n\\}\\} \\).Determine how many of these points lie on the Euclidean plane that contains the ...",
+      "questionText": "N9.&nbsp;Consider the set of points \\( \\{(x, y, z) \\&nbsp; | \\ x, y, z \\in&nbsp; \\{0, 1, . . . ,n\\}\\} \\). Determine how many of these points lie on the Euclidean plane &nbsp;that contains the points \\((n, 0, 0), (0, n, 0)\\)&nbsp;&nbsp;and \\((0, 0, n)\\).",
+      "questionHtml": "\n<a name=\"467026\"></a><div itemprop=\"text\"><p>N9.&nbsp;Consider the set of points \\( \\{(x, y, z) \\&nbsp; | \\ x, y, z \\in&nbsp; \\{0, 1, . . . ,n\\}\\} \\).<br>Determine how many of these points lie on the <strong>Euclidean plane</strong>&nbsp;that contains the points \\((n, 0, 0), (0, n, 0)\\)&nbsp;&nbsp;and \\((0, 0, n)\\).</p>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [],
+      "correctAnswer": null,
+      "explanation": "",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:53:01.744Z"
+    },
+    {
+      "id": "467023",
+      "title": "ISI 2023 | PCB NonCs | Question N7.",
+      "link": "https://gateoverflow.in/../467023/isi-2023-pcb-noncs-question-n7",
+      "excerpt": "N7. An oil-exploration company is considering 10 possible drilling sites \\(S_1, S_2, . . . ,S_{10}\\). The drilling costs associated with these sites are \\(C_1, C_2, . . ....",
+      "questionText": "N7. An oil-exploration company is considering 10 possible drilling&nbsp;sites \\(S_1, S_2, . . . ,S_{10}\\). The drilling costs associated with these&nbsp;sites are \\(C_1, C_2, . . . ,C_{10} \\) respectively. Due to land topography,&nbsp;there are some additional constraints as follows. Drilling at sites \\(S_1\\) and \\(S_7\\) would prevent the company from&nbsp;drilling at site \\(S_8\\). Drilling at site \\(S_3\\) or \\(S_4\\) prevents the company from drilling at&nbsp;site \\(S_5\\). Out of the drilling sites \\(S_5, S_6, S_7, S_8\\), only two sites may be&nbsp;drilled. Your job is to help the company select 5 out of 10 sites for drilling&nbsp;such that the above constraints are satisfied and the total drilling&nbsp;cost is minimised. Formulate the problem as an Integer Linear&nbsp;Program (ILP) .",
+      "questionHtml": "\n<a name=\"467023\"></a><div itemprop=\"text\"><p>N7. An oil-exploration company is considering 10 possible drilling&nbsp;sites \\(S_1, S_2, . . . ,S_{10}\\). The drilling costs associated with these&nbsp;sites are \\(C_1, C_2, . . . ,C_{10} \\) respectively. Due to land topography,&nbsp;there are some additional constraints as follows.</p><ul><li>Drilling at sites \\(S_1\\) and \\(S_7\\) would prevent the company from&nbsp;drilling at site \\(S_8\\).</li><li>Drilling at site \\(S_3\\) or \\(S_4\\) prevents the company from drilling at&nbsp;site \\(S_5\\).</li><li>Out of the drilling sites \\(S_5, S_6, S_7, S_8\\), only two sites may be&nbsp;drilled.</li></ul><p>Your job is to help the company select 5 out of 10 sites for drilling&nbsp;such that the above constraints are satisfied and the total drilling&nbsp;cost is minimised. Formulate the problem as an<strong> Integer Linear&nbsp;Program (ILP)</strong>.</p>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [],
+      "correctAnswer": null,
+      "explanation": "",
+      "isNAT": true,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:53:04.143Z"
+    },
+    {
+      "id": "442773",
+      "title": "CMI 2023 | Data Science | Part B | Question: 16",
+      "link": "https://gateoverflow.in/../442773/cmi-2023-data-science-part-b-question-16",
+      "excerpt": "Find the largest value of $x y$ subject to $x^{2}+y^{2}=2$.",
+      "questionText": "Find the largest value of $x y$ subject to $x^{2}+y^{2}=2$.",
+      "questionHtml": "\n<a name=\"442773\"></a><div itemprop=\"text\">Find the largest value of $x y$ subject to $x^{2}+y^{2}=2$.",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [],
+      "correctAnswer": null,
+      "explanation": "When x = y = 1 Answer will be 1 * 1 = 2 manishankarkanrar answered Dec 3, 2024 manishankarkanrar comment Share Follow 0 reply Please log in or register to add a comment. 0 0 votes Short trick..!! If 2 variables have the same effect on the function...!! Then consider them equal to each other, to find the maximum of the output..!! So, Let x=y.. 2*(x^2) = 2.. So, x62 = 1.. So, x = +1 / -1 = y...!! So, the maximum of x*y = 1...!! heetcarmel answered Oct 29, 2025 heetcarmel comment Share Follow 0 reply Please log in or register to add a comment. 0 0 votes The Questiion is MAX xy subject to x^2+y^2 = 2 Now The Lagrangian L(X,λ) = xy + λ(x^2+y^2-2) Now Differentiate wrt x we will get λ = -(y/2x) and wrt y we will get λ = -(x/2y) Equating both as same we will get x = y = +1 , -1 Now the max value will be 1 iamsvk answered Dec 28, 2025 iamsvk comment Share Follow 0 reply Please log in or register to add a comment. Voting &amp; Accepting an answer helps improve the community &larr; Previous Nex",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:53:06.572Z"
+    },
+    {
+      "id": "434212",
+      "title": "ISI2024-MCS-PCB (Math) | Question: 10",
+      "link": "https://gateoverflow.in/../434212/isi2024-mcs-pcb-math-question-10",
+      "excerpt": "Denote the following Linear Programming (LP), as $P$ :Maximize $c_{1} x_{1}+\\cdots+c_{j} x_{j}+\\cdots+c_{n} x_{n}$subject to\\[\\begin{array}{c}a_{11} x_{1}+\\cdots+a_{1 j} ...",
+      "questionText": "Denote the following Linear Programming (LP), as $P$ : Maximize $c_{1} x_{1}+\\cdots+c_{j} x_{j}+\\cdots+c_{n} x_{n}$ subject to \\[ \\begin{array}{c} a_{11} x_{1}+\\cdots+a_{1 j} x_{j}+\\cdots+a_{1 n} x_{n} \\leq b_{1} \\\\ \\vdots \\\\ a_{i 1} x_{1}+\\cdots+a_{i j} x_{j}+\\cdots+a_{i n} x_{n} \\leq b_{i} \\\\ \\vdots \\\\ a_{m 1} x_{1}+\\cdots+a_{m j} x_{j}+\\cdots+a_{m n} x_{n} \\leq b_{m} \\\\ x_{1}, x_{2}, \\cdots, x_{n} \\geq 0 \\end{array} \\] We want to obtain the best possible upper bound on $\\sum_{j=1}^{n} c_{j} x_{j}$ by combining the $m$ constraint inequalities of $P$ (of the form $\\left.\\sum_{j=1}^{n} a_{i j} x_{j} \\leq b_{i}, i=1, \\ldots, m\\right)$ with some non-negative coefficients $\\lambda_{1}, \\lambda_{2}, \\ldots, \\lambda_{m}$ so that $\\sum_{i=1}^{m} a_{i j} \\lambda_{i} \\geq c_{j} \\forall j=1, \\ldots, n$, and the sum of the products $b_{i} \\lambda_{i}(i=1, \\ldots, m)$ is as small as possible. Write an LP involving the variables $\\lambda_{1}, \\lambda_{2}, \\ldots, \\lambda_{m}$ to perform the task. Show that $\\sum_{j=1}^{n} c_{j} x_{j} \\leq \\sum_{i=1}^{m} b_{i} \\lambda_{i}$.",
+      "questionHtml": "\n<a name=\"434212\"></a><div itemprop=\"text\"><p>Denote the following Linear Programming (LP), as $P$ :<br><br>Maximize $c_{1} x_{1}+\\cdots+c_{j} x_{j}+\\cdots+c_{n} x_{n}$<br>subject to<br>\\[<br>\\begin{array}{c}<br>a_{11} x_{1}+\\cdots+a_{1 j} x_{j}+\\cdots+a_{1 n} x_{n} \\leq b_{1} \\\\<br>\\vdots \\\\<br>a_{i 1} x_{1}+\\cdots+a_{i j} x_{j}+\\cdots+a_{i n} x_{n} \\leq b_{i} \\\\<br>\\vdots \\\\<br>a_{m 1} x_{1}+\\cdots+a_{m j} x_{j}+\\cdots+a_{m n} x_{n} \\leq b_{m} \\\\<br>x_{1}, x_{2}, \\cdots, x_{n} \\geq 0<br>\\end{array}<br>\\]<br><br>We want to obtain the best possible upper bound on $\\sum_{j=1}^{n} c_{j} x_{j}$ by combining the $m$ constraint inequalities of $P$ (of the form $\\left.\\sum_{j=1}^{n} a_{i j} x_{j} \\leq b_{i}, i=1, \\ldots, m\\right)$ with some non-negative coefficients $\\lambda_{1}, \\lambda_{2}, \\ldots, \\lambda_{m}$ so that</p><ul><li>$\\sum_{i=1}^{m} a_{i j} \\lambda_{i} \\geq c_{j} \\forall j=1, \\ldots, n$, and</li><li>the sum of the products $b_{i} \\lambda_{i}(i=1, \\ldots, m)$ is as small as possible.</li></ul><ol start=\"1\" style=\"list-style-type: lower-alpha;\"><li>Write an LP involving the variables $\\lambda_{1}, \\lambda_{2}, \\ldots, \\lambda_{m}$ to perform the task.</li><li>Show that $\\sum_{j=1}^{n} c_{j} x_{j} \\leq \\sum_{i=1}^{m} b_{i} \\lambda_{i}$.</li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "Write an LP involving the variables $\\lambda_{1}, \\lambda_{2}, \\ldots, \\lambda_{m}$ to perform the task."
+        },
+        {
+          "label": "B",
+          "text": "Show that $\\sum_{j=1}^{n} c_{j} x_{j} \\leq \\sum_{i=1}^{m} b_{i} \\lambda_{i}$."
+        }
+      ],
+      "correctAnswer": null,
+      "explanation": "",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:53:08.961Z"
+    },
+    {
+      "id": "386144",
+      "title": "UGC NET CSE | October 2022 | Part 1 | Question:: 13",
+      "link": "https://gateoverflow.in/../386144/ugc-net-cse-october-2022-part-1-question-13",
+      "excerpt": "Consider the primal problem :Maximize $z=5 x_{1}+12 x_{2}+4 x_{3}$Subject to \\[\\begin{array}{l}x_{1}+2 x_{2}+x_{3}=10\\\\2 x_{1}-x_{2}+3 x_{3}=8 \\\\x_{1}, x_{2}, x_{3} \\geq ...",
+      "questionText": "Consider the primal problem : Maximize $z=5 x_{1}+12 x_{2}+4 x_{3}$ Subject to \\[ \\begin{array}{l} x_{1}+2 x_{2}+x_{3}=10\\\\ 2 x_{1}-x_{2}+3 x_{3}=8 \\\\ x_{1}, x_{2}, x_{3} \\geq 0 \\end{array} \\] its dual problem is Minimize $w=10 y_{1}+8 y_{2}$ Subject to \\[ \\begin{array}{l} y_{1}+2 y_{2} \\geq 5\\\\ 2 y_{1}-y_{2} \\geq 12 \\\\ y_{1}+3 y_{2} \\geq 4 \\end{array} \\] Which of the following is correct? $y_{1} \\geq 0, y_{2}$ unrestricted $y_{1} \\geq 0, y_{2} \\geq 0$ $y_{1}$ is unrestricted, $y_{2} \\geq 0$ $y_{1}$ is unrestricted. $y_{2}$ restricted",
+      "questionHtml": "\n<a name=\"386144\"></a><div itemprop=\"text\"><p>Consider the primal problem :<br>\nMaximize $z=5 x_{1}+12 x_{2}+4 x_{3}$<br>\nSubject to \\[<br>\n\\begin{array}{l}<br>\nx_{1}+2 x_{2}+x_{3}=10\\\\<br>\n2 x_{1}-x_{2}+3 x_{3}=8 \\\\<br>\nx_{1}, x_{2}, x_{3} \\geq 0<br>\n\\end{array}<br>\n\\]<br>\nits dual problem is<br>\nMinimize $w=10 y_{1}+8 y_{2}$<br>\nSubject to \\[<br>\n\\begin{array}{l}<br>\ny_{1}+2 y_{2} \\geq 5\\\\<br>\n2 y_{1}-y_{2} \\geq 12 \\\\<br>\ny_{1}+3 y_{2} \\geq 4<br>\n\\end{array}<br>\n\\]<br>\nWhich of the following is correct?</p>\n\n<ol start=\"1\" style=\"list-style-type:upper-alpha\">\n\t<li>$y_{1} \\geq 0, y_{2}$ unrestricted</li>\n\t<li>$y_{1} \\geq 0, y_{2} \\geq 0$</li>\n\t<li>$y_{1}$ is unrestricted, $y_{2} \\geq 0$</li>\n\t<li>$y_{1}$ is unrestricted. $y_{2}$ restricted</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "$y_{1} \\geq 0, y_{2}$ unrestricted"
+        },
+        {
+          "label": "B",
+          "text": "$y_{1} \\geq 0, y_{2} \\geq 0$"
+        },
+        {
+          "label": "C",
+          "text": "$y_{1}$ is unrestricted, $y_{2} \\geq 0$"
+        },
+        {
+          "label": "D",
+          "text": "$y_{1}$ is unrestricted. $y_{2}$ restricted"
+        }
+      ],
+      "correctAnswer": null,
+      "explanation": "Write the primal problem in standard form: Maximize the objective function subject to a set of constraints.&nbsp; Create the dual problem by converting the primal constraints into dual variables and the primal objective function into the dual objective function. The constraints in the primal problem become the objective function in the dual problem, and the objective function in the primal problem becomes the constraints in the dual problem. Replace each inequality constraint in the primal problem with an equality constraint, and each equality constraint with an inequality constraint. Change the direction of the inequality constraints in the dual problem. If the primal constraint was a less-than-or-equal-to constraint, the dual constraint should be a greater-than-or-equal- to constraint, and vice versa. Replace the primal variables with the dual variables, and vice versa. Solve the dual problem to obtain the optimal dual variables, and then use these variables to obtain the optimal pr",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:53:11.498Z"
+    },
+    {
+      "id": "360832",
+      "title": "UGC NET CSE | December 2019 | Part 2 | Question: 1",
+      "link": "https://gateoverflow.in/../360832/ugc-net-cse-december-2019-part-2-question-1",
+      "excerpt": "A basic feasible solution of an $m \\times n$ transportation problem is said to be non-degenerate, if basic feasible solution contains exactly _______ number of individual...",
+      "questionText": "A basic feasible solution of an $m \\times n$ transportation problem is said to be non-degenerate, if basic feasible solution contains exactly _______ number of individual allocation in ______ positions. $m+n+1$, independent $m+n-1$, independent $m+n-1$, appropriate $m-n+1$, independent",
+      "questionHtml": "\n<a name=\"360832\"></a><div itemprop=\"text\"><p>A basic feasible solution of an $m \\times n$ transportation problem is said to be non-degenerate, if basic feasible solution contains exactly _______ number of individual allocation in ______ positions.</p>\n\n<ol style=\"list-style-type:upper-alpha\" type=\"A\">\n\t<li>$m+n+1$, independent</li>\n\t<li>$m+n-1$, independent</li>\n\t<li>$m+n-1$, appropriate</li>\n\t<li>$m-n+1$, independent</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "$m+n+1$, independent"
+        },
+        {
+          "label": "B",
+          "text": "$m+n-1$, independent"
+        },
+        {
+          "label": "C",
+          "text": "$m+n-1$, appropriate"
+        },
+        {
+          "label": "D",
+          "text": "$m-n+1$, independent"
+        }
+      ],
+      "correctAnswer": null,
+      "explanation": "m+n−1, independent sherymudasir answered Jun 2, 2021 sherymudasir comment Share Follow 0 reply Please log in or register to add a comment. 0 0 votes Definition: Non-Degenerate Basic feasible solution A basic feasible solution to a (m x n) transportation problem is said to be a non-degenerate if, (a) The total number of non-negative allocations is exactly m+n-1 and (b) These m+n-1 allocations are in independent positions. So ans is B&nbsp; Manokirish answered Jul 21, 2021 Manokirish comment Share Follow 0 reply Please log in or register to add a comment. Voting &amp; Accepting an answer helps improve the community &larr; Previous Next &rarr; &larr; Previous in category Next in category &rarr; Related questions",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:53:13.918Z"
+    },
+    {
+      "id": "360831",
+      "title": "UGC NET CSE | December 2019 | Part 2 | Question: 2",
+      "link": "https://gateoverflow.in/../360831/ugc-net-cse-december-2019-part-2-question-2",
+      "excerpt": "Consider the following Linear programming problem $\\text{(LPP)}$:Maximize $z=x_1+x_2$Subject to the constraints:$x_1+2x_2 \\leq 2000 \\\\ x_1+x_2 \\leq 1500 \\\\ x_2 \\leq 600 \\...",
+      "questionText": "Consider the following Linear programming problem $\\text{(LPP)}$: Maximize $z=x_1+x_2$ Subject to the constraints: $x_1+2x_2 \\leq 2000 \\\\ x_1+x_2 \\leq 1500 \\\\ x_2 \\leq 600 \\\\ \\text{and } x_1, x_2 \\geq 0$ The solution of the above $\\text{LPP}$ is $x_1=750, x_2= 750, z=1500$ $x_1=500, x_2= 1000, z=1500$ $x_1=1000, x_2= 500, z=1500$ $x_1=900, x_2= 600, z=1500$",
+      "questionHtml": "\n<a name=\"360831\"></a><div itemprop=\"text\"><p>Consider the following Linear programming problem $\\text{(LPP)}$:</p>\n\n<p>Maximize $z=x_1+x_2$</p>\n\n<p>Subject to the constraints:</p>\n\n<p>$x_1+2x_2 \\leq 2000 \\\\ x_1+x_2 \\leq 1500 \\\\ x_2 \\leq 600 \\\\ \\text{and } x_1, x_2 \\geq 0$</p>\n\n<p>The solution of the above $\\text{LPP}$ is</p>\n\n<ol style=\"list-style-type:upper-alpha\" type=\"A\">\n\t<li>$x_1=750, x_2= 750, z=1500$</li>\n\t<li>$x_1=500, x_2= 1000, z=1500$</li>\n\t<li>$x_1=1000, x_2= 500, z=1500$</li>\n\t<li>$x_1=900, x_2= 600, z=1500$</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "$x_1=750, x_2= 750, z=1500$"
+        },
+        {
+          "label": "B",
+          "text": "$x_1=500, x_2= 1000, z=1500$"
+        },
+        {
+          "label": "C",
+          "text": "$x_1=1000, x_2= 500, z=1500$"
+        },
+        {
+          "label": "D",
+          "text": "$x_1=900, x_2= 600, z=1500$"
+        }
+      ],
+      "correctAnswer": null,
+      "explanation": "Graphical Method can be used. On solving all the constraints, the peaks of the common area are: A(0,0), B(0,600), C(1500,0), D(1000,500) z is maximum on all the points of the constraint x1+x2&lt;=1500 (as slope of z is same as the constraint) &nbsp; Now lets try to eliminate the options opt 1 and 2 can be eliminated as they are violating 3rd constraint opt 4 can be eliminated as it is violating 1st constraint Hence, opt 3 is the answer Sathvik answered May 16, 2021 &bull; edited May 17, 2021 by Sathvik Sathvik comment Share Follow 0 reply Please log in or register to add a comment. Voting &amp; Accepting an answer helps improve the community &larr; Previous Next &rarr; &larr; Previous in category Next in category &rarr; Related questions",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:53:16.375Z"
+    },
+    {
+      "id": "360766",
+      "title": "UGC NET CSE | December 2019 | Part 2 | Question: 67",
+      "link": "https://gateoverflow.in/../360766/ugc-net-cse-december-2019-part-2-question-67",
+      "excerpt": "Consider the following statements with respect to duality in $\\text{LPP}$:The final simplex table giving optimal solution of the primal also contains optimal solution of ...",
+      "questionText": "Consider the following statements with respect to duality in $\\text{LPP}$: The final simplex table giving optimal solution of the primal also contains optimal solution of its dual in itself If either the primal or the dual problem has a finite optimal solution, then the other problem also has a finite optimal solution If either problem has an unbounded optimum solution, then the other problem has no feasible solution at all Which of the statements is (are) correct? Only $\\text{(i)}$ and $\\text{(ii)}$ Only $\\text{(i)}$&nbsp;and&nbsp;$\\text{(iii)}$ Only $\\text{(ii)}$&nbsp;and&nbsp;$\\text{(iii)}$ $\\text{(i)}$, $\\text{(ii)}$&nbsp;and&nbsp;$\\text{(iii)}$",
+      "questionHtml": "\n<a name=\"360766\"></a><div itemprop=\"text\"><p>Consider the following statements with respect to duality in $\\text{LPP}$:</p><ol start=\"1\" style=\"list-style-type:lower-roman\" type=\"i\"><li>The final simplex table giving optimal solution of the primal also contains optimal solution of its dual in itself</li><li>If either the primal or the dual problem has a finite optimal solution, then the other problem also has a finite optimal solution</li><li>If either problem has an unbounded optimum solution, then the other problem has no feasible solution at all</li></ol><p>Which of the statements is (are) correct?</p><ol style=\"list-style-type:upper-alpha\" type=\"A\"><li>Only $\\text{(i)}$ and $\\text{(ii)}$</li><li>Only $\\text{(i)}$&nbsp;and&nbsp;$\\text{(iii)}$</li><li>Only $\\text{(ii)}$&nbsp;and&nbsp;$\\text{(iii)}$</li><li>$\\text{(i)}$, $\\text{(ii)}$&nbsp;and&nbsp;$\\text{(iii)}$</li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "Only $\\text{(i)}$ and $\\text{(ii)}$"
+        },
+        {
+          "label": "B",
+          "text": "Only $\\text{(i)}$ and $\\text{(iii)}$"
+        },
+        {
+          "label": "C",
+          "text": "Only $\\text{(ii)}$ and $\\text{(iii)}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\text{(i)}$, $\\text{(ii)}$ and $\\text{(iii)}$"
+        }
+      ],
+      "correctAnswer": null,
+      "explanation": "Concept: Duality in Linear programming problem (LPP) : It means a linear programming problem has another LPP which is derived from it. Original LPP is known as primal and derived LPP is known as Dual. Explanation: Some points about dual LPP: 1) The final simplex table giving optimal solution of the primal also contains optimal solution of its dual in itself. 2) If either the primal or the dual problem has a finite optimal solution, then the other problem also has a finite optimal solution. 3) If either problem has an unbounded optimum solution, then the other problem has no feasible solution at all Example: We have a set of equations as: Maximize z = 10x1 + 20 x2 Subject to: 3x1 + 4x2 &lt; =100 5x1 + 6x2 &lt; = 150 Get Started X1, x2 &gt;= 0 Dual of this will be: Minimize z = 100 y1 + 150 y2 Subject to: 3y1 + 4y2 &gt;=10 5y1 + 6y2 &gt; = 20 y1, y2 &lt;= 0 cbkk answered Sep 13, 2023 cbkk comment Share Follow 0 reply Please log in or register to add a comment. Voting &amp; Accepting an",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:53:18.721Z"
+    },
+    {
+      "id": "288368",
+      "title": "UGC NET CSE | December 2018 | Part 2 | Question: 9",
+      "link": "https://gateoverflow.in/../288368/ugc-net-cse-december-2018-part-2-question-9",
+      "excerpt": "Use Dual Simplex Method to solve the following problem:$\\begin{array} \\text{Maximize} & z=-2x_1-3x_2 \\\\ \\text{subject to:} & \\\\ & x_1+x_2 \\geq 2 \\\\ & 2x_1 +x_2 \\leq10 \\\\ ...",
+      "questionText": "Use Dual Simplex Method to solve the following problem: $\\begin{array} \\text{Maximize} &amp; z=-2x_1-3x_2 \\\\ \\text{subject to:} &amp; \\\\ &amp; x_1+x_2 \\geq 2 \\\\ &amp; 2x_1 +x_2 \\leq10 \\\\ &amp; x_2 +x_2 \\leq 8 \\\\ &amp; x_1,x_2 \\geq 0 \\end{array}$ $x_1=2, x_2=0, \\text{ and } z=-4$ $x_1=2, x_2=6, \\text{ and } z=-22$ $x_1=0, x_2=2, \\text{ and } z=-6$ $x_1=6, x_2=2, \\text{ and } z=-18$",
+      "questionHtml": "\n<a name=\"288368\"></a><div itemprop=\"text\"><p>Use Dual Simplex Method to solve the following problem:</p>\n\n<p>$\\begin{array} \\text{Maximize} &amp; z=-2x_1-3x_2 \\\\ \\text{subject to:} &amp; \\\\ &amp; x_1+x_2 \\geq 2 \\\\ &amp; 2x_1 +x_2 \\leq10 \\\\ &amp; x_2 +x_2 \\leq 8 \\\\ &amp; x_1,x_2 \\geq 0 \\end{array}$</p>\n\n<ol start=\"1\" style=\"list-style-type:upper-alpha\">\n\t<li>$x_1=2, x_2=0, \\text{ and } z=-4$</li>\n\t<li>$x_1=2, x_2=6, \\text{ and } z=-22$</li>\n\t<li>$x_1=0, x_2=2, \\text{ and } z=-6$</li>\n\t<li>$x_1=6, x_2=2, \\text{ and } z=-18$</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "$x_1=2, x_2=0, \\text{ and } z=-4$"
+        },
+        {
+          "label": "B",
+          "text": "$x_1=2, x_2=6, \\text{ and } z=-22$"
+        },
+        {
+          "label": "C",
+          "text": "$x_1=0, x_2=2, \\text{ and } z=-6$"
+        },
+        {
+          "label": "D",
+          "text": "$x_1=6, x_2=2, \\text{ and } z=-18$"
+        }
+      ],
+      "correctAnswer": null,
+      "explanation": "",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:53:21.035Z"
+    },
+    {
+      "id": "166443",
+      "title": "UGC NET CSE | November 2017 | Part 3 | Question: 67",
+      "link": "https://gateoverflow.in/../166443/ugc-net-cse-november-2017-part-3-question-67",
+      "excerpt": "Which of the following is a valid reason for causing degeneracy in a transportation problem? Here $m$ is number of rows and $n$ is number of columns in transportation tab...",
+      "questionText": "Which of the following is a valid reason for causing degeneracy in a transportation problem? Here $m$ is number of rows and $n$ is number of columns in transportation table. When the number of allocations is $m+n-1$ When two or more occupied cells become unoccupied simultaneously When the number of allocations is less than $m+n-1$ When a loop cannot be drawn without using unoccupied cells, except the starting cell of the loop",
+      "questionHtml": "\n<a name=\"166443\"></a><div itemprop=\"text\"><p>Which of the following is a valid reason for causing degeneracy in a transportation problem? Here $m$ is number of rows and $n$ is number of columns in transportation table.</p>\n\n<ol style=\"list-style-type:upper-alpha\" type=\"A\">\n\t<li>When the number of allocations is $m+n-1$</li>\n\t<li>When two or more occupied cells become unoccupied simultaneously</li>\n\t<li>When the number of allocations is less than $m+n-1$</li>\n\t<li>When a loop cannot be drawn without using unoccupied cells, except the starting cell of the loop</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "When the number of allocations is $m+n-1$"
+        },
+        {
+          "label": "B",
+          "text": "When two or more occupied cells become unoccupied simultaneously"
+        },
+        {
+          "label": "C",
+          "text": "When the number of allocations is less than $m+n-1$"
+        },
+        {
+          "label": "D",
+          "text": "When a loop cannot be drawn without using unoccupied cells, except the starting cell of the loop"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "When the number of allocations is less than m+n−1, it causes degeneracy in transportation problem. option (C) is correct.",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:53:23.415Z"
+    },
+    {
+      "id": "166445",
+      "title": "UGC NET CSE | November 2017 | Part 3 | Question: 69",
+      "link": "https://gateoverflow.in/../166445/ugc-net-cse-november-2017-part-3-question-69",
+      "excerpt": "Consider the following LPP:Min $Z=2x_1+x_2+3x_3$Subject to:$x_1 – 2x_2+x_3 \\geq 4$$2x_1+x_2+x_3 \\leq 8$$x_1-x_3 \\geq 0$$x_1, x_2, x_3 \\geq 0$The solution of this LPP usin...",
+      "questionText": "Consider the following LPP: Min $Z=2x_1+x_2+3x_3$ Subject to: $x_1 –&nbsp;2x_2+x_3 \\geq 4$ $2x_1+x_2+x_3 \\leq 8$ $x_1-x_3 \\geq 0$ $x_1, x_2, x_3 \\geq 0$ The solution of this LPP using Dual Simplex Method is $x_1=0, x_2=0, x_3=3$ and $Z=9$ $x_1=0, x_2=6, x_3=0$ and $Z=6$ $x_1=4, x_2=0, x_3=0$ and $Z=8$ $x_1=2, x_2=0, x_3=2$ and $Z=10$",
+      "questionHtml": "\n<a name=\"166445\"></a><div itemprop=\"text\"><p>Consider the following LPP:</p>\n\n<p>Min $Z=2x_1+x_2+3x_3$</p>\n\n<p>Subject to:</p>\n\n<p>$x_1 –&nbsp;2x_2+x_3 \\geq 4$</p>\n\n<p>$2x_1+x_2+x_3 \\leq 8$</p>\n\n<p>$x_1-x_3 \\geq 0$</p>\n\n<p>$x_1, x_2, x_3 \\geq 0$</p>\n\n<p>The solution of this LPP using Dual Simplex Method is</p>\n\n<ol style=\"list-style-type:upper-alpha\" type=\"A\">\n\t<li>$x_1=0, x_2=0, x_3=3$ and $Z=9$</li>\n\t<li>$x_1=0, x_2=6, x_3=0$ and $Z=6$</li>\n\t<li>$x_1=4, x_2=0, x_3=0$ and $Z=8$</li>\n\t<li>$x_1=2, x_2=0, x_3=2$ and $Z=10$</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=4481839245516192348",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=6329034502534217462",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=10564657420256013239",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "$x_1=0, x_2=0, x_3=3$ and $Z=9$"
+        },
+        {
+          "label": "B",
+          "text": "$x_1=0, x_2=6, x_3=0$ and $Z=6$"
+        },
+        {
+          "label": "C",
+          "text": "$x_1=4, x_2=0, x_3=0$ and $Z=8$"
+        },
+        {
+          "label": "D",
+          "text": "$x_1=2, x_2=0, x_3=2$ and $Z=10$"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Ans. is C : x1=4, x2=0, x3=0 and Z=8 Girjesh Chouhan answered May 11, 2018 Girjesh Chouhan comment Share Follow See all 2 Comments 2 2 Comments reply deydipankar2014 commented Nov 1, 2019 reply Follow flag How to solve such a big LPP in 2 min ? 0 0 reply Share lokesh_9 commented Sep 14, 2020 reply Follow flag If answer required in two minutes for LPP Hit and trail method Put the given values in option in the equations of the question and check whether which option satifies the equations, amongst them only one will qualify the criteria. &nbsp; x1-2x2+x3&gt;=4 Put the values of option c and d here in this equation. You will find it satisfies , similarly put the values in other equations. Here in this question option c and d both satisfies but then check the objective function which is minimization so option c satisfies. &nbsp; This rule can be applied to other LPP problem of same type. 0 0 reply Share Please log in or register to add a comment. Voting &amp; Accepting an answer helps imp",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:53:26.093Z"
+    },
+    {
+      "id": "166444",
+      "title": "UGC NET CSE | November 2017 | Part 3 | Question: 68",
+      "link": "https://gateoverflow.in/../166444/ugc-net-cse-november-2017-part-3-question-68",
+      "excerpt": "Consider the following LPP:Max $Z=15x_1+10 x_2$Subject to the constraints$4x_1 +6x_2 \\leq 360$$3x_1+0x_2 \\leq 180$$0x_1+5x_2 \\leq 200$$x_1, x_2 \\geq 0$The solution of the...",
+      "questionText": "Consider the following LPP: Max $Z=15x_1+10 x_2$ Subject to the constraints $4x_1 +6x_2 \\leq 360$ $3x_1+0x_2 \\leq 180$ $0x_1+5x_2 \\leq 200$ $x_1, x_2 \\geq 0$ The solution of the LPP using Graphical solution technique is $x_1=60, x_2=0$ and $Z=900$ $x_1=60, x_2=20$ and $Z=1100$ $x_1=60, x_2=30$ and $Z=1200$ $x_1=50, x_2=40$ and $Z=1150$",
+      "questionHtml": "\n<a name=\"166444\"></a><div itemprop=\"text\"><p>Consider the following LPP:</p>\n\n<p>Max $Z=15x_1+10 x_2$</p>\n\n<p>Subject to the constraints</p>\n\n<p>$4x_1 +6x_2 \\leq 360$</p>\n\n<p>$3x_1+0x_2 \\leq 180$</p>\n\n<p>$0x_1+5x_2 \\leq 200$</p>\n\n<p>$x_1, x_2 \\geq 0$</p>\n\n<p>The solution of the LPP using Graphical solution technique is</p>\n\n<ol style=\"list-style-type:upper-alpha\" type=\"A\">\n\t<li>$x_1=60, x_2=0$ and $Z=900$</li>\n\t<li>$x_1=60, x_2=20$ and $Z=1100$</li>\n\t<li>$x_1=60, x_2=30$ and $Z=1200$</li>\n\t<li>$x_1=50, x_2=40$ and $Z=1150$</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "$x_1=60, x_2=0$ and $Z=900$"
+        },
+        {
+          "label": "B",
+          "text": "$x_1=60, x_2=20$ and $Z=1100$"
+        },
+        {
+          "label": "C",
+          "text": "$x_1=60, x_2=30$ and $Z=1200$"
+        },
+        {
+          "label": "D",
+          "text": "$x_1=50, x_2=40$ and $Z=1150$"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "(2) x1=60, x2=20 and Z=1100 abhinav kumar answered Mar 8, 2019 abhinav kumar comment Share Follow See all 2 Comments 2 2 Comments reply Sathyaprakash commented Nov 27, 2019 reply Follow flag Caption Is the answer right?? I thought X1=60 X2=0 Z=900 0 0 reply Share abhinav kumar commented Dec 7, 2019 reply Follow flag The corner points are wrong 0 0 reply Share Please log in or register to add a comment. Voting &amp; Accepting an answer helps improve the community Answer: B &larr; Previous Next &rarr; &larr; Previous in category Next in category &rarr; Related questions",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T09:53:28.445Z"
+    }
+  ],
+  "EXTRACT_TIME": 1776676126371
+}

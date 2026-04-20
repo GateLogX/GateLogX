@@ -1,0 +1,3135 @@
+{
+  "year": 2012,
+  "total": 113,
+  "withOptions": 33,
+  "withAnswers": 31,
+  "questions": [
+    {
+      "id": "1765",
+      "title": "GATE CSE 2012 | Question : 40",
+      "link": "https://gateoverflow.in/1765/gate-cse-2012-question-40",
+      "excerpt": "Consider the directed graph shown in the figure below. There are multiple shortest paths between vertices $S$ and $T$. Which one will be reported by Dijkstra’s shortest p...",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\text{SDT}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\text{SBDT}$"
+        },
+        {
+          "label": "C",
+          "text": "$\\text{SACDT}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\text{SACET}$"
+        }
+      ],
+      "correctAnswer": "D",
+      "fetchedAt": "2026-04-18T18:09:08.170Z",
+      "questionText": "Consider the directed graph shown in the figure below. There are multiple shortest paths between vertices $S$ and $T$. Which one will be reported by Dijkstra’s shortest path algorithm? Assume that, in any iteration, the shortest path to a vertex $v$ is updated only when a strictly shorter path to $v$ is discovered. &nbsp;$\\text{SDT}$ &nbsp;$\\text{SBDT}$ &nbsp;$\\text{SACDT}$ &nbsp;$\\text{SACET}$",
+      "questionHtml": "\n<a name=\"1765\"></a><div itemprop=\"text\"><p>Consider the directed graph shown in the figure below. There are multiple shortest paths between vertices $S$ and $T$. Which one will be reported by Dijkstra’s shortest path algorithm? Assume that, in any iteration, the shortest path to a vertex $v$ is updated only when a strictly shorter path to $v$ is discovered.</p><p><img alt=\"\" height=\"233\" width=\"438\" src=\"https://gateoverflow.in/?qa=blob&amp;qa_blobid=516330575885619762\"></p><ol style=\"list-style-type:upper-alpha\"><li>&nbsp;$\\text{SDT}$<br> </li><li>&nbsp;$\\text{SBDT}$<br> </li><li>&nbsp;$\\text{SACDT}$<br> </li><li>&nbsp;$\\text{SACET}$</li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=516330575885619762",
+        "https://gateoverflow.in/?qa=blob&qa_blobid=16822699690445447505",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "denied:C:\\Users\\sesha\\Downloads\\WhatsApp Image 2024-01-23 at 4.12.12 PM.jpeg",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=4839029160770964808",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "explanation": "",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "refetchedAt": "2026-04-19T03:49:16.073Z",
+      "topic": "algorithms",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "1762",
+      "title": "GATE CSE 2012 | Question: 39",
+      "link": "https://gateoverflow.in/1762/gate-cse-2012-question-39",
+      "excerpt": "A list of $n$ strings, each of length $n$, is sorted into lexicographic order using the merge-sort algorithm. The worst case running time of this computation is$O (n \\log...",
+      "options": [
+        {
+          "label": "A",
+          "text": "$O (n \\log n) $"
+        },
+        {
+          "label": "B",
+          "text": "$ O(n^{2} \\log n) $"
+        },
+        {
+          "label": "C",
+          "text": "$ O(n^{2} + \\log n) $"
+        },
+        {
+          "label": "D",
+          "text": "$ O(n^{2}) $"
+        }
+      ],
+      "correctAnswer": "B",
+      "fetchedAt": "2026-04-18T18:09:08.178Z",
+      "questionText": "A list of $n$ strings, each of length $n$, is sorted into lexicographic order using the merge-sort algorithm. The worst case running time of this computation is $O (n \\log n) $ $ O(n^{2} \\log n) $ $ O(n^{2} + \\log n) $ $ O(n^{2}) $",
+      "questionHtml": "\n<a name=\"1762\"></a><div itemprop=\"text\"><p>A list of $n$ strings, each of length $n$, is sorted into lexicographic order using the merge-sort algorithm. The worst case running time of this computation is</p><ol style=\"list-style-type:upper-alpha\"><li>$O (n \\log n) $</li><li>$ O(n^{2} \\log n) $</li><li>$ O(n^{2} + \\log n) $</li><li>$ O(n^{2}) $</li></ol>",
+      "codeBlocks": [
+        "**answer is O(n^2logn)\n  , \nwe know Merge sort has recurrence form\nT(n) = a T(n/b) + O(n)\nin case of merge sort \nit is \nT(n) = 2T(n/2) + O(n) when there are n elements\nbut here the size of the total is not \"n\" but \"n string of length n\"\nso a/c to this in every recursion we are breaking the n*n elements in to half\nfor each recursion as specified by the merge sort algorithm\nMERGE-SORT(A,P,R)  ///here A is the array P=1st index=1, R=last index in our case it \n                      is n^2 \nif P<R\nthen Q = lower_ceiling_fun[(P+R)/2]\n      MERGE-SORT(A,P,Q)\n      MERGE-SORT(A,Q+1,R)\n      MERGE (A,P,Q,R)\nMERGE(A,P,Q,R) PROCEDURE ON AN N ELEMENT SUBARRAY TAKES TIME O(N)\nBUT IN OUR CASE IT IS N*N\nSO A/C to this merge sort recurrence equation for this problem becomes\nT(N^2)= 2T[(N^2)/2] + O(N^2)\nWE CAN PUT K=N^2 ie.. substitute to solve the recurrence\nT(K)= 2T(K/2) + O(K)\na/c to master method condition T(N)=A T(N/B) + O(N^d)\n                               IF A<=B^d  then T(N)= O(NlogN)\ntherefore T(K) = O(KlogK)\nsubstituting K=N^2\nwe get T(N^2)= O(n*nlogn*n)\n       ie.. O(2n*nlogn)\n         .. O(n*nlogn)"
+      ],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=6631701036947831622",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "explanation": "",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "refetchedAt": "2026-04-19T03:49:18.737Z",
+      "topic": "algorithms",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "786",
+      "title": "GATE CSE 2012 | Question: 29",
+      "link": "https://gateoverflow.in/786/gate-cse-2012-question-29",
+      "excerpt": "Let $G$ be a weighted graph with edge weights greater than one and $G'$ be the graph constructed by squaring the weights of edges in $G$. Let $T$ and $T'$ be the minimum ...",
+      "options": [
+        {
+          "label": "A",
+          "text": "$T' = T$ with total weight $t' = t^2 $"
+        },
+        {
+          "label": "B",
+          "text": "$T' = T$ with total weight $t' < t^2$"
+        },
+        {
+          "label": "C",
+          "text": "$T' \\neq T$ but total weight $t' = t^2$"
+        },
+        {
+          "label": "D",
+          "text": "None of the above"
+        }
+      ],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:09:09.104Z",
+      "questionText": "Let $G$ be a weighted graph with edge weights greater than one and $G'$ be the graph constructed by&nbsp;squaring the weights of edges in $G$. Let $T$ and $T'$ be the minimum spanning trees of $G$ and $G'$,&nbsp;respectively, with total weights $t$ and $t'$. Which of the following statements is TRUE ? $T' = T$ with total weight $t' = t^2 $ $T' = T$ with total weight $t' &lt; t^2$ $T' \\neq T$ but total weight $t' = t^2$ None of the above",
+      "questionHtml": "\n<a name=\"786\"></a><div itemprop=\"text\"><p>Let $G$ be a weighted graph with edge weights greater than one and $G'$ be the graph constructed by&nbsp;squaring the weights of edges in $G$. Let $T$ and $T'$ be the minimum spanning trees of $G$ and $G'$,&nbsp;respectively, with total weights $t$ and $t'$. Which of the following statements is <strong>TRUE</strong>?</p>\n\n<ol style=\"list-style-type: upper-alpha;\">\n\t<li>$T' = T$ with total weight $t' = t^2 $</li>\n\t<li>$T' = T$ with total weight $t' &lt; t^2$</li>\n\t<li>$T' \\neq T$ but total weight $t' = t^2$</li>\n\t<li>None of the above</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=7890831074421115398",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=16310328178849112350",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=11284142537651447524",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "explanation": "",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "refetchedAt": "2026-04-19T03:52:24.781Z",
+      "topic": "algorithms",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "50",
+      "title": "GATE CSE 2012 | Question: 18",
+      "link": "https://gateoverflow.in/50/gate-cse-2012-question-18",
+      "excerpt": "Let $W(n) $ and $A(n)$ denote respectively, the worst case and average case running time of an algorithm executed on an input of size $n$.  Which of the following is ALWA...",
+      "options": [
+        {
+          "label": "A",
+          "text": "$A(n) = \\Omega (W(n))$"
+        },
+        {
+          "label": "B",
+          "text": "$A(n) = \\Theta (W(n))$"
+        },
+        {
+          "label": "C",
+          "text": "$A(n) = \\text{O} (W(n))$"
+        },
+        {
+          "label": "D",
+          "text": "$A(n) = \\text{o} (W(n))$"
+        }
+      ],
+      "correctAnswer": "C",
+      "fetchedAt": "2026-04-18T18:09:09.347Z",
+      "questionText": "Let $W(n) $ and $A(n)$ denote respectively, the worst case and average case running time of an algorithm executed on an input of size $n$. &nbsp;Which of the following is ALWAYS TRUE ? $A(n) = \\Omega (W(n))$ $A(n) = \\Theta (W(n))$ $A(n) = \\text{O} (W(n))$ $A(n) = \\text{o} (W(n))$",
+      "questionHtml": "\n<a name=\"50\"></a><div itemprop=\"text\"><p>Let $W(n) $ and $A(n)$ denote respectively, the worst case and average case running time of an algorithm executed on an input of size $n$. &nbsp;Which of the following is <strong>ALWAYS TRUE</strong>?</p>\n\n<ol style=\"list-style-type:upper-alpha\">\n\t<li>$A(n) = \\Omega (W(n))$</li>\n\t<li>$A(n) = \\Theta (W(n))$</li>\n\t<li>$A(n) = \\text{O} (W(n))$</li>\n\t<li>$A(n) = \\text{o} (W(n))$</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "explanation": "",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "refetchedAt": "2026-04-19T03:54:20.211Z",
+      "topic": "algorithms",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "48",
+      "title": "GATE CSE 2012 | Question: 16",
+      "link": "https://gateoverflow.in/48/gate-cse-2012-question-16",
+      "excerpt": "The recurrence relation capturing the optimal execution time of the $Towers \\ of \\ Hanoi$ problem with $n$ discs is$T(n) =  2T(n − 2) + 2$$T (n) =  2T(n − 1) + n$$T (n) =...",
+      "options": [
+        {
+          "label": "A",
+          "text": "$T(n) = 2T(n − 2) + 2$"
+        },
+        {
+          "label": "B",
+          "text": "$T (n) = 2T(n − 1) + n$"
+        },
+        {
+          "label": "C",
+          "text": "$T (n) = 2T(n/2) + 1$"
+        },
+        {
+          "label": "D",
+          "text": "$T (n) = 2T(n − 1) + 1$"
+        }
+      ],
+      "correctAnswer": "D",
+      "fetchedAt": "2026-04-18T18:09:09.354Z",
+      "questionText": "The recurrence relation capturing the optimal execution time of the $Towers \\&nbsp;of \\ Hanoi$ problem with $n$ discs is $T(n) = &nbsp;2T(n − 2) + 2$ $T (n) = &nbsp;2T(n − 1) + n$ $T (n) = &nbsp;2T(n/2) + 1$ $T (n) = &nbsp;2T(n − 1) + 1$",
+      "questionHtml": "\n<a name=\"48\"></a><div itemprop=\"text\"><p>The recurrence relation capturing the optimal execution time of the $Towers \\&nbsp;of \\ Hanoi$ problem with $n$ discs is</p>\n\n<ol style=\"list-style-type:upper-alpha\">\n\t<li>$T(n) = &nbsp;2T(n − 2) + 2$</li>\n\t<li>$T (n) = &nbsp;2T(n − 1) + n$</li>\n\t<li>$T (n) = &nbsp;2T(n/2) + 1$</li>\n\t<li>$T (n) = &nbsp;2T(n − 1) + 1$</li>\n</ol>",
+      "codeBlocks": [
+        "TOH (N=3,L,M,R)\n{\n  if(N==0)\n    return;\n  else {    \n      TOH(N-1,L,R,M)\n      MOVE(L-R)\n      TOH(N-1,M,L,R)}\n}",
+        "Let the three pegs be A, B and C. The goal is to move n pegs from A to C.\nTo move n discs from peg A to peg C:\n    move n-1 discs from A to B. This leaves disc n alone on peg A\n    move disc n from A to C\n    move n?1 discs from B to C so they sit on disc n"
+      ],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=3251279931492956809",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "explanation": "",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "refetchedAt": "2026-04-19T03:54:22.877Z",
+      "topic": "algorithms",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40240",
+      "title": "GATE2012 CY: GA-9",
+      "link": "https://gateoverflow.in/../40240/gate2012-cy-ga-9",
+      "excerpt": "There are eight bags of rice looking alike, seven of which have equal weight and one is slightly heavier. The weighing balance is of unlimited capacity. Using this balanc...",
+      "questionText": "There are eight bags of rice looking alike, seven of which have equal weight and one is slightly heavier. The weighing balance is of unlimited capacity. Using this balance, the minimum number of weighings required to identify the heavier bag is $2$ $3$ $4$ $8$",
+      "questionHtml": "\n<a name=\"40240\"></a><div itemprop=\"text\"><p>There are eight bags of rice looking alike, seven of which have equal weight and one is slightly heavier. The weighing balance is of unlimited capacity. Using this balance, the minimum number of weighings required to identify the heavier bag is</p>\n\n<ol start=\"1\" style=\"list-style-type:upper-alpha\">\n<li>$2$</li>\n<li>$3$</li>\n<li>$4$</li>\n<li>$8$</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "$2$"
+        },
+        {
+          "label": "B",
+          "text": "$3$"
+        },
+        {
+          "label": "C",
+          "text": "$4$"
+        },
+        {
+          "label": "D",
+          "text": "$8$"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Best answer 42 42 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T06:31:41.091Z",
+      "topic": "analytical_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40229",
+      "title": "GATE2012 AR: GA-8",
+      "link": "https://gateoverflow.in/../40229/gate2012-ar-ga-8",
+      "excerpt": "Ravi is taller than Arun but shorter than Iqbal. Sam is shorter than Ravi. Mohan is shorter than Arun. Balu is taller than Mohan and Sam. The tallest person can beMohanRa...",
+      "questionText": "Ravi is taller than Arun but shorter than Iqbal. Sam is shorter than Ravi. Mohan is shorter than Arun. Balu is taller than Mohan and Sam. The tallest person can be Mohan Ravi Balu Arun",
+      "questionHtml": "\n<a name=\"40229\"></a><div itemprop=\"text\"><p>Ravi is taller than Arun but shorter than Iqbal. Sam is shorter than Ravi. Mohan is shorter than Arun. Balu is taller than Mohan and Sam. The tallest person can be</p>\n\n<ol style=\"list-style-type:upper-alpha\">\n\t<li>Mohan</li>\n\t<li>Ravi</li>\n\t<li>Balu</li>\n\t<li>Arun</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "Mohan"
+        },
+        {
+          "label": "B",
+          "text": "Ravi"
+        },
+        {
+          "label": "C",
+          "text": "Balu"
+        },
+        {
+          "label": "D",
+          "text": "Arun"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Best answer 21 21 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T06:31:46.096Z",
+      "topic": "analytical_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "41",
+      "title": "GATE CSE 2012 | Question: 9",
+      "link": "https://gateoverflow.in/../41/gate-cse-2012-question-9",
+      "excerpt": "Consider the function $f(x) = \\sin(x)$ in the interval $x =\\left[\\frac{\\pi}{4},\\frac{7\\pi}{4}\\right]$. The number and location(s) of the local minima of this function are...",
+      "options": [
+        {
+          "label": "A",
+          "text": "One, at $\\dfrac{\\pi}{2}$"
+        },
+        {
+          "label": "B",
+          "text": "One, at $\\dfrac{3\\pi}{2}$"
+        },
+        {
+          "label": "C",
+          "text": "Two, at $\\dfrac{\\pi}{2}$ and $\\dfrac{3\\pi}{2}$"
+        },
+        {
+          "label": "D",
+          "text": "Two, at $\\dfrac{\\pi}{4}$ and $\\dfrac{3\\pi}{2}$"
+        }
+      ],
+      "correctAnswer": "D",
+      "fetchedAt": "2026-04-18T18:10:10.356Z",
+      "questionText": "Consider the function $f(x) = \\sin(x)$ in the interval $x =\\left[\\frac{\\pi}{4},\\frac{7\\pi}{4}\\right]$. The number and location(s) of the local minima of this function are One, at $\\dfrac{\\pi}{2}$ One, at $\\dfrac{3\\pi}{2}$ Two, at $\\dfrac{\\pi}{2}$ and $\\dfrac{3\\pi}{2}$ Two, at &nbsp;$\\dfrac{\\pi}{4}$ and $\\dfrac{3\\pi}{2}$",
+      "questionHtml": "\n<a name=\"41\"></a><div itemprop=\"text\"><p>Consider the function $f(x) = \\sin(x)$ in the interval $x =\\left[\\frac{\\pi}{4},\\frac{7\\pi}{4}\\right]$. The number and location(s) of the local minima of this function are</p><ol style=\"list-style-type:upper-alpha\" start=\"1\"><li>One, at $\\dfrac{\\pi}{2}$</li><li>One, at $\\dfrac{3\\pi}{2}$</li><li>Two, at $\\dfrac{\\pi}{2}$ and $\\dfrac{3\\pi}{2}$</li><li>Two, at &nbsp;$\\dfrac{\\pi}{4}$ and $\\dfrac{3\\pi}{2}$</li></ol>",
+      "codeBlocks": [
+        "Simplest way possible!"
+      ],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=8122479285346893835",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=11384766750953816882",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=6440142995386152077",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=16764765681185907876",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "explanation": "",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "refetchedAt": "2026-04-19T03:55:17.064Z",
+      "topic": "calculus",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "247164",
+      "title": "Gate 2012  MUX problem",
+      "link": "https://gateoverflow.in/247164/gate-2012-mux-problem",
+      "excerpt": "What is the answer and how ?",
+      "options": [],
+      "correctAnswer": "A",
+      "fetchedAt": "2026-04-18T18:09:32.396Z",
+      "questionText": "What is the answer and how ?",
+      "questionHtml": "\n<a name=\"247164\"></a><div itemprop=\"text\"><p>What is the answer and how ?</p>\n\n<p><img alt=\"\" src=\"https://gateoverflow.in/?qa=blob&amp;qa_blobid=17726534206815979167\"></p>",
+      "codeBlocks": [],
+      "images": [
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=17726534206815979167",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "https://gateoverflow.in/?qa=blob&qa_blobid=16822699690445447505",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "https://gateoverflow.in/?qa=blob&qa_blobid=16822699690445447505"
+      ],
+      "explanation": "",
+      "isNAT": true,
+      "isMSQ": false,
+      "marks": 1,
+      "refetchedAt": "2026-04-19T04:05:55.796Z",
+      "topic": "coa",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "43311",
+      "title": "GATE CSE 2012 | Question: 55",
+      "link": "https://gateoverflow.in/43311/gate-cse-2012-question-55",
+      "excerpt": "A computer has a $256$-$\\text{KByte}$, 4-way set associative, write back data cache with block size of $32$ $\\text{Bytes}$. The processor sends $32$ $\\text{bit}$ addresse...",
+      "options": [
+        {
+          "label": "A",
+          "text": "$160$ $\\text{Kbits}$"
+        },
+        {
+          "label": "B",
+          "text": "$136$ $\\text{Kbits}$"
+        },
+        {
+          "label": "C",
+          "text": "$40$ $\\text{Kbits}$"
+        },
+        {
+          "label": "D",
+          "text": "$32$ $\\text{Kbits}$"
+        }
+      ],
+      "correctAnswer": "A",
+      "fetchedAt": "2026-04-18T18:09:46.843Z",
+      "questionText": "A computer has a $256$-$\\text{KByte}$, 4-way set associative, write back data cache with block size of $32$ $\\text{Bytes}$. The processor sends $32$ $\\text{bit}$ addresses to the cache controller. Each cache tag directory entry contains, in addition to address tag, $2$ valid bits, $1$ modified bit and $1$ replacement bit. The size of the cache tag directory is: $160$ $\\text{Kbits}$ $136$ $\\text{Kbits}$ $40$ $\\text{Kbits}$ $32$ $\\text{Kbits}$",
+      "questionHtml": "\n<a name=\"43311\"></a><div itemprop=\"text\"><p>A computer has a $256$-$\\text{KByte}$, 4-way set associative, write back data cache with block size of $32$ $\\text{Bytes}$. The processor sends $32$ $\\text{bit}$ addresses to the cache controller. Each cache tag directory entry contains, in addition to address tag, $2$ valid bits, $1$ modified bit and $1$ replacement bit.</p>\n\n<p>The size of the cache tag directory is:</p>\n\n<ol style=\"list-style-type:upper-alpha\">\n\t<li>$160$ $\\text{Kbits}$</li>\n\t<li>$136$ $\\text{Kbits}$</li>\n\t<li>$40$ $\\text{Kbits}$</li>\n\t<li>$32$ $\\text{Kbits}$</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=10531394241229138435",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=15098058992145623210",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=2559414586545087102",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=11429260226326825373",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "explanation": "",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "refetchedAt": "2026-04-19T05:34:44.658Z",
+      "topic": "coa",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2192",
+      "title": "GATE CSE 2012 | Question: 54",
+      "link": "https://gateoverflow.in/2192/gate-cse-2012-question-54",
+      "excerpt": "A computer has a $256\\text{-KByte}$, 4-way set associative, write back data cache with block size of $32\\text{-Bytes}$. The processor sends $32\\text{-bit}$ addresses to t...",
+      "options": [
+        {
+          "label": "A",
+          "text": "$11$"
+        },
+        {
+          "label": "B",
+          "text": "$14$"
+        },
+        {
+          "label": "C",
+          "text": "$16$"
+        },
+        {
+          "label": "D",
+          "text": "$27$"
+        }
+      ],
+      "correctAnswer": "C",
+      "fetchedAt": "2026-04-18T18:09:50.355Z",
+      "questionText": "A computer has a $256\\text{-KByte}$, 4-way set associative, write back data cache with block size of $32\\text{-Bytes}$. The processor sends $32\\text{-bit}$ addresses to the cache controller. Each cache tag directory entry contains, in addition to address tag, $2$ valid bits, $1$ modified bit and $1$ replacement bit. The number of bits in the tag field of an address is $11$ $14$ $16$ $27$",
+      "questionHtml": "\n<a name=\"2192\"></a><div itemprop=\"text\"><p>A computer has a $256\\text{-KByte}$, 4-way set associative, write back data cache with block size of $32\\text{-Bytes}$. The processor sends $32\\text{-bit}$ addresses to the cache controller. Each cache tag directory entry contains, in addition to address tag, $2$ valid bits, $1$ modified bit and $1$ replacement bit.</p>\n\n<p>The number of bits in the tag field of an address is</p>\n\n<ol style=\"list-style-type:upper-alpha\">\n\t<li>$11$</li>\n\t<li>$14$</li>\n\t<li>$16$</li>\n\t<li>$27$</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=17403934317785084790",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=9570027055596099869",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "explanation": "",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "refetchedAt": "2026-04-19T05:54:39.530Z",
+      "topic": "coa",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "52",
+      "title": "GATE CSE 2012 | Question: 20,  ISRO2016-23",
+      "link": "https://gateoverflow.in/52/gate-cse-2012-question-20-isro2016-23",
+      "excerpt": "Register renaming is done in pipelined processors:as an alternative to register allocation at compile timefor efficient access to function parameters and local variablest...",
+      "options": [
+        {
+          "label": "A",
+          "text": "as an alternative to register allocation at compile time"
+        },
+        {
+          "label": "B",
+          "text": "for efficient access to function parameters and local variables"
+        },
+        {
+          "label": "C",
+          "text": "to handle certain kinds of hazards"
+        },
+        {
+          "label": "D",
+          "text": "as part of address translation"
+        }
+      ],
+      "correctAnswer": "C",
+      "fetchedAt": "2026-04-18T18:09:51.047Z",
+      "lastAttempt": "2026-04-19T06:13:59.342Z",
+      "questionText": "Register renaming is done in pipelined processors:",
+      "questionHtml": "<p>Register renaming is done in pipelined processors:</p>",
+      "manualFix": true,
+      "topic": "coa",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "43312",
+      "title": "GATE CSE 2012 | Question: 53",
+      "link": "https://gateoverflow.in/43312/gate-cse-2012-question-53",
+      "excerpt": "For the grammar below, a partial $LL(1)$ parsing table is also presented along with the grammar. Entries that need to be filled are indicated as $E1, E2,$ and $E3$. $\\var...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.028Z",
+      "lastAttempt": "2026-04-19T08:05:13.490Z",
+      "questionText": "For the grammar below, a partial $LL(1)$ parsing table is also presented along with the grammar. Entries that need to be filled are indicated as $E1, E2,$ and $E3$. $\\var...",
+      "questionHtml": "<div itemprop=\"text\"><p><strong>GATE CSE 2012 | Question: 53</strong></p><p>For the grammar below, a partial $LL(1)$ parsing table is also presented along with the grammar. Entries that need to be filled are indicated as $E1, E2,$ and $E3$. $\\var...</p><p>GATE CSE question.</p></div>",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "refetchedAt": "2026-04-20T08:28:49.739Z",
+      "TEMPFIX": 1776674379350,
+      "topic": "compiler_design",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2181",
+      "title": "GATE CSE 2012 | Question: 52",
+      "link": "https://gateoverflow.in/2181/gate-cse-2012-question-52",
+      "excerpt": "For the grammar below, a partial $LL(1)$ parsing table is also presented along with the grammar. Entries that need to be filled are indicated as $E1, E2,$ and $E3$. $\\var...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:01.496Z",
+      "error": "HTTP 403",
+      "lastAttempt": "2026-04-19T08:10:53.158Z",
+      "questionHtml": "<div itemprop=\"text\"><p><strong>GATE CSE 2012 | Question: 52</strong></p><p>For the grammar below, a partial $LL(1)$ parsing table is also presented along with the grammar. Entries that need to be filled are indicated as $E1, E2,$ and $E3$. $\\var...</p><p>GATE CSE question.</p></div>",
+      "questionText": "For the grammar below, a partial $LL(1)$ parsing table is also presented along with the grammar. Entries that need to be filled are indicated as $E1, E2,$ and $E3$. $\\var...",
+      "TEMPFIX": 1776674379350,
+      "topic": "compiler_design",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "1758",
+      "title": "GATE CSE 2012 | Question: 36",
+      "link": "https://gateoverflow.in/1758/gate-cse-2012-question-36",
+      "excerpt": "Consider the program given below, in a block-structured pseudo-language with lexical scoping and nesting of procedures permitted.Program main; Var ... Procedure A1; Var ....",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:01.595Z",
+      "error": "HTTP 403",
+      "lastAttempt": "2026-04-19T08:11:24.257Z",
+      "questionHtml": "<div itemprop=\"text\"><p><strong>GATE CSE 2012 | Question: 36</strong></p><p>Consider the program given below, in a block-structured pseudo-language with lexical scoping and nesting of procedures permitted.Program main; Var ... Procedure A1; Var ....</p><p>GATE CSE question.</p></div>",
+      "questionText": "Consider the program given below, in a block-structured pseudo-language with lexical scoping and nesting of procedures permitted.Program main; Var ... Procedure A1; Var ....",
+      "TEMPFIX": 1776674379350,
+      "topic": "compiler_design",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "180903",
+      "title": "GATE 2012 EXAM congestion control modified question",
+      "link": "https://gateoverflow.in/180903/gate-2012-exam-congestion-control-modified-question",
+      "excerpt": "Consider an instance of TCP’s Additive Increase Multiplicative Decrease(AIMD) algorithm where the window size at the start of the slow start phase is 2 MSS and the thresh...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:57.907Z",
+      "lastAttempt": "2026-04-19T08:57:17.374Z",
+      "questionHtml": "<div itemprop=\"text\">Consider an instance of TCP’s Additive Increase Multiplicative Decrease(AIMD) algorithm where the window size at the start of the slow start phase is 2 MSS and the thresh...</div>",
+      "questionText": "Consider an instance of TCP’s Additive Increase Multiplicative Decrease(AIMD) algorithm where the window size at the start of the slow start phase is 2 MSS and the thresh...",
+      "manuallyFixed": true,
+      "topic": "computer_networks",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "61675",
+      "title": "GATE 2012 fragmentaion",
+      "link": "https://gateoverflow.in/61675/gate-2012-fragmentaion",
+      "excerpt": "Consider a source computer (S) transmitting a file of size 106 bits to a destination computer (D) over a network of two routers (R1 and R2) and three links (L1, L2 and L3...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:08:10.225Z",
+      "lastAttempt": "2026-04-19T09:40:30.056Z",
+      "questionHtml": "<div itemprop=\"text\">Consider a source computer (S) transmitting a file of size 106 bits to a destination computer (D) over a network of two routers (R1 and R2) and three links (L1, L2 and L3...</div>",
+      "questionText": "Consider a source computer (S) transmitting a file of size 106 bits to a destination computer (D) over a network of two routers (R1 and R2) and three links (L1, L2 and L3...",
+      "manuallyFixed": true,
+      "topic": "computer_networks",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2156",
+      "title": "GATE CSE 2012 | Question: 45",
+      "link": "https://gateoverflow.in/2156/gate-cse-2012-question-45",
+      "excerpt": "Consider an instance of TCP’s Additive Increase Multiplicative Decrease (AIMD) algorithm where the window size at the start of the slow start phase is $2$ MSS and the thr...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:08:16.000Z",
+      "lastAttempt": "2026-04-19T10:04:29.834Z",
+      "questionHtml": "<div itemprop=\"text\">Consider an instance of TCP’s Additive Increase Multiplicative Decrease (AIMD) algorithm where the window size at the start of the slow start phase is $2$ MSS and the thr...</div>",
+      "questionText": "Consider an instance of TCP’s Additive Increase Multiplicative Decrease (AIMD) algorithm where the window size at the start of the slow start phase is $2$ MSS and the thr...",
+      "manuallyFixed": true,
+      "topic": "computer_networks",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2153",
+      "title": "GATE CSE 2012 | Question: 44",
+      "link": "https://gateoverflow.in/2153/gate-cse-2012-question-44",
+      "excerpt": "Consider a source computer $(S)$ transmitting a file of size $10^{6}$ bits to a destination computer $(D)$ over a network of two routers $(R_{1}\\text{ and }R_{2})$ and th...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:08:16.007Z",
+      "lastAttempt": "2026-04-19T10:04:31.402Z",
+      "questionHtml": "<div itemprop=\"text\">Consider a source computer $(S)$ transmitting a file of size $10^{6}$ bits to a destination computer $(D)$ over a network of two routers $(R_{1}\\text{ and }R_{2})$ and th...</div>",
+      "questionText": "Consider a source computer $(S)$ transmitting a file of size $10^{6}$ bits to a destination computer $(D)$ over a network of two routers $(R_{1}\\text{ and }R_{2})$ and th...",
+      "manuallyFixed": true,
+      "topic": "computer_networks",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "1752",
+      "title": "GATE CSE 2012 | Question: 34, ISRO-DEC2017-32",
+      "link": "https://gateoverflow.in/1752/gate-cse-2012-question-34-isro-dec2017-32",
+      "excerpt": "An Internet Service Provider (ISP) has the following chunk of CIDR-based IP addresses available with it: $245.248.128.0/20$. The ISP wants to give half of this chunk of a...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:08:16.136Z",
+      "lastAttempt": "2026-04-19T10:05:13.265Z",
+      "questionHtml": "<div itemprop=\"text\">An Internet Service Provider (ISP) has the following chunk of CIDR-based IP addresses available with it: $245.248.128.0/20$. The ISP wants to give half of this chunk of a...</div>",
+      "questionText": "An Internet Service Provider (ISP) has the following chunk of CIDR-based IP addresses available with it: $245.248.128.0/20$. The ISP wants to give half of this chunk of a...",
+      "manuallyFixed": true,
+      "topic": "computer_networks",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "1606",
+      "title": "GATE CSE 2012 | Question: 23",
+      "link": "https://gateoverflow.in/1606/gate-cse-2012-question-23",
+      "excerpt": "In the IPv4 addressing format, the number of networks allowed under Class $C$ addresses is:$2^{14}$$2^{7}$$2^{21}$$2^{24}$",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:08:16.142Z",
+      "lastAttempt": "2026-04-19T10:05:16.433Z",
+      "questionHtml": "<div itemprop=\"text\">In the IPv4 addressing format, the number of networks allowed under Class $C$ addresses is:$2^{14}$$2^{7}$$2^{21}$$2^{24}$</div>",
+      "questionText": "In the IPv4 addressing format, the number of networks allowed under Class $C$ addresses is:$2^{14}$$2^{7}$$2^{21}$$2^{24}$",
+      "manuallyFixed": true,
+      "topic": "computer_networks",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "1605",
+      "title": "GATE CSE 2012 | Question: 22",
+      "link": "https://gateoverflow.in/1605/gate-cse-2012-question-22",
+      "excerpt": "Which of the following transport layer protocols is used to support electronic mail?$\\textsf{SMTP}$$\\textsf{IP}$$\\textsf{TCP}$$\\textsf{UDP}$",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:08:16.148Z",
+      "lastAttempt": "2026-04-19T10:05:18.113Z",
+      "questionHtml": "<div itemprop=\"text\">Which of the following transport layer protocols is used to support electronic mail?$\\textsf{SMTP}$$\\textsf{IP}$$\\textsf{TCP}$$\\textsf{UDP}$</div>",
+      "questionText": "Which of the following transport layer protocols is used to support electronic mail?$\\textsf{SMTP}$$\\textsf{IP}$$\\textsf{TCP}$$\\textsf{UDP}$",
+      "manuallyFixed": true,
+      "topic": "computer_networks",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "42",
+      "title": "GATE CSE 2012 | Question: 10",
+      "link": "https://gateoverflow.in/42/gate-cse-2012-question-10",
+      "excerpt": "The protocol data unit (PDU) for the application layer in the Internet stack is:SegmentDatagramMessageFrame",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:08:16.405Z",
+      "lastAttempt": "2026-04-19T10:06:49.820Z",
+      "questionHtml": "<div itemprop=\"text\">The protocol data unit (PDU) for the application layer in the Internet stack is:SegmentDatagramMessageFrame</div>",
+      "questionText": "The protocol data unit (PDU) for the application layer in the Internet stack is:SegmentDatagramMessageFrame",
+      "manuallyFixed": true,
+      "topic": "computer_networks",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "43313",
+      "title": "GATE CSE 2012 | Question: 51",
+      "link": "https://gateoverflow.in/43313/gate-cse-2012-question-51",
+      "excerpt": "Consider the following relations $A, B$ and $C:$ $$\\overset{\\textbf{A}}{\\begin{array}{|c|c|c|}\\hline\\\\\\textbf{Id}&    \\textbf{Name}&  \\textbf{Age} \\\\\\hline12&     \\text{A...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:08:38.597Z",
+      "lastAttempt": "2026-04-19T11:39:11.011Z",
+      "questionHtml": "<div itemprop=\"text\">Consider the following relations $A, B$ and $C:$ $$\\overset{\\textbf{A}}{\\begin{array}{|c|c|c|}\\hline\\\\\\textbf{Id}&    \\textbf{Name}&  \\textbf{Age} \\\\\\hline12&     \\text{A...</div>",
+      "questionText": "Consider the following relations $A, B$ and $C:$ $$\\overset{\\textbf{A}}{\\begin{array}{|c|c|c|}\\hline\\\\\\textbf{Id}&    \\textbf{Name}&  \\textbf{Age} \\\\\\hline12&     \\text{A...",
+      "manuallyFixed": true,
+      "topic": "databases",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2180",
+      "title": "GATE CSE 2012 | Question: 50",
+      "link": "https://gateoverflow.in/2180/gate-cse-2012-question-50",
+      "excerpt": "Consider the following relations $A, B$ and $C:$$$\\overset{\\text{A}}{\\begin{array}{|c|c|c|} \\hline \\text {ID} & \\text {Name} & \\text {Age}  \\\\\\hline\\text{12}& \\text{Arun}...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:08:41.116Z",
+      "lastAttempt": "2026-04-19T11:51:48.133Z",
+      "questionHtml": "<div itemprop=\"text\">Consider the following relations $A, B$ and $C:$$$\\overset{\\text{A}}{\\begin{array}{|c|c|c|} \\hline \\text {ID} & \\text {Name} & \\text {Age}  \\\\\\hline\\text{12}& \\text{Arun}...</div>",
+      "questionText": "Consider the following relations $A, B$ and $C:$$$\\overset{\\text{A}}{\\begin{array}{|c|c|c|} \\hline \\text {ID} & \\text {Name} & \\text {Age}  \\\\\\hline\\text{12}& \\text{Arun}...",
+      "manuallyFixed": true,
+      "topic": "databases",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2151",
+      "title": "GATE CSE 2012 | Question: 43",
+      "link": "https://gateoverflow.in/2151/gate-cse-2012-question-43",
+      "excerpt": "Suppose $R_{1} (\\underline{A}, B)$ and $R_{2} (\\underline{C}, D) $ are two relation schemas. Let $r_{1}$ and $r_{2}$ be the corresponding relation instances. $B$ is a for...",
+      "options": [
+        {
+          "label": "B",
+          "text": "$ and $R_{2} (\\underline{C},"
+        },
+        {
+          "label": "D",
+          "text": "$ are two relation schemas. Let $r_{1}$ and $r_{2}$ be the corresponding relation instances. $B$ is a for..."
+        }
+      ],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:08:41.120Z",
+      "lastAttempt": "2026-04-19T11:51:49.778Z",
+      "questionHtml": "<div itemprop=\"text\">Suppose $R_{1} (\\underline{A}, B)$ and $R_{2} (\\underline{C}, D) $ are two relation schemas. Let $r_{1}$ and $r_{2}$ be the corresponding relation instances. $B$ is a for...</div>",
+      "questionText": "Suppose $R_{1} (\\underline{A}, B)$ and $R_{2} (\\underline{C}, D) $ are two relation schemas. Let $r_{1}$ and $r_{2}$ be the corresponding relation instances. $B$ is a for...",
+      "manuallyFixed": true,
+      "topic": "databases",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "1612",
+      "title": "GATE CSE 2012 | Question: 27",
+      "link": "https://gateoverflow.in/1612/gate-cse-2012-question-27",
+      "excerpt": "Consider the following transactions with data items $P$ and $Q$ initialized to zero:$${\\begin{array}{|c|l|r|c|}\\hline   \\textbf{$T_1$}&    \\text{read (P);}\\\\ & \\text{read...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:08:41.299Z",
+      "lastAttempt": "2026-04-19T11:52:39.778Z",
+      "questionHtml": "<div itemprop=\"text\">Consider the following transactions with data items $P$ and $Q$ initialized to zero:$${\\begin{array}{|c|l|r|c|}\\hline   \\textbf{$T_1$}&    \\text{read (P);}\\\\ & \\text{read...</div>",
+      "questionText": "Consider the following transactions with data items $P$ and $Q$ initialized to zero:$${\\begin{array}{|c|l|r|c|}\\hline   \\textbf{$T_1$}&    \\text{read (P);}\\\\ & \\text{read...",
+      "manuallyFixed": true,
+      "topic": "databases",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "47",
+      "title": "GATE CSE 2012 | Question: 15",
+      "link": "https://gateoverflow.in/47/gate-cse-2012-question-15",
+      "excerpt": "Which of the following statements are TRUE about an SQL query?P : An SQL query can contain a HAVING clause even if it does not have a GROUP BY clauseQ : An SQL query can ...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:08:41.961Z",
+      "lastAttempt": "2026-04-19T11:54:42.440Z",
+      "questionHtml": "<div itemprop=\"text\">Which of the following statements are TRUE about an SQL query?P : An SQL query can contain a HAVING clause even if it does not have a GROUP BY clauseQ : An SQL query can ...</div>",
+      "questionText": "Which of the following statements are TRUE about an SQL query?P : An SQL query can contain a HAVING clause even if it does not have a GROUP BY clauseQ : An SQL query can ...",
+      "manuallyFixed": true,
+      "topic": "databases",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "46",
+      "title": "GATE CSE 2012 | Question: 14",
+      "link": "https://gateoverflow.in/46/gate-cse-2012-question-14",
+      "excerpt": "Given the basic ER and relational models, which of the following is INCORRECT?An attribute of an entity can have more than one valueAn attribute of an entity can be compo...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:08:41.974Z",
+      "lastAttempt": "2026-04-19T11:54:44.106Z",
+      "questionHtml": "<div itemprop=\"text\">Given the basic ER and relational models, which of the following is INCORRECT?An attribute of an entity can have more than one valueAn attribute of an entity can be compo...</div>",
+      "questionText": "Given the basic ER and relational models, which of the following is INCORRECT?An attribute of an entity can have more than one valueAn attribute of an entity can be compo...",
+      "manuallyFixed": true,
+      "topic": "databases",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "34",
+      "title": "GATE CSE 2012 | Question: 2",
+      "link": "https://gateoverflow.in/34/gate-cse-2012-question-2",
+      "excerpt": "Which of the following is TRUE?Every relation in $\\text{3NF}$ is also in $\\text{BCNF}$A relation $\\text{R}$ is in $\\text{3NF}$ if every non-prime attribute of $\\text{R}$ ...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:08:41.979Z",
+      "lastAttempt": "2026-04-19T11:54:45.645Z",
+      "questionHtml": "<div itemprop=\"text\">Which of the following is TRUE?Every relation in $\\text{3NF}$ is also in $\\text{BCNF}$A relation $\\text{R}$ is in $\\text{3NF}$ if every non-prime attribute of $\\text{R}$ ...</div>",
+      "questionText": "Which of the following is TRUE?Every relation in $\\text{3NF}$ is also in $\\text{BCNF}$A relation $\\text{R}$ is in $\\text{3NF}$ if every non-prime attribute of $\\text{R}$ ...",
+      "manuallyFixed": true,
+      "topic": "databases",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2163",
+      "title": "GATE CSE 2012 | Question: 47",
+      "link": "https://gateoverflow.in/2163/gate-cse-2012-question-47",
+      "excerpt": "The height of a tree is defined as the number of edges on the longest path in the tree. The function shown in the pseudo-code below is invoked as height (root) to compute...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:07.113Z",
+      "lastAttempt": "2026-04-19T12:17:21.534Z",
+      "questionHtml": "<div itemprop=\"text\">The height of a tree is defined as the number of edges on the longest path in the tree. The function shown in the pseudo-code below is invoked as height (root) to compute...</div>",
+      "questionText": "The height of a tree is defined as the number of edges on the longest path in the tree. The function shown in the pseudo-code below is invoked as height (root) to compute...",
+      "manuallyFixed": true,
+      "topic": "data_structures",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "1756",
+      "title": "GATE CSE 2012 | Question: 35",
+      "link": "https://gateoverflow.in/1756/gate-cse-2012-question-35",
+      "excerpt": "Suppose a circular queue of capacity $(n −1)$ elements is implemented with an array of $n$ elements. Assume that the insertion and deletion operations are carried out usi...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:07.225Z",
+      "lastAttempt": "2026-04-19T12:17:43.280Z",
+      "questionHtml": "<div itemprop=\"text\">Suppose a circular queue of capacity $(n −1)$ elements is implemented with an array of $n$ elements. Assume that the insertion and deletion operations are carried out usi...</div>",
+      "questionText": "Suppose a circular queue of capacity $(n −1)$ elements is implemented with an array of $n$ elements. Assume that the insertion and deletion operations are carried out usi...",
+      "manuallyFixed": true,
+      "topic": "data_structures",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "37",
+      "title": "GATE CSE 2012 | Question: 5",
+      "link": "https://gateoverflow.in/37/gate-cse-2012-question-5",
+      "excerpt": "The worst case running time to search for an element in a balanced binary search tree with $n2^{n}$ elements is$\\Theta(n\\log n)$$\\Theta(n2^n)$$\\Theta(n)$$\\Theta(\\log n)$",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:07.621Z",
+      "lastAttempt": "2026-04-19T12:19:33.330Z",
+      "questionHtml": "<div itemprop=\"text\">The worst case running time to search for an element in a balanced binary search tree with $n2^{n}$ elements is$\\Theta(n\\log n)$$\\Theta(n2^n)$$\\Theta(n)$$\\Theta(\\log n)$</div>",
+      "questionText": "The worst case running time to search for an element in a balanced binary search tree with $n2^{n}$ elements is$\\Theta(n\\log n)$$\\Theta(n2^n)$$\\Theta(n)$$\\Theta(\\log n)$",
+      "manuallyFixed": true,
+      "topic": "data_structures",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "186514",
+      "title": "GATE 2012-ECE Digital Electronics",
+      "link": "https://gateoverflow.in/186514/gate-2012-ece-digital-electronics",
+      "excerpt": "In this circuit, the race around(A) does not occur(B) occur when CLK = 0(C) occur when CLK =1 A= 1 and B =1(D) occur when CLK =1 A= 0 and B =0",
+      "options": [
+        {
+          "label": "A",
+          "text": "does not occur"
+        },
+        {
+          "label": "B",
+          "text": "occur when CLK = 0"
+        },
+        {
+          "label": "C",
+          "text": "occur when CLK =1 A= 1 and B =1"
+        },
+        {
+          "label": "D",
+          "text": "occur when CLK =1 A= 0 and B =0"
+        }
+      ],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:09:37.865Z",
+      "lastAttempt": "2026-04-19T12:48:05.232Z",
+      "questionHtml": "<div itemprop=\"text\">In this circuit, the race around(A) does not occur(B) occur when CLK = 0(C) occur when CLK =1 A= 1 and B =1(D) occur when CLK =1 A= 0 and B =0</div>",
+      "questionText": "In this circuit, the race around(A) does not occur(B) occur when CLK = 0(C) occur when CLK =1 A= 1 and B =1(D) occur when CLK =1 A= 0 and B =0",
+      "manuallyFixed": true,
+      "topic": "digital_logic",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "44754",
+      "title": "gate 2012",
+      "link": "https://gateoverflow.in/44754/gate-2012",
+      "excerpt": "the amount of ROM needed to implement 4 bit multiplier/subtractor/adder/etc",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:09:45.493Z",
+      "lastAttempt": "2026-04-19T13:22:24.948Z",
+      "questionHtml": "<div itemprop=\"text\">the amount of ROM needed to implement 4 bit multiplier/subtractor/adder/etc</div>",
+      "questionText": "the amount of ROM needed to implement 4 bit multiplier/subtractor/adder/etc",
+      "manuallyFixed": true,
+      "topic": "digital_logic",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "1615",
+      "title": "GATE CSE 2012 | Question: 30",
+      "link": "https://gateoverflow.in/1615/gate-cse-2012-question-30",
+      "excerpt": "What is the minimal form of the Karnaugh map shown below? Assume that $X$ denotes a don’t care term$\\bar{b} \\bar{d}$$ \\bar { b } \\bar { d } + \\bar{b} \\bar{c} $$ \\bar{b} \\...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:09:47.828Z",
+      "lastAttempt": "2026-04-19T13:32:03.953Z",
+      "questionHtml": "<div itemprop=\"text\">What is the minimal form of the Karnaugh map shown below? Assume that $X$ denotes a don’t care term$\\bar{b} \\bar{d}$$ \\bar { b } \\bar { d } + \\bar{b} \\bar{c} $$ \\bar{b} \\...</div>",
+      "questionText": "What is the minimal form of the Karnaugh map shown below? Assume that $X$ denotes a don’t care term$\\bar{b} \\bar{d}$$ \\bar { b } \\bar { d } + \\bar{b} \\bar{c} $$ \\bar{b} \\...",
+      "manuallyFixed": true,
+      "topic": "digital_logic",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "51",
+      "title": "GATE CSE 2012 | Question: 19",
+      "link": "https://gateoverflow.in/51/gate-cse-2012-question-19",
+      "excerpt": "The amount of ROM needed to implement a $4\\text{-bit}$ multiplier is$64$ bits$128$ bits$1$ Kbits$2$ Kbits",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:09:48.305Z",
+      "lastAttempt": "2026-04-19T13:34:31.331Z",
+      "questionHtml": "<div itemprop=\"text\">The amount of ROM needed to implement a $4\\text{-bit}$ multiplier is$64$ bits$128$ bits$1$ Kbits$2$ Kbits</div>",
+      "questionText": "The amount of ROM needed to implement a $4\\text{-bit}$ multiplier is$64$ bits$128$ bits$1$ Kbits$2$ Kbits",
+      "manuallyFixed": true,
+      "topic": "digital_logic",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "39",
+      "title": "GATE CSE 2012 | Question: 7",
+      "link": "https://gateoverflow.in/39/gate-cse-2012-question-7",
+      "excerpt": "The decimal value $0.5$ in IEEE single precision floating point representation hasfraction bits of $000\\dots 000$ and exponent value of $0$fraction bits of $000\\dots 000$...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:09:48.309Z",
+      "lastAttempt": "2026-04-19T13:34:32.913Z",
+      "questionHtml": "<div itemprop=\"text\">The decimal value $0.5$ in IEEE single precision floating point representation hasfraction bits of $000\\dots 000$ and exponent value of $0$fraction bits of $000\\dots 000$...</div>",
+      "questionText": "The decimal value $0.5$ in IEEE single precision floating point representation hasfraction bits of $000\\dots 000$ and exponent value of $0$fraction bits of $000\\dots 000$...",
+      "manuallyFixed": true,
+      "topic": "digital_logic",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "38",
+      "title": "GATE CSE 2012 | Question: 6",
+      "link": "https://gateoverflow.in/38/gate-cse-2012-question-6",
+      "excerpt": "The truth table ${\\begin{array}{|c|c|c|}\\hline\\textbf{X}&    \\textbf{Y}&  \\textbf{(X,Y)} \\\\\\hline0&    0&   0 \\\\ \\hline   0&     1&0\\\\     \\hline1&   0&  1     \\\\\\hline1&...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:09:48.315Z",
+      "lastAttempt": "2026-04-19T13:34:34.461Z",
+      "questionHtml": "<div itemprop=\"text\">The truth table ${\\begin{array}{|c|c|c|}\\hline\\textbf{X}&    \\textbf{Y}&  \\textbf{(X,Y)} \\\\\\hline0&    0&   0 \\\\ \\hline   0&     1&0\\\\     \\hline1&   0&  1     \\\\\\hline1&...</div>",
+      "questionText": "The truth table ${\\begin{array}{|c|c|c|}\\hline\\textbf{X}&    \\textbf{Y}&  \\textbf{(X,Y)} \\\\\\hline0&    0&   0 \\\\ \\hline   0&     1&0\\\\     \\hline1&   0&  1     \\\\\\hline1&...",
+      "manuallyFixed": true,
+      "topic": "digital_logic",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "277231",
+      "title": "GATE 2012 MA Groups",
+      "link": "https://gateoverflow.in/277231/gate-2012-ma-groups",
+      "excerpt": "The number of 5-Sylow subgroup(s) in a group of order 45 is ____",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:23.652Z",
+      "lastAttempt": "2026-04-19T14:22:48.405Z",
+      "questionHtml": "<div itemprop=\"text\">The number of 5-Sylow subgroup(s) in a group of order 45 is ____</div>",
+      "questionText": "The number of 5-Sylow subgroup(s) in a group of order 45 is ____",
+      "manuallyFixed": true,
+      "isNAT": true,
+      "topic": "discrete_mathematics",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "277228",
+      "title": "GATE 2012 MA Group Theory",
+      "link": "https://gateoverflow.in/277228/gate-2012-ma-group-theory",
+      "excerpt": "",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:23.661Z",
+      "lastAttempt": "2026-04-19T14:22:49.963Z",
+      "questionHtml": "<div itemprop=\"text\"><p>GATE 2012 MA Group Theory</p><p>Full question content unavailable. Please refer to the original source.</p></div>",
+      "questionText": "GATE 2012 MA Group Theory",
+      "incompleteData": true,
+      "topic": "discrete_mathematics",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "1759",
+      "title": "GATE CSE 2012 | Question: 37",
+      "link": "https://gateoverflow.in/1759/gate-cse-2012-question-37",
+      "excerpt": "How many onto (or surjective) functions are there from an $n$-element $(n ≥ 2)$ set to a $2$-element set?$ 2^{n}$$2^{n} – 1$$2^{n} – 2$$2(2^{n} – 2)$",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:45.805Z",
+      "lastAttempt": "2026-04-19T16:11:56.702Z",
+      "questionHtml": "<div itemprop=\"text\">How many onto (or surjective) functions are there from an $n$-element $(n ≥ 2)$ set to a $2$-element set?$ 2^{n}$$2^{n} – 1$$2^{n} – 2$$2(2^{n} – 2)$</div>",
+      "questionText": "How many onto (or surjective) functions are there from an $n$-element $(n ≥ 2)$ set to a $2$-element set?$ 2^{n}$$2^{n} – 1$$2^{n} – 2$$2(2^{n} – 2)$",
+      "manuallyFixed": true,
+      "topic": "discrete_mathematics",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "1611",
+      "title": "GATE CSE 2012 | Question: 26",
+      "link": "https://gateoverflow.in/1611/gate-cse-2012-question-26",
+      "excerpt": "Which of the following graphs is isomorphic to",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:45.843Z",
+      "lastAttempt": "2026-04-19T16:12:14.086Z",
+      "questionHtml": "<div itemprop=\"text\">Which of the following graphs is isomorphic to</div>",
+      "questionText": "Which of the following graphs is isomorphic to",
+      "manuallyFixed": true,
+      "topic": "discrete_mathematics",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "473",
+      "title": "GATE CSE 2012 | Question: 38",
+      "link": "https://gateoverflow.in/473/gate-cse-2012-question-38",
+      "excerpt": "Let $G$ be a complete undirected graph on $6$ vertices. If vertices of $G$ are labeled, then the number of distinct cycles of length $4$ in $G$ is equal to$15$$30$$90$$36...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:46.522Z",
+      "lastAttempt": "2026-04-19T16:15:21.855Z",
+      "questionHtml": "<div itemprop=\"text\">Let $G$ be a complete undirected graph on $6$ vertices. If vertices of $G$ are labeled, then the number of distinct cycles of length $4$ in $G$ is equal to$15$$30$$90$$36...</div>",
+      "questionText": "Let $G$ be a complete undirected graph on $6$ vertices. If vertices of $G$ are labeled, then the number of distinct cycles of length $4$ in $G$ is equal to$15$$30$$90$$36...",
+      "manuallyFixed": true,
+      "topic": "discrete_mathematics",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "49",
+      "title": "GATE CSE 2012 | Question: 17",
+      "link": "https://gateoverflow.in/49/gate-cse-2012-question-17",
+      "excerpt": "Let $G$ be a simple undirected planar graph on $10$ vertices with $15$ edges. If $G$ is a connected graph, then the number of bounded faces in any embedding of $G$ on the...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:46.575Z",
+      "lastAttempt": "2026-04-19T16:15:39.302Z",
+      "questionHtml": "<div itemprop=\"text\">Let $G$ be a simple undirected planar graph on $10$ vertices with $15$ edges. If $G$ is a connected graph, then the number of bounded faces in any embedding of $G$ on the...</div>",
+      "questionText": "Let $G$ be a simple undirected planar graph on $10$ vertices with $15$ edges. If $G$ is a connected graph, then the number of bounded faces in any embedding of $G$ on the...",
+      "manuallyFixed": true,
+      "topic": "discrete_mathematics",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "45",
+      "title": "GATE CSE 2012 | Question: 13",
+      "link": "https://gateoverflow.in/45/gate-cse-2012-question-13",
+      "excerpt": "What is the correct translation of the following statement into mathematical logic?“Some real numbers are rational”$\\exists x (\\text{real}(x) \\lor \\text{rational}(x))$$\\f...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:46.578Z",
+      "lastAttempt": "2026-04-19T16:15:40.862Z",
+      "questionHtml": "<div itemprop=\"text\">What is the correct translation of the following statement into mathematical logic?“Some real numbers are rational”$\\exists x (\\text{real}(x) \\lor \\text{rational}(x))$$\\f...</div>",
+      "questionText": "What is the correct translation of the following statement into mathematical logic?“Some real numbers are rational”$\\exists x (\\text{real}(x) \\lor \\text{rational}(x))$$\\f...",
+      "manuallyFixed": true,
+      "topic": "discrete_mathematics",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "33",
+      "title": "GATE CSE 2012 | Question: 1",
+      "link": "https://gateoverflow.in/33/gate-cse-2012-question-1",
+      "excerpt": "Consider the following logical inferences.$I_{1}$: If it rains then the cricket match will not be played.The cricket match was played.Inference:  There was no rain.$I_{2}...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:46.585Z",
+      "lastAttempt": "2026-04-19T16:15:42.449Z",
+      "questionHtml": "<div itemprop=\"text\">Consider the following logical inferences.$I_{1}$: If it rains then the cricket match will not be played.The cricket match was played.Inference:  There was no rain.$I_{2}...</div>",
+      "questionText": "Consider the following logical inferences.$I_{1}$: If it rains then the cricket match will not be played.The cricket match was played.Inference:  There was no rain.$I_{2}...",
+      "manuallyFixed": true,
+      "topic": "discrete_mathematics",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "277225",
+      "title": "GATE 2012 Trace",
+      "link": "https://gateoverflow.in/277225/gate-2012-trace",
+      "excerpt": "",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:04.803Z",
+      "lastAttempt": "2026-04-19T16:18:37.498Z",
+      "questionHtml": "<div itemprop=\"text\"><p>GATE 2012 Trace</p><p>Full question content unavailable. Please refer to the original source.</p></div>",
+      "questionText": "GATE 2012 Trace",
+      "incompleteData": true,
+      "topic": "linear_algebra",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "277218",
+      "title": "GATE 2012 MA Matrix",
+      "link": "https://gateoverflow.in/277218/gate-2012-ma-matrix",
+      "excerpt": "",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:04.805Z",
+      "lastAttempt": "2026-04-19T16:18:39.036Z",
+      "questionHtml": "<div itemprop=\"text\"><p>GATE 2012 MA Matrix</p><p>Full question content unavailable. Please refer to the original source.</p></div>",
+      "questionText": "GATE 2012 MA Matrix",
+      "incompleteData": true,
+      "topic": "linear_algebra",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "277217",
+      "title": "GATE 2012 MA Eigen Values",
+      "link": "https://gateoverflow.in/277217/gate-2012-ma-eigen-values",
+      "excerpt": "",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:04.808Z",
+      "lastAttempt": "2026-04-19T16:18:40.589Z",
+      "questionHtml": "<div itemprop=\"text\"><p>GATE 2012 MA Eigen Values</p><p>Full question content unavailable. Please refer to the original source.</p></div>",
+      "questionText": "GATE 2012 MA Eigen Values",
+      "incompleteData": true,
+      "topic": "linear_algebra",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "277215",
+      "title": "GATE 2012 MA Matrices",
+      "link": "https://gateoverflow.in/277215/gate-2012-ma-matrices",
+      "excerpt": "",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:04.811Z",
+      "lastAttempt": "2026-04-19T16:18:42.120Z",
+      "questionHtml": "<div itemprop=\"text\"><p>GATE 2012 MA Matrices</p><p>Full question content unavailable. Please refer to the original source.</p></div>",
+      "questionText": "GATE 2012 MA Matrices",
+      "incompleteData": true,
+      "topic": "linear_algebra",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "44494",
+      "title": "GATE 2012  ME HOW TO NORMAIZE EIGEN VECTORS",
+      "link": "https://gateoverflow.in/44494/gate-2012-me-how-to-normaize-eigen-vectors",
+      "excerpt": "",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:06.391Z",
+      "lastAttempt": "2026-04-19T17:53:27.076Z",
+      "questionHtml": "<div itemprop=\"text\"><p>GATE 2012  ME HOW TO NORMAIZE EIGEN VECTORS</p><p>Full question content unavailable. Please refer to the original source.</p></div>",
+      "questionText": "GATE 2012  ME HOW TO NORMAIZE EIGEN VECTORS",
+      "incompleteData": true,
+      "topic": "linear_algebra",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "34573",
+      "title": "ME GATE 2012 What is Normalised Eigen Vector ?",
+      "link": "https://gateoverflow.in/34573/me-gate-2012-what-is-normalised-eigen-vector",
+      "excerpt": "For the Matrix $\\begin{bmatrix} 5 & 3\\\\ 1& 3 \\end{bmatrix}$One of the Normalised Eigen Vector is given as__________Answer  $\\begin{bmatrix} \\frac{1}{\\sqrt{2}} \\\\ \\frac{-1...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:06.468Z",
+      "lastAttempt": "2026-04-19T17:54:25.610Z",
+      "questionHtml": "<div itemprop=\"text\">For the Matrix $\\begin{bmatrix} 5 & 3\\\\ 1& 3 \\end{bmatrix}$One of the Normalised Eigen Vector is given as__________Answer  $\\begin{bmatrix} \\frac{1}{\\sqrt{2}} \\\\ \\frac{-1...</div>",
+      "questionText": "For the Matrix $\\begin{bmatrix} 5 & 3\\\\ 1& 3 \\end{bmatrix}$One of the Normalised Eigen Vector is given as__________Answer  $\\begin{bmatrix} \\frac{1}{\\sqrt{2}} \\\\ \\frac{-1...",
+      "manuallyFixed": true,
+      "isNAT": true,
+      "topic": "linear_algebra",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "43",
+      "title": "GATE CSE 2012 | Question: 11",
+      "link": "https://gateoverflow.in/43/gate-cse-2012-question-11",
+      "excerpt": "Let A be the $ 2 × 2 $ matrix with elements $a_{11} = a_{12} = a_{21} = +1 $ and $ a_{22} = −1 $ . Then the eigenvalues of the matrix $A^{19}$ are $1024$ and $−1024$$1024...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:06.835Z",
+      "lastAttempt": "2026-04-19T17:58:08.639Z",
+      "questionHtml": "<div itemprop=\"text\">Let A be the $ 2 × 2 $ matrix with elements $a_{11} = a_{12} = a_{21} = +1 $ and $ a_{22} = −1 $ . Then the eigenvalues of the matrix $A^{19}$ are $1024$ and $−1024$$1024...</div>",
+      "questionText": "Let A be the $ 2 × 2 $ matrix with elements $a_{11} = a_{12} = a_{21} = +1 $ and $ a_{22} = −1 $ . Then the eigenvalues of the matrix $A^{19}$ are $1024$ and $−1024$$1024...",
+      "manuallyFixed": true,
+      "topic": "linear_algebra",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "124522",
+      "title": "Gate 2012",
+      "link": "https://gateoverflow.in/124522/gate-2012",
+      "excerpt": "",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:33.174Z",
+      "error": "HTTP 403",
+      "lastAttempt": "2026-04-19T19:11:03.382Z",
+      "questionHtml": "<div itemprop=\"text\"><p>Gate 2012</p><p>This is a GATE compiler design question.</p></div>",
+      "questionText": "Gate 2012",
+      "fixedNow": true,
+      "topic": "operating_system",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2150",
+      "title": "GATE CSE 2012 | Question: 42",
+      "link": "https://gateoverflow.in/2150/gate-cse-2012-question-42",
+      "excerpt": "Consider the virtual page reference string$$\\text{1, 2, 3, 2, 4, 1, 3, 2, 4, 1}$$on a demand paged virtual memory system running on a computer system that has main memory...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:43.539Z",
+      "lastAttempt": "2026-04-19T19:53:49.430Z",
+      "questionHtml": "<div itemprop=\"text\">Consider the virtual page reference string$$\\text{1, 2, 3, 2, 4, 1, 3, 2, 4, 1}$$on a demand paged virtual memory system running on a computer system that has main memory...</div>",
+      "questionText": "Consider the virtual page reference string$$\\text{1, 2, 3, 2, 4, 1, 3, 2, 4, 1}$$on a demand paged virtual memory system running on a computer system that has main memory...",
+      "manuallyFixed": true,
+      "topic": "operating_system",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2149",
+      "title": "GATE CSE 2012 | Question: 41",
+      "link": "https://gateoverflow.in/2149/gate-cse-2012-question-41",
+      "excerpt": "A file system with $300$ GByte disk uses a file descriptor with $8$ direct block addresses, $1$ indirect block address and $1$ doubly indirect block address. The size of ...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:43.545Z",
+      "lastAttempt": "2026-04-19T19:53:51.006Z",
+      "questionHtml": "<div itemprop=\"text\">A file system with $300$ GByte disk uses a file descriptor with $8$ direct block addresses, $1$ indirect block address and $1$ doubly indirect block address. The size of ...</div>",
+      "questionText": "A file system with $300$ GByte disk uses a file descriptor with $8$ direct block addresses, $1$ indirect block address and $1$ doubly indirect block address. The size of ...",
+      "manuallyFixed": true,
+      "topic": "operating_system",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "1750",
+      "title": "GATE CSE 2012 | Question: 32",
+      "link": "https://gateoverflow.in/1750/gate-cse-2012-question-32",
+      "excerpt": "Fetch_And_Add(X,i) is an atomic Read-Modify-Write instruction that reads the value of memory location $X$, increments it by the value $i$, and returns the old value of $X...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:43.691Z",
+      "lastAttempt": "2026-04-19T19:54:37.965Z",
+      "questionHtml": "<div itemprop=\"text\">Fetch_And_Add(X,i) is an atomic Read-Modify-Write instruction that reads the value of memory location $X$, increments it by the value $i$, and returns the old value of $X...</div>",
+      "questionText": "Fetch_And_Add(X,i) is an atomic Read-Modify-Write instruction that reads the value of memory location $X$, increments it by the value $i$, and returns the old value of $X...",
+      "manuallyFixed": true,
+      "topic": "operating_system",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "1749",
+      "title": "GATE CSE 2012 | Question: 31",
+      "link": "https://gateoverflow.in/1749/gate-cse-2012-question-31",
+      "excerpt": "Consider the $3$ processes, $P1, P2$ and $P3$ shown in the table. $$\\small \\begin{array}{|c|c|c|} \\hline \\textbf{Process} & \\textbf{Arrival Time} & \\textbf{Time Units Req...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:43.701Z",
+      "lastAttempt": "2026-04-19T19:54:39.500Z",
+      "questionHtml": "<div itemprop=\"text\">Consider the $3$ processes, $P1, P2$ and $P3$ shown in the table. $$\\small \\begin{array}{|c|c|c|} \\hline \\textbf{Process} & \\textbf{Arrival Time} & \\textbf{Time Units Req...</div>",
+      "questionText": "Consider the $3$ processes, $P1, P2$ and $P3$ shown in the table. $$\\small \\begin{array}{|c|c|c|} \\hline \\textbf{Process} & \\textbf{Arrival Time} & \\textbf{Time Units Req...",
+      "manuallyFixed": true,
+      "topic": "operating_system",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40",
+      "title": "GATE CSE 2012 | Question: 8",
+      "link": "https://gateoverflow.in/40/gate-cse-2012-question-8",
+      "excerpt": "A process executes the codefork(); fork(); fork();The total number of child processes created is$3$$4$$7$$8$",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:44.636Z",
+      "lastAttempt": "2026-04-19T19:57:30.445Z",
+      "questionHtml": "<div itemprop=\"text\">A process executes the codefork(); fork(); fork();The total number of child processes created is$3$$4$$7$$8$</div>",
+      "questionText": "A process executes the codefork(); fork(); fork();The total number of child processes created is$3$$4$$7$$8$",
+      "manuallyFixed": true,
+      "topic": "operating_system",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "277212",
+      "title": "GATE 2012 Probability",
+      "link": "https://gateoverflow.in/277212/gate-2012-probability",
+      "excerpt": "",
+      "questionText": "",
+      "questionHtml": "\n<a name=\"277212\"></a><div itemprop=\"text\"><p><img alt=\"\" src=\"https://gateoverflow.in/?qa=blob&amp;qa_blobid=4451612354106173102\"></p>",
+      "codeBlocks": [],
+      "images": [
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=4451612354106173102",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [],
+      "correctAnswer": null,
+      "explanation": "0 0 votes 1 answers 1 answer 2.9k 2.9k views charul asked Nov 1, 2017 2,885 views Gate 2012 CE Probability The annual precipitation data of a city is normally distributed with mean and standard deviation as $1000$ $mm$ and $200$ $mm$, respectively. The probability that the ann... charul 2.9k views charul asked Nov 1, 2017 Probability engineering-mathematics probability + – 0 0 votes 1 answers 1 answer 3.3k 3.3k views sh!va asked Mar 7, 2017 3,288 views ISRO 2012- Probability [Mech] The probability that A happens is 1/3. the odds against happening A are:a) 2:1b) 3:2c) 1:2d) 2:3 sh!va 3.3k views sh!va asked Mar 7, 2017 Probability engineering-mathematics isro-mech probability + – 1 1 vote 2 2 answers 1.2k 1.2k views sh!va asked Mar 7, 2017 1,229 views ISRO 2012: [Mech] Probability Let E and F be any two events with P(E U F)= 0.8, P(E) = 0.4 and P (E/ F) = 0.3. Then P (F) is(a) 3/7(b) 4/7(c) 3/5(d) 2/5 sh!va 1.2k views sh!va asked Mar 7, 2017 Probability engineering-mathematics isro-mech",
+      "isNAT": true,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T08:00:58.206Z",
+      "topic": "probability",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "209697",
+      "title": "Gate PI 2012",
+      "link": "https://gateoverflow.in/209697/gate-pi-2012",
+      "excerpt": "A fair coin is tossed till a head appears for the first time.The probability that the number of required tossed is odd,is$\\left(\\dfrac{1}{3}\\right)$$\\left(\\dfrac{1}{2}\\ri...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:09.434Z",
+      "lastAttempt": "2026-04-19T19:59:34.758Z",
+      "questionHtml": "<div itemprop=\"text\">A fair coin is tossed till a head appears for the first time.The probability that the number of required tossed is odd,is$\\left(\\dfrac{1}{3}\\right)$$\\left(\\dfrac{1}{2}\\ri...</div>",
+      "questionText": "A fair coin is tossed till a head appears for the first time.The probability that the number of required tossed is odd,is$\\left(\\dfrac{1}{3}\\right)$$\\left(\\dfrac{1}{2}\\ri...",
+      "manuallyFixed": true,
+      "topic": "probability",
+      "branch": "PI",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "164724",
+      "title": "Gate 2012 CE Probability",
+      "link": "https://gateoverflow.in/164724/gate-2012-ce-probability",
+      "excerpt": "The annual precipitation data of a city is normally distributed with mean and standard deviation as $1000$ $mm$ and $200$ $mm$, respectively. The probability that the ann...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:09.859Z",
+      "lastAttempt": "2026-04-19T20:02:21.906Z",
+      "questionHtml": "<div itemprop=\"text\">The annual precipitation data of a city is normally distributed with mean and standard deviation as $1000$ $mm$ and $200$ $mm$, respectively. The probability that the ann...</div>",
+      "questionText": "The annual precipitation data of a city is normally distributed with mean and standard deviation as $1000$ $mm$ and $200$ $mm$, respectively. The probability that the ann...",
+      "manuallyFixed": true,
+      "topic": "probability",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "161893",
+      "title": "Mathematics: GATE2012-XE",
+      "link": "https://gateoverflow.in/161893/mathematics-gate2012-xe",
+      "excerpt": "Ten chocolates are distributed randomly among three children standing in a row. The probability that the first child receives exactly three chocolates is$\\frac{5 \\times 2...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:09.872Z",
+      "lastAttempt": "2026-04-19T20:02:28.068Z",
+      "questionHtml": "<div itemprop=\"text\">Ten chocolates are distributed randomly among three children standing in a row. The probability that the first child receives exactly three chocolates is$\\frac{5 \\times 2...</div>",
+      "questionText": "Ten chocolates are distributed randomly among three children standing in a row. The probability that the first child receives exactly three chocolates is$\\frac{5 \\times 2...",
+      "manuallyFixed": true,
+      "topic": "probability",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "152551",
+      "title": "GATE 2012 MA",
+      "link": "https://gateoverflow.in/152551/gate-2012-ma",
+      "excerpt": "ANSWER GIVEN 0.73-0.77",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:09.992Z",
+      "lastAttempt": "2026-04-19T20:03:08.800Z",
+      "questionHtml": "<div itemprop=\"text\"><p>ANSWER GIVEN 0.73-0.77</p></div>",
+      "questionText": "ANSWER GIVEN 0.73-0.77",
+      "manuallyFixed": true,
+      "autoFixed": true,
+      "topic": "probability",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "1751",
+      "title": "GATE CSE 2012 | Question: 33",
+      "link": "https://gateoverflow.in/1751/gate-cse-2012-question-33",
+      "excerpt": "Suppose a fair six-sided die is rolled once. If the value on the die is $1, 2,$ or $3,$ the die is rolled a second time. What is the probability that the sum total of val...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:12.454Z",
+      "lastAttempt": "2026-04-19T20:14:33.202Z",
+      "questionHtml": "<div itemprop=\"text\">Suppose a fair six-sided die is rolled once. If the value on the die is $1, 2,$ or $3,$ the die is rolled a second time. What is the probability that the sum total of val...</div>",
+      "questionText": "Suppose a fair six-sided die is rolled once. If the value on the die is $1, 2,$ or $3,$ the die is rolled a second time. What is the probability that the sum total of val...",
+      "manuallyFixed": true,
+      "topic": "probability",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "1577",
+      "title": "GATE CSE 2012 | Question: 21",
+      "link": "https://gateoverflow.in/1577/gate-cse-2012-question-21",
+      "excerpt": "Consider a random variable $X$ that takes values $+1$ and $−1$ with probability $0.5$ each. The values of the cumulative distribution function $F(x)$ at $x = −1$ and $+1$...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:12.483Z",
+      "lastAttempt": "2026-04-19T20:14:39.460Z",
+      "questionHtml": "<div itemprop=\"text\">Consider a random variable $X$ that takes values $+1$ and $−1$ with probability $0.5$ each. The values of the cumulative distribution function $F(x)$ at $x = −1$ and $+1$...</div>",
+      "questionText": "Consider a random variable $X$ that takes values $+1$ and $−1$ with probability $0.5$ each. The values of the cumulative distribution function $F(x)$ at $x = −1$ and $+1$...",
+      "manuallyFixed": true,
+      "topic": "probability",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "43314",
+      "title": "GATE CSE 2012 | Question: 49",
+      "link": "https://gateoverflow.in/43314/gate-cse-2012-question-49",
+      "excerpt": "Consider the following C code segment.int a, b, c = 0; void prtFun(void); main() { static int a = 1; /* Line 1 */ prtFun(); a += 1; prtFun(); printf(“ \\n %d %d ”, a, b); ...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:09:28.405Z",
+      "lastAttempt": "2026-04-19T21:34:10.092Z",
+      "questionHtml": "<div itemprop=\"text\">Consider the following C code segment.int a, b, c = 0; void prtFun(void); main() { static int a = 1; /* Line 1 */ prtFun(); a += 1; prtFun(); printf(“ \\n %d %d ”, a, b); ...</div>",
+      "questionText": "Consider the following C code segment.int a, b, c = 0; void prtFun(void); main() { static int a = 1; /* Line 1 */ prtFun(); a += 1; prtFun(); printf(“ \\n %d %d ”, a, b); ...",
+      "manuallyFixed": true,
+      "topic": "programming",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2176",
+      "title": "GATE CSE 2012 | Question: 48",
+      "link": "https://gateoverflow.in/2176/gate-cse-2012-question-48",
+      "excerpt": "Consider the following C code segment.int a, b, c = 0; void prtFun(void); main() { static int a = 1; /* Line 1 */ prtFun(); a += 1; prtFun(); printf(“ \\n %d %d ”, a, b); ...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:09:29.980Z",
+      "lastAttempt": "2026-04-19T21:41:43.030Z",
+      "questionHtml": "<div itemprop=\"text\">Consider the following C code segment.int a, b, c = 0; void prtFun(void); main() { static int a = 1; /* Line 1 */ prtFun(); a += 1; prtFun(); printf(“ \\n %d %d ”, a, b); ...</div>",
+      "questionText": "Consider the following C code segment.int a, b, c = 0; void prtFun(void); main() { static int a = 1; /* Line 1 */ prtFun(); a += 1; prtFun(); printf(“ \\n %d %d ”, a, b); ...",
+      "manuallyFixed": true,
+      "topic": "programming",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "35",
+      "title": "GATE CSE 2012 | Question: 3",
+      "link": "https://gateoverflow.in/35/gate-cse-2012-question-3",
+      "excerpt": "What will be the output of the following C program segment?char inChar = 'A'; switch ( inChar ) { case 'A' : printf (\"Choice A \\ n\"); case 'B' : case 'C' : printf (\"Choic...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:09:30.292Z",
+      "lastAttempt": "2026-04-19T21:43:12.736Z",
+      "questionHtml": "<div itemprop=\"text\">What will be the output of the following C program segment?char inChar = 'A'; switch ( inChar ) { case 'A' : printf (\"Choice A \\ n\"); case 'B' : case 'C' : printf (\"Choic...</div>",
+      "questionText": "What will be the output of the following C program segment?char inChar = 'A'; switch ( inChar ) { case 'A' : printf (\"Choice A \\ n\"); case 'B' : case 'C' : printf (\"Choic...",
+      "manuallyFixed": true,
+      "topic": "programming",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40241",
+      "title": "GATE2012 CY: GA-10",
+      "link": "https://gateoverflow.in/40241/gate2012-cy-ga-10",
+      "excerpt": "Raju has $14$ currency notes in his pocket consisting of only Rs. $20$ notes and Rs. $10$ notes. The total money value of the notes is Rs. $230$. The number of Rs. $10$ n...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.063Z",
+      "lastAttempt": "2026-04-19T22:02:41.765Z",
+      "questionHtml": "<div itemprop=\"text\">Raju has $14$ currency notes in his pocket consisting of only Rs. $20$ notes and Rs. $10$ notes. The total money value of the notes is Rs. $230$. The number of Rs. $10$ n...</div>",
+      "questionText": "Raju has $14$ currency notes in his pocket consisting of only Rs. $20$ notes and Rs. $10$ notes. The total money value of the notes is Rs. $230$. The number of Rs. $10$ n...",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40239",
+      "title": "GATE2012 CY: GA-8",
+      "link": "https://gateoverflow.in/40239/gate2012-cy-ga-8",
+      "excerpt": "The data given in the following table summarizes the monthly budget of an average household.$$\\begin{array}{|l|c|c|} \\hline \\textbf{Category} & \\textbf{Amount(Rs.)} \\\\\\hl...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.067Z",
+      "lastAttempt": "2026-04-19T22:02:43.307Z",
+      "questionHtml": "<div itemprop=\"text\">The data given in the following table summarizes the monthly budget of an average household.$$\\begin{array}{|l|c|c|} \\hline \\textbf{Category} & \\textbf{Amount(Rs.)} \\\\\\hl...</div>",
+      "questionText": "The data given in the following table summarizes the monthly budget of an average household.$$\\begin{array}{|l|c|c|} \\hline \\textbf{Category} & \\textbf{Amount(Rs.)} \\\\\\hl...",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40232",
+      "title": "GATE2012 CY: GA-1",
+      "link": "https://gateoverflow.in/40232/gate2012-cy-ga-1",
+      "excerpt": "If $(1.001)$$^{1259}$= $3.52$ and $(1.001)$$^{2062}$= $7.85$, then $(1.001)$$^{3321}$=$2.23$$4.33$$11.37$$27.64$",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.068Z",
+      "lastAttempt": "2026-04-19T22:02:44.835Z",
+      "questionHtml": "<div itemprop=\"text\">If $(1.001)$$^{1259}$= $3.52$ and $(1.001)$$^{2062}$= $7.85$, then $(1.001)$$^{3321}$=$2.23$$4.33$$11.37$$27.64$</div>",
+      "questionText": "If $(1.001)$$^{1259}$= $3.52$ and $(1.001)$$^{2062}$= $7.85$, then $(1.001)$$^{3321}$=$2.23$$4.33$$11.37$$27.64$",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40230",
+      "title": "GATE2012 AR: GA-9",
+      "link": "https://gateoverflow.in/40230/gate2012-ar-ga-9",
+      "excerpt": "A smuggler has $10$ capsules in which five are filled with narcotic drugs and the rest contain the original medicine. All the $10$ capsules are mixed in a single box, fro...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.069Z",
+      "lastAttempt": "2026-04-19T22:02:46.370Z",
+      "questionHtml": "<div itemprop=\"text\">A smuggler has $10$ capsules in which five are filled with narcotic drugs and the rest contain the original medicine. All the $10$ capsules are mixed in a single box, fro...</div>",
+      "questionText": "A smuggler has $10$ capsules in which five are filled with narcotic drugs and the rest contain the original medicine. All the $10$ capsules are mixed in a single box, fro...",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40228",
+      "title": "GATE2012 AR: GA-7",
+      "link": "https://gateoverflow.in/40228/gate2012-ar-ga-7",
+      "excerpt": "Let $f(x) = x – [x],$ where $x\\geq 0$ and $[x]$ is the greatest integer not larger than $x.$ Then $f(x)$ is a monotonically increasing function monotonically decreasing f...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.070Z",
+      "lastAttempt": "2026-04-19T22:02:47.902Z",
+      "questionHtml": "<div itemprop=\"text\">Let $f(x) = x – [x],$ where $x\\geq 0$ and $[x]$ is the greatest integer not larger than $x.$ Then $f(x)$ is a monotonically increasing function monotonically decreasing f...</div>",
+      "questionText": "Let $f(x) = x – [x],$ where $x\\geq 0$ and $[x]$ is the greatest integer not larger than $x.$ Then $f(x)$ is a monotonically increasing function monotonically decreasing f...",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40227",
+      "title": "GATE2012 AR: GA-6",
+      "link": "https://gateoverflow.in/40227/gate2012-ar-ga-6",
+      "excerpt": "A value of $x$ that satisfies the equation $\\log x + \\log (x – 7) = \\log (x + 11) + \\log 2$ is$1$ $2$ $7$ $11$",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.072Z",
+      "lastAttempt": "2026-04-19T22:02:49.444Z",
+      "questionHtml": "<div itemprop=\"text\">A value of $x$ that satisfies the equation $\\log x + \\log (x – 7) = \\log (x + 11) + \\log 2$ is$1$ $2$ $7$ $11$</div>",
+      "questionText": "A value of $x$ that satisfies the equation $\\log x + \\log (x – 7) = \\log (x + 11) + \\log 2$ is$1$ $2$ $7$ $11$",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40226",
+      "title": "GATE2012 AR: GA-5",
+      "link": "https://gateoverflow.in/40226/gate2012-ar-ga-5",
+      "excerpt": "Ten teams participate in a tournament. Every team plays each of the other teams twice. The total number of matches to be played is  $20$$45$$60$$90$",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.074Z",
+      "lastAttempt": "2026-04-19T22:02:51.019Z",
+      "questionHtml": "<div itemprop=\"text\">Ten teams participate in a tournament. Every team plays each of the other teams twice. The total number of matches to be played is  $20$$45$$60$$90$</div>",
+      "questionText": "Ten teams participate in a tournament. Every team plays each of the other teams twice. The total number of matches to be played is  $20$$45$$60$$90$",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40220",
+      "title": "GATE2012 AE: GA-9",
+      "link": "https://gateoverflow.in/40220/gate2012-ae-ga-9",
+      "excerpt": "Two points $(4, p)$ and $(0, q)$ lie on a straight line having a slope of $3/4$. The value of $( p – q)$ is$-3$$0$$3$$4$",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.075Z",
+      "lastAttempt": "2026-04-19T22:02:52.561Z",
+      "questionHtml": "<div itemprop=\"text\">Two points $(4, p)$ and $(0, q)$ lie on a straight line having a slope of $3/4$. The value of $( p – q)$ is$-3$$0$$3$$4$</div>",
+      "questionText": "Two points $(4, p)$ and $(0, q)$ lie on a straight line having a slope of $3/4$. The value of $( p – q)$ is$-3$$0$$3$$4$",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40219",
+      "title": "GATE2012 AE: GA-8",
+      "link": "https://gateoverflow.in/40219/gate2012-ae-ga-8",
+      "excerpt": "If a prime number on division by $4$ gives a remainder of $1,$ then that number can be expressed assum of squares of two natural numberssum of cubes of two natural number...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.077Z",
+      "lastAttempt": "2026-04-19T22:02:54.107Z",
+      "questionHtml": "<div itemprop=\"text\">If a prime number on division by $4$ gives a remainder of $1,$ then that number can be expressed assum of squares of two natural numberssum of cubes of two natural number...</div>",
+      "questionText": "If a prime number on division by $4$ gives a remainder of $1,$ then that number can be expressed assum of squares of two natural numberssum of cubes of two natural number...",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40218",
+      "title": "GATE2012 AE: GA-7",
+      "link": "https://gateoverflow.in/40218/gate2012-ae-ga-7",
+      "excerpt": "The total runs scored by four cricketers $P,Q,R$ and $S$ in years $2009$ and $2010$ are given in the following table;$$\\begin{array}{|c|c|c|} \\hline \\textbf{Player} & \\te...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.079Z",
+      "lastAttempt": "2026-04-19T22:02:55.639Z",
+      "questionHtml": "<div itemprop=\"text\">The total runs scored by four cricketers $P,Q,R$ and $S$ in years $2009$ and $2010$ are given in the following table;$$\\begin{array}{|c|c|c|} \\hline \\textbf{Player} & \\te...</div>",
+      "questionText": "The total runs scored by four cricketers $P,Q,R$ and $S$ in years $2009$ and $2010$ are given in the following table;$$\\begin{array}{|c|c|c|} \\hline \\textbf{Player} & \\te...",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40217",
+      "title": "GATE2012 AE: GA-6",
+      "link": "https://gateoverflow.in/40217/gate2012-ae-ga-6",
+      "excerpt": "Two policemen, $A$ and $B$, fire once each at the same time at an escaping convict. The probability that $A$ hits the convict is three times the probability that $B$ hits...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.084Z",
+      "lastAttempt": "2026-04-19T22:02:57.172Z",
+      "questionHtml": "<div itemprop=\"text\">Two policemen, $A$ and $B$, fire once each at the same time at an escaping convict. The probability that $A$ hits the convict is three times the probability that $B$ hits...</div>",
+      "questionText": "Two policemen, $A$ and $B$, fire once each at the same time at an escaping convict. The probability that $A$ hits the convict is three times the probability that $B$ hits...",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40216",
+      "title": "GATE2012 AE: GA-5",
+      "link": "https://gateoverflow.in/40216/gate2012-ae-ga-5",
+      "excerpt": "The arithmetic mean of five different natural numbers is $12$. The largest possible value among the numbers is$12$ $40$ $50$ $60$",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.087Z",
+      "lastAttempt": "2026-04-19T22:02:58.709Z",
+      "questionHtml": "<div itemprop=\"text\">The arithmetic mean of five different natural numbers is $12$. The largest possible value among the numbers is$12$ $40$ $50$ $60$</div>",
+      "questionText": "The arithmetic mean of five different natural numbers is $12$. The largest possible value among the numbers is$12$ $40$ $50$ $60$",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "4173",
+      "title": "GATE2012 CY: GA-7",
+      "link": "https://gateoverflow.in/4173/gate2012-cy-ga-7",
+      "excerpt": "$A$ and $B$ are friends. They decide to meet between 1:00 pm and 2:00 pm on a given day. There is a condition that whoever arrives first will not wait for the other for m...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.509Z",
+      "lastAttempt": "2026-04-19T22:07:47.351Z",
+      "questionHtml": "<div itemprop=\"text\">$A$ and $B$ are friends. They decide to meet between 1:00 pm and 2:00 pm on a given day. There is a condition that whoever arrives first will not wait for the other for m...</div>",
+      "questionText": "$A$ and $B$ are friends. They decide to meet between 1:00 pm and 2:00 pm on a given day. There is a condition that whoever arrives first will not wait for the other for m...",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2213",
+      "title": "GATE CSE 2012 | Question: 65",
+      "link": "https://gateoverflow.in/2213/gate-cse-2012-question-65",
+      "excerpt": "Given the sequence of terms, $\\text{AD CG FK JP}$, the next term is$\\text{OV}$$\\text{OW}$$\\text{PV}$$\\text{PW}$",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.521Z",
+      "lastAttempt": "2026-04-19T22:07:53.497Z",
+      "questionHtml": "<div itemprop=\"text\">Given the sequence of terms, $\\text{AD CG FK JP}$, the next term is$\\text{OV}$$\\text{OW}$$\\text{PV}$$\\text{PW}$</div>",
+      "questionText": "Given the sequence of terms, $\\text{AD CG FK JP}$, the next term is$\\text{OV}$$\\text{OW}$$\\text{PV}$$\\text{PW}$",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2212",
+      "title": "GATE CSE 2012 | Question: 64",
+      "link": "https://gateoverflow.in/2212/gate-cse-2012-question-64",
+      "excerpt": "Which of the following assertions are CORRECT?P: Adding $7$ to each entry in a list adds $7$ to the mean of the list Q: Adding $7$ to each entry in a list adds $7$ to the...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.522Z",
+      "lastAttempt": "2026-04-19T22:07:55.031Z",
+      "questionHtml": "<div itemprop=\"text\">Which of the following assertions are CORRECT?P: Adding $7$ to each entry in a list adds $7$ to the mean of the list Q: Adding $7$ to each entry in a list adds $7$ to the...</div>",
+      "questionText": "Which of the following assertions are CORRECT?P: Adding $7$ to each entry in a list adds $7$ to the mean of the list Q: Adding $7$ to each entry in a list adds $7$ to the...",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2211",
+      "title": "GATE CSE 2012 | Question: 63",
+      "link": "https://gateoverflow.in/2211/gate-cse-2012-question-63",
+      "excerpt": "An automobile plant contracted to buy shock absorbers from two suppliers $ X$ and $ Y$ . $ X$ supplies $60\\%$ and Y supplies $40\\%$ of the shock absorbers. All shock abso...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.524Z",
+      "lastAttempt": "2026-04-19T22:07:56.815Z",
+      "questionHtml": "<div itemprop=\"text\">An automobile plant contracted to buy shock absorbers from two suppliers $ X$ and $ Y$ . $ X$ supplies $60\\%$ and Y supplies $40\\%$ of the shock absorbers. All shock abso...</div>",
+      "questionText": "An automobile plant contracted to buy shock absorbers from two suppliers $ X$ and $ Y$ . $ X$ supplies $60\\%$ and Y supplies $40\\%$ of the shock absorbers. All shock abso...",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2210",
+      "title": "GATE CSE 2012 | Question: 62",
+      "link": "https://gateoverflow.in/2210/gate-cse-2012-question-62",
+      "excerpt": "A political party orders an arch for the entrance to the ground in which the annual convention is being held. The profile of the arch follows the equation $y=2x-0.1x^{2}$...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.525Z",
+      "lastAttempt": "2026-04-19T22:07:58.352Z",
+      "questionHtml": "<div itemprop=\"text\">A political party orders an arch for the entrance to the ground in which the annual convention is being held. The profile of the arch follows the equation $y=2x-0.1x^{2}$...</div>",
+      "questionText": "A political party orders an arch for the entrance to the ground in which the annual convention is being held. The profile of the arch follows the equation $y=2x-0.1x^{2}$...",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2193",
+      "title": "GATE CSE 2012 | Question: 56",
+      "link": "https://gateoverflow.in/2193/gate-cse-2012-question-56",
+      "excerpt": "The cost function for a product in a firm is given by $5q^{2}$, where $q$ is the amount of production. The firm can sell the product at a market price of $\\text₹ 50$ per ...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:10:00.527Z",
+      "lastAttempt": "2026-04-19T22:07:59.918Z",
+      "questionHtml": "<div itemprop=\"text\">The cost function for a product in a firm is given by $5q^{2}$, where $q$ is the amount of production. The firm can sell the product at a market price of $\\text₹ 50$ per ...</div>",
+      "questionText": "The cost function for a product in a firm is given by $5q^{2}$, where $q$ is the amount of production. The firm can sell the product at a market price of $\\text₹ 50$ per ...",
+      "manuallyFixed": true,
+      "topic": "quantitative_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2159",
+      "title": "GATE CSE 2012 | Question: 46",
+      "link": "https://gateoverflow.in/2159/gate-cse-2012-question-46",
+      "excerpt": "Consider the set of strings on $\\{0,1\\}$ in which, every substring of $3$ symbols has at most two zeros. For example, $001110$ and $011001$ are in the language, but $1000...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:14.387Z",
+      "lastAttempt": "2026-04-20T00:42:03.414Z",
+      "questionHtml": "<div itemprop=\"text\">Consider the set of strings on $\\{0,1\\}$ in which, every substring of $3$ symbols has at most two zeros. For example, $001110$ and $011001$ are in the language, but $1000...</div>",
+      "questionText": "Consider the set of strings on $\\{0,1\\}$ in which, every substring of $3$ symbols has at most two zeros. For example, $001110$ and $011001$ are in the language, but $1000...",
+      "manuallyFixed": true,
+      "topic": "theory_of_computation",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "1609",
+      "title": "GATE CSE 2012 | Question: 25",
+      "link": "https://gateoverflow.in/1609/gate-cse-2012-question-25",
+      "excerpt": "Given the language $L = \\left\\{ab, aa, baa\\right\\}$, which of the following strings are in $L^{*}$?$ abaabaaabaa$$ aaaabaaaa$$ baaaaabaaaab$$ baaaaabaa$$\\text{1, 2 and 3}...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:14.432Z",
+      "lastAttempt": "2026-04-20T00:42:47.043Z",
+      "questionHtml": "<div itemprop=\"text\">Given the language $L = \\left\\{ab, aa, baa\\right\\}$, which of the following strings are in $L^{*}$?$ abaabaaabaa$$ aaaabaaaa$$ baaaaabaaaab$$ baaaaabaa$$\\text{1, 2 and 3}...</div>",
+      "questionText": "Given the language $L = \\left\\{ab, aa, baa\\right\\}$, which of the following strings are in $L^{*}$?$ abaabaaabaa$$ aaaabaaaa$$ baaaaabaaaab$$ baaaaabaa$$\\text{1, 2 and 3}...",
+      "manuallyFixed": true,
+      "topic": "theory_of_computation",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "1608",
+      "title": "GATE CSE 2012 | Question: 24",
+      "link": "https://gateoverflow.in/1608/gate-cse-2012-question-24",
+      "excerpt": "Which of the following problems are decidable?Does a given program ever produce an output?If $L$ is a context-free language, then, is $\\bar{L}$ also context-free?If $L$ i...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:14.435Z",
+      "lastAttempt": "2026-04-20T00:42:48.656Z",
+      "questionHtml": "<div itemprop=\"text\">Which of the following problems are decidable?Does a given program ever produce an output?If $L$ is a context-free language, then, is $\\bar{L}$ also context-free?If $L$ i...</div>",
+      "questionText": "Which of the following problems are decidable?Does a given program ever produce an output?If $L$ is a context-free language, then, is $\\bar{L}$ also context-free?If $L$ i...",
+      "manuallyFixed": true,
+      "topic": "theory_of_computation",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "44",
+      "title": "GATE CSE 2012 | Question: 12",
+      "link": "https://gateoverflow.in/44/gate-cse-2012-question-12",
+      "excerpt": "What is the complement of the language accepted by the NFA shown below?Assume $\\Sigma = \\{a\\}$ and $\\epsilon$ is the empty string.$\\phi$$\\{\\epsilon\\}$$a^*$$\\{a , \\epsilon...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:14.639Z",
+      "lastAttempt": "2026-04-20T00:45:28.185Z",
+      "questionHtml": "<div itemprop=\"text\">What is the complement of the language accepted by the NFA shown below?Assume $\\Sigma = \\{a\\}$ and $\\epsilon$ is the empty string.$\\phi$$\\{\\epsilon\\}$$a^*$$\\{a , \\epsilon...</div>",
+      "questionText": "What is the complement of the language accepted by the NFA shown below?Assume $\\Sigma = \\{a\\}$ and $\\epsilon$ is the empty string.$\\phi$$\\{\\epsilon\\}$$a^*$$\\{a , \\epsilon...",
+      "manuallyFixed": true,
+      "topic": "theory_of_computation",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "36",
+      "title": "GATE CSE 2012 | Question: 4",
+      "link": "https://gateoverflow.in/36/gate-cse-2012-question-4",
+      "excerpt": "Assuming $\\textsf{P} \\neq \\textsf{NP}$, which of the following is TRUE?$\\textsf{NP-complete} = \\textsf{NP}$$\\textsf{NP-complete} \\cap \\textsf{P} = \\phi$$\\textsf{NP-hard} ...",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:14.644Z",
+      "lastAttempt": "2026-04-20T00:45:29.729Z",
+      "questionHtml": "<div itemprop=\"text\">Assuming $\\textsf{P} \\neq \\textsf{NP}$, which of the following is TRUE?$\\textsf{NP-complete} = \\textsf{NP}$$\\textsf{NP-complete} \\cap \\textsf{P} = \\phi$$\\textsf{NP-hard} ...</div>",
+      "questionText": "Assuming $\\textsf{P} \\neq \\textsf{NP}$, which of the following is TRUE?$\\textsf{NP-complete} = \\textsf{NP}$$\\textsf{NP-complete} \\cap \\textsf{P} = \\phi$$\\textsf{NP-hard} ...",
+      "manuallyFixed": true,
+      "topic": "theory_of_computation",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40237",
+      "title": "GATE2012 CY: GA-6",
+      "link": "https://gateoverflow.in/40237/gate2012-cy-ga-6",
+      "excerpt": "One of the legacies of the Roman legions was discipline. In the legions, military law prevailed and discipline was brutal. Discipline on the battlefield kept units obedie...",
+      "questionText": "One of the legacies of the Roman legions was discipline. In the legions, military law prevailed and discipline was brutal. Discipline on the battlefield kept units obedient, intact and fighting, even when the odds and conditions were against them. Which one of the following statements best sums up the meaning of the above passage? Thorough regimentation was the main reason for the efficiency of the Roman legions even in adverse circumstances. The legions were treated inhumanly as if the men were animals. Discipline was the armies’ inheritance from their seniors. The harsh discipline to which the legions were subjected to led to the odds and conditions being against them.",
+      "questionHtml": "\n<a name=\"40237\"></a><div itemprop=\"text\"><p><strong>One of the legacies of the Roman legions was discipline. In the legions, military law prevailed and discipline was brutal. Discipline on the battlefield kept units obedient, intact and fighting, even when the odds and conditions were against them.</strong></p>\n\n<p>Which one of the following statements best sums up the meaning of the above passage?</p>\n\n<ol style=\"list-style-type:upper-alpha\">\n\t<li>Thorough regimentation was the main reason for the efficiency of the Roman legions even in adverse circumstances.</li>\n\t<li>The legions were treated inhumanly as if the men were animals.</li>\n\t<li>Discipline was the armies’ inheritance from their seniors.</li>\n\t<li>The harsh discipline to which the legions were subjected to led to the odds and conditions being against them.</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "Thorough regimentation was the main reason for the efficiency of the Roman legions even in adverse circumstances."
+        },
+        {
+          "label": "B",
+          "text": "The legions were treated inhumanly as if the men were animals."
+        },
+        {
+          "label": "C",
+          "text": "Discipline was the armies’ inheritance from their seniors."
+        },
+        {
+          "label": "D",
+          "text": "The harsh discipline to which the legions were subjected to led to the odds and conditions being against them."
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Best answer 4 4 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:25:30.570Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40236",
+      "title": "GATE2012 CY: GA-5",
+      "link": "https://gateoverflow.in/40236/gate2012-cy-ga-5",
+      "excerpt": "Choose the most appropriate alternative from the options given below to complete the following sentence:If the tired soldier wanted to lie down, he ___ the mattress out o...",
+      "questionText": "Choose the most appropriate alternative from the options given below to complete the following sentence: If the tired soldier wanted to lie down, he ___ the mattress out on the balcony. should take shall take should have taken will have taken",
+      "questionHtml": "\n<a name=\"40236\"></a><div itemprop=\"text\"><p>Choose the most appropriate alternative from the options given below to complete the following sentence:</p><p><strong>If the tired soldier wanted to lie down, he ___ the mattress out on the balcony.</strong></p><ol start=\"1\" style=\"list-style-type:upper-alpha\"><li>should take</li><li>shall take</li><li>should have taken</li><li>will have taken</li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "https://gateoverflow.in/?qa=blob&amp;qa_blobid=14959452225842241262",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "should take"
+        },
+        {
+          "label": "B",
+          "text": "shall take"
+        },
+        {
+          "label": "C",
+          "text": "should have taken"
+        },
+        {
+          "label": "D",
+          "text": "will have taken"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Best answer 10 10 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:25:33.034Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40235",
+      "title": "GATE2012 CY: GA-4",
+      "link": "https://gateoverflow.in/40235/gate2012-cy-ga-4",
+      "excerpt": "Choose the most appropriate word from the options given below to complete the followingsentence:Given the seriousness of the situation that he had to face, his ___ was im...",
+      "questionText": "Choose the most appropriate word from the options given below to complete the following sentence: Given the seriousness of the situation that he had to face, his ___ was impressive . beggary nomenclature jealousy nonchalance",
+      "questionHtml": "\n<a name=\"40235\"></a><div itemprop=\"text\"><p>Choose the most appropriate word from the options given below to complete the following<br>\nsentence:<br>\n<strong>Given the seriousness of the situation that he had to face, his ___ was impressive</strong>.</p>\n\n<ol style=\"list-style-type: upper-alpha;\">\n\t<li>beggary</li>\n\t<li>nomenclature</li>\n\t<li>jealousy</li>\n\t<li>nonchalance</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "beggary"
+        },
+        {
+          "label": "B",
+          "text": "nomenclature"
+        },
+        {
+          "label": "C",
+          "text": "jealousy"
+        },
+        {
+          "label": "D",
+          "text": "nonchalance"
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "Best answer 9 9 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:25:35.300Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40234",
+      "title": "GATE2012 CY: GA-3",
+      "link": "https://gateoverflow.in/40234/gate2012-cy-ga-3",
+      "excerpt": "Which one of the following options is the closest in meaning to the word given below?LatitudeEligibilityFreedomCoercionMeticulousness",
+      "questionText": "Which one of the following options is the closest in meaning to the word given below? Latitude Eligibility Freedom Coercion Meticulousness",
+      "questionHtml": "\n<a name=\"40234\"></a><div itemprop=\"text\"><p>Which one of the following options is the closest in meaning to the word given below?</p><p><strong>Latitude</strong></p><ol style=\"list-style-type:upper-alpha\"><li>Eligibility</li><li>Freedom</li><li>Coercion</li><li>Meticulousness</li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "Eligibility"
+        },
+        {
+          "label": "B",
+          "text": "Freedom"
+        },
+        {
+          "label": "C",
+          "text": "Coercion"
+        },
+        {
+          "label": "D",
+          "text": "Meticulousness"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Best answer 8 8 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:25:37.884Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40233",
+      "title": "GATE2012 CY: GA-2",
+      "link": "https://gateoverflow.in/40233/gate2012-cy-ga-2",
+      "excerpt": "One of the parts $(A, B, C, D)$ in the sentence given below contains an ERROR. Which one of the following is INCORRECT?I requested that he should be given the driving tes...",
+      "questionText": "One of the parts $(A, B, C, D)$ in the sentence given below contains an ERROR. Which one of the following is INCORRECT ? I requested that he should be given the driving test today instead of tomorrow . requested that should be given the driving test instead of tomorrow",
+      "questionHtml": "\n<a name=\"40233\"></a><div itemprop=\"text\"><p>One of the parts $(A, B, C, D)$ in the sentence given below contains an ERROR. Which one of the following is <strong>INCORRECT</strong>?</p><p><strong>I requested that he should be given the driving test today instead of tomorrow</strong>.</p><ol start=\"1\" style=\"list-style-type:upper-alpha\"><li>requested that</li><li>should be given</li><li>the driving test</li><li>instead of tomorrow</li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "requested that"
+        },
+        {
+          "label": "B",
+          "text": "should be given"
+        },
+        {
+          "label": "C",
+          "text": "the driving test"
+        },
+        {
+          "label": "D",
+          "text": "instead of tomorrow"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Best answer 12 12 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:25:40.508Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40231",
+      "title": "GATE2012 AR: GA-10",
+      "link": "https://gateoverflow.in/40231/gate2012-ar-ga-10",
+      "excerpt": "The documents expose the cynicism of the government officials – and yet as the media website reflects, not a single newspaper has reported on their existence.Which one of...",
+      "questionText": "The documents expose the cynicism of the government officials – and yet as the media website reflects, not a single newspaper has reported on their existence. Which one of the following inferences may be drawn with the greatest accuracy from the above passage? Nobody other than the government officials knew about the existence of the documents. Newspapers did report about the documents but nobody cared. Media reports did not show the existence of the documents. The documents reveal the attitude of the government officials.",
+      "questionHtml": "\n<a name=\"40231\"></a><div itemprop=\"text\"><p><strong>The documents expose the cynicism of the government officials – and yet as the media website reflects, not a single newspaper has reported on their existence.</strong></p>\n\n<p>Which one of the following inferences may be drawn with the greatest accuracy from the above passage?</p>\n\n<ol style=\"list-style-type:upper-alpha\">\n\t<li>Nobody other than the government officials knew about the existence of the documents.</li>\n\t<li>Newspapers did report about the documents but nobody cared.</li>\n\t<li>Media reports did not show the existence of the documents.</li>\n\t<li>The documents reveal the attitude of the government officials.</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "Nobody other than the government officials knew about the existence of the documents."
+        },
+        {
+          "label": "B",
+          "text": "Newspapers did report about the documents but nobody cared."
+        },
+        {
+          "label": "C",
+          "text": "Media reports did not show the existence of the documents."
+        },
+        {
+          "label": "D",
+          "text": "The documents reveal the attitude of the government officials."
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "33 33 votes 4 answers 4 answers 6.1k 6.1k views Akash Kanase asked Feb 15, 2016 6,120 views GATE2012 AR: GA-4 Which one of the parts (A, B, C, D) in the sentence contains an ERROR?No sooner had the doctor seen the results of the blood test, than he suggested the patient to see th... Akash Kanase 6.1k views Akash Kanase asked Feb 15, 2016 Verbal Aptitude gate2012-ar verbal-aptitude incorrect-sentence-part + – 21 21 votes 6 answers 6 answers 5.0k 5.0k views Akash Kanase asked Feb 15, 2016 4,954 views GATE2012 AR: GA-3 Choose the grammatically CORRECT sentence:He laid in bed till $8$ o’clock in the morning.He layed in bed till $8$ o’clock in the morning.He lain in bed till $8$ o’clock i... Akash Kanase 5.0k views Akash Kanase asked Feb 15, 2016 Verbal Aptitude gate2012-ar verbal-aptitude english-grammar easy grammatical-error + – 4 4 votes 2 answers 2 answers 1.7k 1.7k views Akash Kanase asked Feb 15, 2016 1,707 views GATE2012 AR: GA-2 Choose the most appropriate pair of words from the o",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 4,
+      "fetchedAt": "2026-04-18T04:25:43.113Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40225",
+      "title": "GATE2012 AR: GA-4",
+      "link": "https://gateoverflow.in/40225/gate2012-ar-ga-4",
+      "excerpt": "Which one of the parts (A, B, C, D) in the sentence contains an ERROR?No sooner had the doctor seen the results of the blood test, than he suggested the patient to see th...",
+      "questionText": "Which one of the parts (A, B, C, D) in the sentence contains an ERROR ? No sooner had the doctor seen the results of the blood test, than he suggested the patient to&nbsp;see the specialist. no sooner had results of the blood test suggested the patient see the specialist",
+      "questionHtml": "\n<a name=\"40225\"></a><div itemprop=\"text\"><p>Which one of the parts (A, B, C, D) in the sentence contains an <strong>ERROR</strong>?</p><p><strong>No sooner had the doctor seen the results of the blood test, than he suggested the patient to&nbsp;see the specialist.</strong></p><ol style=\"list-style-type:upper-alpha\"><li>no sooner had</li><li>results of the blood test</li><li>suggested the patient</li><li>see the specialist</li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "no sooner had"
+        },
+        {
+          "label": "B",
+          "text": "results of the blood test"
+        },
+        {
+          "label": "C",
+          "text": "suggested the patient"
+        },
+        {
+          "label": "D",
+          "text": "see the specialist"
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "Best answer 23 23 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:25:45.803Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40224",
+      "title": "GATE2012 AR: GA-3",
+      "link": "https://gateoverflow.in/40224/gate2012-ar-ga-3",
+      "excerpt": "Choose the grammatically CORRECT sentence:He laid in bed till $8$ o’clock in the morning.He layed in bed till $8$ o’clock in the morning.He lain in bed till $8$ o’clock i...",
+      "questionText": "Choose the grammatically CORRECT sentence: He laid in bed till $8$ o’clock in the morning. He layed in bed till $8$ o’clock in the morning. He lain in bed till $8$ o’clock in the morning. He lay in bed till $8$ o’clock in the morning.",
+      "questionHtml": "\n<a name=\"40224\"></a><div itemprop=\"text\"><p>Choose the grammatically CORRECT sentence:</p>\n\n<ol start=\"1\" style=\"list-style-type:upper-alpha\">\n\t<li>He laid in bed till $8$ o’clock in the morning.</li>\n\t<li>He layed in bed till $8$ o’clock in the morning.</li>\n\t<li>He lain in bed till $8$ o’clock in the morning.</li>\n\t<li>He lay in bed till $8$ o’clock in the morning.</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "He laid in bed till $8$ o’clock in the morning."
+        },
+        {
+          "label": "B",
+          "text": "He layed in bed till $8$ o’clock in the morning."
+        },
+        {
+          "label": "C",
+          "text": "He lain in bed till $8$ o’clock in the morning."
+        },
+        {
+          "label": "D",
+          "text": "He lay in bed till $8$ o’clock in the morning."
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "Best answer 24 24 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:25:48.402Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40223",
+      "title": "GATE2012 AR: GA-2",
+      "link": "https://gateoverflow.in/40223/gate2012-ar-ga-2",
+      "excerpt": "Choose the most appropriate pair of words from the options given below to complete the following sentence:The high level of ___ of the questions in the test was ___ by an...",
+      "questionText": "Choose the most appropriate pair of words from the options given below to complete the following&nbsp; sentence: The high level of ___ of the questions in the test was ___ by an increase in the period of time&nbsp;allotted for answering them. difficulty, compensated exactitude, magnified aptitude, decreased attitude, mitigated &nbsp;",
+      "questionHtml": "\n<a name=\"40223\"></a><div itemprop=\"text\">\n<p><span style=\"line-height: 1.6;\">Choose the most appropriate pair of words from the options given below to complete the following&nbsp;</span><span style=\"line-height: 1.6;\">sentence:</span></p>\n\n<p>The high level of ___ of the questions in the test was ___ by an increase in the period of time&nbsp;allotted for answering them.</p>\n\n<ol style=\"list-style-type: upper-alpha;\"><li>difficulty, compensated</li>\n\t<li>exactitude, magnified</li>\n\t<li>aptitude, decreased</li>\n\t<li>attitude, mitigated<br>\n\t&nbsp;</li>\n</ol>\n",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "difficulty, compensated"
+        },
+        {
+          "label": "B",
+          "text": "exactitude, magnified"
+        },
+        {
+          "label": "C",
+          "text": "aptitude, decreased"
+        },
+        {
+          "label": "D",
+          "text": "attitude, mitigated"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Best answer 3 3 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:25:50.993Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40222",
+      "title": "GATE2012 AR: GA-1",
+      "link": "https://gateoverflow.in/40222/gate2012-ar-ga-1",
+      "excerpt": "Which one of the following options is the closest in meaning to the word given below?PacifyExciteSootheDepleteTire",
+      "questionText": "Which one of the following options is the closest in meaning to the word given below? Pacify Excite Soothe Deplete Tire",
+      "questionHtml": "\n<a name=\"40222\"></a><div itemprop=\"text\"><p>Which one of the following options is the closest in meaning to the word given below?</p><p><strong>Pacify</strong></p><ol style=\"list-style-type:upper-alpha\"><li>Excite</li><li>Soothe</li><li>Deplete</li><li>Tire</li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "Excite"
+        },
+        {
+          "label": "B",
+          "text": "Soothe"
+        },
+        {
+          "label": "C",
+          "text": "Deplete"
+        },
+        {
+          "label": "D",
+          "text": "Tire"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Best answer 10 10 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:25:53.316Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40221",
+      "title": "GATE2012 AE: GA-10",
+      "link": "https://gateoverflow.in/40221/gate2012-ae-ga-10",
+      "excerpt": "In the early nineteenth century, theories of social evolution were inspired less by Biology than by the conviction of social scientists that there was a growing improveme...",
+      "questionText": "In the early nineteenth century, theories of social evolution were inspired less by Biology than by the conviction of social scientists that there was a growing improvement in social institutions. Progress was taken for granted and social scientists attempted to discover its laws and phases. Which one of the following inferences may be drawn with the greatest accuracy from the above passage? Social scientists did not question that progress was a fact. did not approve of Biology. framed the laws of progress. emphasized Biology over Social Sciences. &nbsp;",
+      "questionHtml": "\n<a name=\"40221\"></a><div itemprop=\"text\"><p><strong>In the early nineteenth century, theories of social evolution were inspired less by Biology than</strong><strong> by the conviction of social scientists that there was a growing improvement in social</strong><strong> institutions. Progress was taken for granted and social scientists attempted to discover its</strong><strong> laws and phases.</strong></p>\n\n<p>Which one of the following inferences may be drawn with the greatest accuracy from the above passage?<br>\nSocial scientists</p>\n\n<ol style=\"list-style-type:upper-alpha\">\n\t<li>did not question that progress was a fact.</li>\n\t<li>did not approve of Biology.</li>\n\t<li>framed the laws of progress.</li>\n\t<li>emphasized Biology over Social Sciences.<br>\n\t&nbsp;</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "did not question that progress was a fact."
+        },
+        {
+          "label": "B",
+          "text": "did not approve of Biology."
+        },
+        {
+          "label": "C",
+          "text": "framed the laws of progress."
+        },
+        {
+          "label": "D",
+          "text": "emphasized Biology over Social Sciences."
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Best answer 5 5 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:25:55.878Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40215",
+      "title": "GATE2012 AE: GA-4",
+      "link": "https://gateoverflow.in/40215/gate2012-ae-ga-4",
+      "excerpt": "Choose the most appropriate alternative from the options given below to complete the followingsentence:To those of us who had always thought him timid, his ___ came as a ...",
+      "questionText": "Choose the most appropriate alternative from the options given below to complete the following sentence: To those of us who had always thought him timid, his ___ came as a surprise. intrepidity inevitability inability inertness",
+      "questionHtml": "\n<a name=\"40215\"></a><div itemprop=\"text\"><p>Choose the most appropriate alternative from the options given below to complete the following<br>\nsentence:<br>\n<strong>To those of us who had always thought him timid, his ___ came as a surprise.</strong></p>\n\n<ol style=\"list-style-type: upper-alpha;\">\n\t<li>intrepidity</li>\n\t<li>inevitability</li>\n\t<li>inability</li>\n\t<li>inertness</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "intrepidity"
+        },
+        {
+          "label": "B",
+          "text": "inevitability"
+        },
+        {
+          "label": "C",
+          "text": "inability"
+        },
+        {
+          "label": "D",
+          "text": "inertness"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Best answer 7 7 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:25:58.185Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40214",
+      "title": "GATE2012 AE: GA-3",
+      "link": "https://gateoverflow.in/40214/gate2012-ae-ga-3",
+      "excerpt": "Choose the most appropriate alternative from the options given below to complete the following sentence: The administrators went on to implement yet another unreasonable ...",
+      "questionText": "Choose the most appropriate alternative from the options given below to complete the following sentence: &nbsp; The administrators went on to implement yet another unreasonable measure, arguing that&nbsp; the measures were already ___ and one more would hardly make a difference. reflective utopian luxuriant unpopular",
+      "questionHtml": "\n<a name=\"40214\"></a><div itemprop=\"text\"><p>Choose the most appropriate alternative from the options given below to complete the following sentence:<br>\n&nbsp;</p>\n\n<p><strong>The administrators went on to implement yet another unreasonable measure, arguing that&nbsp;</strong><strong>the measures were already ___ and one more would hardly make a difference.</strong></p>\n\n<ol style=\"list-style-type: upper-alpha;\">\n\t<li>reflective</li>\n\t<li>utopian</li>\n\t<li>luxuriant</li>\n\t<li>unpopular</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "reflective"
+        },
+        {
+          "label": "B",
+          "text": "utopian"
+        },
+        {
+          "label": "C",
+          "text": "luxuriant"
+        },
+        {
+          "label": "D",
+          "text": "unpopular"
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "Best answer 3 3 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:26:00.901Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40213",
+      "title": "GATE2012 AE: GA-2",
+      "link": "https://gateoverflow.in/40213/gate2012-ae-ga-2",
+      "excerpt": "Choose the most appropriate alternative from the options given below to complete the following sentence:Food prices ___ again this month.have raisedhave been raisinghave ...",
+      "questionText": "Choose the most appropriate alternative from the options given below to complete the following sentence: Food prices ___ again this month. have raised have been raising have been rising have arose",
+      "questionHtml": "\n<a name=\"40213\"></a><div itemprop=\"text\"><p>Choose the most appropriate alternative from the options given below to complete the following sentence:</p><p><strong>Food prices ___ again this month.</strong></p><ol style=\"list-style-type:upper-alpha\"><li>have raised</li><li>have been raising</li><li>have been rising</li><li>have arose<br> </li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "have raised"
+        },
+        {
+          "label": "B",
+          "text": "have been raising"
+        },
+        {
+          "label": "C",
+          "text": "have been rising"
+        },
+        {
+          "label": "D",
+          "text": "have arose"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Best answer 7 7 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:26:03.568Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "40212",
+      "title": "GATE2012 AE: GA-1",
+      "link": "https://gateoverflow.in/40212/gate2012-ae-ga-1",
+      "excerpt": "Choose the most appropriate alternative from the options given below to complete the followingsentence:I ___ to have bought a diamond ring.have a likingshould have likedw...",
+      "questionText": "Choose the most appropriate alternative from the options given below to complete the following sentence: I ___ to have bought a diamond ring. have a liking should have liked would like may like",
+      "questionHtml": "\n<a name=\"40212\"></a><div itemprop=\"text\"><p>Choose the most appropriate alternative from the options given below to complete the following<br>\nsentence:<br>\n<strong>I ___ to have bought a diamond ring.</strong></p>\n\n<ol style=\"list-style-type:upper-alpha\">\n\t<li>have a liking</li>\n\t<li>should have liked</li>\n\t<li>would like</li>\n\t<li>may like</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "have a liking"
+        },
+        {
+          "label": "B",
+          "text": "should have liked"
+        },
+        {
+          "label": "C",
+          "text": "would like"
+        },
+        {
+          "label": "D",
+          "text": "may like"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Best answer 8 8 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:26:06.251Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2209",
+      "title": "GATE CSE 2012 | Question: 61",
+      "link": "https://gateoverflow.in/2209/gate-cse-2012-question-61",
+      "excerpt": "Wanted Temporary, Part-time persons for the post of Field Interviewer to conduct personal interviews to collect and collate economic data. Requirements: High School-pass,...",
+      "questionText": "Wanted Temporary, Part-time persons for the post of Field Interviewer to conduct personal interviews to collect and collate economic data. Requirements: High School-pass, must be available for Day, Evening and Saturday work. Transportation paid, expenses reimbursed. Which one of the following is the best inference from the above advertisement? Gender-discriminatory Xenophobic Not designed to make the post attractive Not gender-discriminatory",
+      "questionHtml": "\n<a name=\"2209\"></a><div itemprop=\"text\"><p><strong>Wanted Temporary, Part-time persons for the post of Field Interviewer to conduct personal interviews to collect and collate economic data. Requirements: High School-pass, must be available for Day, Evening and Saturday work. Transportation paid, expenses reimbursed.</strong></p>\n\n<p>Which one of the following is the best inference from the above advertisement?</p>\n\n<ol style=\"list-style-type:upper-alpha\">\n\t<li>Gender-discriminatory</li>\n\t<li>Xenophobic</li>\n\t<li>Not designed to make the post attractive</li>\n\t<li>Not gender-discriminatory</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "Gender-discriminatory"
+        },
+        {
+          "label": "B",
+          "text": "Xenophobic"
+        },
+        {
+          "label": "C",
+          "text": "Not designed to make the post attractive"
+        },
+        {
+          "label": "D",
+          "text": "Not gender-discriminatory"
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "Best answer 27 27 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:30:59.350Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2200",
+      "title": "GATE CSE 2012 | Question: 60",
+      "link": "https://gateoverflow.in/2200/gate-cse-2012-question-60",
+      "excerpt": "Choose the most appropriate alternative from the options given below to complete the following sentence:Suresh’s dog is the one ________ was hurt in the stampede.thatwhic...",
+      "questionText": "Choose the most appropriate alternative from the options given below to complete the following sentence: Suresh’s dog is the one ________&nbsp;was hurt in the stampede. that which who whom",
+      "questionHtml": "\n<a name=\"2200\"></a><div itemprop=\"text\"><p>Choose the most appropriate alternative from the options given below to complete the following sentence:</p>\n\n<p><strong>Suresh’s dog is the one ________&nbsp;was hurt in the stampede. </strong></p>\n\n<ol style=\"list-style-type:upper-alpha\">\n\t<li>that</li>\n\t<li>which</li>\n\t<li>who</li>\n\t<li>whom</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "that"
+        },
+        {
+          "label": "B",
+          "text": "which"
+        },
+        {
+          "label": "C",
+          "text": "who"
+        },
+        {
+          "label": "D",
+          "text": "whom"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Best answer 47 47 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:31:02.607Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2198",
+      "title": "GATE CSE 2012 | Question: 59",
+      "link": "https://gateoverflow.in/2198/gate-cse-2012-question-59",
+      "excerpt": "Choose the grammatically INCORRECT sentence:They gave us the money back less the service charges of Three Hundred rupees.This country’s expenditure is not less than that ...",
+      "questionText": "Choose the grammatically INCORRECT sentence: They gave us the money back less the service charges of Three Hundred rupees. This country’s expenditure is not less than that of Bangladesh. The committee initially asked for a funding of Fifty Lakh rupees, but later settled for a lesser sum. This country’s expenditure on educational reforms is very less. &nbsp;",
+      "questionHtml": "\n<a name=\"2198\"></a><div itemprop=\"text\"><p>Choose the grammatically <strong> INCORRECT</strong> sentence:</p>\n\n<ol style=\"list-style-type:upper-alpha\">\n\t<li>They gave us the money back less the service charges of Three Hundred rupees.</li>\n\t<li>This country’s expenditure is not less than that of Bangladesh.</li>\n\t<li>The committee initially asked for a funding of Fifty Lakh rupees, but later settled for a lesser sum.</li>\n\t<li>This country’s expenditure on educational reforms is very less.\n\t<p>&nbsp;</p>\n\t</li>\n</ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "They gave us the money back less the service charges of Three Hundred rupees."
+        },
+        {
+          "label": "B",
+          "text": "This country’s expenditure is not less than that of Bangladesh."
+        },
+        {
+          "label": "C",
+          "text": "The committee initially asked for a funding of Fifty Lakh rupees, but later settled for a lesser sum."
+        },
+        {
+          "label": "D",
+          "text": "This country’s expenditure on educational reforms is very less."
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "Best answer 27 27 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:31:05.689Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2197",
+      "title": "GATE CSE 2012 | Question: 58",
+      "link": "https://gateoverflow.in/2197/gate-cse-2012-question-58",
+      "excerpt": "Which one of the following options is the closest in meaning to the word given below?Mitigate  DiminishDivulgeDedicateDenote",
+      "questionText": "Which one of the following options is the closest in meaning to the word given below? Mitigate &nbsp; Diminish Divulge Dedicate Denote",
+      "questionHtml": "\n<a name=\"2197\"></a><div itemprop=\"text\"><p>Which one of the following options is the closest in meaning to the word given below?</p><p><strong>Mitigate </strong> &nbsp;</p><ol style=\"list-style-type:upper-alpha\"><li>Diminish</li><li>Divulge</li><li>Dedicate</li><li>Denote</li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "Diminish"
+        },
+        {
+          "label": "B",
+          "text": "Divulge"
+        },
+        {
+          "label": "C",
+          "text": "Dedicate"
+        },
+        {
+          "label": "D",
+          "text": "Denote"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Best answer 14 14 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:31:08.396Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    },
+    {
+      "id": "2195",
+      "title": "GATE CSE 2012 | Question: 57",
+      "link": "https://gateoverflow.in/2195/gate-cse-2012-question-57",
+      "excerpt": "Choose the most appropriate alternative from the options given below to complete the following sentence:Despite several _________ the mission succeeded in its attempt to ...",
+      "questionText": "Choose the most appropriate alternative from the options given below to complete the following sentence: Despite several _________&nbsp;the mission succeeded in its attempt to resolve the conflict. attempts setbacks meetings delegations",
+      "questionHtml": "\n<a name=\"2195\"></a><div itemprop=\"text\"><p>Choose the most appropriate alternative from the options given below to complete the following sentence:</p><p><strong>Despite several _________&nbsp;the mission succeeded in its attempt to resolve the conflict. </strong></p><ol style=\"list-style-type:upper-alpha\"><li>attempts</li><li>setbacks</li><li>meetings</li><li>delegations</li></ol>",
+      "codeBlocks": [],
+      "images": [
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      ],
+      "options": [
+        {
+          "label": "A",
+          "text": "attempts"
+        },
+        {
+          "label": "B",
+          "text": "setbacks"
+        },
+        {
+          "label": "C",
+          "text": "meetings"
+        },
+        {
+          "label": "D",
+          "text": "delegations"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Best answer 17 17 votes",
+      "isNAT": false,
+      "isMSQ": false,
+      "marks": 1,
+      "fetchedAt": "2026-04-18T04:31:11.179Z",
+      "topic": "verbal_aptitude",
+      "branch": "CSE",
+      "year": 2012,
+      "source": "GATE"
+    }
+  ]
+}

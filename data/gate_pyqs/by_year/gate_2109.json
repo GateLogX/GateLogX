@@ -1,0 +1,42 @@
+{
+  "year": 2109,
+  "total": 2,
+  "withOptions": 0,
+  "withAnswers": 0,
+  "questions": [
+    {
+      "id": "302077",
+      "title": "Gate cse 2109",
+      "link": "https://gateoverflow.in/302077/gate-cse-2109",
+      "excerpt": "No of NOR gates required?",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:09:33.828Z",
+      "lastAttempt": "2026-04-19T12:25:51.714Z",
+      "questionHtml": "<div itemprop=\"text\">No of NOR gates required?</div>",
+      "questionText": "No of NOR gates required?",
+      "manuallyFixed": true,
+      "topic": "digital_logic",
+      "branch": "CSE",
+      "year": 2109,
+      "source": "GATE"
+    },
+    {
+      "id": "302067",
+      "title": "Gate cse 2109",
+      "link": "https://gateoverflow.in/302067/gate-cse-2109",
+      "excerpt": "What is the answer for question based on predicate logic ?",
+      "options": [],
+      "correctAnswer": null,
+      "fetchedAt": "2026-04-18T18:07:20.866Z",
+      "lastAttempt": "2026-04-19T14:14:11.199Z",
+      "questionHtml": "<div itemprop=\"text\">What is the answer for question based on predicate logic ?</div>",
+      "questionText": "What is the answer for question based on predicate logic ?",
+      "manuallyFixed": true,
+      "topic": "discrete_mathematics",
+      "branch": "CSE",
+      "year": 2109,
+      "source": "GATE"
+    }
+  ]
+}
