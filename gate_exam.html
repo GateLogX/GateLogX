@@ -1226,6 +1226,9 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div id="examReadyNotice" style="background: linear-gradient(135deg, #d4edda, #c3e6cb); border-left: 4px solid #28a745; padding: 10px 15px; border-radius: 6px; margin-bottom: 15px; font-size: 13px; color: #155724; display: none;">
+                    ✅ <strong>Exam-Ready Questions Only:</strong> Showing <span id="examReadyCount">0</span> questions with complete options and answers.
+                </div>
                 <div style="margin-bottom: 15px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
                     <button onclick="selectAllTopics()" class="action-btn btn-save-next" style="padding: 8px 15px;">
                         ✓ Select All
@@ -1243,6 +1246,13 @@
             </div>
             <div class="modal-footer">
                 <div class="exam-settings">
+                    <div class="setting-group" style="flex-basis: 100%; margin-bottom: 10px;">
+                        <label style="font-weight: bold; color: #4a90d9;">Exam Mode:</label>
+                        <select id="examMode" style="padding: 8px; font-size: 14px; min-width: 200px;">
+                            <option value="self-assessment" selected>📝 Self-Assessment (All 60K Questions)</option>
+                            <option value="auto-graded">✅ Auto-Graded MCQ (~8K Questions)</option>
+                        </select>
+                    </div>
                     <div class="setting-group">
                         <label>Questions:</label>
                         <select id="questionCount">
@@ -1607,13 +1617,37 @@
                 }
                 const data = await response.json();
                 
-                examState.allQuestions = data.questions || [];
+                // Store ALL questions first
+                const allQuestions = data.questions || [];
+                
+                // Also identify exam-ready questions (for auto-graded mode)
+                const examReadyQuestions = allQuestions.filter(q => {
+                    const hasOptions = q.options && q.options.length >= 2 && 
+                                       q.options.some(o => o.text && o.text.length > 1);
+                    const hasAnswer = q.correctAnswer && q.correctAnswer.length > 0;
+                    return hasOptions && hasAnswer;
+                });
+                
+                // Store both sets
+                examState.allLoadedQuestions = allQuestions;
+                examState.examReadyQuestions = examReadyQuestions;
+                
+                // Default to all questions (self-assessment mode)
+                examState.allQuestions = allQuestions;
                 examState.subtopicsMap = extractSubtopics(examState.allQuestions);
                 examState.selectedSubtopics = new Set();
                 
                 // Update modal header
                 document.getElementById('selectedSubjectName').textContent = 
                     topicNames[examState.currentTopic] || examState.currentTopic;
+                
+                // Show exam-ready notice with both counts
+                const notice = document.getElementById('examReadyNotice');
+                notice.style.display = 'block';
+                notice.innerHTML = `
+                    📊 <strong>${allQuestions.length}</strong> total questions available |
+                    ✅ <strong>${examReadyQuestions.length}</strong> auto-gradeable MCQs
+                `;
                 
                 // Render subtopics
                 renderSubtopics();
@@ -1795,6 +1829,29 @@
                 return;
             }
             
+            // Get exam mode
+            examState.examMode = document.getElementById('examMode').value;
+            
+            // If auto-graded mode, filter to exam-ready questions only
+            if (examState.examMode === 'auto-graded') {
+                // Re-extract subtopics from exam-ready questions only
+                const examReadyMap = extractSubtopics(examState.examReadyQuestions || []);
+                
+                // Check if selected subtopics have exam-ready questions
+                let totalReady = 0;
+                examState.selectedSubtopics.forEach(subtopic => {
+                    totalReady += (examReadyMap[subtopic] || []).length;
+                });
+                
+                if (totalReady < 5) {
+                    alert(`Only ${totalReady} auto-gradeable questions available for selected topics.\n\nSwitch to Self-Assessment mode to use all ${examState.allLoadedQuestions.length} questions!`);
+                    return;
+                }
+                
+                // Use exam-ready subtopics map
+                examState.subtopicsMap = examReadyMap;
+            }
+            
             // Collect questions from selected subtopics
             let questions = [];
             examState.selectedSubtopics.forEach(subtopic => {
@@ -1848,6 +1905,8 @@
             examState.currentIndex = 0;
             examState.answers = {};
             examState.questionStatus = {};
+            examState.selfGrades = {};  // For self-assessment mode: true = correct, false = wrong
+            examState.solutionRevealed = {};  // Track which questions have revealed solutions
             examState.startTime = Date.now();
             
             // Initialize all questions as not-visited
@@ -2170,6 +2229,83 @@
                 `;
             }
             
+            // === SELF-ASSESSMENT MODE UI ===
+            if (examState.examMode === 'self-assessment' && !examState.reviewMode) {
+                const isRevealed = examState.solutionRevealed[index];
+                const selfGrade = examState.selfGrades[index];
+                
+                // Get solution content from excerpt/discussion
+                let solutionContent = question.excerpt || question.discussion || '';
+                
+                // Clean up the solution content for display
+                solutionContent = solutionContent
+                    .replace(/&lt;/g, '<')
+                    .replace(/&gt;/g, '>')
+                    .replace(/&amp;/g, '&');
+                
+                if (!isRevealed) {
+                    content += `
+                        <div class="self-assess-section" style="margin-top: 20px; padding: 20px; background: linear-gradient(135deg, #e3f2fd, #bbdefb); border-radius: 12px; border: 2px dashed #2196f3;">
+                            <div style="text-align: center; margin-bottom: 15px;">
+                                <span style="font-size: 24px;">🤔</span>
+                                <h3 style="margin: 10px 0 5px; color: #1565c0;">Self-Assessment Mode</h3>
+                                <p style="color: #666; margin: 0; font-size: 14px;">Think through your answer, then reveal the solution to check!</p>
+                            </div>
+                            <button onclick="revealSolution(${index})" 
+                                    style="display: block; width: 100%; padding: 15px 30px; background: linear-gradient(135deg, #2196f3, #1976d2); 
+                                           color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; 
+                                           cursor: pointer; box-shadow: 0 4px 15px rgba(33,150,243,0.4);">
+                                👁️ Reveal Solution & Self-Grade
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    // Solution revealed - show solution and self-grade buttons
+                    content += `
+                        <div class="self-assess-section" style="margin-top: 20px;">
+                            <!-- Solution Card -->
+                            <div style="background: linear-gradient(135deg, #fff8e1, #ffecb3); border-radius: 12px; padding: 15px; margin-bottom: 15px; border-left: 4px solid #ff9800;">
+                                <h4 style="margin: 0 0 10px; color: #e65100; display: flex; align-items: center; gap: 8px;">
+                                    <span>💡</span> Solution / Discussion
+                                </h4>
+                                <div style="font-size: 14px; line-height: 1.6; color: #333; max-height: 300px; overflow-y: auto;">
+                                    ${formatQuestionText(solutionContent.slice(0, 1500))}
+                                    ${solutionContent.length > 1500 ? '<br><em style="color:#999;">[Click "View Full Question" for complete solution]</em>' : ''}
+                                </div>
+                            </div>
+                            
+                            <!-- Self-Grade Section -->
+                            <div style="background: #f5f5f5; border-radius: 12px; padding: 20px; text-align: center;">
+                                <h4 style="margin: 0 0 15px; color: #333;">Did you get it right?</h4>
+                                <div style="display: flex; gap: 15px; justify-content: center;">
+                                    <button onclick="selfGrade(${index}, true)" 
+                                            style="flex: 1; max-width: 200px; padding: 15px 25px; 
+                                                   background: ${selfGrade === true ? '#4caf50' : 'linear-gradient(135deg, #4caf50, #388e3c)'}; 
+                                                   color: white; border: ${selfGrade === true ? '3px solid #2e7d32' : 'none'}; 
+                                                   border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer;
+                                                   box-shadow: ${selfGrade === true ? 'inset 0 0 10px rgba(0,0,0,0.2)' : '0 4px 15px rgba(76,175,80,0.4)'};">
+                                        ✓ Got it!
+                                    </button>
+                                    <button onclick="selfGrade(${index}, false)" 
+                                            style="flex: 1; max-width: 200px; padding: 15px 25px; 
+                                                   background: ${selfGrade === false ? '#f44336' : 'linear-gradient(135deg, #f44336, #d32f2f)'}; 
+                                                   color: white; border: ${selfGrade === false ? '3px solid #c62828' : 'none'}; 
+                                                   border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer;
+                                                   box-shadow: ${selfGrade === false ? 'inset 0 0 10px rgba(0,0,0,0.2)' : '0 4px 15px rgba(244,67,54,0.4)'};">
+                                        ✗ Didn't get it
+                                    </button>
+                                </div>
+                                ${selfGrade !== undefined ? `
+                                    <p style="margin-top: 15px; color: ${selfGrade ? '#4caf50' : '#f44336'}; font-weight: bold;">
+                                        ${selfGrade ? '✓ Marked as correct!' : '✗ Marked as incorrect'}
+                                    </p>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            
             content += `</div>`; // Close answer section
             
             document.getElementById('questionBody').innerHTML = content;
@@ -2292,6 +2428,30 @@
             text = text.replace(/\n/g, '<br>');
             
             return text;
+        }
+
+        // ============ SELF-ASSESSMENT FUNCTIONS ============
+        function revealSolution(index) {
+            examState.solutionRevealed[index] = true;
+            loadQuestion(index);  // Re-render to show solution
+        }
+        
+        function selfGrade(index, isCorrect) {
+            examState.selfGrades[index] = isCorrect;
+            
+            // Update question status
+            if (isCorrect) {
+                examState.questionStatus[index] = 'answered';  // Green in palette
+            } else {
+                examState.questionStatus[index] = 'not-answered';  // Will show as attempted
+            }
+            
+            // Track as answered (for progress)
+            examState.answers[index] = isCorrect ? 'self-correct' : 'self-wrong';
+            
+            loadQuestion(index);  // Re-render to show selection
+            updatePalette();
+            updateStatusCounts();
         }
 
         // ============ ANSWER HANDLING ============
@@ -2469,7 +2629,12 @@
 
         // ============ SUBMIT EXAM ============
         function submitExam() {
-            if (!confirm('Are you sure you want to submit the exam? You cannot change your answers after submission.')) {
+            // Different confirmation for self-assessment mode
+            const confirmMsg = examState.examMode === 'self-assessment' 
+                ? 'Submit your self-assessment? Make sure you\'ve graded all questions.'
+                : 'Are you sure you want to submit the exam? You cannot change your answers after submission.';
+            
+            if (!confirm(confirmMsg)) {
                 return;
             }
             
@@ -2480,64 +2645,93 @@
             
             examState.submitted = true;
             
-            // Calculate results with ACTUAL correct answers
+            // Calculate results
             const totalTime = Math.floor((Date.now() - examState.startTime) / 1000);
             const totalQuestions = examState.questions.length;
             
             let correct = 0, wrong = 0, skipped = 0, partial = 0;
-            examState.results = []; // Store detailed results
+            examState.results = [];
             
-            for (let i = 0; i < totalQuestions; i++) {
-                const question = examState.questions[i];
-                const userAnswer = examState.answers[i] || '';
-                const correctAnswer = question.correctAnswer || '';
-                
-                // Parse answers (support MSQ comma-separated)
-                const userAnswers = userAnswer ? userAnswer.split(',').sort() : [];
-                const correctAnswers = correctAnswer ? correctAnswer.split(',').sort() : [];
-                
-                let status = 'skipped';
-                if (userAnswers.length > 0) {
-                    if (correctAnswers.length > 0) {
-                        // Check if exact match (for both MCQ and MSQ)
-                        const isExactMatch = userAnswers.length === correctAnswers.length &&
-                                            userAnswers.every((a, idx) => a.toUpperCase() === correctAnswers[idx].toUpperCase());
-                        
-                        if (isExactMatch) {
+            // ===== SELF-ASSESSMENT MODE SCORING =====
+            if (examState.examMode === 'self-assessment') {
+                for (let i = 0; i < totalQuestions; i++) {
+                    const question = examState.questions[i];
+                    const selfGrade = examState.selfGrades[i];
+                    const revealed = examState.solutionRevealed[i];
+                    
+                    let status = 'skipped';
+                    if (revealed && selfGrade !== undefined) {
+                        if (selfGrade === true) {
                             correct++;
                             status = 'correct';
-                        } else if (question.isMSQ || correctAnswers.length > 1) {
-                            // MSQ: Check for partial credit
-                            const correctSelected = userAnswers.filter(a => 
-                                correctAnswers.some(c => c.toUpperCase() === a.toUpperCase())
-                            );
-                            if (correctSelected.length > 0) {
-                                partial++;
-                                status = 'partial';
-                            } else {
-                                wrong++;
-                                status = 'wrong';
-                            }
                         } else {
                             wrong++;
                             status = 'wrong';
                         }
                     } else {
-                        // No correct answer available, count as attempted
-                        status = 'attempted';
+                        skipped++;
                     }
-                } else {
-                    skipped++;
+                    
+                    examState.results.push({
+                        number: i + 1,
+                        title: question.title,
+                        userAnswer: selfGrade === true ? '✓ Got it' : selfGrade === false ? '✗ Missed' : '-',
+                        correctAnswer: 'Self-graded',
+                        status: status,
+                        isMSQ: false
+                    });
                 }
-                
-                examState.results.push({
-                    number: i + 1,
-                    title: question.title,
-                    userAnswer: userAnswer || '-',
-                    correctAnswer: correctAnswer || 'N/A',
-                    status: status,
-                    isMSQ: question.isMSQ || correctAnswers.length > 1
-                });
+            } else {
+                // ===== AUTO-GRADED MODE SCORING =====
+                for (let i = 0; i < totalQuestions; i++) {
+                    const question = examState.questions[i];
+                    const userAnswer = examState.answers[i] || '';
+                    const correctAnswer = question.correctAnswer || '';
+                    
+                    // Parse answers (support MSQ comma-separated)
+                    const userAnswers = userAnswer ? userAnswer.split(',').sort() : [];
+                    const correctAnswers = correctAnswer ? correctAnswer.split(',').sort() : [];
+                    
+                    let status = 'skipped';
+                    if (userAnswers.length > 0) {
+                        if (correctAnswers.length > 0) {
+                            const isExactMatch = userAnswers.length === correctAnswers.length &&
+                                                userAnswers.every((a, idx) => a.toUpperCase() === correctAnswers[idx].toUpperCase());
+                            
+                            if (isExactMatch) {
+                                correct++;
+                                status = 'correct';
+                            } else if (question.isMSQ || correctAnswers.length > 1) {
+                                const correctSelected = userAnswers.filter(a => 
+                                    correctAnswers.some(c => c.toUpperCase() === a.toUpperCase())
+                                );
+                                if (correctSelected.length > 0) {
+                                    partial++;
+                                    status = 'partial';
+                                } else {
+                                    wrong++;
+                                    status = 'wrong';
+                                }
+                            } else {
+                                wrong++;
+                                status = 'wrong';
+                            }
+                        } else {
+                            status = 'attempted';
+                        }
+                    } else {
+                        skipped++;
+                    }
+                    
+                    examState.results.push({
+                        number: i + 1,
+                        title: question.title,
+                        userAnswer: userAnswer || '-',
+                        correctAnswer: correctAnswer || 'N/A',
+                        status: status,
+                        isMSQ: question.isMSQ || correctAnswers.length > 1
+                    });
+                }
             }
             
             // Calculate score (GATE marking: +1 for correct, -0.33 for wrong, partial gets 0)
@@ -2698,6 +2892,41 @@ Good luck! 🍀`);
 
         // ============ EVENT LISTENERS ============
         document.getElementById('startExamBtn').addEventListener('click', startExam);
+        
+        // Exam mode change handler
+        document.getElementById('examMode').addEventListener('change', function() {
+            const mode = this.value;
+            const notice = document.getElementById('examReadyNotice');
+            
+            if (mode === 'auto-graded') {
+                // Switch to exam-ready questions only
+                const examReadyQuestions = examState.examReadyQuestions || [];
+                examState.allQuestions = examReadyQuestions;
+                examState.subtopicsMap = extractSubtopics(examReadyQuestions);
+                
+                notice.style.background = 'linear-gradient(135deg, #e8f5e9, #c8e6c9)';
+                notice.style.borderLeftColor = '#4caf50';
+                notice.innerHTML = `
+                    ✅ <strong>Auto-Graded Mode:</strong> ${examReadyQuestions.length} MCQs with verified answers
+                `;
+            } else {
+                // Switch to all questions (self-assessment)
+                const allQuestions = examState.allLoadedQuestions || [];
+                examState.allQuestions = allQuestions;
+                examState.subtopicsMap = extractSubtopics(allQuestions);
+                
+                notice.style.background = 'linear-gradient(135deg, #e3f2fd, #bbdefb)';
+                notice.style.borderLeftColor = '#2196f3';
+                notice.innerHTML = `
+                    📝 <strong>Self-Assessment Mode:</strong> All ${allQuestions.length} questions available
+                    <br><small style="opacity: 0.8;">You'll reveal solutions and grade yourself</small>
+                `;
+            }
+            
+            // Re-render subtopics with new counts
+            examState.selectedSubtopics.clear();
+            renderSubtopics();
+        });
 
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
