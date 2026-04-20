@@ -1,0 +1,21 @@
+{
+  "verbal_aptitude": 1014,
+  "quantitative_aptitude": 1975,
+  "spatial_aptitude": 94,
+  "analytical_aptitude": 542,
+  "discrete_mathematics": 7272,
+  "probability": 1676,
+  "linear_algebra": 1719,
+  "calculus": 1016,
+  "optimization": 19,
+  "digital_logic": 3827,
+  "programming": 4330,
+  "data_structures": 1931,
+  "algorithms": 4923,
+  "theory_of_computation": 7298,
+  "compiler_design": 2570,
+  "operating_system": 5498,
+  "databases": 5062,
+  "coa": 4025,
+  "computer_networks": 5231
+}

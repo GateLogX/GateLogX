@@ -1877,6 +1877,18 @@ window.addEventListener('message', function(e){
   }
 });
 
+// Refresh solved questions when user returns to this tab
+document.addEventListener('visibilitychange', function() {
+  if (!document.hidden) {
+    // Refresh pyqSolved from localStorage when tab becomes visible
+    pyqSolved = JSON.parse(localStorage.getItem('gcq_pyq_solved')||'{}');
+    // Update badge
+    document.getElementById('nb-pyqs').textContent = Object.keys(pyqSolved).length;
+    // If on pyqs tab, refresh display
+    if (currentTab === 'pyqs') loadPYQs();
+  }
+});
+
 function previewXP(){
   const subId=document.getElementById('boss-modal-bg').dataset.subId;
   const s=SUBJECTS.find(x=>x.id===subId);
@@ -2125,14 +2137,17 @@ function filterPYQDisplay() {
   
   // Update stats - batch DOM updates
   const totalSolved = Object.keys(pyqSolved).length;
-  const pct = pyqDisplayed.length > 0 ? Math.round((totalSolved / 60000) * 100) : 0;
+  // Calculate percentage - use filtered count for more meaningful progress
+  const totalInView = pyqDisplayed.length || 60000;
+  const rawPct = (totalSolved / totalInView) * 100;
+  const pct = rawPct < 1 && rawPct > 0 ? rawPct.toFixed(1) : Math.round(rawPct);
   
   requestAnimationFrame(() => {
     document.getElementById('pyq-solved-count').textContent = totalSolved;
     document.getElementById('pyq-total-count').textContent = pyqDisplayed.length;
     document.getElementById('nb-pyqs').textContent = totalSolved;
     document.getElementById('pyq-pct').textContent = pct + '%';
-    document.getElementById('pyq-progress-bar').style.width = pct + '%';
+    document.getElementById('pyq-progress-bar').style.width = Math.max(rawPct, totalSolved > 0 ? 1 : 0) + '%';
   });
   
   pyqPage = 0;
@@ -2235,6 +2250,8 @@ function togglePYQSolved(qId) {
 }
 
 function renderPYQs() {
+  // Refresh pyqSolved from localStorage (in case exam updated it)
+  pyqSolved = JSON.parse(localStorage.getItem('gcq_pyq_solved')||'{}');
   loadPYQs();
 }
 

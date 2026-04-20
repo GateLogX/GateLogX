@@ -1565,30 +1565,32 @@
 
         async function loadSubjects() {
             try {
-                const response = await fetch('data/topic_map.json');
-                const topicMap = await response.json();
+                // Fetch topic map and pre-computed counts in parallel (fast!)
+                const [topicResponse, countsResponse] = await Promise.all([
+                    fetch('data/topic_map.json'),
+                    fetch('data/pyqs/counts.json')
+                ]);
+                
+                const topicMap = await topicResponse.json();
+                let countMap = {};
+                try {
+                    countMap = await countsResponse.json();
+                } catch (e) {
+                    console.log('No counts.json, will show 0');
+                }
                 
                 const topicGrid = document.getElementById('topicGrid');
                 topicGrid.innerHTML = '';
                 
+                // Render all cards immediately (no more fetching per subject!)
                 for (const [key, url] of Object.entries(topicMap)) {
-                    // Try to load question count
-                    let questionCount = 0;
-                    try {
-                        const qResponse = await fetch(`data/pyqs/${key}.json`);
-                        if (qResponse.ok) {
-                            const data = await qResponse.json();
-                            questionCount = data.questions ? data.questions.length : 0;
-                        }
-                    } catch (e) {}
-                    
                     const card = document.createElement('div');
                     card.className = 'topic-card';
                     card.dataset.topic = key;
                     card.innerHTML = `
                         <div class="topic-icon">${topicIcons[key] || '📚'}</div>
                         <div class="topic-name">${topicNames[key] || key}</div>
-                        <div class="topic-count">${questionCount} questions</div>
+                        <div class="topic-count">${countMap[key] || 0} questions</div>
                     `;
                     card.onclick = () => selectSubject(key, card);
                     topicGrid.appendChild(card);
