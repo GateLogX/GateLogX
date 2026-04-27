@@ -401,6 +401,21 @@ input.num{width:90px}
     UNLOCK_CODE = storedCode;
     const unlockFlag = getStored('gcq_unlocked') === 'true';
 
+    // ✅ FAST PATH: If unlocked locally but no code stored (legacy), allow access
+    // This handles users who unlocked before the code system
+    if (unlockFlag && !storedCode) {
+      console.log("Legacy unlock detected - allowing access");
+      document.body.style.visibility = "visible";
+      return;
+    }
+
+    // If no unlock code and not unlocked, deny immediately
+    if (!storedCode && !unlockFlag) {
+      alert("⚠️ Access Denied\n\nPlease unlock the game first by paying ₹500.");
+      window.location.href = "index.html";
+      return;
+    }
+
     // ✅ VERIFY WITH FIREBASE: Check code + device + session
     const firebaseConfig = {
       apiKey: "AIzaSyBp5mzuP_bjjlqFIVTyO_t-L8V2_ud8Gns",
@@ -427,10 +442,37 @@ input.num{width:90px}
         
         if (codeDoc.exists && codeDoc.data().used === true) {
           const data = codeDoc.data();
-          const activeDeviceId = data.activeDeviceId || data.deviceId;
+          const linkedDeviceId = data.deviceId; // Original device that activated the code
+          const activeDeviceId = data.activeDeviceId; // Currently active session device
           const lastActive = data.lastActive ? data.lastActive.toMillis() : 0;
           const now = Date.now();
-          const sessionExpired = (now - lastActive) > SESSION_TIMEOUT;
+          const sessionExpired = !lastActive || (now - lastActive) > SESSION_TIMEOUT;
+
+          // BACKWARD COMPAT: If no activeDeviceId set yet, check original deviceId
+          if (!activeDeviceId) {
+            // Old code without session tracking - migrate it
+            if (!linkedDeviceId || linkedDeviceId === DEVICE_ID) {
+              // ✅ Either no device linked OR same device - allow and upgrade
+              await db.collection("unlock_codes").doc(storedCode).update({
+                deviceId: DEVICE_ID,
+                activeDeviceId: DEVICE_ID,
+                lastActive: firebase.firestore.FieldValue.serverTimestamp()
+              });
+              startHeartbeat();
+              await loadProgressFromCloud();
+              document.body.style.visibility = "visible";
+              return;
+            }
+            // Different device but no session tracking yet - allow takeover since no active session
+            await db.collection("unlock_codes").doc(storedCode).update({
+              activeDeviceId: DEVICE_ID,
+              lastActive: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            startHeartbeat();
+            await loadProgressFromCloud();
+            document.body.style.visibility = "visible";
+            return;
+          }
 
           // Check if this device is the active one OR session expired
           if (activeDeviceId === DEVICE_ID || sessionExpired) {
@@ -458,7 +500,20 @@ input.num{width:90px}
         }
       } catch (e) {
         console.error("Error verifying access:", e);
+        // If Firebase fails but user has local unlock flag, allow access (offline mode)
+        if (unlockFlag) {
+          console.log("Firebase verification failed, but local unlock flag exists - allowing access");
+          document.body.style.visibility = "visible";
+          return;
+        }
       }
+    }
+
+    // Fallback: If unlocked locally, allow access even if Firebase check didn't pass
+    if (unlockFlag) {
+      console.log("Fallback: Local unlock flag exists - allowing access");
+      document.body.style.visibility = "visible";
+      return;
     }
 
     // No valid access - redirect to unlock

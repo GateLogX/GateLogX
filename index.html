@@ -4726,10 +4726,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Check on page load if this device is unlocked
   document.addEventListener("DOMContentLoaded", async () => {
-    const storedDeviceId = localStorage.getItem('gcq_device_id') || getCookie('gcq_device_id');
     const unlocked = localStorage.getItem('gcq_unlocked') === 'true' || getCookie('gcq_unlocked') === 'true';
     
-    if (unlocked && storedDeviceId === DEVICE_ID) {
+    if (unlocked) {
       updateGameCardToUnlocked();
     }
   });
