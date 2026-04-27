@@ -340,6 +340,14 @@ input.num{width:90px}
 
 <!-- Access Check - Verify Phone + Device before showing game -->
 <script>
+  // Global variables for session management
+  let DEVICE_ID = '';
+  let UNLOCK_CODE = '';
+  let db = null;
+  let heartbeatInterval = null;
+  const SESSION_TIMEOUT = 5 * 60 * 1000; // 5 minutes - session expires if no heartbeat
+  const HEARTBEAT_INTERVAL = 60 * 1000; // Send heartbeat every 1 minute
+
   (async function() {
     // Hide body until verified
     document.body.style.visibility = "hidden";
@@ -372,7 +380,7 @@ input.num{width:90px}
       return 'dev_' + Math.abs(hash).toString(36);
     }
 
-    const DEVICE_ID = generateDeviceFingerprint();
+    DEVICE_ID = generateDeviceFingerprint();
 
     // Cookie helper functions
     function getCookie(name) {
@@ -390,15 +398,10 @@ input.num{width:90px}
 
     const storedDeviceId = getStored('gcq_device_id');
     const storedCode = getStored('gcq_unlock_code');
+    UNLOCK_CODE = storedCode;
     const unlockFlag = getStored('gcq_unlocked') === 'true';
 
-    // ✅ FAST PATH: If we have local flags AND device matches, allow access
-    if (unlockFlag && storedDeviceId === DEVICE_ID) {
-      document.body.style.visibility = "visible";
-      return;
-    }
-
-    // ✅ VERIFY WITH FIREBASE: Check code + device in Firestore
+    // ✅ VERIFY WITH FIREBASE: Check code + device + session
     const firebaseConfig = {
       apiKey: "AIzaSyBp5mzuP_bjjlqFIVTyO_t-L8V2_ud8Gns",
       authDomain: "gatelogx-abce1.firebaseapp.com",
@@ -415,7 +418,7 @@ input.num{width:90px}
     const appCheck = firebase.appCheck();
     appCheck.activate('6Ldga5AsAAAAAAPP3dMREOmMlrsAuXRy9cUghJfPc', true);
     
-    const db = firebase.firestore();
+    db = firebase.firestore();
 
     // If we have stored code, verify against Firestore
     if (storedCode) {
@@ -423,14 +426,32 @@ input.num{width:90px}
         const codeDoc = await db.collection("unlock_codes").doc(storedCode).get();
         
         if (codeDoc.exists && codeDoc.data().used === true) {
-          // Check if this device is the authorized one
-          if (codeDoc.data().deviceId === DEVICE_ID) {
-            // ✅ Device matches - allow access
+          const data = codeDoc.data();
+          const activeDeviceId = data.activeDeviceId || data.deviceId;
+          const lastActive = data.lastActive ? data.lastActive.toMillis() : 0;
+          const now = Date.now();
+          const sessionExpired = (now - lastActive) > SESSION_TIMEOUT;
+
+          // Check if this device is the active one OR session expired
+          if (activeDeviceId === DEVICE_ID || sessionExpired) {
+            // ✅ This device is active OR previous session expired - allow access
+            // Update session to claim this device as active
+            await db.collection("unlock_codes").doc(storedCode).update({
+              activeDeviceId: DEVICE_ID,
+              lastActive: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            
+            // Start heartbeat to keep session alive
+            startHeartbeat();
+            
+            // Load progress from cloud if available
+            await loadProgressFromCloud();
+            
             document.body.style.visibility = "visible";
             return;
           } else {
-            // ❌ Different device
-            alert("⚠️ Access Denied\n\nThis code is linked to a different device.");
+            // ❌ Another device is actively using this code
+            alert("⚠️ Session Active on Another Device\n\nYour code is currently being used on another device. You can transfer the session from the home page.");
             window.location.href = "index.html";
             return;
           }
@@ -444,6 +465,164 @@ input.num{width:90px}
     alert("⚠️ Access Denied\n\nPlease unlock the game first by paying ₹500.");
     window.location.href = "index.html";
   })();
+
+  // ===================== SESSION HEARTBEAT =====================
+  function startHeartbeat() {
+    // Send heartbeat immediately
+    sendHeartbeat();
+    
+    // Then send every HEARTBEAT_INTERVAL
+    heartbeatInterval = setInterval(sendHeartbeat, HEARTBEAT_INTERVAL);
+    
+    // Also send heartbeat when user is actively using the page
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        sendHeartbeat();
+      }
+    });
+  }
+
+  async function sendHeartbeat() {
+    if (!UNLOCK_CODE || !db) return;
+    try {
+      await db.collection("unlock_codes").doc(UNLOCK_CODE).update({
+        activeDeviceId: DEVICE_ID,
+        lastActive: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    } catch (e) {
+      console.error("Heartbeat failed:", e);
+    }
+  }
+
+  // ===================== CLOUD PROGRESS SYNC =====================
+  async function syncProgressToCloud() {
+    if (!UNLOCK_CODE || !db) return;
+    try {
+      // Get current progress from localStorage
+      const progress = localStorage.getItem('gcq_v5');
+      const pyqSolved = localStorage.getItem('gcq_pyq_solved');
+      const pyqTags = localStorage.getItem('gcq_pyq_tags');
+      
+      await db.collection("unlock_codes").doc(UNLOCK_CODE).update({
+        cloudProgress: {
+          gcq_v5: progress,
+          gcq_pyq_solved: pyqSolved,
+          gcq_pyq_tags: pyqTags,
+          lastSynced: new Date().toISOString()
+        },
+        lastActive: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      console.log("✅ Progress synced to cloud");
+    } catch (e) {
+      console.error("Failed to sync progress:", e);
+    }
+  }
+
+  async function loadProgressFromCloud() {
+    if (!UNLOCK_CODE || !db) return;
+    try {
+      const codeDoc = await db.collection("unlock_codes").doc(UNLOCK_CODE).get();
+      if (codeDoc.exists && codeDoc.data().cloudProgress) {
+        const cloud = codeDoc.data().cloudProgress;
+        const localProgress = localStorage.getItem('gcq_v5');
+        
+        // Parse to compare timestamps
+        let localData = null, cloudData = null;
+        try { localData = JSON.parse(localProgress); } catch(e) {}
+        try { cloudData = JSON.parse(cloud.gcq_v5); } catch(e) {}
+        
+        // Use cloud data if local is empty OR cloud has more XP (newer progress)
+        if (!localData || (cloudData && cloudData.xp > (localData.xp || 0))) {
+          if (cloud.gcq_v5) localStorage.setItem('gcq_v5', cloud.gcq_v5);
+          if (cloud.gcq_pyq_solved) localStorage.setItem('gcq_pyq_solved', cloud.gcq_pyq_solved);
+          if (cloud.gcq_pyq_tags) localStorage.setItem('gcq_pyq_tags', cloud.gcq_pyq_tags);
+          console.log("✅ Progress restored from cloud");
+        }
+      }
+    } catch (e) {
+      console.error("Failed to load progress from cloud:", e);
+    }
+  }
+
+  // ===================== LOGOUT / TRANSFER DEVICE =====================
+  async function logoutDevice() {
+    if (!confirm("⚠️ Logout from this device?\n\nYour progress will be saved to cloud. You can use your code to login from another device.")) {
+      return;
+    }
+    
+    // Sync progress before logout
+    await syncProgressToCloud();
+    
+    // Clear session but keep the code usable
+    try {
+      if (UNLOCK_CODE && db) {
+        await db.collection("unlock_codes").doc(UNLOCK_CODE).update({
+          activeDeviceId: null,
+          lastActive: null
+        });
+      }
+    } catch (e) {
+      console.error("Logout error:", e);
+    }
+    
+    // Clear local storage flags
+    localStorage.removeItem('gcq_unlocked');
+    localStorage.removeItem('gcq_device_id');
+    
+    // Clear cookies
+    document.cookie = 'gcq_unlocked=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie = 'gcq_device_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    
+    // Stop heartbeat
+    if (heartbeatInterval) clearInterval(heartbeatInterval);
+    
+    alert("✅ Logged out successfully!\n\nYou can now use your code on another device.");
+    window.location.href = "index.html";
+  }
+
+  // ===================== SESSION VALIDATION (checks if kicked out) =====================
+  let sessionValidationInterval = null;
+  const SESSION_CHECK_INTERVAL = 30 * 1000; // Check every 30 seconds
+
+  function startSessionValidation() {
+    sessionValidationInterval = setInterval(validateSession, SESSION_CHECK_INTERVAL);
+  }
+
+  async function validateSession() {
+    if (!UNLOCK_CODE || !db) return;
+    try {
+      const codeDoc = await db.collection("unlock_codes").doc(UNLOCK_CODE).get();
+      if (codeDoc.exists) {
+        const activeDeviceId = codeDoc.data().activeDeviceId;
+        if (activeDeviceId && activeDeviceId !== DEVICE_ID) {
+          // Another device took over - we've been kicked out
+          if (heartbeatInterval) clearInterval(heartbeatInterval);
+          if (sessionValidationInterval) clearInterval(sessionValidationInterval);
+          
+          // Sync our progress before being kicked out (in case it wasn't synced)
+          await syncProgressToCloud();
+          
+          alert("⚠️ Session Ended\n\nYour account has been accessed from another device. You have been logged out.\n\nYour progress was saved to cloud.");
+          
+          // Clear local flags
+          localStorage.removeItem('gcq_unlocked');
+          localStorage.removeItem('gcq_device_id');
+          document.cookie = 'gcq_unlocked=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+          document.cookie = 'gcq_device_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+          
+          window.location.href = "index.html";
+        }
+      }
+    } catch (e) {
+      console.error("Session validation error:", e);
+    }
+  }
+
+  // Start session validation when page loads (after access is verified)
+  document.addEventListener('DOMContentLoaded', () => {
+    // Small delay to ensure session is properly established
+    setTimeout(startSessionValidation, 5000);
+  });
 </script>
 
 <div class="scanline"></div>
@@ -737,6 +916,18 @@ input.num{width:90px}
           </div>
           <div style="padding-top:16px;margin-top:8px;border-top:1px solid var(--border)">
             <button class="btn btn-red btn-sm" onclick="resetAll()">🗑 Reset All Progress</button>
+          </div>
+          <div style="padding-top:16px;margin-top:8px;border-top:1px solid var(--border)">
+            <div style="font-size:12px;color:var(--muted2);margin-bottom:10px">
+              <strong>📱 Device Transfer</strong><br>
+              Logout to use your code on another device. Only 1 device can be active at a time.
+            </div>
+            <button class="btn btn-sm" onclick="logoutDevice()" style="background:linear-gradient(135deg,#667eea,#764ba2);color:white">
+              🔄 Logout & Transfer to New Device
+            </button>
+            <button class="btn btn-green btn-sm" onclick="syncProgressToCloud().then(()=>alert('✅ Progress synced to cloud!'))" style="margin-left:8px">
+              ☁️ Sync Now
+            </button>
           </div>
         </div>
       </div>
@@ -1085,7 +1276,30 @@ function loadState(){
 }
 let S=loadState();
 checkNewDay();
-function save(){localStorage.setItem('gcq_v5',JSON.stringify(S));}
+
+// Cloud sync debouncing - sync to cloud every 2 minutes max
+let lastCloudSync = 0;
+const CLOUD_SYNC_INTERVAL = 2 * 60 * 1000; // 2 minutes
+
+function save(){
+  localStorage.setItem('gcq_v5',JSON.stringify(S));
+  
+  // Debounced cloud sync
+  const now = Date.now();
+  if (now - lastCloudSync > CLOUD_SYNC_INTERVAL) {
+    lastCloudSync = now;
+    if (typeof syncProgressToCloud === 'function') {
+      syncProgressToCloud();
+    }
+  }
+}
+
+// Also sync on page unload
+window.addEventListener('beforeunload', () => {
+  if (typeof syncProgressToCloud === 'function') {
+    syncProgressToCloud();
+  }
+});
 
 function checkNewDay(){
   const td=todayStr();

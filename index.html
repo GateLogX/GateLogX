@@ -4687,6 +4687,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const auth = firebase.auth();
 
   const UNLOCK_KEY = "gatelogx_game_unlocked";
+  const SESSION_TIMEOUT = 5 * 60 * 1000; // 5 minutes - session expires if no heartbeat
 
   // Generate device fingerprint (unique to this browser/device)
   function generateDeviceFingerprint() {
@@ -4827,35 +4828,77 @@ document.addEventListener('DOMContentLoaded', () => {
         errorEl.textContent = "❌ Invalid code. Please check and try again.";
         errorEl.classList.add("show");
       } else if (codeDoc.data().used === true) {
-        // Code already used - check if it's the same device
-        const linkedDeviceId = codeDoc.data().deviceId;
+        // Code already used - check session status
+        const data = codeDoc.data();
+        const linkedDeviceId = data.deviceId;
+        const activeDeviceId = data.activeDeviceId || linkedDeviceId;
+        const lastActive = data.lastActive ? data.lastActive.toMillis() : 0;
+        const now = Date.now();
+        const sessionExpired = (now - lastActive) > SESSION_TIMEOUT;
         
         if (!linkedDeviceId) {
           // ✅ Code was used with old phone system - migrate to device-based
           await db.collection("unlock_codes").doc(raw).update({
             deviceId: DEVICE_ID,
+            activeDeviceId: DEVICE_ID,
+            lastActive: firebase.firestore.FieldValue.serverTimestamp(),
             migratedAt: firebase.firestore.FieldValue.serverTimestamp()
           });
           setLocalUnlockFlags(raw, DEVICE_ID);
           document.getElementById("paywallMain").style.display = "none";
           document.getElementById("unlockedCard").classList.add("show");
           updateGameCardToUnlocked();
-        } else if (linkedDeviceId === DEVICE_ID) {
-          // ✅ Same device - restore access
+        } else if (activeDeviceId === DEVICE_ID) {
+          // ✅ This device is already the active one - restore access
+          await db.collection("unlock_codes").doc(raw).update({
+            lastActive: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          setLocalUnlockFlags(raw, DEVICE_ID);
+          document.getElementById("paywallMain").style.display = "none";
+          document.getElementById("unlockedCard").classList.add("show");
+          updateGameCardToUnlocked();
+        } else if (sessionExpired) {
+          // ✅ Previous session expired - take over automatically
+          await db.collection("unlock_codes").doc(raw).update({
+            activeDeviceId: DEVICE_ID,
+            lastActive: firebase.firestore.FieldValue.serverTimestamp()
+          });
           setLocalUnlockFlags(raw, DEVICE_ID);
           document.getElementById("paywallMain").style.display = "none";
           document.getElementById("unlockedCard").classList.add("show");
           updateGameCardToUnlocked();
         } else {
-          // ❌ Different device - reject
-          errorEl.textContent = "❌ This code is already linked to another device.";
-          errorEl.classList.add("show");
+          // ⚠️ Another device has an active session - ask to take over
+          const takeOver = confirm(
+            "⚠️ Session Active on Another Device\n\n" +
+            "This code is currently being used on another device. " +
+            "If you continue, the other device will be logged out.\n\n" +
+            "Your progress will be synced from the cloud.\n\n" +
+            "Click OK to transfer session to this device."
+          );
+          
+          if (takeOver) {
+            // Force takeover - kick out other device
+            await db.collection("unlock_codes").doc(raw).update({
+              activeDeviceId: DEVICE_ID,
+              lastActive: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            setLocalUnlockFlags(raw, DEVICE_ID);
+            document.getElementById("paywallMain").style.display = "none";
+            document.getElementById("unlockedCard").classList.add("show");
+            updateGameCardToUnlocked();
+          } else {
+            errorEl.textContent = "Session transfer cancelled.";
+            errorEl.classList.add("show");
+          }
         }
       } else if (codeDoc.data().valid === true) {
         // ✅ Valid unused code - link to this device
         await db.collection("unlock_codes").doc(raw).update({
           used: true,
           deviceId: DEVICE_ID,
+          activeDeviceId: DEVICE_ID,
+          lastActive: firebase.firestore.FieldValue.serverTimestamp(),
           usedAt: firebase.firestore.FieldValue.serverTimestamp()
         });
 
