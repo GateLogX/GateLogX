@@ -807,6 +807,63 @@ input.num{width:90px}
     }
   }
 
+  // Generate a new code for legacy users
+  async function generateLegacyCode() {
+    try {
+      // Initialize Firebase if needed
+      if (!db) {
+        const firebaseConfig = {
+          apiKey: "AIzaSyBp5mzuP_bjjlqFIVTyO_t-L8V2_ud8Gns",
+          authDomain: "gatelogx-abce1.firebaseapp.com",
+          projectId: "gatelogx-abce1",
+          storageBucket: "gatelogx-abce1.firebasestorage.app",
+          messagingSenderId: "880558405187",
+          appId: "1:880558405187:web:a9a21de3319565ec6106f6"
+        };
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+      }
+      
+      // Generate unique code: LEG_ + random string
+      const randomPart = Math.random().toString(36).substring(2, 10).toUpperCase();
+      const code = 'LEG_' + randomPart;
+      
+      // Create the code document in Firestore
+      await db.collection("unlock_codes").doc(code).set({
+        valid: true,
+        used: true,
+        deviceId: DEVICE_ID,
+        activeDeviceId: DEVICE_ID,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        lastActive: firebase.firestore.FieldValue.serverTimestamp(),
+        isLegacyGenerated: true
+      });
+      
+      // Save locally
+      localStorage.setItem('gcq_unlock_code', code);
+      localStorage.setItem('gcq_unlocked', 'true');
+      localStorage.setItem('gcq_device_id', DEVICE_ID);
+      UNLOCK_CODE = code;
+      
+      // Sync current progress to cloud immediately
+      await syncProgressToCloud();
+      
+      alert('✅ Your cloud code has been generated!\n\nCode: ' + code + '\n\nYour progress is now synced to cloud. Save this code to restore on other devices.');
+      
+      // Update display
+      displayUnlockCode();
+      startHeartbeat();
+      
+    } catch (e) {
+      console.error('Generate code error:', e);
+      if (e.code === 'permission-denied') {
+        alert('❌ Permission denied.\n\nPlease contact support to enable legacy code generation.');
+      } else {
+        alert('❌ Error: ' + e.message);
+      }
+    }
+  }
+
   function copyUnlockCode() {
     const codeInput = document.getElementById('display-unlock-code');
     const code = codeInput.value;
@@ -1207,13 +1264,26 @@ input.num{width:90px}
             </div>
             <!-- Legacy user: Link a code -->
             <div id="link-code-section" style="display:none;margin-top:12px;padding:12px;background:rgba(102,126,234,0.1);border:1px dashed var(--border);border-radius:6px">
-              <div style="font-size:11px;color:var(--amber);margin-bottom:8px">
-                ⚠️ You're using legacy access. Enter a code to enable cloud sync:
+              <div style="font-size:11px;color:var(--amber);margin-bottom:12px">
+                ⚠️ You're using legacy access. Enable cloud sync to backup your progress:
               </div>
+              
+              <!-- Option 1: Generate code -->
+              <div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px dashed var(--border)">
+                <button class="btn btn-green" onclick="generateLegacyCode()" style="width:100%;padding:10px;font-size:13px">
+                  ✨ Generate My Cloud Code
+                </button>
+                <div style="font-size:10px;color:var(--muted2);margin-top:6px;text-align:center">
+                  Creates a unique code and syncs your progress
+                </div>
+              </div>
+              
+              <!-- Option 2: Enter existing code -->
+              <div style="font-size:10px;color:var(--muted2);margin-bottom:6px">Or enter an existing code:</div>
               <div style="display:flex;gap:8px">
                 <input type="text" id="link-code-input" placeholder="Enter your code" 
                   style="flex:1;padding:8px 12px;font-family:'Space Mono',monospace;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text)">
-                <button class="btn btn-green btn-sm" onclick="linkUnlockCode()">Link Code</button>
+                <button class="btn btn-amber btn-sm" onclick="linkUnlockCode()">Link</button>
               </div>
             </div>
           </div>
