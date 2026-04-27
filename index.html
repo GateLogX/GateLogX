@@ -1819,7 +1819,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>Monitor subject progress</p>
         </div>
     </a>
-    <a href="javascript:void(0)" onclick="openPaywall()" class="feature-card">
+    <a href="javascript:void(0)" onclick="openPaywall()" class="feature-card" id="game-card">
         <div class="feature-icon">🎮</div>
         <div class="feature-content">
             <h3>GATE CSE Quest</h3>
@@ -4750,9 +4750,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateGameCardToUnlocked() {
-    const gameCard = document.querySelector('a[onclick="openPaywall()"]');
+    const gameCard = document.getElementById('game-card') || document.querySelector('a[onclick="openPaywall()"]');
     if (gameCard) {
-      gameCard.setAttribute('href', 'gate_cse_rpg.html');
+      gameCard.href = 'gate_cse_rpg.html';
+      gameCard.onclick = null; // Remove inline onclick handler
       gameCard.removeAttribute('onclick');
       const p = gameCard.querySelector('.feature-content p');
       if (p) p.textContent = "✅ Unlocked — tap to play";
@@ -4760,10 +4761,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function openPaywall() {
-    const storedDeviceId = localStorage.getItem('gcq_device_id') || getCookie('gcq_device_id');
+    const storedCode = localStorage.getItem('gcq_unlock_code') || getCookie('gcq_unlock_code');
     const unlocked = localStorage.getItem('gcq_unlocked') === 'true' || getCookie('gcq_unlocked') === 'true';
     
-    if (unlocked && storedDeviceId === DEVICE_ID) {
+    // If unlocked locally, go to game (session will be validated there)
+    if (unlocked && storedCode) {
       window.location.href = "gate_cse_rpg.html";
       return;
     }
