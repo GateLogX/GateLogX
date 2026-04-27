@@ -404,58 +404,21 @@ input.num{width:90px}
 
     console.log("Auth check:", { unlockFlag, storedCode: !!storedCode, storedDeviceId: !!storedDeviceId });
 
-    // ✅ FAST PATH: If unlocked locally, allow access immediately
-    // Session management will happen in background
-    if (unlockFlag) {
-      console.log("Local unlock flag found - allowing access");
+    // ✅ LEGACY USERS: If unlocked but no code (old system), allow access
+    if (unlockFlag && !storedCode) {
+      console.log("Legacy unlock (no code) - allowing access");
       document.body.style.visibility = "visible";
-      
-      // Start Firebase session in background (non-blocking)
-      setTimeout(async () => {
-        try {
-          const firebaseConfig = {
-            apiKey: "AIzaSyBp5mzuP_bjjlqFIVTyO_t-L8V2_ud8Gns",
-            authDomain: "gatelogx-abce1.firebaseapp.com",
-            projectId: "gatelogx-abce1",
-            storageBucket: "gatelogx-abce1.firebasestorage.app",
-            messagingSenderId: "880558405187",
-            appId: "1:880558405187:web:a9a21de3319565ec6106f6"
-          };
-          if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-          
-          if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-            self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
-          }
-          const appCheck = firebase.appCheck();
-          appCheck.activate('6Ldga5AsAAAAAAPP3dMREOmMlrsAuXRy9cUghJfPc', true);
-          
-          db = firebase.firestore();
-          
-          if (storedCode) {
-            // Update session heartbeat
-            await db.collection("unlock_codes").doc(storedCode).update({
-              activeDeviceId: DEVICE_ID,
-              lastActive: firebase.firestore.FieldValue.serverTimestamp()
-            });
-            startHeartbeat();
-            await loadProgressFromCloud();
-          }
-        } catch (e) {
-          console.log("Background Firebase init failed (ok):", e.message);
-        }
-      }, 100);
-      
       return;
     }
 
-    // No local unlock - must verify with Firebase
-    if (!storedCode) {
+    // If no unlock at all, deny
+    if (!unlockFlag && !storedCode) {
       alert("⚠️ Access Denied\n\nPlease unlock the game first by paying ₹500.");
       window.location.href = "index.html";
       return;
     }
 
-    // ✅ VERIFY WITH FIREBASE: Check code + device + session
+    // ✅ VERIFY WITH FIREBASE: Check session for single-device enforcement
     const firebaseConfig = {
       apiKey: "AIzaSyBp5mzuP_bjjlqFIVTyO_t-L8V2_ud8Gns",
       authDomain: "gatelogx-abce1.firebaseapp.com",
@@ -531,10 +494,28 @@ input.num{width:90px}
             document.body.style.visibility = "visible";
             return;
           } else {
-            // ❌ Another device is actively using this code
-            alert("⚠️ Session Active on Another Device\n\nYour code is currently being used on another device. You can transfer the session from the home page.");
-            window.location.href = "index.html";
-            return;
+            // ❌ Another device is actively using this code - prompt for takeover
+            const takeOver = confirm(
+              "⚠️ Session Active on Another Device\n\n" +
+              "Your code is currently being used on another device.\n\n" +
+              "Click OK to take over and logout the other device.\n" +
+              "Click Cancel to go back."
+            );
+            
+            if (takeOver) {
+              // Force takeover
+              await db.collection("unlock_codes").doc(storedCode).update({
+                activeDeviceId: DEVICE_ID,
+                lastActive: firebase.firestore.FieldValue.serverTimestamp()
+              });
+              startHeartbeat();
+              await loadProgressFromCloud();
+              document.body.style.visibility = "visible";
+              return;
+            } else {
+              window.location.href = "index.html";
+              return;
+            }
           }
         }
       } catch (e) {
@@ -589,8 +570,13 @@ input.num{width:90px}
   }
 
   // ===================== CLOUD PROGRESS SYNC =====================
-  async function syncProgressToCloud() {
-    if (!UNLOCK_CODE || !db) return;
+  async function syncProgressToCloud(showAlert = false) {
+    if (!UNLOCK_CODE || !db) {
+      if (showAlert) {
+        alert('❌ No unlock code linked.\n\nGo to Settings and link a code to enable cloud sync.');
+      }
+      return false;
+    }
     try {
       // Get current progress from localStorage
       const progress = localStorage.getItem('gcq_v5');
@@ -607,8 +593,13 @@ input.num{width:90px}
         lastActive: firebase.firestore.FieldValue.serverTimestamp()
       });
       console.log("✅ Progress synced to cloud");
+      return true;
     } catch (e) {
       console.error("Failed to sync progress:", e);
+      if (showAlert) {
+        alert('❌ Sync failed: ' + e.message);
+      }
+      return false;
     }
   }
 
@@ -724,6 +715,7 @@ input.num{width:90px}
   // ===================== UNLOCK CODE DISPLAY =====================
   function displayUnlockCode() {
     const codeInput = document.getElementById('display-unlock-code');
+    const linkSection = document.getElementById('link-code-section');
     if (!codeInput) return;
     
     const code = UNLOCK_CODE || localStorage.getItem('gcq_unlock_code') || 'No code found';
@@ -731,6 +723,87 @@ input.num{width:90px}
     
     if (code === 'No code found') {
       codeInput.style.color = 'var(--muted2)';
+      // Show link code section for legacy users
+      if (linkSection) {
+        linkSection.style.display = 'block';
+      }
+    } else {
+      if (linkSection) {
+        linkSection.style.display = 'none';
+      }
+    }
+  }
+
+  // Link a code for legacy users
+  async function linkUnlockCode() {
+    const input = document.getElementById('link-code-input');
+    const code = input.value.trim();
+    
+    if (!code) {
+      alert('❌ Please enter a code');
+      return;
+    }
+    
+    try {
+      // Initialize Firebase if needed
+      if (!db) {
+        const firebaseConfig = {
+          apiKey: "AIzaSyBp5mzuP_bjjlqFIVTyO_t-L8V2_ud8Gns",
+          authDomain: "gatelogx-abce1.firebaseapp.com",
+          projectId: "gatelogx-abce1",
+          storageBucket: "gatelogx-abce1.firebasestorage.app",
+          messagingSenderId: "880558405187",
+          appId: "1:880558405187:web:a9a21de3319565ec6106f6"
+        };
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+      }
+      
+      const codeDoc = await db.collection("unlock_codes").doc(code).get();
+      
+      if (!codeDoc.exists) {
+        alert('❌ Invalid code');
+        return;
+      }
+      
+      const data = codeDoc.data();
+      
+      if (data.used && data.deviceId && data.deviceId !== DEVICE_ID) {
+        // Code is used by another device
+        const takeOver = confirm(
+          '⚠️ This code is linked to another device.\n\n' +
+          'Do you want to transfer it to this device?\n' +
+          'The other device will lose access.'
+        );
+        if (!takeOver) return;
+      }
+      
+      // Link the code to this device
+      await db.collection("unlock_codes").doc(code).update({
+        used: true,
+        deviceId: DEVICE_ID,
+        activeDeviceId: DEVICE_ID,
+        lastActive: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      
+      // Save locally
+      localStorage.setItem('gcq_unlock_code', code);
+      localStorage.setItem('gcq_unlocked', 'true');
+      localStorage.setItem('gcq_device_id', DEVICE_ID);
+      UNLOCK_CODE = code;
+      
+      // Sync current progress to cloud immediately
+      await syncProgressToCloud();
+      
+      alert('✅ Code linked successfully!\n\nYour progress has been synced to cloud.');
+      
+      // Update display
+      displayUnlockCode();
+      startHeartbeat();
+      
+    } catch (e) {
+      console.error('Link code error:', e);
+      alert('❌ Error: ' + e.message);
     }
   }
 
@@ -760,6 +833,70 @@ input.num{width:90px}
         btn.innerHTML = '📋 Copy';
       }, 2000);
     });
+  }
+
+  // ===================== RESTORE FROM CLOUD =====================
+  async function forceRestoreFromCloud() {
+    if (!UNLOCK_CODE && !localStorage.getItem('gcq_unlock_code')) {
+      alert('❌ No unlock code linked.\n\nTo enable cloud features:\n1. Scroll up in Settings\n2. Enter your code in the "Link a code" section');
+      return;
+    }
+    
+    const code = UNLOCK_CODE || localStorage.getItem('gcq_unlock_code');
+    
+    if (!confirm('⚠️ Restore from Cloud?\n\nThis will REPLACE your current local progress with cloud data.\n\nContinue?')) {
+      return;
+    }
+    
+    try {
+      // Initialize Firebase if not already done
+      if (!db) {
+        const firebaseConfig = {
+          apiKey: "AIzaSyBp5mzuP_bjjlqFIVTyO_t-L8V2_ud8Gns",
+          authDomain: "gatelogx-abce1.firebaseapp.com",
+          projectId: "gatelogx-abce1",
+          storageBucket: "gatelogx-abce1.firebasestorage.app",
+          messagingSenderId: "880558405187",
+          appId: "1:880558405187:web:a9a21de3319565ec6106f6"
+        };
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+      }
+      
+      const codeDoc = await db.collection("unlock_codes").doc(code).get();
+      
+      if (!codeDoc.exists) {
+        alert('❌ Code not found in database.');
+        return;
+      }
+      
+      const data = codeDoc.data();
+      
+      if (!data.cloudProgress) {
+        alert('❌ No cloud progress found for this code.\n\nProgress has not been synced to cloud yet.');
+        return;
+      }
+      
+      const cloud = data.cloudProgress;
+      
+      // Restore all progress data
+      if (cloud.gcq_v5) {
+        localStorage.setItem('gcq_v5', cloud.gcq_v5);
+      }
+      if (cloud.gcq_pyq_solved) {
+        localStorage.setItem('gcq_pyq_solved', cloud.gcq_pyq_solved);
+      }
+      if (cloud.gcq_pyq_tags) {
+        localStorage.setItem('gcq_pyq_tags', cloud.gcq_pyq_tags);
+      }
+      
+      alert('✅ Progress restored from cloud!\n\nLast synced: ' + (cloud.lastSynced || 'Unknown') + '\n\nPage will reload.');
+      location.reload();
+      
+    } catch (e) {
+      console.error('Restore error:', e);
+      alert('❌ Failed to restore: ' + e.message);
+    }
   }
 </script>
 
@@ -1057,7 +1194,7 @@ input.num{width:90px}
           </div>
           <div style="padding-top:16px;margin-top:8px;border-top:1px solid var(--border)">
             <div style="font-size:12px;color:var(--muted2);margin-bottom:10px">
-              <strong>� Your Unlock Code</strong><br>
+              <strong>🔑 Your Unlock Code</strong><br>
               Use this code to restore your progress on another device.
             </div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
@@ -1068,17 +1205,39 @@ input.num{width:90px}
                 📋 Copy
               </button>
             </div>
+            <!-- Legacy user: Link a code -->
+            <div id="link-code-section" style="display:none;margin-top:12px;padding:12px;background:rgba(102,126,234,0.1);border:1px dashed var(--border);border-radius:6px">
+              <div style="font-size:11px;color:var(--amber);margin-bottom:8px">
+                ⚠️ You're using legacy access. Enter a code to enable cloud sync:
+              </div>
+              <div style="display:flex;gap:8px">
+                <input type="text" id="link-code-input" placeholder="Enter your code" 
+                  style="flex:1;padding:8px 12px;font-family:'Space Mono',monospace;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text)">
+                <button class="btn btn-green btn-sm" onclick="linkUnlockCode()">Link Code</button>
+              </div>
+            </div>
           </div>
           <div style="padding-top:16px;margin-top:8px;border-top:1px solid var(--border)">
             <div style="font-size:12px;color:var(--muted2);margin-bottom:10px">
-              <strong>�📱 Device Transfer</strong><br>
+              <strong>☁️ Cloud Sync</strong><br>
+              Sync your progress to cloud or restore from a previous backup.
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn btn-green btn-sm" onclick="syncProgressToCloud(true).then(ok=>{if(ok)alert('✅ Progress synced to cloud!')})">
+                ⬆️ Sync to Cloud
+              </button>
+              <button class="btn btn-sm" onclick="forceRestoreFromCloud()" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:white">
+                ⬇️ Restore from Cloud
+              </button>
+            </div>
+          </div>
+          <div style="padding-top:16px;margin-top:8px;border-top:1px solid var(--border)">
+            <div style="font-size:12px;color:var(--muted2);margin-bottom:10px">
+              <strong>📱 Device Transfer</strong><br>
               Logout to use your code on another device. Only 1 device can be active at a time.
             </div>
             <button class="btn btn-sm" onclick="logoutDevice()" style="background:linear-gradient(135deg,#667eea,#764ba2);color:white">
               🔄 Logout & Transfer to New Device
-            </button>
-            <button class="btn btn-green btn-sm" onclick="syncProgressToCloud().then(()=>alert('✅ Progress synced to cloud!'))" style="margin-left:8px">
-              ☁️ Sync Now
             </button>
           </div>
         </div>
