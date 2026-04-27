@@ -345,8 +345,8 @@ input.num{width:90px}
   let UNLOCK_CODE = '';
   let db = null;
   let heartbeatInterval = null;
-  const SESSION_TIMEOUT = 5 * 60 * 1000; // 5 minutes - session expires if no heartbeat
-  const HEARTBEAT_INTERVAL = 60 * 1000; // Send heartbeat every 1 minute
+  const SESSION_TIMEOUT = 10 * 60 * 1000; // 10 minutes - session expires if no heartbeat
+  const HEARTBEAT_INTERVAL = 2 * 60 * 1000; // Send heartbeat every 2 minutes (saves writes)
 
   (async function() {
     // Hide body until verified
@@ -582,7 +582,7 @@ input.num{width:90px}
 
   // ===================== SESSION VALIDATION (checks if kicked out) =====================
   let sessionValidationInterval = null;
-  const SESSION_CHECK_INTERVAL = 30 * 1000; // Check every 30 seconds
+  const SESSION_CHECK_INTERVAL = 60 * 1000; // Check every 60 seconds (saves reads)
 
   function startSessionValidation() {
     sessionValidationInterval = setInterval(validateSession, SESSION_CHECK_INTERVAL);
@@ -1277,9 +1277,9 @@ function loadState(){
 let S=loadState();
 checkNewDay();
 
-// Cloud sync debouncing - sync to cloud every 2 minutes max
+// Cloud sync debouncing - sync to cloud every 5 minutes max (saves writes)
 let lastCloudSync = 0;
-const CLOUD_SYNC_INTERVAL = 2 * 60 * 1000; // 2 minutes
+const CLOUD_SYNC_INTERVAL = 5 * 60 * 1000; // 5 minutes
 
 function save(){
   localStorage.setItem('gcq_v5',JSON.stringify(S));

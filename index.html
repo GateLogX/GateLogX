@@ -4687,7 +4687,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const auth = firebase.auth();
 
   const UNLOCK_KEY = "gatelogx_game_unlocked";
-  const SESSION_TIMEOUT = 5 * 60 * 1000; // 5 minutes - session expires if no heartbeat
+  const SESSION_TIMEOUT = 10 * 60 * 1000; // 10 minutes - session expires if no heartbeat
 
   // Generate device fingerprint (unique to this browser/device)
   function generateDeviceFingerprint() {
