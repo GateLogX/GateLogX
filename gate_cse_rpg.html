@@ -716,7 +716,51 @@ input.num{width:90px}
   document.addEventListener('DOMContentLoaded', () => {
     // Small delay to ensure session is properly established
     setTimeout(startSessionValidation, 5000);
+    
+    // Display unlock code in settings
+    displayUnlockCode();
   });
+
+  // ===================== UNLOCK CODE DISPLAY =====================
+  function displayUnlockCode() {
+    const codeInput = document.getElementById('display-unlock-code');
+    if (!codeInput) return;
+    
+    const code = UNLOCK_CODE || localStorage.getItem('gcq_unlock_code') || 'No code found';
+    codeInput.value = code;
+    
+    if (code === 'No code found') {
+      codeInput.style.color = 'var(--muted2)';
+    }
+  }
+
+  function copyUnlockCode() {
+    const codeInput = document.getElementById('display-unlock-code');
+    const code = codeInput.value;
+    const btn = document.getElementById('copy-code-btn');
+    
+    if (code === 'No code found' || code === 'Loading...') {
+      alert('No unlock code to copy');
+      return;
+    }
+    
+    navigator.clipboard.writeText(code).then(() => {
+      btn.innerHTML = '✅ Copied!';
+      btn.style.background = 'var(--green)';
+      setTimeout(() => {
+        btn.innerHTML = '📋 Copy';
+        btn.style.background = '';
+      }, 2000);
+    }).catch(() => {
+      // Fallback for older browsers
+      codeInput.select();
+      document.execCommand('copy');
+      btn.innerHTML = '✅ Copied!';
+      setTimeout(() => {
+        btn.innerHTML = '📋 Copy';
+      }, 2000);
+    });
+  }
 </script>
 
 <div class="scanline"></div>
@@ -1013,7 +1057,21 @@ input.num{width:90px}
           </div>
           <div style="padding-top:16px;margin-top:8px;border-top:1px solid var(--border)">
             <div style="font-size:12px;color:var(--muted2);margin-bottom:10px">
-              <strong>📱 Device Transfer</strong><br>
+              <strong>� Your Unlock Code</strong><br>
+              Use this code to restore your progress on another device.
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+              <input type="text" id="display-unlock-code" readonly 
+                style="flex:1;padding:10px 14px;font-family:'Space Mono',monospace;font-size:16px;letter-spacing:2px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--amber);text-align:center"
+                value="Loading...">
+              <button class="btn btn-amber btn-sm" onclick="copyUnlockCode()" id="copy-code-btn" style="white-space:nowrap">
+                📋 Copy
+              </button>
+            </div>
+          </div>
+          <div style="padding-top:16px;margin-top:8px;border-top:1px solid var(--border)">
+            <div style="font-size:12px;color:var(--muted2);margin-bottom:10px">
+              <strong>�📱 Device Transfer</strong><br>
               Logout to use your code on another device. Only 1 device can be active at a time.
             </div>
             <button class="btn btn-sm" onclick="logoutDevice()" style="background:linear-gradient(135deg,#667eea,#764ba2);color:white">
