@@ -4726,7 +4726,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Check on page load if this device is unlocked
   document.addEventListener("DOMContentLoaded", async () => {
-    const unlocked = localStorage.getItem('gcq_unlocked') === 'true' || getCookie('gcq_unlocked') === 'true';
+    const unlocked = localStorage.getItem('gcq_unlocked') === 'true' || 
+                     localStorage.getItem('gatelogx_game_unlocked') === 'true' ||
+                     getCookie('gcq_unlocked') === 'true';
     
     if (unlocked) {
       updateGameCardToUnlocked();
@@ -4761,10 +4763,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function openPaywall() {
     const storedCode = localStorage.getItem('gcq_unlock_code') || getCookie('gcq_unlock_code');
-    const unlocked = localStorage.getItem('gcq_unlocked') === 'true' || getCookie('gcq_unlocked') === 'true';
+    const unlocked = localStorage.getItem('gcq_unlocked') === 'true' || 
+                     localStorage.getItem('gatelogx_game_unlocked') === 'true' ||
+                     getCookie('gcq_unlocked') === 'true';
     
     // If unlocked locally, go to game (session will be validated there)
-    if (unlocked && storedCode) {
+    if (unlocked) {
       window.location.href = "gate_cse_rpg.html";
       return;
     }

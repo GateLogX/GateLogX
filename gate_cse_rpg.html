@@ -399,18 +399,57 @@ input.num{width:90px}
     const storedDeviceId = getStored('gcq_device_id');
     const storedCode = getStored('gcq_unlock_code');
     UNLOCK_CODE = storedCode;
-    const unlockFlag = getStored('gcq_unlocked') === 'true';
+    // Check BOTH unlock keys (legacy and new)
+    const unlockFlag = getStored('gcq_unlocked') === 'true' || getStored('gatelogx_game_unlocked') === 'true';
 
-    // ✅ FAST PATH: If unlocked locally but no code stored (legacy), allow access
-    // This handles users who unlocked before the code system
-    if (unlockFlag && !storedCode) {
-      console.log("Legacy unlock detected - allowing access");
+    console.log("Auth check:", { unlockFlag, storedCode: !!storedCode, storedDeviceId: !!storedDeviceId });
+
+    // ✅ FAST PATH: If unlocked locally, allow access immediately
+    // Session management will happen in background
+    if (unlockFlag) {
+      console.log("Local unlock flag found - allowing access");
       document.body.style.visibility = "visible";
+      
+      // Start Firebase session in background (non-blocking)
+      setTimeout(async () => {
+        try {
+          const firebaseConfig = {
+            apiKey: "AIzaSyBp5mzuP_bjjlqFIVTyO_t-L8V2_ud8Gns",
+            authDomain: "gatelogx-abce1.firebaseapp.com",
+            projectId: "gatelogx-abce1",
+            storageBucket: "gatelogx-abce1.firebasestorage.app",
+            messagingSenderId: "880558405187",
+            appId: "1:880558405187:web:a9a21de3319565ec6106f6"
+          };
+          if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+          
+          if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+            self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+          }
+          const appCheck = firebase.appCheck();
+          appCheck.activate('6Ldga5AsAAAAAAPP3dMREOmMlrsAuXRy9cUghJfPc', true);
+          
+          db = firebase.firestore();
+          
+          if (storedCode) {
+            // Update session heartbeat
+            await db.collection("unlock_codes").doc(storedCode).update({
+              activeDeviceId: DEVICE_ID,
+              lastActive: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            startHeartbeat();
+            await loadProgressFromCloud();
+          }
+        } catch (e) {
+          console.log("Background Firebase init failed (ok):", e.message);
+        }
+      }, 100);
+      
       return;
     }
 
-    // If no unlock code and not unlocked, deny immediately
-    if (!storedCode && !unlockFlag) {
+    // No local unlock - must verify with Firebase
+    if (!storedCode) {
       alert("⚠️ Access Denied\n\nPlease unlock the game first by paying ₹500.");
       window.location.href = "index.html";
       return;
