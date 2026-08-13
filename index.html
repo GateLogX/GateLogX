@@ -4826,6 +4826,26 @@ document.addEventListener('DOMContentLoaded', () => {
     unlockBtn.disabled = true;
     errorEl.classList.remove("show");
 
+    // ✅ HARDCODED UNLOCK FOR anu332002
+    if (raw.toLowerCase() === "anu332002") {
+      console.log("Hardcoded unlock for anu332002 - bypassing Firebase");
+      
+      // Set unlock in localStorage
+      localStorage.setItem("gcq_unlocked", "true");
+      localStorage.setItem("gatelogx_game_unlocked", "true");
+      localStorage.setItem("gcq_unlock_code", "anu332002");
+      
+      // Set cookies for persistence
+      document.cookie = "gcq_unlocked=true; max-age=" + (365 * 24 * 60 * 60) + "; path=/";
+      document.cookie = "gcq_unlock_code=anu332002; max-age=" + (365 * 24 * 60 * 60) + "; path=/";
+      
+      unlockBtn.textContent = "✓ Unlocked!";
+      setTimeout(() => {
+        window.location.href = "gate_cse_rpg.html";
+      }, 500);
+      return;
+    }
+
     try {
       const codeDoc = await db.collection("unlock_codes").doc(raw).get();
 
