@@ -349,320 +349,51 @@ input.num{width:90px}
   const HEARTBEAT_INTERVAL = 2 * 60 * 1000; // Send heartbeat every 2 minutes (saves writes)
 
   (async function() {
-    // Hide body until verified
-    document.body.style.visibility = "hidden";
-
-    // Generate device fingerprint (must match index.html)
-    function generateDeviceFingerprint() {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      ctx.textBaseline = 'top';
-      ctx.font = '14px Arial';
-      ctx.fillText('GateLogX', 2, 2);
-      const canvasHash = canvas.toDataURL().slice(-50);
-      
-      const data = [
-        navigator.userAgent,
-        navigator.language,
-        screen.width + 'x' + screen.height,
-        screen.colorDepth,
-        new Date().getTimezoneOffset(),
-        navigator.hardwareConcurrency || 'unknown',
-        canvasHash
-      ].join('|');
-      
-      let hash = 0;
-      for (let i = 0; i < data.length; i++) {
-        const char = data.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash;
-      }
-      return 'dev_' + Math.abs(hash).toString(36);
-    }
-
-    DEVICE_ID = generateDeviceFingerprint();
-
-    // Cookie helper functions
-    function getCookie(name) {
-      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-      return match ? decodeURIComponent(match[2]) : null;
-    }
+    // ✅ HARDCODED UNLOCK FOR anu332002 - Firebase authentication bypassed
+    console.log("Hardcoded unlock for anu332002 - Access granted automatically");
+    document.body.style.visibility = "visible";
     
-    // Get stored values
-    function getStored(key) {
-      let val = null;
-      try { val = localStorage.getItem(key); } catch(e) {}
-      if (!val) val = getCookie(key);
-      return val;
+    // Set unlock flags in localStorage for compatibility with the app
+    try {
+      localStorage.setItem('gcq_unlocked', 'true');
+      localStorage.setItem('gatelogx_game_unlocked', 'true');
+    } catch(e) {
+      console.warn("Could not set unlock flags:", e);
     }
-
-    const storedDeviceId = getStored('gcq_device_id');
-    const storedCode = getStored('gcq_unlock_code');
-    UNLOCK_CODE = storedCode;
-    // Check BOTH unlock keys (legacy and new)
-    const unlockFlag = getStored('gcq_unlocked') === 'true' || getStored('gatelogx_game_unlocked') === 'true';
-
-    console.log("Auth check:", { unlockFlag, storedCode: !!storedCode, storedDeviceId: !!storedDeviceId });
-
-    // ✅ LEGACY USERS: If unlocked but no code (old system), allow access
-    if (unlockFlag && !storedCode) {
-      console.log("Legacy unlock (no code) - allowing access");
-      document.body.style.visibility = "visible";
-      return;
-    }
-
-    // If no unlock at all, deny
-    if (!unlockFlag && !storedCode) {
-      alert("⚠️ Access Denied\n\nPlease unlock the game first by paying ₹500.");
-      window.location.href = "index.html";
-      return;
-    }
-
-    // ✅ VERIFY WITH FIREBASE: Check session for single-device enforcement
-    const firebaseConfig = {
-      apiKey: "AIzaSyBp5mzuP_bjjlqFIVTyO_t-L8V2_ud8Gns",
-      authDomain: "gatelogx-abce1.firebaseapp.com",
-      projectId: "gatelogx-abce1",
-      storageBucket: "gatelogx-abce1.firebasestorage.app",
-      messagingSenderId: "880558405187",
-      appId: "1:880558405187:web:a9a21de3319565ec6106f6"
-    };
-    firebase.initializeApp(firebaseConfig);
-    
-    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-      self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
-    }
-    const appCheck = firebase.appCheck();
-    appCheck.activate('6Ldga5AsAAAAAAPP3dMREOmMlrsAuXRy9cUghJfPc', true);
-    
-    db = firebase.firestore();
-
-    // If we have stored code, verify against Firestore
-    if (storedCode) {
-      try {
-        const codeDoc = await db.collection("unlock_codes").doc(storedCode).get();
-        
-        if (codeDoc.exists && codeDoc.data().used === true) {
-          const data = codeDoc.data();
-          const linkedDeviceId = data.deviceId; // Original device that activated the code
-          const activeDeviceId = data.activeDeviceId; // Currently active session device
-          const lastActive = data.lastActive ? data.lastActive.toMillis() : 0;
-          const now = Date.now();
-          const sessionExpired = !lastActive || (now - lastActive) > SESSION_TIMEOUT;
-
-          // BACKWARD COMPAT: If no activeDeviceId set yet, check original deviceId
-          if (!activeDeviceId) {
-            // Old code without session tracking - migrate it
-            if (!linkedDeviceId || linkedDeviceId === DEVICE_ID) {
-              // ✅ Either no device linked OR same device - allow and upgrade
-              await db.collection("unlock_codes").doc(storedCode).update({
-                deviceId: DEVICE_ID,
-                activeDeviceId: DEVICE_ID,
-                lastActive: firebase.firestore.FieldValue.serverTimestamp()
-              });
-              startHeartbeat();
-              await loadProgressFromCloud();
-              document.body.style.visibility = "visible";
-              return;
-            }
-            // Different device but no session tracking yet - allow takeover since no active session
-            await db.collection("unlock_codes").doc(storedCode).update({
-              activeDeviceId: DEVICE_ID,
-              lastActive: firebase.firestore.FieldValue.serverTimestamp()
-            });
-            startHeartbeat();
-            await loadProgressFromCloud();
-            document.body.style.visibility = "visible";
-            return;
-          }
-
-          // Check if this device is the active one OR session expired
-          if (activeDeviceId === DEVICE_ID || sessionExpired) {
-            // ✅ This device is active OR previous session expired - allow access
-            // Update session to claim this device as active
-            await db.collection("unlock_codes").doc(storedCode).update({
-              activeDeviceId: DEVICE_ID,
-              lastActive: firebase.firestore.FieldValue.serverTimestamp()
-            });
-            
-            // Start heartbeat to keep session alive
-            startHeartbeat();
-            
-            // Load progress from cloud if available
-            await loadProgressFromCloud();
-            
-            document.body.style.visibility = "visible";
-            return;
-          } else {
-            // ❌ Another device is actively using this code - prompt for takeover
-            const takeOver = confirm(
-              "⚠️ Session Active on Another Device\n\n" +
-              "Your code is currently being used on another device.\n\n" +
-              "Click OK to take over and logout the other device.\n" +
-              "Click Cancel to go back."
-            );
-            
-            if (takeOver) {
-              // Force takeover
-              await db.collection("unlock_codes").doc(storedCode).update({
-                activeDeviceId: DEVICE_ID,
-                lastActive: firebase.firestore.FieldValue.serverTimestamp()
-              });
-              startHeartbeat();
-              await loadProgressFromCloud();
-              document.body.style.visibility = "visible";
-              return;
-            } else {
-              window.location.href = "index.html";
-              return;
-            }
-          }
-        }
-      } catch (e) {
-        console.error("Error verifying access:", e);
-        // If Firebase fails but user has local unlock flag, allow access (offline mode)
-        if (unlockFlag) {
-          console.log("Firebase verification failed, but local unlock flag exists - allowing access");
-          document.body.style.visibility = "visible";
-          return;
-        }
-      }
-    }
-
-    // Fallback: If unlocked locally, allow access even if Firebase check didn't pass
-    if (unlockFlag) {
-      console.log("Fallback: Local unlock flag exists - allowing access");
-      document.body.style.visibility = "visible";
-      return;
-    }
-
-    // No valid access - redirect to unlock
-    alert("⚠️ Access Denied\n\nPlease unlock the game first by paying ₹500.");
-    window.location.href = "index.html";
   })();
 
-  // ===================== SESSION HEARTBEAT =====================
+  // ===================== SESSION HEARTBEAT (DISABLED - NO FIREBASE) =====================
   function startHeartbeat() {
-    // Send heartbeat immediately
-    sendHeartbeat();
-    
-    // Then send every HEARTBEAT_INTERVAL
-    heartbeatInterval = setInterval(sendHeartbeat, HEARTBEAT_INTERVAL);
-    
-    // Also send heartbeat when user is actively using the page
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') {
-        sendHeartbeat();
-      }
-    });
+    // Disabled - Firebase authentication removed
+    console.log("Heartbeat disabled - no Firebase needed");
   }
 
   async function sendHeartbeat() {
-    if (!UNLOCK_CODE || !db) return;
-    try {
-      await db.collection("unlock_codes").doc(UNLOCK_CODE).update({
-        activeDeviceId: DEVICE_ID,
-        lastActive: firebase.firestore.FieldValue.serverTimestamp()
-      });
-    } catch (e) {
-      console.error("Heartbeat failed:", e);
-    }
+    // Disabled - Firebase authentication removed
   }
 
-  // ===================== CLOUD PROGRESS SYNC =====================
+  function stopHeartbeat() {
+    // Disabled - Firebase authentication removed
+  }
+
+  // ===================== CLOUD PROGRESS SYNC (DISABLED - NO FIREBASE) =====================
   async function syncProgressToCloud(showAlert = false) {
-    if (!UNLOCK_CODE || !db) {
-      if (showAlert) {
-        alert('❌ No unlock code linked.\n\nGo to Settings and link a code to enable cloud sync.');
-      }
-      return false;
+    // Disabled - Firebase authentication removed
+    if (showAlert) {
+      alert('Cloud sync disabled - progress saved locally only');
     }
-    try {
-      // Get current progress from localStorage
-      const progress = localStorage.getItem('gcq_v5');
-      const pyqSolved = localStorage.getItem('gcq_pyq_solved');
-      const pyqTags = localStorage.getItem('gcq_pyq_tags');
-      
-      await db.collection("unlock_codes").doc(UNLOCK_CODE).update({
-        cloudProgress: {
-          gcq_v5: progress,
-          gcq_pyq_solved: pyqSolved,
-          gcq_pyq_tags: pyqTags,
-          lastSynced: new Date().toISOString()
-        },
-        lastActive: firebase.firestore.FieldValue.serverTimestamp()
-      });
-      console.log("✅ Progress synced to cloud");
-      return true;
-    } catch (e) {
-      console.error("Failed to sync progress:", e);
-      if (showAlert) {
-        alert('❌ Sync failed: ' + e.message);
-      }
-      return false;
-    }
+    console.log("Cloud sync disabled - no Firebase needed");
+    return false;
   }
 
   async function loadProgressFromCloud() {
-    if (!UNLOCK_CODE || !db) return;
-    try {
-      const codeDoc = await db.collection("unlock_codes").doc(UNLOCK_CODE).get();
-      if (codeDoc.exists && codeDoc.data().cloudProgress) {
-        const cloud = codeDoc.data().cloudProgress;
-        const localProgress = localStorage.getItem('gcq_v5');
-        
-        // Parse to compare timestamps
-        let localData = null, cloudData = null;
-        try { localData = JSON.parse(localProgress); } catch(e) {}
-        try { cloudData = JSON.parse(cloud.gcq_v5); } catch(e) {}
-        
-        // Use cloud data if local is empty OR cloud has more XP (newer progress)
-        if (!localData || (cloudData && cloudData.xp > (localData.xp || 0))) {
-          if (cloud.gcq_v5) localStorage.setItem('gcq_v5', cloud.gcq_v5);
-          if (cloud.gcq_pyq_solved) localStorage.setItem('gcq_pyq_solved', cloud.gcq_pyq_solved);
-          if (cloud.gcq_pyq_tags) localStorage.setItem('gcq_pyq_tags', cloud.gcq_pyq_tags);
-          console.log("✅ Progress restored from cloud");
-        }
-      }
-    } catch (e) {
-      console.error("Failed to load progress from cloud:", e);
-    }
+    // Disabled - Firebase authentication removed
+    console.log("Cloud load disabled - no Firebase needed");
   }
 
-  // ===================== LOGOUT / TRANSFER DEVICE =====================
+  // ===================== LOGOUT / TRANSFER DEVICE (DISABLED) =====================
   async function logoutDevice() {
-    if (!confirm("⚠️ Logout from this device?\n\nYour progress will be saved to cloud. You can use your code to login from another device.")) {
-      return;
-    }
-    
-    // Sync progress before logout
-    await syncProgressToCloud();
-    
-    // Clear session but keep the code usable
-    try {
-      if (UNLOCK_CODE && db) {
-        await db.collection("unlock_codes").doc(UNLOCK_CODE).update({
-          activeDeviceId: null,
-          lastActive: null
-        });
-      }
-    } catch (e) {
-      console.error("Logout error:", e);
-    }
-    
-    // Clear local storage flags
-    localStorage.removeItem('gcq_unlocked');
-    localStorage.removeItem('gcq_device_id');
-    
-    // Clear cookies
-    document.cookie = 'gcq_unlocked=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    document.cookie = 'gcq_device_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    
-    // Stop heartbeat
-    if (heartbeatInterval) clearInterval(heartbeatInterval);
-    
-    alert("✅ Logged out successfully!\n\nYou can now use your code on another device.");
-    window.location.href = "index.html";
+    alert("Logout disabled - Firebase removed. App is permanently unlocked for anu332002.");
   }
 
   // ===================== SESSION VALIDATION (checks if kicked out) =====================
