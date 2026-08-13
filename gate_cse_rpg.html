@@ -2480,8 +2480,14 @@ function filterPYQDisplay() {
     hasGateKeyword = searchWords.includes('gate');
     
     if(hasGateKeyword) {
-      // Filter by GATE source
-      filtered = filtered.filter(q => q.source === 'GATE');
+      // Filter by GATE source (check source field OR title contains "GATE")
+      filtered = filtered.filter(q => {
+        // Check if source field exists and equals GATE
+        if (q.source === 'GATE') return true;
+        // Fallback: check if title contains "GATE" (case insensitive)
+        const title = (q.title || '').toUpperCase();
+        return title.includes('GATE');
+      });
       // Remove "gate" from search words to search for other terms
       searchWords = searchWords.filter(w => w !== 'gate');
     }
@@ -2709,8 +2715,14 @@ async function loadPYQPractice() {
     const hasGateKeyword = searchWords.includes('gate');
     
     if(hasGateKeyword) {
-      // Filter by GATE source
-      filtered = filtered.filter(q => q.source === 'GATE');
+      // Filter by GATE source (check source field OR title contains "GATE")
+      filtered = filtered.filter(q => {
+        // Check if source field exists and equals GATE
+        if (q.source === 'GATE') return true;
+        // Fallback: check if title contains "GATE" (case insensitive)
+        const title = (q.title || '').toUpperCase();
+        return title.includes('GATE');
+      });
       // Remove "gate" from search words to search for other terms
       searchWords = searchWords.filter(w => w !== 'gate');
     }
