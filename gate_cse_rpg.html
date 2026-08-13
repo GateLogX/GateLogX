@@ -1089,8 +1089,12 @@ input.num{width:90px}
                 <option value="all">All Subjects</option>
               </select>
             </div>
-            <div style="margin-bottom:12px">
-              <input type="text" id="pyq-search" placeholder="🔍 Search (e.g. BFS paging SQL)" onkeyup="debounceSearch()" style="width:100%;padding:8px 12px;font-size:12px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);color:var(--text);box-sizing:border-box">
+            <div style="display:flex;gap:8px;margin-bottom:12px">
+              <input type="text" id="pyq-search" placeholder="🔍 Search (e.g. BFS gate paging SQL)" onkeyup="debounceSearch()" style="flex:1;padding:8px 12px;font-size:12px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);color:var(--text);box-sizing:border-box">
+              <label style="display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:6px;background:var(--bg2);border:1px solid var(--border);cursor:pointer;font-size:11px;color:var(--text);white-space:nowrap">
+                <input type="checkbox" id="pyq-practice-cse-only" onchange="loadPYQPractice()" style="cursor:pointer;width:14px;height:14px">
+                <span>CSE Only</span>
+              </label>
             </div>
             <div id="mcq-area"></div>
           </div>
@@ -1159,12 +1163,21 @@ input.num{width:90px}
             <option value="unsolved">Unsolved Only</option>
             <option value="solved">Solved Only</option>
           </select>
-          <input type="text" id="pyq-topic-search" placeholder="🔍 Search topics (e.g. BFS paging SQL)" onkeyup="debounceListSearch()" style="padding:8px 12px;border-radius:6px;background:var(--card);border:1px solid var(--border);color:var(--text);font-size:13px;min-width:220px;flex:1">
+          <label style="display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:6px;background:var(--card);border:1px solid var(--border);cursor:pointer;font-size:13px;color:var(--text);white-space:nowrap">
+            <input type="checkbox" id="pyq-cse-only" onchange="filterPYQDisplay()" style="cursor:pointer;width:16px;height:16px">
+            <span>GATE CSE Only</span>
+          </label>
+          <input type="text" id="pyq-topic-search" placeholder="🔍 Search topics (e.g. BFS gate paging SQL)" onkeyup="debounceListSearch()" style="padding:8px 12px;border-radius:6px;background:var(--card);border:1px solid var(--border);color:var(--text);font-size:13px;min-width:220px;flex:1">
           <div style="flex:0"></div>
           <div class="pyq-stats" style="display:flex;gap:16px;align-items:center;font-size:12px;color:var(--muted2)">
             <span>Solved: <span id="pyq-solved-count" class="amber-val">0</span></span>
             <span>Total: <span id="pyq-total-count">0</span></span>
           </div>
+        </div>
+        <div id="pyq-filter-badge" style="margin-bottom:12px;display:none">
+          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(240,165,0,0.15);border:1px solid var(--amber);border-radius:4px;padding:4px 10px;font-size:11px;color:var(--amber);font-weight:600">
+            🎓 Showing GATE exam questions only
+          </span>
         </div>
         <div class="card" style="margin-bottom:16px">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
@@ -2712,6 +2725,7 @@ function searchPYQList(term) {
 function filterPYQDisplay() {
   const statusFilter = document.getElementById('pyq-status-filter').value;
   const searchTerm = (document.getElementById('pyq-topic-search').value || '').trim().toLowerCase();
+  const cseOnly = document.getElementById('pyq-cse-only').checked;
   
   // Fast filtering using pre-computed search text
   let filtered = pyqDisplayed;
@@ -2722,10 +2736,35 @@ function filterPYQDisplay() {
     filtered = filtered.filter(q => !pyqSolved[q.id]);
   }
   
+  // Filter by GATE CSE branch only
+  if(cseOnly) {
+    filtered = filtered.filter(q => q.branch === 'CSE');
+  }
+  
   // Search for each word (AND logic - must contain ALL words)
+  // Special handling: if "gate" is in search, filter by source=GATE and remove "gate" from search words
+  let hasGateKeyword = false;
   if(searchTerm) {
-    const searchWords = searchTerm.split(/\s+/).filter(w => w.length > 0);
-    filtered = filtered.filter(q => searchWords.every(word => q._searchText.includes(word)));
+    let searchWords = searchTerm.split(/\s+/).filter(w => w.length > 0);
+    hasGateKeyword = searchWords.includes('gate');
+    
+    if(hasGateKeyword) {
+      // Filter by GATE source
+      filtered = filtered.filter(q => q.source === 'GATE');
+      // Remove "gate" from search words to search for other terms
+      searchWords = searchWords.filter(w => w !== 'gate');
+    }
+    
+    // Apply remaining search words
+    if(searchWords.length > 0) {
+      filtered = filtered.filter(q => searchWords.every(word => q._searchText.includes(word)));
+    }
+  }
+  
+  // Show/hide GATE filter badge
+  const badge = document.getElementById('pyq-filter-badge');
+  if(badge) {
+    badge.style.display = hasGateKeyword ? 'block' : 'none';
   }
   
   pyqFiltered = filtered; // Cache for pagination
@@ -2871,6 +2910,7 @@ async function loadPYQPractice() {
   
   const selectEl = document.getElementById('pyq-practice-subject');
   const searchEl = document.getElementById('pyq-search');
+  const cseOnlyEl = document.getElementById('pyq-practice-cse-only');
   const area = document.getElementById('mcq-area');
   
   // Populate subject dropdown on first load
@@ -2888,6 +2928,7 @@ async function loadPYQPractice() {
   
   const filter = selectEl.value;
   const searchTerm = (searchEl.value || '').trim().toLowerCase();
+  const cseOnly = cseOnlyEl.checked;
   
   // Determine files to load
   let filesToLoad = [];
@@ -2925,10 +2966,28 @@ async function loadPYQPractice() {
   // Filter unsolved
   let filtered = allQuestions.filter(q => !pyqSolved[q.id]);
   
+  // Filter by GATE CSE branch only
+  if(cseOnly) {
+    filtered = filtered.filter(q => q.branch === 'CSE');
+  }
+  
   // Apply search filter (AND logic - must contain ALL words)
+  // Special handling: if "gate" is in search, filter by source=GATE and remove "gate" from search words
   if(searchTerm) {
-    const searchWords = searchTerm.split(/\s+/).filter(w => w.length > 0);
-    filtered = filtered.filter(q => q._searchText && searchWords.every(word => q._searchText.includes(word)));
+    let searchWords = searchTerm.split(/\s+/).filter(w => w.length > 0);
+    const hasGateKeyword = searchWords.includes('gate');
+    
+    if(hasGateKeyword) {
+      // Filter by GATE source
+      filtered = filtered.filter(q => q.source === 'GATE');
+      // Remove "gate" from search words to search for other terms
+      searchWords = searchWords.filter(w => w !== 'gate');
+    }
+    
+    // Apply remaining search words
+    if(searchWords.length > 0) {
+      filtered = filtered.filter(q => q._searchText && searchWords.every(word => q._searchText.includes(word)));
+    }
   }
   
   dailyPracticeLoading = false;
